@@ -1,0 +1,155 @@
+"use client";
+
+import React, { useRef, useState, useCallback } from "react";
+import { motion } from "framer-motion";
+
+const TIMELINE_LABELS: Record<string, string[]> = {
+  "nura-balance": ["قبل البداية", "بعد أسبوعين", "بعد شهر"],
+  "nura-night-renewal": ["قبل البداية", "بعد 10 أيام", "بعد 3 أسابيع"],
+  "nura-eye-revive": ["قبل البداية", "بعد أسبوع", "بعد أسبوعين"],
+};
+
+interface Props {
+  productSlug: string;
+}
+
+export function BeforeAfterSlider({ productSlug }: Props) {
+  const [sliderX, setSliderX] = useState(48);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+
+  const updateSlider = useCallback((clientX: number) => {
+    const container = containerRef.current;
+    if (!container) return;
+    const rect = container.getBoundingClientRect();
+    const pct = Math.min(90, Math.max(10, ((clientX - rect.left) / rect.width) * 100));
+    setSliderX(pct);
+  }, []);
+
+  const handleMouseDown = () => { isDragging.current = true; };
+  const handleMouseMove = (e: React.MouseEvent) => { if (isDragging.current) updateSlider(e.clientX); };
+  const handleMouseUp = () => { isDragging.current = false; };
+  const handleTouchMove = (e: React.TouchEvent) => { updateSlider(e.touches[0].clientX); };
+
+  const timelines = TIMELINE_LABELS[productSlug] || TIMELINE_LABELS["nura-balance"];
+
+  return (
+    <section className="py-20 bg-ivory overflow-hidden">
+      <div className="container-narrow">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <p className="text-xs text-rose-mid font-semibold tracking-wider uppercase mb-3">التحول</p>
+          <h2 className="section-heading text-[#2C1810]">الفارق اللي تحسيه</h2>
+          <p className="text-[#6B5555] mt-3 max-w-md mx-auto text-sm leading-relaxed">
+            النتائج تختلف من شخص لآخر، وهذا التصور يوضح مظهر البشرة قبل الروتين ومع الاستعمال المنتظم دون ادعاءات مبالغ فيها.
+          </p>
+        </motion.div>
+
+        <div className="max-w-lg mx-auto">
+          {/* Slider */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            ref={containerRef}
+            className="relative rounded-4xl overflow-hidden aspect-square cursor-col-resize select-none shadow-rose-lg"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleMouseUp}
+          >
+            {/* After (right) */}
+            <div className="absolute inset-0 bg-gradient-to-br from-rose-100 to-pink-50 flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-20 h-20 rounded-full bg-white/70 mx-auto flex items-center justify-center mb-3">
+                  <span className="font-display text-rose-mid text-2xl italic">بعد</span>
+                </div>
+                <p className="text-rose-deep font-bold text-sm">إشراقة ونعومة</p>
+                <p className="text-rose-mid text-xs mt-1">بشرة أكثر توازناً</p>
+                <div className="flex gap-1 justify-center mt-3">
+                  {[1,2,3,4,5].map(s => <div key={s} className="w-1.5 h-1.5 rounded-full bg-rose-soft" />)}
+                </div>
+              </div>
+            </div>
+
+            {/* Before (left) — clipped */}
+            <div
+              className="absolute inset-0 overflow-hidden"
+              style={{ clipPath: `inset(0 ${100 - sliderX}% 0 0)` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-20 h-20 rounded-full bg-white/70 mx-auto flex items-center justify-center mb-3">
+                    <span className="font-arabic text-gray-500 text-sm font-semibold">قبل</span>
+                  </div>
+                  <p className="text-gray-600 font-semibold text-sm">لمعان — مسام — تعب</p>
+                  <p className="text-gray-400 text-xs mt-1">قبل نورا سكين</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Slider line */}
+            <div
+              className="absolute inset-y-0 w-0.5 bg-white/80 shadow-lg"
+              style={{ left: `${sliderX}%` }}
+            >
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-rose-md flex items-center justify-center">
+                <div className="flex gap-0.5">
+                  <div className="flex flex-col gap-0.5">
+                    <svg className="w-3 h-3 text-rose-deep" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <svg className="w-3 h-3 text-rose-deep" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Labels */}
+            <div className="absolute top-4 start-4 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full">
+              <span className="text-xs font-bold text-gray-600">قبل</span>
+            </div>
+            <div className="absolute top-4 end-4 bg-rose-deep/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
+              <span className="text-xs font-bold text-white">بعد</span>
+            </div>
+
+            {/* Hint */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/40 backdrop-blur-sm text-white text-[10px] px-3 py-1 rounded-full">
+              اسحبي لترى الفارق
+            </div>
+          </motion.div>
+
+          {/* Timeline */}
+          <div className="mt-8 flex items-center">
+            {timelines.map((label, i) => (
+              <React.Fragment key={i}>
+                <div className="text-center flex-1">
+                  <div className="w-3 h-3 rounded-full mx-auto mb-2 bg-rose-soft" />
+                  <p className="text-xs text-[#6B5555]">{label}</p>
+                </div>
+                {i < timelines.length - 1 && (
+                  <div className="flex-1 h-0.5 bg-gradient-to-r from-rose-soft/40 to-rose-soft mb-4" />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+
+          {/* Disclaimer */}
+          <p className="text-center text-[10px] text-[#9B8A8A] mt-4">
+            النتائج تختلف من شخص لآخر حسب نوع البشرة والاستخدام المنتظم.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}

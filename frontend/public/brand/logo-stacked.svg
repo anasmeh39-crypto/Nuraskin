@@ -1,0 +1,28 @@
+<svg width="480" height="560" viewBox="0 0 480 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Nura Skin stacked logo</title>
+  <desc id="desc">Vertical Nura Skin lockup with monogram and Latin wordmark.</desc>
+  <defs>
+    <radialGradient id="nm-blush-s" cx="32%" cy="28%" r="72%">
+      <stop offset="0%" stop-color="#FFFCFA"/>
+      <stop offset="55%" stop-color="#F8EBEF"/>
+      <stop offset="100%" stop-color="#EDD9E2"/>
+    </radialGradient>
+    <linearGradient id="nm-gold-s" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EDD089"/>
+      <stop offset="48%" stop-color="#D5B15F"/>
+      <stop offset="100%" stop-color="#B8923F"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="560" fill="transparent"/>
+  <g transform="translate(140 36) scale(2.24)">
+    <rect x="6" y="6" width="88" height="88" rx="31" fill="url(#nm-blush-s)" stroke="#ECD6DC" stroke-width="0.85"/>
+    <rect x="9.25" y="9.25" width="81.5" height="81.5" rx="27.5" stroke="url(#nm-gold-s)" stroke-width="1.05" fill="none" opacity="0.92"/>
+    <rect x="14" y="14" width="72" height="72" rx="23" stroke="rgba(138,79,93,0.07)" stroke-width="0.65" fill="none"/>
+    <path fill="#3A222C" d="M31.2 73.4V26.6h6.95l13.55 16.85V26.6h8.1v46.8h-6.9L39 52.25v21.15h-7.8z"/>
+    <path d="M35.2 29.5 L61.8 62.2" stroke="url(#nm-gold-s)" stroke-width="1.65" stroke-linecap="round" opacity="0.38"/>
+  </g>
+  <text x="240" y="330" text-anchor="middle" fill="#3A222C" font-size="46" font-weight="700" letter-spacing="0.2em" font-family="Inter, system-ui, sans-serif">NURA SKIN</text>
+  <text x="240" y="372" text-anchor="middle" fill="#D5B15F" font-size="20" font-weight="600" font-family="Cairo, 'Noto Sans Arabic', system-ui, sans-serif" direction="rtl">نورا سكين</text>
+  <line x1="120" y1="402" x2="360" y2="402" stroke="#ECD6DC" stroke-width="1.25"/>
+  <text x="240" y="438" text-anchor="middle" fill="#7A6560" font-size="12" letter-spacing="0.18em" font-family="Inter, system-ui, sans-serif">NURASKIN.CC</text>
+</svg>

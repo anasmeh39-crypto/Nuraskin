@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { Plus } from "lucide-react";
 import { PRODUCTS_MAP } from "@/config/products";
 import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
 import { useCartStore } from "@/store/cart";
@@ -30,19 +31,20 @@ export function CrossSells({ currentSlug, slugs }: CrossSellsProps) {
   };
 
   return (
-    <section className="py-12 border-t border-border">
+    <section className="py-16 border-t border-border bg-white">
       <div className="container-wide">
-        <h2 className="text-xl font-bold text-brand-deep mb-6">
-          أكملي روتينك معه
-        </h2>
+        <div className="mb-8">
+          <p className="luxury-kicker mb-4">روتين أكثر اكتمالاً</p>
+          <h2 className="section-heading">أكملي روتينكِ</h2>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {products.map((p) => (
             <div
               key={p!.slug}
-              className="flex gap-4 bg-cream rounded-3xl p-4 items-center"
+              className="premium-card flex gap-4 rounded-[2rem] p-4 items-center"
             >
               <Link href={`/products/${p!.slug}`} className="shrink-0">
-                <div className="w-20 h-20 rounded-2xl overflow-hidden">
+                <div className="w-24 h-24 rounded-2xl overflow-hidden">
                   <PlaceholderImage label={p!.name_ar} className="w-full h-full" />
                 </div>
               </Link>
@@ -59,9 +61,10 @@ export function CrossSells({ currentSlug, slugs }: CrossSellsProps) {
               </div>
               <button
                 onClick={() => handleAdd(p!)}
-                className="shrink-0 text-sm bg-brand-deep text-white px-4 py-2 rounded-full hover:bg-brand-mid transition-colors"
+                className="shrink-0 inline-flex items-center gap-1 text-sm bg-brand-deep text-white px-4 py-2.5 rounded-full hover:bg-brand-mid transition-colors"
               >
-                + أضيفي
+                <Plus className="h-4 w-4" strokeWidth={1.7} />
+                أضيفي
               </button>
             </div>
           ))}

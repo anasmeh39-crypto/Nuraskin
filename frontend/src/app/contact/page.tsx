@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
+import { Mail, PackageSearch, PhoneCall } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "تواصلي معنا — نيورا سكين",
-  description: "تواصلي مع فريق نيورا سكين لأي سؤال أو مشكلة — نحن هنا للمساعدة.",
+  title: "تواصلي معنا — نورا سكين",
+  description: "تواصلي مع فريق نورا سكين لأي سؤال أو مشكلة — نحن هنا للمساعدة.",
 };
 
 export default function ContactPage() {
   return (
     <>
-      <section className="bg-brand-deep py-16 text-center">
+      <section className="bg-[linear-gradient(135deg,#3A222C,#8B4A5A)] py-16 text-center">
         <div className="container-wide max-w-xl">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
             تواصلي معنا
           </h1>
           <p className="text-white/70 text-lg">
-            سؤال؟ مشكلة؟ فضول؟ — نحن هنا وغادي نجاوبك بسرعة.
+            لأي سؤال حول المنتجات أو الطلب، فريقنا هنا لمساعدتكِ بكل عناية.
           </p>
         </div>
       </section>
@@ -24,33 +25,35 @@ export default function ContactPage() {
           <div className="space-y-6">
             {[
               {
-                icon: "📱",
-                title: "واتساب",
-                desc: "الأسرع للرد على أسئلتك",
-                link: "https://wa.me/212600000000",
-                label: "تحدثي معنا على واتساب",
+                icon: PhoneCall,
+                title: "تأكيد الطلبات",
+                desc: "لأي سؤال حول مكالمة التأكيد أو التوصيل",
+                link: "tel:+212600000000",
+                label: "+212 600 000 000",
               },
               {
-                icon: "📧",
+                icon: Mail,
                 title: "البريد الإلكتروني",
                 desc: "للاستفسارات التفصيلية",
                 link: "mailto:hello@nuraskin.cc",
                 label: "hello@nuraskin.cc",
               },
               {
-                icon: "📦",
+                icon: PackageSearch,
                 title: "تتبع الطلب",
                 desc: "للاطمئنان على حالة طلبك",
                 link: "/policies/returns",
                 label: "سياسة الإرجاع والتتبع",
               },
-            ].map((c) => (
+            ].map((c) => {
+              const Icon = c.icon;
+              return (
               <div
                 key={c.title}
-                className="bg-white rounded-3xl border border-border p-6 flex gap-5 items-center"
+                className="premium-card rounded-3xl p-6 flex gap-5 items-center"
               >
                 <div className="w-14 h-14 rounded-2xl bg-brand-light flex items-center justify-center text-2xl shrink-0">
-                  {c.icon}
+                  <Icon className="h-6 w-6 text-brand-mid" strokeWidth={1.5} />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-bold text-brand-deep">{c.title}</h3>
@@ -63,13 +66,14 @@ export default function ContactPage() {
                   {c.label}
                 </a>
               </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="mt-10 bg-brand-light rounded-3xl p-6 text-center">
             <p className="text-brand-deep font-semibold mb-1">وقت الرد</p>
             <p className="text-gray-600 text-sm">
-              يوم عمل — السبت والأحد ممكن تأخير بسيط
+              خلال يوم عمل — قد يتأخر الرد قليلاً في عطلة نهاية الأسبوع
             </p>
           </div>
         </div>

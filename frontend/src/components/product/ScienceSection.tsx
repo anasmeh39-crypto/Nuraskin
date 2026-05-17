@@ -1,0 +1,103 @@
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+
+const STATS = [
+  { value: "10%", label: "تركيز الناياسيناميد", sub: "الحد الأمثل الموثق" },
+  { value: "3–4", label: "أسابيع للنتيجة الأولى", sub: "مع الاستخدام المنتظم" },
+  { value: "0", label: "مواد ضارة", sub: "بارابين، سيليكون، ألوان صناعية" },
+  { value: "100%", label: "شفافية المكونات", sub: "نعلن عن كل ما في التركيبة" },
+];
+
+const FORMULATION_POINTS = [
+  {
+    title: "تركيبة مُحسَّنة بدقة",
+    description: "كل تركيبة نورا سكين تمر بمراحل اختبار صارمة للتأكد من التوازن الصحيح بين الفاعلية والأمان لأنواع البشرة المختلفة.",
+  },
+  {
+    title: "pH مُعَدَّل بعناية",
+    description: "مستوى الحموضة في كل منتج محسوب لضمان امتصاص المكونات الفعّالة بأفضل طريقة ممكنة.",
+  },
+  {
+    title: "متوافق مع البشرة الحساسة",
+    description: "صُمِّمت التركيبة لتكون ملائمة لمعظم أنواع البشرة، بما فيها الحساسة — خالية من المهيجات الشائعة.",
+  },
+  {
+    title: "مصادر عالية الجودة",
+    description: "نختار المواد الخام من مصادر موثوقة تلتزم بمعايير الجودة والاستدامة.",
+  },
+];
+
+export function ScienceSection() {
+  return (
+    <section className="py-20 bg-[#1C1410] overflow-hidden">
+      <div className="container-wide">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
+        >
+          <p className="text-xs text-rose-soft font-semibold tracking-wider uppercase mb-3">فلسفة التركيبة</p>
+          <h2 className="section-heading text-white">العلم وراء كل قطرة</h2>
+          <p className="text-white/60 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
+            لا ادعاءات طبية — فقط شفافية كاملة في كل ما نضعه ونقوله.
+          </p>
+        </motion.div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
+          {STATS.map((stat, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="bg-white/5 border border-white/10 rounded-3xl p-6 text-center"
+            >
+              <div className="text-3xl md:text-4xl font-bold text-rose-soft mb-2">{stat.value}</div>
+              <div className="text-white text-sm font-semibold mb-1">{stat.label}</div>
+              <div className="text-white/40 text-xs">{stat.sub}</div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Formulation grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {FORMULATION_POINTS.map((point, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: i % 2 === 0 ? 20 : -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="flex gap-5 bg-white/5 border border-white/10 rounded-3xl p-6"
+            >
+              <div className="w-10 h-10 rounded-2xl bg-rose-deep/20 flex items-center justify-center shrink-0">
+                <svg className="w-5 h-5 text-rose-soft" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-bold text-white mb-2">{point.title}</h3>
+                <p className="text-white/60 text-sm leading-relaxed">{point.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Disclaimer */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center text-white/30 text-xs mt-10"
+        >
+          نورا سكين هي منتجات تجميلية — ليست أدوية. النتائج تختلف من شخص لآخر.
+        </motion.p>
+      </div>
+    </section>
+  );
+}

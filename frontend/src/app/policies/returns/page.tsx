@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "سياسة الإرجاع — نيورا سكين",
-  description: "سياسة الإرجاع والاستبدال لمنتجات نيورا سكين — إرجاع مجاني خلال 14 يوم.",
+  title: "سياسة الإرجاع — نورا سكين",
+  description: "سياسة الإرجاع والاستبدال لمنتجات نورا سكين — إرجاع مجاني خلال 14 يوم.",
 };
 
 export default function ReturnsPage() {
   return (
     <>
-      <section className="bg-brand-deep py-12 text-center">
+      <section className="bg-[linear-gradient(135deg,#3A222C,#8B4A5A)] py-12 text-center">
         <div className="container-wide">
           <h1 className="text-3xl font-bold text-white">سياسة الإرجاع</h1>
         </div>
@@ -19,11 +19,11 @@ export default function ReturnsPage() {
           {[
             {
               title: "مدة الإرجاع",
-              content: "تقدري ترجعي المنتج خلال 14 يوم من تاريخ استلامه. المنتج يجب أن يكون في حالته الأصلية، غير مستخدم بشكل كامل.",
+              content: "يمكنكِ إرجاع المنتج خلال 14 يوماً من تاريخ استلامه. يجب أن يكون المنتج في حالته الأصلية وغير مستخدم بشكل كامل.",
             },
             {
-              title: "كيفاش ترجعي؟",
-              content: "تواصلي معنا عبر واتساب أو البريد الإلكتروني مع رقم طلبك. غادي نرتبو معك التوصيل والاسترداد.",
+              title: "كيف يتم الإرجاع؟",
+              content: "تواصلي معنا عبر صفحة الاتصال أو البريد الإلكتروني مع رقم طلبك، وسنقوم بترتيب خطوات الإرجاع معك بكل سهولة.",
             },
             {
               title: "المبلغ المسترد",
@@ -38,7 +38,7 @@ export default function ReturnsPage() {
               content: "إذا رفضتِ استلام الطلب لدى التوصيل، لا يوجد أي التزام مالي. يمكنك رفض الاستلام بدون أي غرامة.",
             },
           ].map((section) => (
-            <div key={section.title} className="bg-white rounded-3xl border border-border p-6">
+            <div key={section.title} className="premium-card rounded-3xl p-6">
               <h2 className="font-bold text-brand-deep text-lg mb-3">{section.title}</h2>
               <p className="text-gray-600 leading-relaxed">{section.content}</p>
             </div>

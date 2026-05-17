@@ -1,0 +1,11 @@
+<svg width="880" height="220" viewBox="0 0 880 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Nura Skin monochrome logo</title>
+  <desc id="desc">Single-color Nura Skin lockup for embossing and foil stamps.</desc>
+  <rect width="880" height="220" fill="transparent"/>
+  <g transform="translate(14 28) scale(1.58)" fill="#3A222C">
+    <rect x="6" y="6" width="88" height="88" rx="31" stroke="#3A222C" stroke-width="2.2" fill="none"/>
+    <path d="M31.2 73.4V26.6h6.95l13.55 16.85V26.6h8.1v46.8h-6.9L39 52.25v21.15h-7.8z"/>
+  </g>
+  <text x="210" y="102" fill="#3A222C" font-size="44" font-weight="700" letter-spacing="0.22em" font-family="Inter, system-ui, sans-serif">NURA SKIN</text>
+  <text x="210" y="138" fill="#3A222C" font-size="17" font-weight="600" font-family="Cairo, 'Noto Sans Arabic', system-ui, sans-serif" direction="rtl">نورا سكين</text>
+</svg>

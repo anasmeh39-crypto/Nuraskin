@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "شروط الاستخدام — نيورا سكين",
-  description: "شروط وأحكام استخدام موقع نيورا سكين والشراء منه.",
+  title: "شروط الاستخدام — نورا سكين",
+  description: "شروط وأحكام استخدام موقع نورا سكين والشراء منه.",
 };
 
 export default function TermsPage() {
@@ -39,7 +39,7 @@ export default function TermsPage() {
             },
             {
               title: "الملكية الفكرية",
-              content: "جميع محتويات الموقع (نصوص، صور، شعار) محمية بحقوق الملكية الفكرية لنيورا سكين — Nama Beauty.",
+              content: "جميع محتويات الموقع (نصوص، صور، شعار) محمية بحقوق الملكية الفكرية لنورا سكين (NURA SKIN).",
             },
           ].map((section) => (
             <div key={section.title} className="bg-white rounded-3xl border border-border p-6">

@@ -1,4 +1,4 @@
-# Nura Skin — Nama Beauty
+# NURA SKIN — نورا سكين
 
 > Premium Moroccan DTC Skincare Brand
 
@@ -75,9 +75,9 @@ nuraskin/
 
 ## Products
 
-1. **مركّز نيورا بالانس** (Nura Balance) — 189 MAD — Niacinamide 10%
-2. **كريم نيورا رينيو الليلي** (Nura Night Renewal) — 229 MAD — Bakuchiol
-3. **سيروم نيورا آي ريفايف** (Nura Eye Revive) — 199 MAD — Caffeine + Peptides
+1. **مركّز نورا بالانس** (Nura Balance) — 189 MAD — Niacinamide 10%
+2. **كريم نورا الليلي** (Nura Night Renewal) — 229 MAD — Bakuchiol
+3. **سيروم محيط العين نورا** (Nura Eye Revive) — 199 MAD — Caffeine + Peptides
 
 ## Secrets Policy
 

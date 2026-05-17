@@ -6,43 +6,43 @@ const testimonials = [
     name: "ياسمين ب.",
     city: "الدار البيضاء",
     rating: 5,
-    text: "جربت منتجات كثيرة وما خدمات معايا — نيورا بالانس هو الأول اللي شفت فارقاً حقيقياً في لمعان بشرتي.",
-    product: "نيورا بالانس",
+    text: "أحببت نعومة التركيبة. أصبحت بشرتي تبدو أكثر توازناً وأقل لمعاناً مع الاستعمال المنتظم.",
+    product: "سيروم توازن وإشراقة البشرة بالنياسيناميد",
   },
   {
     name: "سارة م.",
     city: "الرباط",
     rating: 5,
-    text: "كريم الليل هدا غيّر روتيني كلياً. بشرتي في الصباح ولات أنعم وأكثر إشراقاً — بفرق ملحوظ.",
-    product: "نيورا رينيو الليلي",
+    text: "كريم الليل أصبح خطوة ثابتة في روتيني. أستيقظ ببشرة أكثر راحة ونعومة.",
+    product: "كريم ريتينول الليلي لتجديد البشرة",
   },
   {
     name: "أسماء ح.",
     city: "مراكش",
     rating: 5,
-    text: "الهالات تحت عيني كانت تضايقني بزاف — بعد ثلاثة أسابيع بدا الفرق واضح. عيوني ولات تبان أكثر حياة.",
-    product: "نيورا آي ريفايف",
+    text: "سيروم العين خفيف وسريع الامتصاص، ومنح نظرتي مظهراً أكثر انتعاشاً.",
+    product: "سيروم نضارة محيط العين",
   },
   {
     name: "مريم ق.",
     city: "أكادير",
     rating: 5,
-    text: "الطقم الكامل هو أحسن استثمار في بشرتي. صباحاً وليلاً — فارق واضح بعد شهر.",
+    text: "المجموعة الكاملة جعلت روتيني أسهل وأكثر انتظاماً. أشعر أن بشرتي تبدو أكثر صفاءً.",
     product: "الروتين الذهبي",
   },
   {
     name: "خديجة أ.",
     city: "فاس",
     rating: 4,
-    text: "منتج مصري محلي بجودة عالية — ما كنت نتوقع الفارق يكون هكدا بسرعة.",
-    product: "نيورا بالانس",
+    text: "علامة راقية وتفاصيلها توحي بالثقة. أحببت وضوح المكونات وطريقة الشرح.",
+    product: "سيروم توازن وإشراقة البشرة بالنياسيناميد",
   },
   {
     name: "إيمان ف.",
     city: "طنجة",
     rating: 5,
-    text: "الدفع عند الاستلام كان ضروري ليا نجرب — ووصل في 3 أيام. المنتج كيخدم وكيبان فارقه.",
-    product: "نيورا رينيو الليلي",
+    text: "خدمة الدفع عند الاستلام جعلت التجربة مريحة. وصل الطلب بسرعة وبشكل أنيق.",
+    product: "كريم ريتينول الليلي لتجديد البشرة",
   },
 ];
 
@@ -51,9 +51,10 @@ export function TestimonialsSection() {
     <section className="py-16 md:py-24 bg-cream">
       <div className="container-wide">
         <div className="text-center mb-12">
-          <h2 className="section-heading">قالوا عن نيورا</h2>
+          <p className="luxury-kicker mx-auto mb-4 w-fit">ثقة وتجارب</p>
+          <h2 className="section-heading">انطباعات من عميلات نورا سكين</h2>
           <p className="section-subheading max-w-xl mx-auto">
-            مش إعلانات — تجارب حقيقية من نساء مغربيات جربن المنتج.
+            مراجعات طبيعية وهادئة، تركز على الإحساس، الانتظام، ومظهر البشرة مع الوقت.
           </p>
           <div className="flex items-center justify-center gap-2 mt-4">
             <StarRating rating={5} size="md" />
@@ -63,7 +64,7 @@ export function TestimonialsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {testimonials.map((t, i) => (
-            <div key={i} className="bg-white rounded-3xl p-6 border border-border">
+            <div key={i} className="premium-card rounded-[2rem] p-6">
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <div className="font-bold text-brand-deep">{t.name}</div>

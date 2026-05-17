@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { PRODUCTS } from "@/config/products";
 import { ProductCard } from "@/components/ui/ProductCard";
-import { TrustBadges } from "@/components/ui/TrustBadges";
 import { BundleSection } from "@/components/home/BundleSection";
+import { ShieldCheck, Truck, FlaskConical } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "جميع المنتجات — نيورا سكين",
+  title: "جميع المنتجات — نورا سكين",
   description:
-    "اكتشفي مجموعة نيورا سكين الكاملة: نيورا بالانس، رينيو الليلي، وآي ريفايف — الدفع عند الاستلام.",
+    "اكتشفي مجموعة نورا سكين الكاملة: سيروم توازن وإشراقة البشرة بالنياسيناميد، كريم التجديد الليلي للبشرة، وسيروم نضارة محيط العين — الدفع عند الاستلام.",
   alternates: { canonical: "https://nuraskin.cc/products" },
 };
 
@@ -15,23 +15,37 @@ export default function CollectionPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-brand-deep py-16 md:py-20">
+      <section className="bg-[linear-gradient(135deg,#FDFAF6,#FDF5F7)] py-16 md:py-20">
         <div className="container-wide text-center">
-          <p className="text-gold text-sm font-semibold tracking-wider uppercase mb-3">
+          <p className="text-rose-mid text-sm font-semibold tracking-wider uppercase mb-3">
             Nura Skin Collection
           </p>
-          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
-            ثلاثة منتجات — روتين كامل
+          <h1 className="text-3xl md:text-5xl font-bold text-[#3A222C] leading-tight mb-4">
+            ثلاثة منتجات لروتين عناية متكامل
           </h1>
-          <p className="text-white/70 text-lg max-w-xl mx-auto">
-            كل منتج حل لمشكلة حقيقية. كل مكوّن مختار بعناية.
-            بشرتك تستاهل أكثر من وعود فارغة.
+          <p className="text-[#6B5555] text-lg max-w-xl mx-auto">
+            مجموعة مختارة بعناية لدعم توازن البشرة، نضارة محيط العين، وتجدد مظهر البشرة ليلًا.
           </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            {[
+              { icon: ShieldCheck, text: "الدفع عند الاستلام" },
+              { icon: Truck, text: "توصيل داخل المغرب" },
+              { icon: FlaskConical, text: "تركيبات مختارة بعناية" },
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <span key={item.text} className="inline-flex items-center gap-2 rounded-full border border-rose-soft/30 bg-white px-4 py-2 text-sm font-semibold text-[#3A222C]">
+                  <Icon className="h-4 w-4 text-rose-mid" strokeWidth={1.5} />
+                  {item.text}
+                </span>
+              );
+            })}
+          </div>
         </div>
       </section>
 
       {/* Products */}
-      <section className="py-16 bg-cream">
+      <section className="py-16 bg-white">
         <div className="container-wide">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {PRODUCTS.map((product, idx) => (
@@ -45,11 +59,6 @@ export default function CollectionPage() {
           </div>
         </div>
       </section>
-
-      {/* Trust */}
-      <div className="container-wide pb-12">
-        <TrustBadges />
-      </div>
 
       {/* Bundles */}
       <BundleSection />

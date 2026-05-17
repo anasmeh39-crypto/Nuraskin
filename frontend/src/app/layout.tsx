@@ -23,19 +23,27 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://nuraskin.cc"),
   title: {
-    default: "نيورا سكين | عناية متكاملة للبشرة المغربية",
-    template: "%s | نيورا سكين",
+    default: "نورا سكين | عناية متكاملة للبشرة المغربية",
+    template: "%s | نورا سكين",
   },
   description:
-    "منتجات عناية بشرة مدروسة علمياً للمرأة المغربية. نيورا بالانس، نيورا رينيو الليلي، آي ريفايف. الدفع عند الاستلام.",
+    "منتجات عناية بشرة مختارة بعناية للمرأة المغربية. سيروم توازن وإشراقة البشرة بالنياسيناميد، كريم التجديد الليلي للبشرة، وسيروم نضارة محيط العين. الدفع عند الاستلام.",
   keywords: ["عناية بشرة المغرب", "سيروم مغربي", "ناياسيناميد", "هالات", "مسام"],
   openGraph: {
-    siteName: "Nura Skin — Nama Beauty",
+    siteName: "NURA SKIN — نورا سكين",
     locale: "ar_MA",
     type: "website",
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: "/brand/logo-icon-official.svg", type: "image/svg+xml", sizes: "any" },
+      { url: "/brand/favicon-square.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/brand/logo-icon-official.svg",
+    apple: [{ url: "/apple-icon.svg", sizes: "180x180", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({
@@ -53,7 +61,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="bg-cream font-arabic antialiased">
+      <body className="bg-nura-bg font-arabic antialiased text-nura-plum">
         <Header />
         <main>{children}</main>
         <Footer />

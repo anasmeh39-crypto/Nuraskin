@@ -24,8 +24,8 @@ export function Button({
   const variants = {
     primary: "bg-brand-deep text-white hover:bg-brand-mid active:scale-95",
     secondary:
-      "bg-transparent text-brand-deep border-2 border-brand-deep hover:bg-brand-light active:scale-95",
-    gold: "bg-gold text-white hover:opacity-90 active:scale-95",
+      "bg-white/80 text-brand-deep border border-border hover:bg-brand-light active:scale-95",
+    gold: "bg-gold text-white hover:opacity-90 active:scale-95 shadow-[0_14px_30px_rgba(198,161,91,0.22)]",
     ghost: "text-gray-600 hover:text-brand-deep underline underline-offset-2",
   };
 

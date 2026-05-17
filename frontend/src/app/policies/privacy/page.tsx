@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "سياسة الخصوصية — نيورا سكين",
-  description: "سياسة الخصوصية لموقع نيورا سكين — كيف نتعامل مع بياناتك الشخصية.",
+  title: "سياسة الخصوصية — نورا سكين",
+  description: "سياسة الخصوصية لموقع نورا سكين — كيف نتعامل مع بياناتك الشخصية.",
 };
 
 export default function PrivacyPage() {

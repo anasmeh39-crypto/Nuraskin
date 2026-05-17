@@ -11,10 +11,10 @@ export function IngredientExplainer({ product }: Props) {
       <div className="container-wide">
         <div className="max-w-2xl">
           <h2 className="text-2xl font-bold text-brand-deep mb-2">
-            شنو كاين فيه؟
+            مكونات نثق بها، لتثقي بها
           </h2>
           <p className="text-gray-500 text-sm mb-8">
-            نشرح كل مكوّن رئيسي — لأنك تستاهلي تعرفي شنو تضعي على وجهك.
+            نشارككِ تفاصيل تركيبتنا بوضوح، لأن بشرتكِ تستحق العناية الصادقة والشفافة.
           </p>
 
           <div className="space-y-5">

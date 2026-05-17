@@ -1,102 +1,151 @@
 "use client";
 
 import React from "react";
-import { BUNDLES, PRODUCTS_MAP } from "@/config/products";
+import { Check, Eye, Moon, SunMedium } from "lucide-react";
+import { BUNDLES, PRODUCTS_MAP, PRODUCTS } from "@/config/products";
 import { useCartStore } from "@/store/cart";
 import { Button } from "@/components/ui/Button";
 import { generateEventId, trackAddToCart } from "@/lib/tracking";
 import { CartItem } from "@/types";
 
 export function BundleSection() {
-  const { addItem, items, getTotal } = useCartStore();
+  const { addItem } = useCartStore();
 
-  const handleBundleAdd = (productSlugs: string[]) => {
-    productSlugs.forEach((slug) => {
+  const handleBundleAdd = (productSlugs: string[], bundlePrice: number) => {
+    const unitPrice = Math.floor(bundlePrice / productSlugs.length);
+    const remainder = bundlePrice - unitPrice * productSlugs.length;
+
+    productSlugs.forEach((slug, index) => {
       const p = PRODUCTS_MAP[slug];
       if (p) {
-        addItem({ slug: p.slug, name_ar: p.name_ar, price: p.price, image: p.image });
+        addItem({
+          slug: p.slug,
+          name_ar: p.name_ar,
+          price: unitPrice + (index === 0 ? remainder : 0),
+          image: p.image,
+        });
       }
     });
 
-    const updatedItems: CartItem[] = productSlugs.map((slug) => {
+    const updatedItems: CartItem[] = productSlugs.map((slug, index) => {
       const p = PRODUCTS_MAP[slug];
-      return { slug, name_ar: p?.name_ar || slug, price: p?.price || 0, image: "", quantity: 1 };
+      return {
+        slug,
+        name_ar: p?.name_ar || slug,
+        price: unitPrice + (index === 0 ? remainder : 0),
+        image: "",
+        quantity: 1,
+      };
     });
     const total = updatedItems.reduce((s, i) => s + i.price, 0);
     trackAddToCart(updatedItems, total, generateEventId());
   };
 
   return (
-    <section className="py-16 md:py-24 bg-brand-deep">
+    <section className="py-16 md:py-24 bg-[linear-gradient(180deg,#fffdf9_0%,#fffaf1_100%)]">
       <div className="container-wide">
         <div className="text-center mb-12">
-          <p className="text-gold font-semibold text-sm tracking-wider uppercase mb-3">
-            عروض خاصة
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-            ابني روتينك الكامل
+          <p className="luxury-kicker mx-auto mb-4 w-fit">روتين متكامل</p>
+          <h2 className="section-heading">
+            لبشرة أكثر توازناً وإشراقاً
           </h2>
-          <p className="text-white/70 text-lg mt-3 max-w-xl mx-auto">
-            الطقم الكامل أوفر — ووفري على الشحن مع أي طلبية فوق 300 درهم.
+          <p className="section-subheading max-w-xl mx-auto">
+            ثلاث خطوات واضحة: توازن صباحي، تجديد ليلي، وعناية دقيقة بمحيط العينين.
           </p>
+        </div>
+
+        <div className="mb-10 grid gap-4 md:grid-cols-3">
+          {[
+            { icon: SunMedium, title: "الصباح", text: "سيروم توازن وإشراقة البشرة بالنياسيناميد." },
+            { icon: Moon, title: "المساء", text: "كريم التجديد الليلي للبشرة." },
+            { icon: Eye, title: "محيط العين", text: "سيروم نضارة محيط العين." },
+          ].map((step) => {
+            const Icon = step.icon;
+            return (
+              <div key={step.title} className="premium-card rounded-3xl p-6">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-light text-brand-mid">
+                  <Icon className="h-5 w-5" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-lg font-bold text-brand-deep">{step.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-gray-600">{step.text}</p>
+              </div>
+            );
+          })}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {BUNDLES.map((bundle, idx) => {
             const products = bundle.products.map((s) => PRODUCTS_MAP[s]).filter(Boolean);
             const isMain = idx === 0;
+            const listTotal = bundle.products.reduce((sum, slug) => {
+              const p = PRODUCTS.find((x) => x.slug === slug);
+              return sum + (p?.price ?? 0);
+            }, 0);
 
             return (
               <div
                 key={bundle.id}
-                className={`rounded-3xl p-6 relative ${
+                className={`rounded-[1.65rem] p-7 relative overflow-hidden transition-all duration-300 hover:-translate-y-0.5 ${
                   isMain
-                    ? "bg-gold border-2 border-gold/30"
-                    : "bg-white/10 border border-white/20"
+                    ? "border-2 border-gold/40 bg-gradient-to-b from-brand-deep via-brand-deep to-[#2e2429] shadow-[0_24px_60px_rgba(58,34,44,0.35)]"
+                    : "premium-card border border-border shadow-[0_12px_36px_rgba(58,34,44,0.06)]"
                 }`}
               >
                 {bundle.tag && (
-                  <div className={`absolute -top-3 start-6 text-xs font-bold px-3 py-1 rounded-full ${
-                    isMain ? "bg-brand-deep text-white" : "bg-gold text-white"
-                  }`}>
+                  <div
+                    className={`absolute -top-px start-6 rounded-b-xl px-4 py-1.5 text-[10px] font-bold tracking-wide text-white shadow-lg ${
+                      isMain ? "bg-gradient-to-l from-gold to-[#C9A84C]" : "bg-brand-mid"
+                    }`}
+                  >
                     {bundle.tag}
                   </div>
                 )}
 
-                <h3 className={`font-bold text-xl mb-1 ${isMain ? "text-white" : "text-white"}`}>
+                <h3 className={`mt-4 font-bold text-xl mb-1 ${isMain ? "text-white" : "text-brand-deep"}`}>
                   {bundle.name_ar}
                 </h3>
 
-                <div className="my-4 space-y-1.5">
+                <div className="my-5 space-y-2.5">
                   {products.map((p) => (
-                    <div key={p!.slug} className="flex items-center gap-2">
-                      <span className={`text-xs ${isMain ? "text-white/80" : "text-white/70"}`}>
-                        ✓ {p!.name_ar}
-                      </span>
+                    <div key={p!.slug} className="flex items-start gap-2 text-start">
+                      <Check className={`mt-0.5 h-4 w-4 shrink-0 ${isMain ? "text-gold" : "text-gold"}`} strokeWidth={2.2} aria-hidden />
+                      <span className={`text-sm leading-snug ${isMain ? "text-white/90" : "text-gray-700"}`}>{p!.name_ar}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="flex items-end gap-2 mb-4">
-                  <span className={`text-3xl font-bold ${isMain ? "text-white" : "text-white"}`}>
-                    {bundle.price} درهم
+                <div
+                  className={`mb-5 flex flex-wrap items-end gap-2 border-t pt-5 ${isMain ? "border-white/10" : "border-border/70"}`}
+                >
+                  <span className={`text-4xl font-black tracking-tight ${isMain ? "text-white" : "text-brand-deep"}`}>
+                    {bundle.price}
                   </span>
-                  {bundle.saving > 0 && (
-                    <span className={`text-sm ${isMain ? "text-white/80" : "text-gold"} mb-1`}>
-                      وفري {bundle.saving} درهم
-                    </span>
+                  <span className={`mb-1 text-sm font-semibold ${isMain ? "text-white/85" : "text-brand-mid"}`}>درهم</span>
+                  {bundle.saving > 0 && listTotal > bundle.price && (
+                    <>
+                      <span className={`mb-1 text-sm line-through ${isMain ? "text-white/45" : "text-gray-400"}`}>
+                        {listTotal} درهم
+                      </span>
+                      <span
+                        className={`mb-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold ${
+                          isMain ? "bg-white/15 text-gold-light" : "bg-emerald-50 text-emerald-800"
+                        }`}
+                      >
+                        وفري {bundle.saving} درهم
+                      </span>
+                    </>
                   )}
                 </div>
 
                 <button
-                  onClick={() => handleBundleAdd(bundle.products)}
-                  className={`w-full py-4 rounded-full font-bold text-base transition-all active:scale-95 ${
+                  onClick={() => handleBundleAdd(bundle.products, bundle.price)}
+                  className={`w-full rounded-full py-4 text-base font-bold transition-all active:scale-[0.98] ${
                     isMain
-                      ? "bg-white text-gold hover:bg-white/90"
-                      : "bg-white/20 text-white hover:bg-white/30 border border-white/30"
+                      ? "bg-white text-brand-deep shadow-lg hover:bg-gold-light"
+                      : "bg-brand-deep text-white hover:bg-brand-mid"
                   }`}
                 >
-                  اطلبي هاد الطقم
+                  اطلبي هذه المجموعة
                 </button>
               </div>
             );
@@ -104,7 +153,7 @@ export function BundleSection() {
         </div>
 
         <div className="text-center mt-10">
-          <p className="text-white/60 text-sm">
+          <p className="text-gray-500 text-sm">
             الدفع عند الاستلام • توصيل 2–4 أيام • إرجاع مجاني
           </p>
         </div>

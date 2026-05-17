@@ -2,81 +2,98 @@
 
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowLeft, FlaskConical, PackageCheck, ShieldCheck, Sparkles, Truck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
 
 export function Hero() {
   return (
-    <section className="bg-cream overflow-hidden">
-      <div className="container-wide">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 py-12 md:py-20 items-center">
-          {/* Text — first in RTL */}
-          <div className="order-2 md:order-1 text-center md:text-right">
-            <div className="inline-flex items-center gap-2 bg-brand-light text-brand-deep text-xs font-semibold px-4 py-1.5 rounded-full mb-5">
-              <span className="w-1.5 h-1.5 bg-brand-mid rounded-full" />
-              صنعناها للبشرة المغربية
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#fffaf1_0%,#f7dde4_50%,#fffdf9_100%)]">
+      <div className="absolute -top-28 -left-24 h-72 w-72 rounded-full bg-white/45 blur-3xl" />
+      <div className="absolute bottom-10 right-0 h-64 w-64 rounded-full bg-[#fff1c9]/70 blur-3xl" />
+      <div className="container-wide relative">
+        <div className="grid grid-cols-1 items-center gap-10 py-12 md:grid-cols-2 md:gap-14 md:py-24">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="order-2 text-center md:order-1 md:text-right"
+          >
+            <div className="luxury-kicker mb-6">
+              <FlaskConical className="h-4 w-4 text-gold" strokeWidth={1.5} />
+              عناية علمية ناعمة للبشرة المغربية
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-deep leading-tight mb-5">
-              بشرتك تستاهل
+            <h1 className="mb-6 text-4xl font-bold leading-[1.18] text-brand-deep md:text-6xl lg:text-7xl">
+              عناية ذكية ببشرتكِ
               <br />
-              <span className="text-gold">عناية تفهمها</span>
+              <span className="text-brand-mid">بلمسة ناعمة ونتائج تُلاحظينها</span>
             </h1>
 
-            <p className="text-lg text-gray-600 leading-relaxed mb-8 max-w-md mx-auto md:mx-0">
-              ثلاثة منتجات مدروسة علمياً، مصممة لاحتياجات البشرة المغربية —
-              صباحاً وليلاً. بدون ادعاءات زائفة، بدون تعقيد.
+            <p className="mx-auto mb-8 max-w-xl text-lg leading-9 text-gray-600 md:mx-0">
+              روتين مغربي فاخر من ثلاث خطوات، يجمع بين مكونات مختارة بعناية وتجربة حسية راقية لبشرة أكثر توازناً وإشراقاً يوماً بعد يوم.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-              <Link href="/products">
-                <Button variant="primary" size="lg">
-                  اكتشفي المنتجات
+            <div className="flex flex-col justify-center gap-3 sm:flex-row md:justify-start">
+              <Link href="/products" className="group">
+                <Button variant="primary" size="lg" className="min-h-[60px] px-9 text-[17px]">
+                  <Sparkles className="relative z-10 h-5 w-5 text-gold-light" strokeWidth={1.6} />
+                  <span className="relative z-10">ابدئي روتينك الآن</span>
+                  <ArrowLeft className="relative z-10 h-5 w-5 transition-transform group-hover:-translate-x-1" strokeWidth={1.7} />
                 </Button>
               </Link>
-              <Link href="/about">
-                <Button variant="secondary" size="lg">
-                  عن نيورا سكين
+              <Link href="/about" className="group">
+                <Button variant="secondary" size="lg" className="min-h-[60px] px-9 text-[17px]">
+                  <span>لماذا نورا سكين؟</span>
+                  <ArrowLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" strokeWidth={1.7} />
                 </Button>
               </Link>
             </div>
 
-            {/* Trust signals */}
-            <div className="flex flex-wrap items-center gap-4 mt-8 justify-center md:justify-start">
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <span className="text-green-600 font-bold text-base">✓</span>
-                الدفع عند الاستلام
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <span className="text-green-600 font-bold text-base">✓</span>
-                توصيل سريع
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <span className="text-green-600 font-bold text-base">✓</span>
-                إرجاع مجاني
-              </div>
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              {[
+                { icon: ShieldCheck, text: "الدفع عند الاستلام" },
+                { icon: FlaskConical, text: "تركيبات مختارة بعناية" },
+                { icon: Truck, text: "توصيل سريع داخل المغرب" },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.text} className="premium-card flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm text-brand-deep md:justify-start">
+                    <Icon className="h-4 w-4 text-gold" strokeWidth={1.6} />
+                    <span>{item.text}</span>
+                  </div>
+                );
+              })}
             </div>
-          </div>
+          </motion.div>
 
-          {/* Image */}
-          <div className="order-1 md:order-2">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+            className="order-1 md:order-2"
+          >
             <div className="relative max-w-md mx-auto">
-              <div className="rounded-4xl overflow-hidden">
+              <div className="absolute -inset-5 rounded-[2.5rem] bg-white/40 blur-xl" />
+              <div className="relative overflow-hidden rounded-[2.5rem] border border-white/70 bg-white/60 p-3 soft-shadow">
                 <PlaceholderImage
-                  label="نيورا سكين"
+                  label="Nura Skin Routine"
                   aspectRatio="portrait"
-                  className="w-full"
+                  className="w-full rounded-[2rem]"
                 />
               </div>
-              {/* Floating badge */}
-              <div className="absolute -bottom-4 -start-4 bg-white border border-border rounded-2xl p-4 shadow-sm">
+              <div className="absolute -bottom-5 -start-3 rounded-3xl border border-border bg-white/90 p-5 soft-shadow backdrop-blur">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-brand-deep">+847</div>
-                  <div className="text-xs text-gray-500">اختارتها هاد الشهر</div>
+                  <div className="text-xs text-gray-500">سيدة اختارتنا هذا الشهر</div>
                 </div>
               </div>
+              <div className="absolute -top-4 -end-2 rounded-full border border-border bg-white/90 p-4 text-brand-mid soft-shadow">
+                <PackageCheck className="h-6 w-6" strokeWidth={1.4} />
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

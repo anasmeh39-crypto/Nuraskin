@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PRODUCTS, getProductBySlug } from "@/config/products";
-import { ProductHeroSection } from "@/components/product/ProductHeroSection";
-import { IngredientExplainer } from "@/components/product/IngredientExplainer";
-import { ProductTestimonialsSection } from "@/components/product/ProductTestimonialsSection";
-import { TrustBadges } from "@/components/ui/TrustBadges";
-import { CrossSells } from "@/components/product/CrossSells";
-import { StickyMobileCTA } from "@/components/product/StickyMobileCTA";
+import { ProductHeroElite } from "@/components/product/ProductHeroElite";
+import { ProblemSection } from "@/components/product/ProblemSection";
+import { BeforeAfterSlider } from "@/components/product/BeforeAfterSlider";
+import { IngredientAuthority } from "@/components/product/IngredientAuthority";
+import { ScienceSection } from "@/components/product/ScienceSection";
+import { UsageAndTimeline } from "@/components/product/UsageAndTimeline";
+import { RoutineSection } from "@/components/product/RoutineSection";
+import { ReviewsElite } from "@/components/product/ReviewsElite";
+import { TrustAuthoritySection } from "@/components/product/TrustAuthoritySection";
+import { FAQElite } from "@/components/product/FAQElite";
+import { CrossSellsElite } from "@/components/product/CrossSellsElite";
+import { StickyMobileCTAElite } from "@/components/product/StickyMobileCTAElite";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
@@ -17,11 +23,12 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const product = getProductBySlug(params.slug);
+  const { slug } = await params;
+  const product = getProductBySlug(slug);
   if (!product) return {};
 
   return {
-    title: `${product.name_ar} | نيورا سكين`,
+    title: `${product.name_ar} | نورا سكين`,
     description: product.metaDescription,
     openGraph: {
       title: product.name_ar,
@@ -34,9 +41,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ProductPage({ params }: Props) {
-  const product = getProductBySlug(params.slug);
+export default async function ProductPage({ params }: Props) {
+  const { slug } = await params;
+  const product = getProductBySlug(slug);
   if (!product) notFound();
+
+  const avgRating =
+    product.reviews.reduce((s, r) => s + r.rating, 0) / product.reviews.length;
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -53,7 +64,7 @@ export default function ProductPage({ params }: Props) {
     },
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "4.9",
+      ratingValue: avgRating.toFixed(1),
       reviewCount: product.reviews.length,
     },
   };
@@ -65,65 +76,41 @@ export default function ProductPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <ProductHeroSection product={product} />
-      <IngredientExplainer product={product} />
+      {/* 1. Hero — gallery + offer selector + CTA */}
+      <ProductHeroElite product={product} />
 
-      {/* Benefits */}
-      <section className="py-12 bg-white">
-        <div className="container-wide">
-          <h2 className="text-2xl font-bold text-brand-deep mb-6">
-            شنو يساعد عليه؟
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {product.benefits.map((b) => (
-              <div key={b} className="flex items-start gap-3 p-4 bg-cream rounded-2xl">
-                <span className="text-brand-mid font-bold text-lg mt-0.5">✓</span>
-                <p className="text-gray-700 text-sm">{b}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 2. Emotional problem agitation */}
+      <ProblemSection product={product} />
 
-      {/* Before/After perception */}
-      <section className="py-12 bg-cream">
-        <div className="container-wide">
-          <h2 className="text-2xl font-bold text-brand-deep mb-3 text-center">
-            الفارق اللي تحسيه
-          </h2>
-          <p className="text-center text-gray-600 text-sm mb-8">
-            النتائج تختلف من شخص لآخر — هاد الأمثلة تعكس تجارب مستخدمين حقيقيين
-          </p>
-          <div className="grid grid-cols-2 gap-6 max-w-lg mx-auto">
-            <div className="text-center p-6 bg-white border border-border rounded-3xl">
-              <div className="text-3xl mb-3">😟</div>
-              <p className="text-sm font-semibold text-gray-600 mb-2">قبل</p>
-              {product.concerns.slice(0, 2).map((c) => (
-                <p key={c} className="text-xs text-gray-500">{c}</p>
-              ))}
-            </div>
-            <div className="text-center p-6 bg-brand-light border border-brand-light rounded-3xl">
-              <div className="text-3xl mb-3">✨</div>
-              <p className="text-sm font-semibold text-brand-deep mb-2">بعد</p>
-              {product.benefits.slice(0, 2).map((b) => (
-                <p key={b} className="text-xs text-brand-mid">{b}</p>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 3. Before / After perception slider */}
+      <BeforeAfterSlider productSlug={product.slug} />
 
-      <ProductTestimonialsSection product={product} />
+      {/* 4. Ingredient authority */}
+      <IngredientAuthority product={product} />
 
-      <div className="py-12 bg-white">
-        <div className="container-wide">
-          <TrustBadges />
-        </div>
-      </div>
+      {/* 5. Science & clinical positioning */}
+      <ScienceSection />
 
-      <CrossSells currentSlug={product.slug} slugs={product.crossSells} />
+      {/* 6. How to use + realistic timeline */}
+      <UsageAndTimeline product={product} />
 
-      <StickyMobileCTA product={product} />
+      {/* 7. Complete routine — AOV booster */}
+      <RoutineSection currentSlug={product.slug} />
+
+      {/* 8. Social proof */}
+      <ReviewsElite product={product} />
+
+      {/* 9. Trust & authority */}
+      <TrustAuthoritySection />
+
+      {/* 10. FAQ — objection handling */}
+      <FAQElite product={product} />
+
+      {/* 11. Cross-sells */}
+      <CrossSellsElite product={product} />
+
+      {/* 12. Sticky mobile CTA */}
+      <StickyMobileCTAElite product={product} />
     </>
   );
 }

@@ -80,10 +80,10 @@ export function UpsellContent() {
         {/* Header */}
         <div className="bg-brand-deep px-6 py-5 text-center">
           <p className="text-gold text-xs font-bold tracking-widest uppercase mb-1">
-            عرض خاص · مرة واحدة فقط
+            عرض حصري · لمرة واحدة فقط
           </p>
           <h1 className="text-white text-xl font-bold">
-            قبل ما تكملي — فرصة ليك وحدك
+            قبل إتمام طلبكِ — إضافة مميّزة لكِ
           </h1>
         </div>
 
@@ -123,17 +123,17 @@ export function UpsellContent() {
           {/* Offer copy */}
           <div className="bg-gold-light border border-amber-100 rounded-2xl p-4 text-center">
             <p className="text-amber-900 text-sm font-semibold">
-              وفري {uoriginal - uprice} درهم بالإضافة لطلبك الحالي
+              وفري {uoriginal - uprice} درهم كهدية لطلبكِ الحالي
             </p>
             <p className="text-amber-700 text-xs mt-1">
-              هاد السعر ما غاديش يتوفر مرة أخرى
+              هذا السعر المميّز متاح لكِ الآن فقط
             </p>
           </div>
 
           {/* Timer */}
           <div className="text-center">
             <div className="inline-flex items-center gap-2 bg-gray-50 border border-border rounded-full px-5 py-2">
-              <span className="text-gray-400 text-sm">العرض يختفي خلال</span>
+              <span className="text-gray-400 text-sm">ينتهي هذا العرض خلال</span>
               <span className="font-bold text-brand-deep text-lg font-sans tabular-nums">
                 00:{String(timeLeft).padStart(2, "0")}
               </span>
@@ -148,7 +148,7 @@ export function UpsellContent() {
             loading={accepting}
             onClick={handleAccept}
           >
-            نعم، أضيفيها لطلبي ←
+            نعم، أضيفي هذا المنتج لطلبي ←
           </Button>
 
           <button
@@ -156,7 +156,7 @@ export function UpsellContent() {
             className="w-full text-center text-sm text-gray-400 hover:text-gray-600 py-2 transition-colors"
             disabled={accepting}
           >
-            لا شكراً، أكملي بدونها
+            لا شكراً، أود إتمام طلبي بدونه
           </button>
         </div>
       </div>
