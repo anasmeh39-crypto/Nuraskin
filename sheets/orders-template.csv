@@ -1,0 +1,3 @@
+Order Number,Date,Customer Name,Phone,Products,Total (MAD),Shipping (MAD),Status,Source URL,Upsell Accepted,Notes
+ORD-20240101-001,2024-01-01T10:30:00,ياسمين الفاسي,0612345678,مركّز نيورا بالانس,219,30,pending,https://nuraskin.cc/products/nura-balance,FALSE,
+ORD-20240101-002,2024-01-01T11:15:00,خديجة بنعلي,0698765432,"مركّز نيورا بالانس, كريم نيورا رينيو الليلي",418,0,confirmed,https://nuraskin.cc/products/nura-night-renewal,TRUE,عميلة جديدة

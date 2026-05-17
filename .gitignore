@@ -1,0 +1,42 @@
+# Environment files — NEVER commit these
+env/frontend.env
+env/backend.env
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+backend/.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+.next/
+.nuxt/
+out/
+
+# Docker
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Alembic (keep versions, not __pycache__)
+backend/alembic/__pycache__/

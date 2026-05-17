@@ -1,0 +1,56 @@
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import List
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="ignore",
+    )
+
+    # Database — loaded from env only, never hardcoded
+    DATABASE_URL: str
+
+    # Server
+    API_HOST: str = "0.0.0.0"
+    API_PORT: int = 8000
+    ENVIRONMENT: str = "production"
+    DEBUG: bool = False
+
+    # CORS
+    CORS_ORIGINS: str = "https://nuraskin.cc"
+
+    @property
+    def cors_origins_list(self) -> List[str]:
+        return [origin.strip() for origin in self.CORS_ORIGINS.split(",")]
+
+    # Meta CAPI
+    META_PIXEL_ID: str = ""
+    META_ACCESS_TOKEN: str = ""
+    META_TEST_EVENT_CODE: str = ""
+
+    # TikTok Events API
+    TIKTOK_PIXEL_ID: str = ""
+    TIKTOK_ACCESS_TOKEN: str = ""
+
+    # Google Sheets
+    GOOGLE_SERVICE_ACCOUNT_JSON: str = ""
+    GOOGLE_SHEET_ID: str = ""
+
+    # Logging
+    LOG_LEVEL: str = "INFO"
+
+    # Security
+    SECRET_KEY: str = ""
+
+
+_settings: Settings | None = None
+
+
+def get_settings() -> Settings:
+    global _settings
+    if _settings is None:
+        _settings = Settings()
+    return _settings

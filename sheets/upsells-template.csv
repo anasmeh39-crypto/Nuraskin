@@ -1,0 +1,7 @@
+Ordered Product(s),Upsell Product Slug,Upsell Product Name (Arabic),Original Price (MAD),Discounted Price (MAD),Discount %,Active
+nura-balance,nura-eye-revive,سيروم نيورا آي ريفايف,199,149,25,TRUE
+nura-night-renewal,nura-balance,مركّز نيورا بالانس,189,142,25,TRUE
+nura-eye-revive,nura-balance,مركّز نيورا بالانس,189,142,25,TRUE
+nura-balance+nura-eye-revive,nura-night-renewal,كريم نيورا رينيو الليلي,229,160,30,TRUE
+nura-balance+nura-night-renewal,nura-eye-revive,سيروم نيورا آي ريفايف,199,159,20,TRUE
+nura-night-renewal+nura-eye-revive,nura-balance,مركّز نيورا بالانس,189,151,20,TRUE
