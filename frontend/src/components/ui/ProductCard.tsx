@@ -59,9 +59,9 @@ export function ProductCard({ product, showBadge, badge }: ProductCardProps) {
         <div className="p-4 md:p-5">
           <div className="mb-3 flex items-center justify-between">
             <p className="text-xs font-semibold text-rose-mid">{product.heroIngredient}</p>
-            <div className="flex items-center gap-1 text-xs text-gold">
+            <div className="flex items-center gap-1 text-xs text-[#C8A24A]">
               {[1, 2, 3, 4, 5].map((s) => (
-                <Star key={s} className="h-3 w-3 fill-current" strokeWidth={1.2} />
+                <Star key={s} className="h-3.5 w-3.5 fill-current drop-shadow-[0_1px_0_rgba(61,44,50,0.10)]" strokeWidth={1.4} />
               ))}
             </div>
           </div>
@@ -71,7 +71,7 @@ export function ProductCard({ product, showBadge, badge }: ProductCardProps) {
           <p className="mt-2 min-h-[42px] text-sm leading-7 text-gray-500">{product.tagline_ar}</p>
 
           <div className="mt-5 rounded-2xl bg-rose-blush p-3">
-            <p className="text-xs text-[#6B5555]">توصيل داخل المغرب مع تأكيد هاتفي قبل الإرسال</p>
+            <p className="text-xs text-[#6B5555]">توصيل مجاني لجميع أنحاء المغرب مع تأكيد هاتفي قبل الإرسال</p>
           </div>
 
           <div className="flex items-center justify-between mt-4 gap-3">

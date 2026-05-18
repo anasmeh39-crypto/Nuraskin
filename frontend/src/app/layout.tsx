@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/layout/CartDrawer";
 import { CheckoutPopup } from "@/components/checkout/CheckoutPopup";
+import { BRAND_ASSETS } from "@/config/brand";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | نورا سكين",
   },
   description:
-    "منتجات عناية بشرة مختارة بعناية للمرأة المغربية. سيروم توازن وإشراقة البشرة بالنياسيناميد، كريم التجديد الليلي للبشرة، وسيروم نضارة محيط العين. الدفع عند الاستلام.",
+    "منتجات عناية بشرة مختارة بعناية للمرأة المغربية. سيروم توازن وإشراقة البشرة بالنياسيناميد، كريم التجديد الليلي للبشرة، وسيروم نضارة محيط العين. الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.",
   keywords: ["عناية بشرة المغرب", "سيروم مغربي", "ناياسيناميد", "هالات", "مسام"],
   openGraph: {
     siteName: "NURA SKIN — نورا سكين",
@@ -38,11 +39,11 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   icons: {
     icon: [
-      { url: "/brand/logo-icon-official.svg", type: "image/svg+xml", sizes: "any" },
-      { url: "/brand/favicon-square.svg", type: "image/svg+xml" },
+      { url: BRAND_ASSETS.favicon, type: "image/png", sizes: "64x64" },
+      { url: BRAND_ASSETS.icon, type: "image/png", sizes: "440x440" },
     ],
-    shortcut: "/brand/logo-icon-official.svg",
-    apple: [{ url: "/apple-icon.svg", sizes: "180x180", type: "image/svg+xml" }],
+    shortcut: BRAND_ASSETS.favicon,
+    apple: [{ url: BRAND_ASSETS.appleIcon, sizes: "180x180", type: "image/png" }],
   },
 };
 

@@ -53,7 +53,7 @@ function buildOffers(product: Product): Offer[] {
       originalPrice: product.price + duo.price,
       saving: product.price + duo.price - duoPrice,
       perUnit: Math.round(duoPrice / 2),
-      badge: "شحن مجاني غالباً",
+      badge: "توصيل مجاني",
     });
   }
 
@@ -118,7 +118,7 @@ export function OfferSelector({ product, onOfferChange }: Props) {
         </div>
         <span className="inline-flex items-center gap-1 rounded-full border border-gold/30 bg-gold-light/60 px-3 py-1 text-[10px] font-semibold text-brand-deep">
           <Truck className="h-3 w-3 text-gold" strokeWidth={1.5} aria-hidden />
-          الدفع عند الإستلام
+          الدفع عند الاستلام
         </span>
       </div>
 

@@ -45,8 +45,8 @@ export function StickyMobileCTAElite({ product }: Props) {
         >
           <div className="border-t border-nura-border bg-nura-cream/95 px-4 pb-safe-area-bottom pt-4 backdrop-blur-md shadow-luxury">
             <div className="flex items-center gap-3">
-              <Link href="/" className="dir-ltr shrink-0 rounded-2xl border border-nura-border bg-white p-1.5 shadow-ivory-sm" aria-label="NURA SKIN">
-                <img src={BRAND_ASSETS.icon} alt="" width={32} height={32} className="h-8 w-8" />
+              <Link href="/" className="dir-ltr shrink-0" aria-label="NURA SKIN">
+                <img src={BRAND_ASSETS.icon} alt="" width={440} height={440} className="h-8 w-8 object-contain mix-blend-multiply" />
               </Link>
               {/* Product info */}
               <div className="flex-1 min-w-0">
@@ -71,7 +71,7 @@ export function StickyMobileCTAElite({ product }: Props) {
 
             {/* Trust microcopy */}
             <p className="text-center text-[10px] text-[#9B8A8A] mt-2">
-              توصيل 2–4 أيام — إرجاع مجاني 14 يوم
+              توصيل مجاني لجميع أنحاء المغرب
             </p>
           </div>
         </motion.div>

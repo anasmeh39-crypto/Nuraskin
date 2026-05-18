@@ -48,6 +48,8 @@ export interface OrderItemIn {
 export interface CreateOrderRequest {
   customer_name: string;
   customer_phone: string;
+  customer_address?: string;
+  customer_city?: string;
   items: OrderItemIn[];
   total: number;
   shipping_cost: number;

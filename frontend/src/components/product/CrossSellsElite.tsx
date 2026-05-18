@@ -7,6 +7,7 @@ import { PRODUCTS_MAP } from "@/config/products";
 import { useCartStore } from "@/store/cart";
 import { generateEventId, trackAddToCart } from "@/lib/tracking";
 import { StarRating } from "@/components/ui/StarRating";
+import { Sparkles } from "lucide-react";
 
 interface Props { product: Product }
 
@@ -62,7 +63,7 @@ export function CrossSellsElite({ product }: Props) {
               >
                 {/* Image placeholder */}
                 <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-rose-blush to-rose-light flex items-center justify-center shrink-0">
-                  <span className="font-display text-rose-deep text-2xl italic">N</span>
+                  <Sparkles className="h-7 w-7 text-rose-deep/65" strokeWidth={1.35} />
                 </div>
 
                 {/* Content */}

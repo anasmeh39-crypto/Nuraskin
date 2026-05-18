@@ -24,11 +24,11 @@ export function BrandLogo({
   const dims =
     variant === "dark"
       ? size === "compact"
-        ? { width: 120, height: 150, className: "h-28 w-auto md:h-32" }
-        : { width: 160, height: 200, className: "h-36 w-auto md:h-40" }
+        ? { width: 710, height: 210, className: "h-14 w-auto md:h-16" }
+        : { width: 1420, height: 420, className: "h-16 w-auto md:h-20" }
       : size === "compact"
-        ? { width: 240, height: 44, className: "h-8 w-auto md:h-9" }
-        : { width: 280, height: 52, className: "h-9 w-auto md:h-11" };
+        ? { width: 710, height: 210, className: "h-8 w-auto md:h-9" }
+        : { width: 1420, height: 420, className: "h-9 w-auto md:h-11" };
 
   const inner = (
     <span className={`inline-flex dir-ltr ${className}`} dir="ltr">
@@ -37,7 +37,7 @@ export function BrandLogo({
         alt="NURA SKIN نورا سكين"
         width={dims.width}
         height={dims.height}
-        className={dims.className}
+        className={`${dims.className} object-contain mix-blend-multiply`}
       />
     </span>
   );

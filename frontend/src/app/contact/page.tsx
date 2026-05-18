@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Mail, PackageSearch, PhoneCall } from "lucide-react";
+import { BRAND_ASSETS } from "@/config/brand";
 
 export const metadata: Metadata = {
   title: "تواصلي معنا — نورا سكين",
@@ -11,6 +12,15 @@ export default function ContactPage() {
     <>
       <section className="bg-[linear-gradient(135deg,#3A222C,#8B4A5A)] py-16 text-center">
         <div className="container-wide max-w-xl">
+          <div className="mx-auto mb-7 inline-flex dir-ltr">
+            <img
+              src={BRAND_ASSETS.horizontal}
+              alt="NURA SKIN نورا سكين"
+              width={710}
+              height={210}
+              className="h-12 w-auto max-w-[260px] object-contain [filter:invert(1)_brightness(1.85)_grayscale(0.2)] mix-blend-screen md:h-14 md:max-w-[320px]"
+            />
+          </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
             تواصلي معنا
           </h1>

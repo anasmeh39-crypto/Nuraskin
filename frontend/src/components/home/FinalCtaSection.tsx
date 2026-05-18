@@ -27,7 +27,7 @@ export function FinalCtaSection() {
             <div className="flex flex-wrap justify-center gap-3 text-xs text-brand-deep">
               {[
                 { icon: ShieldCheck, text: "الدفع عند الاستلام" },
-                { icon: Truck, text: "توصيل سريع داخل المغرب" },
+                { icon: Truck, text: "توصيل مجاني لجميع أنحاء المغرب" },
                 { icon: FlaskConical, text: "تركيبات مختارة بعناية" },
               ].map((item) => {
                 const Icon = item.icon;

@@ -55,7 +55,7 @@ export function Hero() {
               {[
                 { icon: ShieldCheck, text: "الدفع عند الاستلام" },
                 { icon: FlaskConical, text: "تركيبات مختارة بعناية" },
-                { icon: Truck, text: "توصيل سريع داخل المغرب" },
+                { icon: Truck, text: "توصيل مجاني لجميع أنحاء المغرب" },
               ].map((item) => {
                 const Icon = item.icon;
                 return (

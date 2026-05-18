@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Product } from "@/types";
+import { Droplets } from "lucide-react";
 
 const PROBLEM_COPY: Record<string, { headline: string; paragraphs: string[]; moment: string }> = {
   "nura-balance": {
@@ -57,7 +58,7 @@ export function ProblemSection({ product }: Props) {
               <div className="aspect-[4/5] rounded-4xl bg-gradient-to-br from-rose-blush to-rose-light flex items-center justify-center overflow-hidden">
                 <div className="text-center space-y-4 p-8">
                   <div className="w-24 h-24 rounded-full bg-white/60 backdrop-blur-sm mx-auto flex items-center justify-center">
-                    <div className="font-display text-rose-deep text-4xl italic">N</div>
+                    <Droplets className="h-10 w-10 text-rose-deep/65" strokeWidth={1.25} />
                   </div>
                   <p className="text-rose-mid/60 text-xs">صورة البشرة</p>
                 </div>

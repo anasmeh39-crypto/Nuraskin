@@ -1,21 +1,26 @@
 import React from "react";
 import Link from "next/link";
+import { Check } from "lucide-react";
 import { BRAND_ASSETS } from "@/config/brand";
 
 export function Footer() {
   return (
-    <footer className="mt-24 bg-nura-plum text-white">
+    <footer className="mt-24 overflow-hidden bg-[linear-gradient(145deg,#34242A,#473139_58%,#2F2327)] text-white">
       <div className="container-wide py-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
           {/* Brand — official stacked inverse */}
           <div>
-            <Link href="/" className="mb-6 inline-block dir-ltr opacity-[0.97] transition-opacity hover:opacity-100" dir="ltr">
+            <Link
+              href="/"
+              className="mb-6 inline-flex dir-ltr opacity-95 transition-opacity hover:opacity-100"
+              dir="ltr"
+            >
               <img
-                src={BRAND_ASSETS.stackedInverse}
+                src={BRAND_ASSETS.footerLogo}
                 alt="NURA SKIN نورا سكين"
-                width={140}
-                height={176}
-                className="h-36 w-auto md:h-40"
+                width={1420}
+                height={420}
+                className="h-14 w-auto max-w-[250px] object-contain md:h-16 md:max-w-[310px]"
               />
             </Link>
             <p className="text-sm leading-relaxed text-white/72">
@@ -62,21 +67,21 @@ export function Footer() {
             <h4 className="mb-4 font-semibold text-white">الطلب والتوصيل</h4>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
-                <span className="mt-0.5 text-nura-champagne">✓</span>
+                <Check className="mt-1 h-4 w-4 shrink-0 text-nura-champagne" strokeWidth={1.6} />
                 <div className="text-sm text-white/80">
                   <div className="font-medium text-white">الدفع عند الاستلام</div>
-                  <div className="text-white/60">لا يوجد دفع مسبق</div>
+                  <div className="text-white/60">تدفعين فقط عند وصول الطلب</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="mt-0.5 text-nura-champagne">✓</span>
+                <Check className="mt-1 h-4 w-4 shrink-0 text-nura-champagne" strokeWidth={1.6} />
                 <div className="text-sm text-white/80">
-                  <div className="font-medium text-white">توصيل سريع</div>
-                  <div className="text-white/60">2–4 أيام عمل في جميع أنحاء المغرب</div>
+                  <div className="font-medium text-white">توصيل مجاني لجميع أنحاء المغرب</div>
+                  <div className="text-white/60">توصيل واضح ومؤكد قبل الإرسال</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="mt-0.5 text-nura-champagne">✓</span>
+                <Check className="mt-1 h-4 w-4 shrink-0 text-nura-champagne" strokeWidth={1.6} />
                 <div className="text-sm text-white/80">
                   <div className="font-medium text-white">إرجاع مجاني</div>
                   <div className="text-white/60">سهل وبدون تعقيد</div>

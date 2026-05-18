@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  BadgeCheck,
+  Droplets,
   Eye,
   FlaskConical,
   Moon,
-  PackageCheck,
   ShieldCheck,
   Sparkles,
   SunMedium,
@@ -18,7 +17,7 @@ import { ProductCard } from "@/components/ui/ProductCard";
 export const metadata: Metadata = {
   title: "نورا سكين | عناية متكاملة للبشرة المغربية",
   description:
-    "منتجات عناية بشرة مختارة بعناية للمرأة المغربية. سيروم النياسيناميد، كريم التجديد الليلي، وسيروم محيط العين. الدفع عند الاستلام.",
+    "منتجات عناية بشرة مختارة بعناية للمرأة المغربية. سيروم النياسيناميد، كريم التجديد الليلي، وسيروم محيط العين. الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.",
   openGraph: {
     title: "نورا سكين | NURA SKIN",
     description: "عناية بشرة مدروسة للمرأة المغربية",
@@ -34,10 +33,13 @@ export default function HomePage() {
   return (
     <>
       <section className="relative overflow-hidden bg-[linear-gradient(135deg,#FDFAF6_0%,#FDF5F7_55%,#FAF0F2_100%)]">
-        <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-white/60 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-rose-soft/25 blur-3xl" />
+        <div className="premium-ambient absolute inset-0 opacity-80" aria-hidden />
+        <div className="premium-glow premium-glow-a absolute -top-24 -left-24 h-72 w-72 rounded-full bg-white/60 blur-3xl" />
+        <div className="premium-glow premium-glow-b absolute bottom-0 right-0 h-72 w-72 rounded-full bg-rose-soft/25 blur-3xl" />
+        <div className="absolute left-[16%] top-[24%] h-2 w-2 rounded-full bg-[#D7B9A8]/35 premium-particle" aria-hidden />
+        <div className="absolute right-[11%] top-[18%] h-3 w-3 rounded-full bg-white/50 premium-particle premium-particle-delay" aria-hidden />
         <div className="container-wide relative grid items-center gap-10 py-14 md:grid-cols-2 md:py-24">
-          <div className="text-center md:text-right">
+          <div className="animate-premium-rise text-center md:text-right">
             <p className="mb-5 text-xs font-bold uppercase tracking-[0.22em] text-rose-mid">NURA SKIN — نورا سكين</p>
             <h1 className="text-4xl font-bold leading-tight text-[#3A222C] md:text-6xl">
               روتين عناية ناعم لبشرة أكثر توازنًا وإشراقًا
@@ -56,7 +58,7 @@ export default function HomePage() {
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               {[
                 { icon: ShieldCheck, text: "الدفع عند الاستلام" },
-                { icon: Truck, text: "توصيل داخل المغرب" },
+                { icon: Truck, text: "توصيل مجاني لجميع أنحاء المغرب" },
                 { icon: FlaskConical, text: "تركيبات مختارة بعناية" },
               ].map((item) => {
                 const Icon = item.icon;
@@ -70,15 +72,15 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-md">
-            <div className="rounded-[2.5rem] border border-white/80 bg-white/60 p-4 shadow-rose-lg backdrop-blur">
-              <div className="flex aspect-[4/5] items-center justify-center rounded-[2rem] bg-[linear-gradient(145deg,#FDF5F7,#F7F2EC)]">
+          <div className="premium-float relative mx-auto w-full max-w-md">
+            <div className="rounded-[2.5rem] border border-white/80 bg-white/70 p-4 shadow-rose-lg backdrop-blur">
+              <div className="flex aspect-[4/5] items-center justify-center overflow-hidden rounded-[2rem] bg-[radial-gradient(circle_at_50%_42%,rgba(244,216,182,0.58),rgba(250,247,244,0.94)_38%,rgba(227,226,222,0.82)_100%)] px-7">
                 <div className="text-center">
-                  <div className="mx-auto mb-5 flex h-28 w-28 items-center justify-center rounded-full bg-white shadow-rose-sm">
-                    <span className="font-display text-5xl italic text-rose-deep">N</span>
+                  <div className="mx-auto mb-5 flex h-28 w-28 items-center justify-center rounded-full bg-white/88 shadow-rose-sm">
+                    <span className="h-12 w-12 rounded-full border border-rose-deep/30 bg-rose-blush/50" aria-hidden />
                   </div>
-                  <p className="font-bold text-[#3A222C]">Nura Skin Routine</p>
-                  <p className="mt-1 text-xs uppercase tracking-[0.2em] text-rose-mid">NURA SKIN</p>
+                  <p className="font-bold text-[#3A222C]">روتين نورا سكين</p>
+                  <p className="mt-1 text-xs text-rose-mid">ثلاث خطوات يومية</p>
                 </div>
               </div>
             </div>
@@ -93,14 +95,20 @@ export default function HomePage() {
       <section className="bg-white py-16 md:py-20">
         <div className="container-wide grid gap-8 md:grid-cols-3">
           {[
-            { icon: Sparkles, title: "روتين بسيط", text: "منتجات أساسية يمكن إدخالها بسهولة في عنايتك اليومية دون خطوات معقدة." },
-            { icon: BadgeCheck, title: "تركيبات مختارة", text: "مكونات معروفة في عالم العناية بالبشرة، مقدمة بطريقة شفافة ومفهومة." },
-            { icon: PackageCheck, title: "تجربة موثوقة", text: "دفع عند الاستلام، تأكيد هاتفي، وتوصيل داخل المغرب." },
-          ].map((item) => {
+            { icon: FlaskConical, title: "تركيبات مختارة بعناية", text: "مكونات مدروسة بعناية لتناسب احتياجات بشرتك اليومية." },
+            { icon: Sparkles, title: "روتين بسيط وفعّال", text: "عناية يومية واضحة تساعدك على الحفاظ على توازن البشرة وإشراقتها." },
+            { icon: Droplets, title: "عناية تناسب البشرة في المغرب", text: "تركيبات مصممة لتلائم احتياجات البشرة مع طبيعة المناخ المغربي." },
+          ].map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div key={item.title} className="rounded-3xl border border-rose-soft/20 bg-ivory p-7">
-                <Icon className="mb-5 h-6 w-6 text-rose-mid" strokeWidth={1.5} />
+              <div
+                key={item.title}
+                className="animate-premium-rise group rounded-[1.75rem] border border-rose-soft/20 bg-[linear-gradient(145deg,#FFFFFF,#FDF8F8)] p-7 shadow-[0_16px_45px_rgba(61,44,50,0.045)] transition-all duration-300 hover:-translate-y-1 hover:border-rose-soft/40 hover:shadow-[0_20px_58px_rgba(142,90,104,0.10)]"
+                style={{ animationDelay: `${idx * 100}ms` }}
+              >
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-blush text-rose-deep transition-transform duration-300 group-hover:-translate-y-1">
+                  <Icon className="h-5 w-5" strokeWidth={1.25} />
+                </div>
                 <h2 className="text-xl font-bold text-[#3A222C]">{item.title}</h2>
                 <p className="mt-3 text-sm leading-7 text-[#6B5555]">{item.text}</p>
               </div>
@@ -113,7 +121,7 @@ export default function HomePage() {
         <div className="container-wide">
           <div className="mx-auto mb-12 max-w-2xl text-center">
             <p className="luxury-kicker mb-3">مشاكل يومية، حلول واضحة</p>
-            <h2 className="section-heading text-[#3A222C]">عناية تُلبّي ما تحتاجه بشرتك على حقيقته</h2>
+            <h2 className="section-heading text-[#3A222C]">عناية تفهم بشرتك… وتمنحها ما تحتاجه كل يوم</h2>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
             {[
@@ -128,7 +136,7 @@ export default function HomePage() {
                   <h3 className="text-xl font-bold text-[#3A222C]">{card.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-[#6B5555]">{card.text}</p>
                   <Link href={`/products/${card.product.slug}`} className="mt-5 inline-flex font-bold text-rose-deep hover:underline">
-                    {card.product.name_en}
+                    {card.product.name_ar}
                   </Link>
                 </div>
               );
@@ -145,38 +153,57 @@ export default function HomePage() {
           </div>
           <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
             {PRODUCTS.map((product, idx) => (
-              <ProductCard key={product.slug} product={product} showBadge={idx === 0} badge="الأكثر اختيارًا" />
+              <div key={product.slug} className="animate-premium-rise" style={{ animationDelay: `${idx * 90}ms` }}>
+                <ProductCard product={product} showBadge={idx === 0} badge="الأكثر اختيارًا" />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       <section className="bg-rose-blush py-16 md:py-20">
-        <div className="container-wide grid items-center gap-8 md:grid-cols-[1.05fr_0.95fr]">
-          <div>
+        <div className="container-wide grid items-center gap-8 md:grid-cols-[0.95fr_1.05fr]">
+          <div className="order-2 md:order-1">
             <p className="luxury-kicker mb-3">روتين متكامل</p>
             <h2 className="section-heading text-[#3A222C]">روتين متكامل لبشرة أكثر توازنًا وإشراقًا</h2>
             <p className="mt-4 max-w-xl text-sm leading-7 text-[#6B5555]">
               اجمعي سيروم التوازن، كريم الليل، وسيروم محيط العين في نظام واحد يدعم العناية اليومية والليلية.
             </p>
-          </div>
-          <div className="rounded-[2rem] border border-white/70 bg-white p-6 shadow-rose-sm">
-            <div className="space-y-3">
+            <div className="mt-7 space-y-3">
               {["العناية الصباحية", "العناية الليلية", "عناية محيط العين"].map((step, idx) => (
-                <div key={step} className="flex items-center gap-3 rounded-2xl bg-ivory p-4">
+                <div key={step} className="flex items-center gap-3 rounded-2xl border border-white/70 bg-white/70 p-4 shadow-ivory-sm">
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-rose-light text-xs font-bold text-rose-deep">0{idx + 1}</span>
                   <span className="font-semibold text-[#3A222C]">{step}</span>
                 </div>
               ))}
             </div>
-            <div className="mt-5 flex items-center justify-between border-t border-border pt-5">
+            <div className="mt-6 flex flex-col gap-4 border-t border-white/70 pt-5 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm text-[#9B8A8A]">{routineBundle.name_ar}</p>
                 <p className="text-2xl font-bold text-rose-deep">{routineBundle.price} درهم</p>
               </div>
-              <Link href="/products" className="rounded-full bg-rose-deep px-5 py-3 text-sm font-bold text-white">
-                اختاري الروتين
+              <Link href="/products" className="rounded-full bg-rose-deep px-6 py-3 text-center text-sm font-bold text-white shadow-rose-md transition hover:bg-[#774956]">
+                اكتشفي الروتين الكامل
               </Link>
+            </div>
+          </div>
+          <div className="order-1 md:order-2">
+            <div className="premium-float rounded-[2rem] border border-white/75 bg-[linear-gradient(145deg,#FFFDFC,#F7E8ED_54%,#F6F0E8)] p-4 shadow-rose-lg">
+              <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.6rem] border border-white/80 bg-white/50">
+                <div className="absolute inset-x-8 bottom-8 h-16 rounded-full bg-rose-soft/25 blur-2xl" aria-hidden />
+                <div className="grid grid-cols-3 items-end gap-3">
+                  {["h-36", "h-44", "h-32"].map((height, idx) => (
+                    <div key={height} className={`${height} w-16 rounded-[1.3rem] border border-rose-soft/35 bg-white/80 shadow-ivory-sm md:w-20`}>
+                      <div className="mx-auto mt-5 h-10 w-10 rounded-full border border-rose-deep/20 bg-rose-blush/50" />
+                      <div className="mx-auto mt-5 h-2 w-8 rounded-full bg-rose-soft/35" />
+                      <div className="mx-auto mt-2 h-2 w-10 rounded-full bg-rose-soft/25" />
+                    </div>
+                  ))}
+                </div>
+                <span className="absolute bottom-4 rounded-full border border-white/90 bg-white/75 px-4 py-2 text-xs font-semibold text-rose-deep shadow-ivory-sm">
+                  صورة الروتين الكامل
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -193,11 +220,11 @@ export default function HomePage() {
           <div className="grid gap-5 md:grid-cols-3">
             {[
               ["مريم، الدار البيضاء", "أحببت أن المنتجات خفيفة وسهلة داخل الروتين. شعرت أن بشرتي تبدو أكثر توازنًا مع الاستعمال."],
-              ["هدى، الرباط", "التجربة أنيقة من أول طلب. التوصيل كان واضحًا، والمنتجات تبدو راقية على البشرة."],
+              ["هدى، الرباط", "التجربة أنيقة من أول طلب. الدفع عند الاستلام والتوصيل المجاني جعلا الطلب مريحًا وواضحًا."],
               ["ليلى، طنجة", "سيروم محيط العين أصبح خطوة يومية عندي. ملمسه خفيف ومناسب قبل المكياج."],
             ].map(([name, text]) => (
               <div key={name} className="rounded-3xl border border-rose-soft/20 bg-white p-6 shadow-rose-sm">
-                <div className="mb-4 flex gap-1 text-gold">{"★★★★★"}</div>
+                <div className="mb-4 flex gap-1 text-[#C8A24A] drop-shadow-[0_1px_0_rgba(61,44,50,0.10)]" aria-label="5 نجوم">{"★★★★★"}</div>
                 <p className="text-sm leading-7 text-[#6B5555]">"{text}"</p>
                 <p className="mt-5 font-bold text-[#3A222C]">{name}</p>
               </div>
@@ -206,29 +233,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-white py-16 md:py-20">
-        <div className="container-wide grid gap-5 md:grid-cols-3">
-          {[
-            "تركيبات مختارة بعناية",
-            "مناسبة لاحتياجات البشرة في المغرب",
-            "روتين بسيط وواضح",
-            "الدفع عند الاستلام",
-            "مصادر مكونات تركّز على الجودة",
-            "تثقيف شفاف حول طريقة الاستخدام",
-          ].map((item) => (
-            <div key={item} className="rounded-3xl border border-rose-soft/20 bg-ivory p-6">
-              <BadgeCheck className="mb-4 h-5 w-5 text-rose-mid" strokeWidth={1.5} />
-              <p className="font-bold text-[#3A222C]">{item}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       <section className="px-4 py-16">
         <div className="container-wide rounded-[2rem] bg-rose-blush p-8 text-center md:p-12">
           <h2 className="text-3xl font-bold text-[#3A222C]">ابدئي روتين نورا سكين اليوم</h2>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#6B5555]">
-            عناية ناعمة، تجربة موثوقة، ودفع عند الاستلام داخل المغرب.
+            عناية ناعمة، تجربة موثوقة، الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.
           </p>
           <Link href="/products" className="mt-7 inline-flex rounded-full bg-rose-deep px-8 py-4 font-bold text-white shadow-rose-md">
             تسوقي المنتجات

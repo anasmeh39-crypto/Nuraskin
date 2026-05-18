@@ -48,7 +48,7 @@ export function ProductGallery({ productName }: Props) {
             {/* Premium placeholder */}
             <div className="w-32 h-32 rounded-full bg-white/60 backdrop-blur-sm flex items-center justify-center shadow-rose-sm">
               <div className="w-20 h-20 rounded-full border-2 border-rose-soft/60 flex items-center justify-center">
-                <span className="font-display text-rose-deep text-3xl font-semibold italic">N</span>
+                <Droplets className="h-9 w-9 text-rose-deep/70" strokeWidth={1.25} />
               </div>
             </div>
             <div className="text-center">
@@ -101,7 +101,7 @@ export function ProductGallery({ productName }: Props) {
             }`}
           >
             <div className={`w-full h-full bg-gradient-to-br ${slot.bg} flex items-center justify-center`}>
-              <span className="font-display text-rose-deep text-xs font-semibold italic">N</span>
+              <Sparkles className="h-4 w-4 text-rose-deep/60" strokeWidth={1.4} />
             </div>
           </button>
         ))}
@@ -119,7 +119,7 @@ export function ProductGallery({ productName }: Props) {
         </span>
         <span className="inline-flex items-center gap-1 rounded-full border border-brand-deep/10 bg-white px-2.5 py-1 text-[10px] font-semibold text-brand-deep shadow-sm">
           <ShieldCheck className="h-3 w-3 shrink-0 text-gold" strokeWidth={1.5} aria-hidden />
-          الدفع عند الإستلام
+          الدفع عند الاستلام
         </span>
       </div>
     </div>

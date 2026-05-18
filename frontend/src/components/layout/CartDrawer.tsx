@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/store/cart";
-import { SHIPPING_THRESHOLD, SHIPPING_COST, PRODUCTS_MAP } from "@/config/products";
+import { PRODUCTS_MAP } from "@/config/products";
 import { BRAND_ASSETS } from "@/config/brand";
 import { generateEventId, trackInitiateCheckout, trackAddToCart } from "@/lib/tracking";
 
@@ -25,9 +25,7 @@ export function CartDrawer() {
   const total = getTotal();
   const shipping = getShipping();
   const grandTotal = getGrandTotal();
-  const shippingRemaining = Math.max(0, SHIPPING_THRESHOLD - total);
-  const freeShipping = shippingRemaining === 0;
-  const shippingPct = Math.min(100, (total / SHIPPING_THRESHOLD) * 100);
+  const freeShipping = shipping === 0;
 
   const inCartSlugs = new Set(items.map((i) => i.slug));
   const crossSells = Object.values(PRODUCTS_MAP).filter((p) => !inCartSlugs.has(p.slug));
@@ -81,9 +79,20 @@ export function CartDrawer() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-              <div className="flex flex-col items-center gap-1">
-                <Link href="/" className="dir-ltr opacity-90 hover:opacity-100" dir="ltr" onClick={closeDrawer}>
-                  <img src={BRAND_ASSETS.icon} alt="" width={36} height={36} className="h-9 w-9" />
+              <div className="flex flex-col items-center gap-1.5">
+                <Link
+                  href="/"
+                  className="dir-ltr transition-opacity hover:opacity-90"
+                  dir="ltr"
+                  onClick={closeDrawer}
+                >
+                  <img
+                    src={BRAND_ASSETS.horizontal}
+                    alt="NURA SKIN نورا سكين"
+                    width={710}
+                    height={210}
+                    className="h-8 w-auto max-w-[150px] object-contain mix-blend-multiply"
+                  />
                 </Link>
                 <p className="text-sm font-bold text-nura-plum">سلّة التسوق</p>
                 <p className="text-[11px] text-nura-muted">{items.length} منتج</p>
@@ -91,28 +100,12 @@ export function CartDrawer() {
               <div className="w-9" aria-hidden />
             </div>
 
-            {/* Free shipping progress */}
-            {!freeShipping && (
-              <div className="px-6 py-3 bg-rose-blush border-b border-rose-soft/20">
-                <div className="flex justify-between text-xs text-rose-deep mb-1.5 font-medium">
-                  <span>أضيفي {shippingRemaining} درهم للشحن المجاني</span>
-                  <span>{Math.round(shippingPct)}%</span>
-                </div>
-                <div className="h-1.5 rounded-full bg-rose-light overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${shippingPct}%` }}
-                    className="h-full rounded-full bg-rose-deep"
-                  />
-                </div>
-              </div>
-            )}
-            {freeShipping && (
+            {items.length > 0 && (
               <div className="flex items-center gap-2 border-b border-nura-champagne/25 bg-nura-champagne-light/50 px-6 py-3">
                 <svg className="h-4 w-4 shrink-0 text-nura-rose-deep" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
-                <p className="text-xs font-semibold text-nura-plum">أصبح الشحن مجانيًا لطلبك</p>
+                <p className="text-xs font-semibold text-nura-plum">توصيل مجاني لجميع أنحاء المغرب</p>
               </div>
             )}
 
@@ -120,10 +113,14 @@ export function CartDrawer() {
             <div className="flex-1 overflow-y-auto">
               {items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center px-8 py-16">
-                  <div className="w-16 h-16 rounded-full bg-rose-blush flex items-center justify-center mb-4">
-                    <svg className="w-7 h-7 text-rose-soft" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
-                    </svg>
+                  <div className="mb-5 flex h-20 w-20 items-center justify-center">
+                    <img
+                      src={BRAND_ASSETS.icon}
+                      alt=""
+                      width={440}
+                      height={440}
+                      className="h-16 w-16 object-contain mix-blend-multiply"
+                    />
                   </div>
                   <p className="font-bold text-[#2C1810] mb-2">السلة فارغة</p>
                   <p className="text-sm text-[#9B8A8A]">ابدأي باختيار منتجاتك المفضلة</p>
@@ -142,7 +139,7 @@ export function CartDrawer() {
                     >
                       {/* Image placeholder */}
                       <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-rose-blush to-rose-light flex items-center justify-center shrink-0">
-                        <span className="font-display text-rose-deep text-xl italic">N</span>
+                        <span className="h-7 w-7 rounded-full border border-rose-deep/35 bg-white/40" aria-hidden />
                       </div>
 
                       {/* Details */}
@@ -197,7 +194,7 @@ export function CartDrawer() {
                       {crossSells.slice(0, 2).map((p) => (
                         <div key={p.slug} className="flex gap-3 items-center p-3 bg-white border border-border rounded-2xl mb-2">
                           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-blush to-rose-light flex items-center justify-center shrink-0">
-                            <span className="font-display text-rose-deep text-base italic">N</span>
+                            <span className="h-5 w-5 rounded-full border border-rose-deep/35 bg-white/40" aria-hidden />
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-xs font-semibold text-[#2C1810] line-clamp-1">{p.name_ar}</p>
@@ -242,9 +239,9 @@ export function CartDrawer() {
                     <span>{total} درهم</span>
                   </div>
                   <div className="flex justify-between text-sm text-[#6B5555]">
-                    <span>الشحن</span>
+                    <span>التوصيل</span>
                     <span className={freeShipping ? "font-semibold text-nura-rose-deep" : ""}>
-                      {freeShipping ? "مجاني" : `${shipping} درهم`}
+                      توصيل مجاني لجميع أنحاء المغرب
                     </span>
                   </div>
                   <div className="flex justify-between font-bold text-[#2C1810] text-lg border-t border-border pt-2">
@@ -266,7 +263,7 @@ export function CartDrawer() {
 
                 {/* COD note */}
                 <p className="text-center text-[10px] text-[#9B8A8A]">
-                  الدفع عند الاستلام — لا يوجد دفع مسبق
+                  الدفع عند الاستلام — توصيل مجاني لجميع أنحاء المغرب
                 </p>
               </div>
             )}

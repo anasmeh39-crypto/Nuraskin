@@ -259,6 +259,20 @@
     border-color: var(--color-rose);
     box-shadow: 0 0 0 2px rgba(212, 144, 158, 0.15);
   }
+  .premium-input {
+    border-color: rgba(222, 190, 198, 0.46);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 8px 24px rgba(61, 44, 50, 0.035);
+    transition: border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+  }
+  .premium-input:hover {
+    border-color: rgba(184, 137, 150, 0.42);
+    background-color: #fff;
+  }
+  .premium-input:focus {
+    border-color: rgba(184, 137, 150, 0.72);
+    box-shadow: 0 0 0 4px rgba(245, 232, 236, 0.8), 0 12px 30px rgba(61, 44, 50, 0.055);
+  }
   .input-field::placeholder { color: #9B8A8A; }
   .input-field.ps-10 { padding-inline-start: 2.5rem; }
   .input-field.ps-14 { padding-inline-start: 3.5rem; }
@@ -326,3 +340,60 @@
   to { opacity: 1; transform: scale(1); }
 }
 .animate-fade-scale { animation: fadeScale 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+
+@keyframes premiumRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes premiumFloat {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -10px, 0); }
+}
+@keyframes premiumGlow {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.68; }
+  50% { transform: translate3d(12px, -8px, 0) scale(1.05); opacity: 0.9; }
+}
+@keyframes premiumParticle {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.28; }
+  50% { transform: translate3d(18px, -22px, 0); opacity: 0.62; }
+}
+@keyframes premiumAmbient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-premium-rise {
+  animation: premiumRise 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.premium-float {
+  animation: premiumFloat 7s ease-in-out infinite;
+}
+.premium-glow {
+  animation: premiumGlow 10s ease-in-out infinite;
+}
+.premium-glow-b {
+  animation-delay: -4s;
+}
+.premium-particle {
+  animation: premiumParticle 9s ease-in-out infinite;
+}
+.premium-particle-delay {
+  animation-delay: -3s;
+}
+.premium-ambient {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.65), transparent 26%),
+    radial-gradient(circle at 80% 30%, rgba(245,232,236,0.56), transparent 28%),
+    linear-gradient(120deg, rgba(255,255,255,0), rgba(212,188,155,0.12), rgba(255,255,255,0));
+  background-size: 180% 180%;
+  animation: premiumAmbient 16s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-premium-rise,
+  .premium-float,
+  .premium-glow,
+  .premium-particle,
+  .premium-ambient {
+    animation: none;
+  }
+}

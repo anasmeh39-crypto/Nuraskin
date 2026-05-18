@@ -154,7 +154,7 @@ export function BundleSection() {
 
         <div className="text-center mt-10">
           <p className="text-gray-500 text-sm">
-            الدفع عند الاستلام • توصيل 2–4 أيام • إرجاع مجاني
+            الدفع عند الاستلام • توصيل مجاني لجميع أنحاء المغرب • إرجاع مجاني
           </p>
         </div>
       </div>

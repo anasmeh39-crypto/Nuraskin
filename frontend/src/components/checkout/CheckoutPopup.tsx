@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Phone, ShieldCheck, Truck } from "lucide-react";
+import { MapPin, Phone, ShieldCheck, Truck } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { BRAND_ASSETS } from "@/config/brand";
 import { createOrder } from "@/lib/api";
@@ -11,6 +11,28 @@ import { generateEventId, trackLead } from "@/lib/tracking";
 import { useRouter } from "next/navigation";
 
 const MOROCCO_PHONE_RE = /^0[67]\d{8}$/;
+const MOROCCAN_CITIES = [
+  "Casablanca",
+  "Rabat",
+  "Marrakech",
+  "Tanger",
+  "Fès",
+  "Agadir",
+  "Meknès",
+  "Oujda",
+  "Tétouan",
+  "Salé",
+  "Kénitra",
+  "Mohammedia",
+  "El Jadida",
+  "Nador",
+  "Béni Mellal",
+  "Safi",
+  "Khouribga",
+  "Settat",
+  "Essaouira",
+  "Autre ville",
+];
 
 export function CheckoutPopup() {
   const router = useRouter();
@@ -18,8 +40,12 @@ export function CheckoutPopup() {
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
   const [nameError, setNameError] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [addressError, setAddressError] = useState("");
+  const [cityError, setCityError] = useState("");
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState("");
 
@@ -44,9 +70,27 @@ export function CheckoutPopup() {
     return true;
   };
 
+  const validateAddress = (val: string): boolean => {
+    if (val.trim().length < 8) {
+      setAddressError("المرجو إدخال عنوان واضح للتوصيل");
+      return false;
+    }
+    setAddressError("");
+    return true;
+  };
+
+  const validateCity = (val: string): boolean => {
+    if (!val) {
+      setCityError("اختاري المدينة");
+      return false;
+    }
+    setCityError("");
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateName(name) || !validatePhone(phone)) return;
+    if (!validateName(name) || !validatePhone(phone) || !validateAddress(address) || !validateCity(city)) return;
     setLoading(true);
     setApiError("");
     const eventId = generateEventId();
@@ -54,6 +98,8 @@ export function CheckoutPopup() {
       const response = await createOrder({
         customer_name: name.trim(),
         customer_phone: phone.replace(/[\s-]/g, ""),
+        customer_address: address.trim(),
+        customer_city: city,
         items: items.map((i) => ({ product_slug: i.slug, quantity: i.quantity })),
         total: grandTotal,
         shipping_cost: shipping,
@@ -101,7 +147,7 @@ export function CheckoutPopup() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 20 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
-            className="fixed inset-0 md:inset-auto md:top-1/2 md:start-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-md z-50 flex flex-col bg-white md:rounded-[2rem] overflow-auto shadow-2xl"
+            className="fixed inset-0 z-50 flex max-h-dvh flex-col overflow-hidden bg-white shadow-2xl md:inset-auto md:left-1/2 md:top-1/2 md:max-h-[calc(100vh-2rem)] md:w-full md:max-w-lg md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-[2rem]"
           >
             {/* Header */}
             <div className="relative border-b border-nura-border bg-gradient-to-b from-nura-blush to-nura-cream px-6 py-6">
@@ -114,9 +160,15 @@ export function CheckoutPopup() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-              <div className="flex flex-col items-center gap-2 pe-8">
-                <Link href="/" className="dir-ltr rounded-2xl border border-white/80 bg-white/90 p-2 shadow-sm" dir="ltr">
-                  <img src={BRAND_ASSETS.icon} alt="" width={40} height={40} className="h-10 w-10" />
+              <div className="flex flex-col items-center gap-3 pe-8">
+                <Link href="/" className="dir-ltr" dir="ltr">
+                  <img
+                    src={BRAND_ASSETS.horizontal}
+                    alt="NURA SKIN نورا سكين"
+                    width={710}
+                    height={210}
+                    className="h-10 w-auto max-w-[190px] object-contain mix-blend-multiply"
+                  />
                 </Link>
                 <h2 className="text-xl font-bold text-nura-plum">تأكيد طلبك</h2>
                 <p className="text-xs text-nura-muted">خطوة واحدة للاستلام عندك</p>
@@ -124,9 +176,9 @@ export function CheckoutPopup() {
             </div>
 
             <div className="flex-1 overflow-y-auto">
-              <div className="p-6 space-y-5">
+              <div className="space-y-5 p-5 md:p-6">
                 {/* Order summary */}
-                <div className="bg-ivory rounded-2xl p-4 space-y-2">
+                <div className="space-y-2 rounded-[1.4rem] border border-rose-soft/20 bg-ivory/80 p-4 shadow-ivory-sm">
                   <p className="text-xs font-bold text-[#9B8A8A] uppercase tracking-wider mb-3">ملخص طلبك</p>
                   {items.map((item) => (
                     <div key={item.slug} className="flex justify-between text-sm">
@@ -135,9 +187,9 @@ export function CheckoutPopup() {
                     </div>
                   ))}
                   <div className="border-t border-border pt-2 flex justify-between text-sm text-[#9B8A8A]">
-                    <span>الشحن</span>
+                    <span>التوصيل</span>
                     <span className={freeShipping ? "font-semibold text-nura-rose-deep" : ""}>
-                      {freeShipping ? "مجاني" : `${shipping} درهم`}
+                      توصيل مجاني لجميع أنحاء المغرب
                     </span>
                   </div>
                   <div className="flex justify-between font-bold text-[#2C1810] text-base border-t border-border pt-2">
@@ -153,16 +205,16 @@ export function CheckoutPopup() {
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Name */}
                   <div>
-                    <label className="block text-sm font-semibold text-[#2C1810] mb-2">الاسم الكامل</label>
+                    <label className="mb-2 block text-sm font-bold text-nura-plum">الاسم الكامل</label>
                     <input
                       type="text"
                       value={name}
                       onChange={(e) => { setName(e.target.value); if (nameError) validateName(e.target.value); }}
                       placeholder="مثال: ياسمين المنصوري"
-                      className="input-field"
+                      className="input-field premium-input"
                       required
                       autoComplete="name"
                     />
@@ -171,15 +223,15 @@ export function CheckoutPopup() {
 
                   {/* Phone */}
                   <div>
-                    <label className="block text-sm font-semibold text-[#2C1810] mb-2">رقم الهاتف</label>
+                    <label className="mb-2 block text-sm font-bold text-nura-plum">رقم الهاتف</label>
                     <div className="relative">
-                      <span className="absolute start-4 top-1/2 -translate-y-1/2 text-sm text-[#9B8A8A] font-sans">+212</span>
+                      <span className="absolute start-4 top-1/2 -translate-y-1/2 font-sans text-sm text-[#9B8A8A]">+212</span>
                       <input
                         type="tel"
                         value={phone}
                         onChange={(e) => { setPhone(e.target.value); if (phoneError) validatePhone(e.target.value); }}
-                        placeholder="06XXXXXXXX"
-                        className="input-field ps-14"
+                        placeholder="06 12 34 56 78"
+                        className="input-field premium-input ps-14"
                         required
                         autoComplete="tel"
                         maxLength={10}
@@ -191,11 +243,46 @@ export function CheckoutPopup() {
                     <p className="text-xs text-[#9B8A8A] mt-1">رقم مغربي يبدأ بـ 06 أو 07</p>
                   </div>
 
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label className="mb-2 block text-sm font-bold text-nura-plum">المدينة</label>
+                      <div className="relative">
+                        <select
+                          value={city}
+                          onChange={(e) => { setCity(e.target.value); if (cityError) validateCity(e.target.value); }}
+                          className="input-field premium-input appearance-none pe-10"
+                          required
+                        >
+                          <option value="">اختاري المدينة</option>
+                          {MOROCCAN_CITIES.map((cityName) => (
+                            <option key={cityName} value={cityName}>{cityName}</option>
+                          ))}
+                        </select>
+                        <MapPin className="pointer-events-none absolute end-4 top-1/2 h-4 w-4 -translate-y-1/2 text-rose-mid" strokeWidth={1.5} />
+                      </div>
+                      {cityError && <p className="mt-1 text-xs text-red-500">{cityError}</p>}
+                    </div>
+
+                    <div className="sm:col-span-2">
+                      <label className="mb-2 block text-sm font-bold text-nura-plum">العنوان الكامل</label>
+                      <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => { setAddress(e.target.value); if (addressError) validateAddress(e.target.value); }}
+                        placeholder="مثال: شارع محمد الخامس، رقم 12"
+                        className="input-field premium-input"
+                        required
+                        autoComplete="street-address"
+                      />
+                      {addressError && <p className="mt-1 text-xs text-red-500">{addressError}</p>}
+                    </div>
+                  </div>
+
                   {/* COD reassurance */}
-                  <div className="bg-rose-blush border border-rose-soft/30 rounded-2xl p-4 space-y-3">
+                  <div className="space-y-3 rounded-[1.35rem] border border-rose-soft/25 bg-rose-blush/70 p-4">
                     {[
-                      { icon: ShieldCheck, text: "الدفع عند الاستلام — لا يوجد دفع مسبق" },
-                      { icon: Truck, text: "توصيل خلال 2–4 أيام داخل المغرب" },
+                      { icon: ShieldCheck, text: "الدفع عند الاستلام" },
+                      { icon: Truck, text: "توصيل مجاني لجميع أنحاء المغرب" },
                       { icon: Phone, text: "سنتصل بك لتأكيد الطلب قبل الإرسال" },
                     ].map((item, i) => {
                       const Icon = item.icon;
@@ -215,10 +302,12 @@ export function CheckoutPopup() {
                   )}
 
                   {/* Submit */}
-                  <button
+                  <motion.button
                     type="submit"
                     disabled={loading}
-                    className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-nura-plum text-base font-bold text-white shadow-luxury transition-all hover:bg-nura-rose-deep active:scale-[0.98] disabled:opacity-60"
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.985 }}
+                    className="flex h-14 w-full items-center justify-center gap-2 rounded-[1.25rem] bg-nura-plum text-base font-bold text-white shadow-[0_18px_38px_rgba(61,44,50,0.18)] transition-colors hover:bg-nura-rose-deep disabled:opacity-60"
                   >
                     {loading ? (
                       <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
@@ -233,7 +322,7 @@ export function CheckoutPopup() {
                         </svg>
                       </>
                     )}
-                  </button>
+                  </motion.button>
 
                   <p className="text-center text-[10px] text-[#9B8A8A]">
                     بالضغط، توافقين على{" "}

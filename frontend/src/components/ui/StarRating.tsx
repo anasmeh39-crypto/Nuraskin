@@ -6,13 +6,13 @@ interface StarRatingProps {
 }
 
 export function StarRating({ rating, size = "sm" }: StarRatingProps) {
-  const sizeClass = size === "sm" ? "w-3.5 h-3.5" : "w-5 h-5";
+  const sizeClass = size === "sm" ? "h-4 w-4" : "h-5 w-5";
   return (
-    <div className="flex gap-0.5" aria-label={`${rating} نجوم من 5`}>
+    <div className="flex items-center gap-1" aria-label={`${rating} نجوم من 5`}>
       {[1, 2, 3, 4, 5].map((star) => (
         <svg
           key={star}
-          className={`${sizeClass} ${star <= rating ? "text-gold" : "text-gray-200"}`}
+          className={`${sizeClass} drop-shadow-[0_1px_0_rgba(61,44,50,0.10)] ${star <= rating ? "text-[#C8A24A]" : "text-[#E6DED6]"}`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >

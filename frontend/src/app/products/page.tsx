@@ -7,7 +7,7 @@ import { ShieldCheck, Truck, FlaskConical } from "lucide-react";
 export const metadata: Metadata = {
   title: "جميع المنتجات — نورا سكين",
   description:
-    "اكتشفي مجموعة نورا سكين الكاملة: سيروم توازن وإشراقة البشرة بالنياسيناميد، كريم التجديد الليلي للبشرة، وسيروم نضارة محيط العين — الدفع عند الاستلام.",
+    "اكتشفي مجموعة نورا سكين الكاملة: سيروم توازن وإشراقة البشرة بالنياسيناميد، كريم التجديد الليلي للبشرة، وسيروم نضارة محيط العين — الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.",
   alternates: { canonical: "https://nuraskin.cc/products" },
 };
 
@@ -29,7 +29,7 @@ export default function CollectionPage() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             {[
               { icon: ShieldCheck, text: "الدفع عند الاستلام" },
-              { icon: Truck, text: "توصيل داخل المغرب" },
+              { icon: Truck, text: "توصيل مجاني لجميع أنحاء المغرب" },
               { icon: FlaskConical, text: "تركيبات مختارة بعناية" },
             ].map((item) => {
               const Icon = item.icon;

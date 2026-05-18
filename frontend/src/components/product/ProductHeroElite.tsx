@@ -14,10 +14,10 @@ import { PRODUCTS_MAP } from "@/config/products";
 interface Props { product: Product }
 
 const TRUST_ITEMS = [
-  { Icon: ShieldCheck, text: "الدفع عند الإستلام" },
-  { Icon: Truck, text: "توصيل 2–4 أيام" },
+  { Icon: ShieldCheck, text: "الدفع عند الاستلام" },
+  { Icon: Truck, text: "توصيل مجاني لجميع أنحاء المغرب" },
   { Icon: RotateCcw, text: "إرجاع مجاني 14 يوم" },
-  { Icon: PackageCheck, text: "شحن مجاني +300 درهم" },
+  { Icon: PackageCheck, text: "تأكيد قبل الإرسال" },
 ];
 
 export function ProductHeroElite({ product }: Props) {
@@ -189,7 +189,7 @@ export function ProductHeroElite({ product }: Props) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
-                <p className="text-rose-deep font-bold text-sm">الدفع عند الإستلام — بدون دفع مسبق</p>
+                <p className="text-rose-deep font-bold text-sm">الدفع عند الاستلام — توصيل مجاني لجميع أنحاء المغرب</p>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 {TRUST_ITEMS.map((t, i) => (

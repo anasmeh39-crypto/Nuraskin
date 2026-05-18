@@ -234,8 +234,8 @@ export const BUNDLES: Bundle[] = [
   },
 ];
 
-export const SHIPPING_THRESHOLD = 300;
-export const SHIPPING_COST = 30;
+export const SHIPPING_THRESHOLD = 0;
+export const SHIPPING_COST = 0;
 
 export function getProductBySlug(slug: string): Product | undefined {
   return PRODUCTS_MAP[slug];

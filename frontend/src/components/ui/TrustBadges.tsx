@@ -5,17 +5,17 @@ const badges = [
   {
     icon: Truck,
     label: "الدفع عند الاستلام",
-    sublabel: "لا يوجد دفع مسبق",
+    sublabel: "تدفعين عند وصول الطلب",
   },
   {
     icon: PackageCheck,
     label: "تجربة موثوقة",
-    sublabel: "تغليف أنيق وتوصيل آمن",
+    sublabel: "تغليف أنيق وتأكيد هاتفي",
   },
   {
     icon: ShieldCheck,
-    label: "توصيل سريع",
-    sublabel: "داخل المغرب خلال 2–4 أيام",
+    label: "توصيل مجاني لجميع أنحاء المغرب",
+    sublabel: "بدون رسوم توصيل إضافية",
   },
   {
     icon: Headphones,

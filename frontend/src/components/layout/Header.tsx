@@ -66,10 +66,10 @@ export function Header() {
               <img
                 src={BRAND_ASSETS.horizontal}
                 alt="NURA SKIN نورا سكين"
-                width={268}
-                height={52}
+                width={1420}
+                height={420}
                 fetchPriority="high"
-                className="h-9 w-auto max-w-[min(72vw,268px)] md:h-10 lg:h-11"
+                className="h-8 w-auto max-w-[min(58vw,238px)] object-contain mix-blend-multiply md:h-9 lg:h-10"
               />
             </Link>
 
@@ -137,9 +137,9 @@ export function Header() {
                   <img
                     src={BRAND_ASSETS.horizontal}
                     alt=""
-                    width={220}
-                    height={44}
-                    className="h-8 w-auto opacity-95"
+                    width={1420}
+                    height={420}
+                    className="h-11 w-auto max-w-[220px] object-contain mix-blend-multiply"
                   />
                 </div>
                 <span className="w-10 shrink-0" aria-hidden />

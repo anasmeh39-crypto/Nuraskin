@@ -10,7 +10,6 @@ import { StarRating } from "@/components/ui/StarRating";
 import { useCartStore } from "@/store/cart";
 import { generateEventId, trackAddToCart, trackViewContent } from "@/lib/tracking";
 import { useEffect } from "react";
-import { calculateShipping } from "@/config/products";
 
 interface Props {
   product: Product;
@@ -114,14 +113,12 @@ export function ProductHeroSection({ product }: Props) {
                     {product.formattedPrice}
                   </div>
                   <div className="text-xs text-gray-400 mt-1">
-                    {calculateShipping(product.price) === 0
-                      ? "الشحن مجاني"
-                      : "الشحن 30 درهم — مجاني للطلبات 300+ درهم"}
+                    توصيل مجاني لجميع أنحاء المغرب
                   </div>
                 </div>
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-light px-3 py-1 text-sm font-semibold text-brand-deep">
                   <ShieldCheck className="h-4 w-4 text-gold" strokeWidth={1.5} aria-hidden />
-                  الدفع عند الإستلام
+                  الدفع عند الاستلام
                 </span>
               </div>
 
@@ -138,7 +135,7 @@ export function ProductHeroSection({ product }: Props) {
                 {[
                   { icon: ShieldCheck, text: "الدفع عند الاستلام" },
                   { icon: PackageCheck, text: "تغليف آمن" },
-                  { icon: Truck, text: "توصيل 2–4 أيام" },
+                  { icon: Truck, text: "توصيل مجاني لجميع أنحاء المغرب" },
                 ].map((item) => {
                   const Icon = item.icon;
                   return (

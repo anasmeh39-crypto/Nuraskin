@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle2, PhoneCall, PackageCheck, Truck } from "lucide-react";
 import { PRODUCTS } from "@/config/products";
+import { BRAND_ASSETS } from "@/config/brand";
 import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
 import { trackThankYouViewed } from "@/lib/tracking";
 
@@ -21,6 +22,15 @@ export function ThankYouContent() {
       {/* Hero */}
       <section className="bg-[linear-gradient(135deg,#3A222C,#8B4A5A)] py-16 text-center">
         <div className="container-wide max-w-xl">
+          <div className="mx-auto mb-6 inline-flex dir-ltr">
+            <img
+              src={BRAND_ASSETS.horizontal}
+              alt="NURA SKIN نورا سكين"
+              width={710}
+              height={210}
+              className="h-12 w-auto max-w-[260px] object-contain [filter:invert(1)_brightness(1.85)_grayscale(0.2)] mix-blend-screen md:h-14 md:max-w-[320px]"
+            />
+          </div>
           <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="h-10 w-10 text-gold" strokeWidth={1.4} />
           </div>
@@ -56,14 +66,14 @@ export function ThankYouContent() {
               {
                 step: "02",
                 icon: PackageCheck,
-                title: "تجهيز وشحن طلبكِ",
+                title: "تجهيز طلبكِ بعناية",
                 desc: "نقوم بتغليف المنتجات بعناية وإرسالها لتصل خلال يومين إلى 4 أيام عمل.",
               },
               {
                 step: "03",
                 icon: Truck,
                 title: "استلام الطلب والدفع",
-                desc: "تستلمين طلبك وتدفعين قيمته نقدًا للمندوب عند الاستلام، دون أي دفع مسبق.",
+                desc: "تستلمين طلبك وتدفعين قيمته نقدًا للمندوب عند الاستلام، مع توصيل مجاني لجميع أنحاء المغرب.",
               },
             ].map((s) => {
               const Icon = s.icon;
