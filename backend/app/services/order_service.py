@@ -76,7 +76,7 @@ async def create_order(
 
     order = Order(
         order_number=order_number,
-        status=OrderStatus.PENDING,
+        status=OrderStatus.PENDING.value,
         customer_name=data.customer_name,
         customer_phone=data.customer_phone,
         customer_address=data.customer_address,

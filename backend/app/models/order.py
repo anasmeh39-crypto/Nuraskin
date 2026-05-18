@@ -31,7 +31,7 @@ class Order(SQLModel, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
     order_number: str = Field(max_length=30, unique=True, index=True)
-    status: OrderStatus = Field(default=OrderStatus.PENDING)
+    status: str = Field(default=OrderStatus.PENDING.value, max_length=20)
     customer_name: str = Field(max_length=100)
     customer_phone: str = Field(max_length=15)
     customer_address: Optional[str] = Field(default=None, max_length=255)
