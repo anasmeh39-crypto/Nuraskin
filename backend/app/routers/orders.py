@@ -59,8 +59,8 @@ async def create_order(
         order_id=str(order.id),
         order_number=order.order_number,
         status=order.status,
-        total=order.total,
-        shipping_cost=order.shipping_cost,
+        total=order_service.money_to_float(order.total),
+        shipping_cost=order_service.money_to_float(order.shipping_cost),
         upsell_eligible=upsell is not None,
         upsell_product=upsell,
     )
@@ -85,7 +85,7 @@ async def accept_upsell(
 
     return AcceptUpsellResponse(
         order_number=order.order_number,
-        new_total=order.total,
+        new_total=order_service.money_to_float(order.total),
         status=order.status,
     )
 
@@ -103,14 +103,16 @@ async def get_order(
         order_number=order.order_number,
         status=order.status,
         customer_name=order.customer_name,
-        total=order.total,
-        shipping_cost=order.shipping_cost,
+        customer_address=order.customer_address,
+        customer_city=order.customer_city,
+        total=order_service.money_to_float(order.total),
+        shipping_cost=order_service.money_to_float(order.shipping_cost),
         items=[
             OrderItemOut(
                 product_slug=i.product_slug,
                 product_name=i.product_name,
                 quantity=i.quantity,
-                unit_price=i.unit_price,
+                unit_price=order_service.money_to_float(i.unit_price),
                 is_upsell=i.is_upsell,
             )
             for i in (order.items or [])

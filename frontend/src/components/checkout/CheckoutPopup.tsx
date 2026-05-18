@@ -224,14 +224,13 @@ export function CheckoutPopup() {
                   {/* Phone */}
                   <div>
                     <label className="mb-2 block text-sm font-bold text-nura-plum">رقم الهاتف</label>
-                    <div className="relative">
-                      <span className="absolute start-4 top-1/2 -translate-y-1/2 font-sans text-sm text-[#9B8A8A]">+212</span>
+                    <div>
                       <input
                         type="tel"
                         value={phone}
                         onChange={(e) => { setPhone(e.target.value); if (phoneError) validatePhone(e.target.value); }}
-                        placeholder="06 12 34 56 78"
-                        className="input-field premium-input ps-14"
+                        placeholder="06XXXXXXXX"
+                        className="input-field premium-input"
                         required
                         autoComplete="tel"
                         maxLength={10}

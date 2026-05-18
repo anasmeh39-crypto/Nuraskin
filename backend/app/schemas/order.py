@@ -14,6 +14,8 @@ class OrderItemIn(BaseModel):
 class CreateOrderRequest(BaseModel):
     customer_name: str
     customer_phone: str
+    customer_address: Optional[str] = None
+    customer_city: Optional[str] = None
     items: List[OrderItemIn]
     total: float
     shipping_cost: float = 30.0
@@ -78,6 +80,8 @@ class OrderDetailResponse(BaseModel):
     order_number: str
     status: str
     customer_name: str
+    customer_address: Optional[str] = None
+    customer_city: Optional[str] = None
     total: float
     shipping_cost: float
     items: List[OrderItemOut]

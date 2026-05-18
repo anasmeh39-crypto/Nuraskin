@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime, timezone, date
+from decimal import Decimal
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 from app.models.order import Order, OrderItem, OrderStatus
@@ -18,6 +19,10 @@ UPSELL_RULES = [
     ({"nura-night-renewal"}, "nura-balance", 25),
     ({"nura-eye-revive"}, "nura-balance", 25),
 ]
+
+
+def money_to_float(value: float | Decimal | int) -> float:
+    return float(value)
 
 
 async def generate_order_number(session: AsyncSession) -> str:
@@ -50,11 +55,12 @@ async def resolve_upsell(
         if rule_slugs == ordered_slugs:
             product = await get_product_by_slug(session, upsell_slug)
             if product:
-                discounted = round(product.price * (1 - discount_pct / 100))
+                price = money_to_float(product.price)
+                discounted = round(price * (1 - discount_pct / 100))
                 return UpsellProductOut(
                     slug=product.slug,
                     name_ar=product.name_ar,
-                    price=product.price,
+                    price=price,
                     discounted_price=discounted,
                     discount_percent=discount_pct,
                 )
@@ -72,6 +78,8 @@ async def create_order(
         status=OrderStatus.PENDING,
         customer_name=data.customer_name,
         customer_phone=data.customer_phone,
+        customer_address=data.customer_address,
+        customer_city=data.customer_city,
         total=data.total,
         shipping_cost=data.shipping_cost,
         source_url=data.source_url,
@@ -85,7 +93,7 @@ async def create_order(
     for item_in in data.items:
         product = await get_product_by_slug(session, item_in.product_slug)
         product_name = product.name_ar if product else item_in.product_slug
-        unit_price = product.price if product else 0.0
+        unit_price = money_to_float(product.price) if product else 0.0
 
         order_item = OrderItem(
             order_id=order.id,
@@ -129,7 +137,7 @@ async def accept_upsell(
     )
     session.add(upsell_item)
 
-    order.total += upsell_price
+    order.total = money_to_float(order.total) + upsell_price
     order.upsell_accepted = True
     order.updated_at = datetime.now(timezone.utc)
     session.add(order)

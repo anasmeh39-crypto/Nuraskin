@@ -34,6 +34,8 @@ class Order(SQLModel, table=True):
     status: OrderStatus = Field(default=OrderStatus.PENDING)
     customer_name: str = Field(max_length=100)
     customer_phone: str = Field(max_length=15)
+    customer_address: Optional[str] = Field(default=None, max_length=255)
+    customer_city: Optional[str] = Field(default=None, max_length=80)
     total: float = Field(ge=0)
     shipping_cost: float = Field(default=30.0, ge=0)
     source_url: Optional[str] = Field(default=None)
