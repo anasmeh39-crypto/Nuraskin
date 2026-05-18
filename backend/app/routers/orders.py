@@ -31,29 +31,35 @@ async def create_order(
     await db.commit()
     await db.refresh(order)
 
-    # Reload items for sheets sync
-    order_with_items = await order_service.get_order_by_number(db, order.order_number)
-
-    # Background: Sheets sync + server-side tracking (non-blocking)
-    asyncio.create_task(sync_order_to_sheets_safe(order_with_items))
+    # Background: Sheets sync + server-side tracking are best-effort and must
+    # never block the customer from receiving an order confirmation.
+    try:
+        order_with_items = await order_service.get_order_by_number(db, order.order_number)
+        if order_with_items:
+            asyncio.create_task(sync_order_to_sheets_safe(order_with_items))
+    except Exception:
+        logger.exception("Failed to schedule Sheets sync for order %s", order.order_number)
 
     if data.event_id:
-        tracking_event = TrackingEventRequest(
-            event_name="Purchase",
-            event_id=data.event_id,
-            event_time=int(time.time()),
-            user_data=UserDataIn(phone=data.customer_phone),
-            custom_data={
-                "value": data.total,
-                "currency": "MAD",
-                "content_ids": [item.product_slug for item in data.items],
-                "content_type": "product",
-                "order_id": order.order_number,
-            },
-            page_url=data.source_url,
-            channels=["meta", "tiktok"],
-        )
-        asyncio.create_task(send_tracking_event_safe(tracking_event))
+        try:
+            tracking_event = TrackingEventRequest(
+                event_name="Purchase",
+                event_id=data.event_id,
+                event_time=int(time.time()),
+                user_data=UserDataIn(phone=data.customer_phone),
+                custom_data={
+                    "value": data.total,
+                    "currency": "MAD",
+                    "content_ids": [item.product_slug for item in data.items],
+                    "content_type": "product",
+                    "order_id": order.order_number,
+                },
+                page_url=data.source_url,
+                channels=["meta", "tiktok"],
+            )
+            asyncio.create_task(send_tracking_event_safe(tracking_event))
+        except Exception:
+            logger.exception("Failed to schedule tracking for order %s", order.order_number)
 
     return CreateOrderResponse(
         order_id=str(order.id),

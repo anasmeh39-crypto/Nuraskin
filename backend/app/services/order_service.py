@@ -2,6 +2,7 @@ import logging
 from datetime import datetime, timezone, date
 from decimal import Decimal
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm.attributes import set_committed_value
 from sqlmodel import select
 from app.models.order import Order, OrderItem, OrderStatus
 from app.models.product import Product
@@ -156,5 +157,5 @@ async def get_order_by_number(session: AsyncSession, order_number: str) -> Order
         items_result = await session.execute(
             select(OrderItem).where(OrderItem.order_id == order.id)
         )
-        order.items = items_result.scalars().all()
+        set_committed_value(order, "items", items_result.scalars().all())
     return order
