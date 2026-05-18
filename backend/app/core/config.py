@@ -1,5 +1,5 @@
 import os
-from urllib.parse import quote_plus
+from urllib.parse import parse_qsl, quote_plus, urlencode, urlsplit, urlunsplit
 
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -49,10 +49,22 @@ class Settings(BaseSettings):
                 "DATABASE_URL is missing. In EasyPanel backend environment, set "
                 "DATABASE_URL to your PostgreSQL internal connection string."
             )
-        # EasyPanel/Postgres often exposes postgresql:// URLs, while this app uses
-        # SQLAlchemy's asyncpg driver.
-        if value.startswith("postgresql://"):
-            return value.replace("postgresql://", "postgresql+asyncpg://", 1)
+        # EasyPanel/Postgres often exposes postgres:// or postgresql:// URLs,
+        # while this app uses SQLAlchemy's asyncpg driver.
+        if value.startswith(("postgres://", "postgresql://")):
+            parsed = urlsplit(value)
+            query = [
+                (key, val)
+                for key, val in parse_qsl(parsed.query, keep_blank_values=True)
+                if key != "sslmode"
+            ]
+            return urlunsplit((
+                "postgresql+asyncpg",
+                parsed.netloc,
+                parsed.path,
+                urlencode(query),
+                parsed.fragment,
+            ))
         return value
 
     # Server
