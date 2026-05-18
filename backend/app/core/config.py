@@ -1,3 +1,4 @@
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import List
 
@@ -12,6 +13,15 @@ class Settings(BaseSettings):
 
     # Database — loaded from env only, never hardcoded
     DATABASE_URL: str
+
+    @field_validator("DATABASE_URL")
+    @classmethod
+    def normalize_database_url(cls, value: str) -> str:
+        # EasyPanel/Postgres often exposes postgresql:// URLs, while this app uses
+        # SQLAlchemy's asyncpg driver.
+        if value.startswith("postgresql://"):
+            return value.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return value
 
     # Server
     API_HOST: str = "0.0.0.0"

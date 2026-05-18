@@ -20,11 +20,13 @@
 2. Name: `nuraskin-db`
 3. Copy the internal connection string
 4. Add to backend environment: `DATABASE_URL=postgresql://...`
+   - The backend normalizes `postgresql://` to `postgresql+asyncpg://` automatically.
 
 ### 2. Backend Service
 1. Services → + New → App
 2. Source: GitHub repo (or Docker image)
 3. Build: Dockerfile at `backend/Dockerfile`
+   - If EasyPanel asks for a build context/root directory, use `backend`.
 4. Port: `8000`
 5. Domain: `api.nuraskin.cc`
 6. Environment: paste from `env/backend.env.example` with real values
@@ -33,6 +35,7 @@
 1. Services → + New → App
 2. Source: GitHub repo
 3. Build: Dockerfile at `frontend/Dockerfile`
+   - If EasyPanel asks for a build context/root directory, use `frontend`.
 4. Port: `3000`
 5. Domain: `nuraskin.cc`
 6. Environment: paste from `env/frontend.env.example` with real values
@@ -158,7 +161,8 @@ Response: 200 OK
 ```
 
 ### EasyPanel Health Check Config:
-- Path: `/health`
+- Backend path: `/health`
+- Frontend path: `/`
 - Interval: 30s
 - Timeout: 5s
 
