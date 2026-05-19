@@ -82,7 +82,7 @@ export function ProductHeroElite({ product }: Props) {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
             className="lg:sticky lg:top-24"
           >
-            <ProductGallery productName={product.name_ar} />
+            <ProductGallery productName={product.name_ar} productSlug={product.slug} />
           </motion.div>
 
           {/* ── Right: Details ── */}
