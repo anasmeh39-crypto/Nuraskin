@@ -22,7 +22,7 @@ export function Hero() {
           >
             <div className="luxury-kicker mb-6">
               <FlaskConical className="h-4 w-4 text-gold" strokeWidth={1.5} />
-              عناية علمية ناعمة للبشرة المغربية
+              عناية علمية ناعمة لبشرة أكثر توازنًا
             </div>
 
             <h1 className="mb-6 text-4xl font-bold leading-[1.18] text-brand-deep md:text-6xl lg:text-7xl">
@@ -32,7 +32,7 @@ export function Hero() {
             </h1>
 
             <p className="mx-auto mb-8 max-w-xl text-lg leading-9 text-gray-600 md:mx-0">
-              روتين مغربي فاخر من ثلاث خطوات، يجمع بين مكونات مختارة بعناية وتجربة حسية راقية لبشرة أكثر توازناً وإشراقاً يوماً بعد يوم.
+              روتين فاخر من ثلاث خطوات، يجمع بين مكونات مختارة بعناية وتجربة حسية راقية لبشرة أكثر توازناً وإشراقاً يوماً بعد يوم.
             </p>
 
             <div className="flex flex-col justify-center gap-3 sm:flex-row md:justify-start">
@@ -78,7 +78,7 @@ export function Hero() {
               <div className="absolute -inset-5 rounded-[2.5rem] bg-white/40 blur-xl" />
               <div className="relative overflow-hidden rounded-[2.5rem] border border-white/70 bg-white/60 p-3 soft-shadow">
                 <PlaceholderImage
-                  label="Nura Skin Routine"
+                  label="NURA SKIN Routine"
                   aspectRatio="portrait"
                   className="w-full rounded-[2rem]"
                 />

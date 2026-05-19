@@ -18,7 +18,7 @@ export default function CollectionPage() {
       <section className="bg-[linear-gradient(135deg,#FDFAF6,#FDF5F7)] py-16 md:py-20">
         <div className="container-wide text-center">
           <p className="text-rose-mid text-sm font-semibold tracking-wider uppercase mb-3">
-            Nura Skin Collection
+            NURA SKIN COLLECTION
           </p>
           <h1 className="text-3xl md:text-5xl font-bold text-[#3A222C] leading-tight mb-4">
             ثلاثة منتجات لروتين عناية متكامل

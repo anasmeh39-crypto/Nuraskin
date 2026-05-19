@@ -10,7 +10,7 @@ interface PlaceholderImageProps {
 }
 
 export function PlaceholderImage({
-  label = "Nura Skin",
+  label = "NURA SKIN",
   className = "",
   aspectRatio = "square",
 }: PlaceholderImageProps) {

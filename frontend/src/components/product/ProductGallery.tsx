@@ -12,7 +12,7 @@ interface GallerySlot {
 }
 
 const GALLERY_SLOTS: GallerySlot[] = [
-  { label: "Nura Skin", sublabel: "صورة المنتج", bg: "from-rose-50 to-pink-100" },
+  { label: "NURA SKIN", sublabel: "صورة المنتج", bg: "from-rose-50 to-pink-100" },
   { label: "الملمس", sublabel: "قوام خفيف", bg: "from-amber-50 to-orange-50" },
   { label: "المكونات", sublabel: "ناياسيناميد", bg: "from-green-50 to-emerald-50" },
   { label: "الاستخدام", sublabel: "أسلوب الحياة", bg: "from-purple-50 to-pink-50" },
@@ -115,7 +115,7 @@ export function ProductGallery({ productName }: Props) {
         </span>
         <span className="inline-flex items-center gap-1 rounded-full border border-gold/25 bg-gold-light/90 px-2.5 py-1 text-[10px] font-semibold text-brand-deep">
           <Droplets className="h-3 w-3 shrink-0 text-gold" strokeWidth={1.5} aria-hidden />
-          مصمَّمة للبشرة المغربية
+          عناية يومية واضحة
         </span>
         <span className="inline-flex items-center gap-1 rounded-full border border-brand-deep/10 bg-white px-2.5 py-1 text-[10px] font-semibold text-brand-deep shadow-sm">
           <ShieldCheck className="h-3 w-3 shrink-0 text-gold" strokeWidth={1.5} aria-hidden />

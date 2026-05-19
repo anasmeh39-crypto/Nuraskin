@@ -13,7 +13,7 @@ const slides = [
   },
   {
     title: "تجديد ليلي بإحساس فاخر",
-    subtitle: "كريم ريتينول الليلي لتجديد البشرة",
+    subtitle: "كريم التجديد الليلي للبشرة",
     label: "Night renewal cream",
   },
   {

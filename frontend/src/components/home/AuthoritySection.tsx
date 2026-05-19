@@ -4,8 +4,8 @@ import { Droplets, FlaskConical, Leaf, ShieldCheck } from "lucide-react";
 const pillars = [
   {
     icon: FlaskConical,
-    title: "صياغة علمية دقيقة",
-    description: "نختار كل مكوّن بناءً على دراسات علمية مثبتة، لنضمن لكِ الفعالية والأمان المطلق.",
+    title: "اختيار مدروس للمكونات",
+    description: "نختار مكونات معروفة في عالم العناية بالبشرة ونشرح دورها بوضوح.",
   },
   {
     icon: Leaf,
@@ -15,12 +15,12 @@ const pillars = [
   {
     icon: Droplets,
     title: "لخصوصية بشرتكِ",
-    description: "تركيباتنا صُممت خصيصاً لتتلاءم مع طبيعة مناخ المغرب واحتياجات بشرتكِ اليومية.",
+    description: "نختار خطوات عملية تناسب الروتين اليومي وتساعد البشرة على الحفاظ على توازنها.",
   },
   {
     icon: ShieldCheck,
-    title: "نتائج حقيقية",
-    description: "لا نعد بالمعجزات، بل نقدم لكِ عناية مدروسة تبرز إشراقتكِ وجمالكِ بمرور الوقت.",
+    title: "توقعات واقعية",
+    description: "لا نعد بالمعجزات، بل بروتين ناعم يساعد البشرة على الانتظام بمرور الوقت.",
   },
 ];
 
@@ -32,7 +32,7 @@ export function AuthoritySection() {
           <p className="text-gold font-semibold text-sm tracking-wider uppercase mb-3">NURA SKIN</p>
           <h2 className="section-heading">لماذا نورا سكين؟</h2>
           <p className="section-subheading max-w-xl mx-auto">
-            نؤمن بأن بشرتكِ تستحق الأفضل. لذلك، نقدم لكِ عناية تتجاوز الوعود لتمنحكِ تجربة فاخرة ونتائج ملموسة.
+            نؤمن بأن العناية الجيدة تبدأ بالوضوح: مكونات مفهومة، خطوات بسيطة، وتجربة فاخرة دون مبالغة.
           </p>
         </div>
 

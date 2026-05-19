@@ -54,7 +54,7 @@ export default async function ProductPage({ params }: Props) {
     "@type": "Product",
     name: product.name_ar,
     description: product.description_ar,
-    brand: { "@type": "Brand", name: "Nura Skin" },
+    brand: { "@type": "Brand", name: "NURA SKIN" },
     offers: {
       "@type": "Offer",
       url: `https://nuraskin.cc/products/${product.slug}`,

@@ -43,7 +43,7 @@ export function ProductTestimonialsSection({ product }: Props) {
 
         <div className="mt-8 p-5 bg-brand-light rounded-3xl text-center">
           <p className="text-brand-deep text-sm font-semibold">
-            تجارب واقعية لنتائج ملموسة — تُعبّر هذه التقييمات عن تجارب حقيقية لعميلات نورا سكين.
+            انطباعات من عميلات نورا سكين حول الإحساس، الانتظام، ومظهر البشرة مع الوقت.
           </p>
         </div>
       </div>

@@ -20,7 +20,7 @@ const concerns = [
     icon: Moon,
     title: "بشرة ليلية فاقدة للحيوية",
     description: "بعد يوم طويل، تحتاج البشرة إلى لحظة تجديد ناعمة تدعم مظهرها الصحي عند الاستيقاظ.",
-    solution: "كريم ريتينول الليلي لتجديد البشرة",
+    solution: "كريم التجديد الليلي للبشرة",
     solutionSlug: "nura-night-renewal",
   },
 ];
@@ -32,7 +32,7 @@ export function MoroccanSkinSection() {
         <div className="text-center mb-12">
           <h2 className="section-heading">نصغي لاحتياجات بشرتكِ</h2>
           <p className="section-subheading max-w-xl mx-auto">
-            أدركنا التحديات اليومية التي تواجهها بشرتكِ، فصممنا حلولاً دقيقة تعيد لها توازنها وجمالها.
+            نختار خطوات عناية واضحة تساعد بشرتكِ على الحفاظ على توازنها وإشراقتها دون تعقيد.
           </p>
         </div>
 

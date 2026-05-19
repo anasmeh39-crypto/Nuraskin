@@ -24,7 +24,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm leading-relaxed text-white/72">
-              عناية بشرة مدروسة، مصنوعة للمرأة المغربية.
+              عناية بشرة مدروسة بروتين بسيط وناعم.
               <br />
               عناية ناعمة تفهم احتياجات بشرتك اليومية.
             </p>
