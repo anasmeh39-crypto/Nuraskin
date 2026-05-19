@@ -3,6 +3,10 @@ from typing import Optional
 from datetime import datetime, timezone
 
 
+def utc_now_naive() -> datetime:
+    return datetime.now(timezone.utc).replace(tzinfo=None)
+
+
 class Product(SQLModel, table=True):
     __tablename__ = "products"
 
@@ -16,6 +20,4 @@ class Product(SQLModel, table=True):
     stock: int = Field(default=999, ge=0)
     is_active: bool = Field(default=True)
     sort_order: int = Field(default=0)
-    created_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
+    created_at: datetime = Field(default_factory=utc_now_naive)

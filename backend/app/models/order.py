@@ -4,6 +4,10 @@ from datetime import datetime, timezone
 from enum import Enum
 
 
+def utc_now_naive() -> datetime:
+    return datetime.now(timezone.utc).replace(tzinfo=None)
+
+
 class OrderStatus(str, Enum):
     PENDING = "pending"
     CONFIRMED = "confirmed"
@@ -42,11 +46,7 @@ class Order(SQLModel, table=True):
     notes: Optional[str] = Field(default=None)
     event_id: Optional[str] = Field(default=None, max_length=36)
     upsell_accepted: bool = Field(default=False)
-    created_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
-    updated_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
+    created_at: datetime = Field(default_factory=utc_now_naive)
+    updated_at: datetime = Field(default_factory=utc_now_naive)
 
     items: List[OrderItem] = Relationship(back_populates="order")

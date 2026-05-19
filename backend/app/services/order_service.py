@@ -1,10 +1,10 @@
 import logging
-from datetime import datetime, timezone, date
+from datetime import date
 from decimal import Decimal
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm.attributes import set_committed_value
 from sqlmodel import select
-from app.models.order import Order, OrderItem, OrderStatus
+from app.models.order import Order, OrderItem, OrderStatus, utc_now_naive
 from app.models.product import Product
 from app.schemas.order import CreateOrderRequest, UpsellProductOut
 import asyncio
@@ -140,7 +140,7 @@ async def accept_upsell(
 
     order.total = money_to_float(order.total) + upsell_price
     order.upsell_accepted = True
-    order.updated_at = datetime.now(timezone.utc)
+    order.updated_at = utc_now_naive()
     session.add(order)
 
     logger.info(f"Upsell accepted for order {order_number}: {upsell_slug} @ {upsell_price} MAD")
