@@ -75,6 +75,26 @@ export interface CreateOrderResponse {
   upsell_product?: UpsellProduct;
 }
 
+export interface OrderItemOut {
+  product_slug: string;
+  product_name: string;
+  quantity: number;
+  unit_price: number;
+  is_upsell: boolean;
+}
+
+export interface OrderDetail {
+  order_number: string;
+  status: string;
+  customer_name: string;
+  customer_address?: string;
+  customer_city?: string;
+  total: number;
+  shipping_cost: number;
+  items: OrderItemOut[];
+  upsell_accepted: boolean;
+}
+
 export interface Bundle {
   id: string;
   name_ar: string;

@@ -1,21 +1,54 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { CheckCircle2, PhoneCall, PackageCheck, Truck } from "lucide-react";
+import { CheckCircle2, MapPin, PhoneCall, PackageCheck, ReceiptText, Truck } from "lucide-react";
 import { PRODUCTS } from "@/config/products";
 import { BRAND_ASSETS } from "@/config/brand";
 import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
+import { getOrder } from "@/lib/api";
 import { trackThankYouViewed } from "@/lib/tracking";
+import type { OrderDetail } from "@/types";
 
 export function ThankYouContent() {
   const params = useSearchParams();
   const orderNumber = params.get("order") || "";
+  const [order, setOrder] = useState<OrderDetail | null>(null);
+  const [isLoadingOrder, setIsLoadingOrder] = useState(false);
+  const [orderError, setOrderError] = useState("");
 
   useEffect(() => {
     if (orderNumber) trackThankYouViewed(orderNumber);
   }, [orderNumber]);
+
+  useEffect(() => {
+    let alive = true;
+
+    if (!orderNumber) return;
+
+    setIsLoadingOrder(true);
+    setOrderError("");
+    getOrder(orderNumber)
+      .then((data) => {
+        if (alive) setOrder(data);
+      })
+      .catch(() => {
+        if (alive) setOrderError("لم نتمكن من تحميل تفاصيل الطلب الآن، لكن تم تسجيل طلبك بنجاح.");
+      })
+      .finally(() => {
+        if (alive) setIsLoadingOrder(false);
+      });
+
+    return () => {
+      alive = false;
+    };
+  }, [orderNumber]);
+
+  const itemsSubtotal = useMemo(() => {
+    if (!order) return 0;
+    return order.items.reduce((sum, item) => sum + item.unit_price * item.quantity, 0);
+  }, [order]);
 
   return (
     <div className="min-h-screen bg-ivory">
@@ -50,6 +83,108 @@ export function ThankYouContent() {
       </section>
 
       <div className="container-wide max-w-2xl py-12 space-y-8">
+        {/* Order details */}
+        {orderNumber && (
+          <div className="overflow-hidden rounded-3xl border border-[#ECDDE1] bg-white shadow-[0_20px_60px_rgba(61,44,50,0.08)]">
+            <div className="border-b border-[#F0E4E7] bg-[#FFF9F6] px-6 py-5">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F5E8EC] text-[#8E5A68]">
+                  <ReceiptText className="h-5 w-5" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-[#3A222C]">تفاصيل طلبكِ</h2>
+                  <p className="text-sm font-semibold text-[#8D7D82]">
+                    راجعي المنتجات ومعلومات التوصيل
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6">
+              {isLoadingOrder && (
+                <div className="space-y-4">
+                  <div className="h-5 w-2/3 animate-pulse rounded-full bg-[#F5E8EC]" />
+                  <div className="h-20 animate-pulse rounded-2xl bg-[#FFF4F6]" />
+                  <div className="h-20 animate-pulse rounded-2xl bg-[#FFF4F6]" />
+                </div>
+              )}
+
+              {!isLoadingOrder && orderError && (
+                <div className="rounded-2xl border border-[#F0E4E7] bg-[#FFF9F6] p-4 text-sm font-semibold leading-7 text-[#8E5A68]">
+                  {orderError}
+                </div>
+              )}
+
+              {!isLoadingOrder && order && (
+                <div className="space-y-6">
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-2xl border border-[#F0E4E7] bg-[#FFF9F6] p-4">
+                      <p className="text-xs font-bold text-[#9D8990]">الاسم</p>
+                      <p className="mt-1 font-bold text-[#3A222C]">{order.customer_name}</p>
+                    </div>
+                    <div className="rounded-2xl border border-[#F0E4E7] bg-[#FFF9F6] p-4">
+                      <p className="text-xs font-bold text-[#9D8990]">رقم الطلب</p>
+                      <p className="mt-1 font-bold text-[#3A222C] font-sans">{order.order_number}</p>
+                    </div>
+                    {(order.customer_city || order.customer_address) && (
+                      <div className="rounded-2xl border border-[#F0E4E7] bg-[#FFF9F6] p-4 sm:col-span-2">
+                        <p className="flex items-center gap-2 text-xs font-bold text-[#9D8990]">
+                          <MapPin className="h-4 w-4" />
+                          عنوان التوصيل
+                        </p>
+                        <p className="mt-1 font-semibold leading-7 text-[#3A222C]">
+                          {[order.customer_address, order.customer_city].filter(Boolean).join("، ")}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="space-y-3">
+                    {order.items.map((item) => (
+                      <div
+                        key={`${item.product_slug}-${item.is_upsell}`}
+                        className="flex items-center justify-between gap-4 rounded-2xl border border-[#F0E4E7] bg-white p-4"
+                      >
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <p className="font-bold leading-7 text-[#3A222C]">{item.product_name}</p>
+                            {item.is_upsell && (
+                              <span className="rounded-full bg-[#F5E8EC] px-2.5 py-1 text-[11px] font-extrabold text-[#8E5A68]">
+                                إضافة للروتين
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-sm font-semibold text-[#8D7D82]">
+                            الكمية: {item.quantity}
+                          </p>
+                        </div>
+                        <p className="shrink-0 text-sm font-black text-[#3A222C]">
+                          {item.unit_price * item.quantity} درهم
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="space-y-2 rounded-2xl bg-[#FFF9F6] p-4">
+                    <div className="flex items-center justify-between text-sm font-semibold text-[#6B4E56]">
+                      <span>مجموع المنتجات</span>
+                      <span>{itemsSubtotal} درهم</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm font-semibold text-[#6B4E56]">
+                      <span>التوصيل</span>
+                      <span>{order.shipping_cost === 0 ? "مجاني" : `${order.shipping_cost} درهم`}</span>
+                    </div>
+                    <div className="flex items-center justify-between border-t border-[#ECDDE1] pt-3 text-lg font-black text-[#3A222C]">
+                      <span>الإجمالي عند الاستلام</span>
+                      <span>{order.total} درهم</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* What happens next */}
         <div className="bg-white rounded-3xl border border-rose-soft/20 p-6 shadow-rose-sm">
           <h2 className="text-xl font-bold text-[#3A222C] mb-5">

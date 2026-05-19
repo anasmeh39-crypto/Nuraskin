@@ -1,6 +1,7 @@
 import {
   CreateOrderRequest,
   CreateOrderResponse,
+  OrderDetail,
 } from "@/types";
 
 const API_URL = "/api";
@@ -48,8 +49,8 @@ export async function acceptUpsell(
   });
 }
 
-export async function getOrder(orderNumber: string) {
-  return apiFetch(`/orders/${orderNumber}`);
+export async function getOrder(orderNumber: string): Promise<OrderDetail> {
+  return apiFetch<OrderDetail>(`/orders/${orderNumber}`);
 }
 
 export async function sendServerEvent(eventData: {
