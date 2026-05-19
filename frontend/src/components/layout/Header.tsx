@@ -9,6 +9,7 @@ import { BRAND_ASSETS } from "@/config/brand";
 
 const NAV_LINKS = [
   { href: "/products", label: "المنتجات" },
+  { href: "/packs", label: "الباقات" },
   { href: "/about", label: "عن نورا سكين" },
   { href: "/contact", label: "تواصلي معنا" },
 ];

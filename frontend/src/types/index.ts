@@ -35,6 +35,7 @@ export interface Review {
 }
 
 export interface CartItem {
+  cartKey?: string;
   slug: string;
   name_ar: string;
   price: number;

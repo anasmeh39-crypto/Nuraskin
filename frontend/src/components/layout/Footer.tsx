@@ -40,6 +40,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/packs" className="text-sm text-white/70 transition-colors hover:text-white">
+                  الباقات
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="text-sm text-white/70 transition-colors hover:text-white">
                   عن نورا سكين
                 </Link>

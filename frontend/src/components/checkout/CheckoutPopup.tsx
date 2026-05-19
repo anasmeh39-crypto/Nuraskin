@@ -191,7 +191,7 @@ export function CheckoutPopup() {
                 <div className="space-y-2 rounded-[1.4rem] border border-rose-soft/20 bg-ivory/80 p-4 shadow-ivory-sm">
                   <p className="text-xs font-bold text-[#9B8A8A] uppercase tracking-wider mb-3">ملخص طلبك</p>
                   {items.map((item) => (
-                    <div key={item.slug} className="flex justify-between text-sm">
+                    <div key={item.cartKey || item.slug} className="flex justify-between text-sm">
                       <span className="text-[#6B5555]">
                         {item.name_ar} × {item.quantity}
                         {item.bundleName && <span className="me-1 text-[10px] font-bold text-gold">({item.bundleName})</span>}

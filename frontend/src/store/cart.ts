@@ -8,8 +8,8 @@ interface CartStore {
   isDrawerOpen: boolean;
   isCheckoutOpen: boolean;
   addItem: (item: Omit<CartItem, "quantity">) => void;
-  removeItem: (slug: string) => void;
-  updateQuantity: (slug: string, quantity: number) => void;
+  removeItem: (key: string) => void;
+  updateQuantity: (key: string, quantity: number) => void;
   clearCart: () => void;
   openDrawer: () => void;
   closeDrawer: () => void;
@@ -35,6 +35,10 @@ function normalizeCartItem(item: CartItem): CartItem {
   };
 }
 
+function getCartKey(item: Pick<CartItem, "cartKey" | "slug" | "bundleName">): string {
+  return item.cartKey || (item.bundleName ? `${item.bundleName}:${item.slug}` : item.slug);
+}
+
 export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
@@ -44,11 +48,12 @@ export const useCartStore = create<CartStore>()(
 
       addItem: (newItem) => {
         set((state) => {
-          const existing = state.items.find((i) => i.slug === newItem.slug);
+          const nextItem = { ...newItem, cartKey: getCartKey(newItem) };
+          const existing = state.items.find((i) => getCartKey(i) === nextItem.cartKey);
           if (existing) {
             return {
               items: state.items.map((i) =>
-                i.slug === newItem.slug
+                getCartKey(i) === nextItem.cartKey
                   ? { ...i, quantity: i.quantity + 1 }
                   : i
               ),
@@ -56,26 +61,26 @@ export const useCartStore = create<CartStore>()(
             };
           }
           return {
-            items: [...state.items, { ...newItem, quantity: 1 }],
+            items: [...state.items, { ...nextItem, quantity: 1 }],
             isDrawerOpen: true,
           };
         });
       },
 
-      removeItem: (slug) => {
+      removeItem: (key) => {
         set((state) => ({
-          items: state.items.filter((i) => i.slug !== slug),
+          items: state.items.filter((i) => getCartKey(i) !== key),
         }));
       },
 
-      updateQuantity: (slug, quantity) => {
+      updateQuantity: (key, quantity) => {
         if (quantity < 1) {
-          get().removeItem(slug);
+          get().removeItem(key);
           return;
         }
         set((state) => ({
           items: state.items.map((i) =>
-            i.slug === slug ? { ...i, quantity } : i
+            getCartKey(i) === key ? { ...i, quantity } : i
           ),
         }));
       },
@@ -98,12 +103,15 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: "nura-skin-cart",
-      version: 2,
+      version: 3,
       migrate: (persistedState) => {
         const state = persistedState as CartStore;
         return {
           ...state,
-          items: (state.items || []).map(normalizeCartItem),
+          items: (state.items || []).map(normalizeCartItem).map((item) => ({
+            ...item,
+            cartKey: getCartKey(item),
+          })),
         };
       },
       partialize: (state) => ({ items: state.items }),

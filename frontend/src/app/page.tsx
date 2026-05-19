@@ -11,6 +11,7 @@ import {
   Truck,
 } from "lucide-react";
 import { HomeIngredientShowcase } from "@/components/home/HomeIngredientShowcase";
+import { HomePacksSection } from "@/components/home/HomePacksSection";
 import { PRODUCTS, BUNDLES } from "@/config/products";
 import { ProductCard } from "@/components/ui/ProductCard";
 
@@ -161,6 +162,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <HomePacksSection />
 
       <section className="bg-rose-blush py-16 md:py-20">
         <div className="container-wide grid items-center gap-8 md:grid-cols-[0.95fr_1.05fr]">

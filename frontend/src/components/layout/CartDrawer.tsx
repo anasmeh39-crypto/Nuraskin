@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/store/cart";
-import { PRODUCTS_MAP } from "@/config/products";
+import { BUNDLES, PRODUCTS_MAP } from "@/config/products";
 import { BRAND_ASSETS } from "@/config/brand";
 import { generateEventId, trackInitiateCheckout, trackAddToCart } from "@/lib/tracking";
 
@@ -30,6 +30,13 @@ export function CartDrawer() {
   const inCartSlugs = new Set(items.map((i) => i.slug));
   const crossSells = Object.values(PRODUCTS_MAP).filter((p) => !inCartSlugs.has(p.slug));
   const missingRoutineProducts = Object.values(PRODUCTS_MAP).filter((p) => !inCartSlugs.has(p.slug));
+  const bundleGroups = BUNDLES.map((bundle) => {
+    const groupItems = items.filter((item) => item.bundleName === bundle.name_ar);
+    return { bundle, items: groupItems };
+  }).filter((group) => group.items.length > 0);
+  const hasPack = bundleGroups.length > 0;
+  const soloCount = items.filter((item) => !item.bundleName).length;
+  const recommendedPack = BUNDLES.find((bundle) => bundle.id === "nura-complete-ritual") ?? BUNDLES[0];
 
   const handleCheckout = () => {
     trackInitiateCheckout(grandTotal, generateEventId());
@@ -60,6 +67,42 @@ export function CartDrawer() {
       p.price,
       generateEventId()
     );
+  };
+
+  const handleAddPack = (bundleId: string) => {
+    const bundle = BUNDLES.find((item) => item.id === bundleId);
+    if (!bundle) return;
+
+    const unitPrice = Math.floor(bundle.price / bundle.products.length);
+    const remainder = bundle.price - unitPrice * bundle.products.length;
+    const cartItems = bundle.products.map((slug, index) => {
+      const product = PRODUCTS_MAP[slug];
+      const allocatedPrice = unitPrice + (index === 0 ? remainder : 0);
+      if (product) {
+        addItem({
+          cartKey: `${bundle.id}:${product.slug}`,
+          slug: product.slug,
+          name_ar: product.name_ar,
+          price: allocatedPrice,
+          image: product.image,
+          compareAtPrice: product.price,
+          bundleName: bundle.name_ar,
+          discountAmount: Math.max(product.price - allocatedPrice, 0),
+        });
+      }
+      return {
+        cartKey: `${bundle.id}:${slug}`,
+        slug,
+        name_ar: product?.name_ar || slug,
+        price: allocatedPrice,
+        image: product?.image || "",
+        quantity: 1,
+        compareAtPrice: product?.price,
+        bundleName: bundle.name_ar,
+        discountAmount: Math.max((product?.price ?? 0) - allocatedPrice, 0),
+      };
+    });
+    trackAddToCart(cartItems, bundle.price, generateEventId());
   };
 
   return (
@@ -143,9 +186,43 @@ export function CartDrawer() {
               ) : (
                 <div className="p-5 space-y-3">
                   {/* Cart items */}
-                  {items.map((item) => (
+                  {bundleGroups.map(({ bundle, items: groupItems }) => (
+                    <div key={bundle.id} className="rounded-2xl border border-gold/25 bg-white p-4 shadow-ivory-sm">
+                      <div className="mb-3 flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-sm font-bold text-rose-deep">{bundle.name_ar}</p>
+                          <p className="mt-1 text-xs text-[#6B5555]">
+                            القيمة الكاملة: <span className="line-through">{bundle.compareAtPrice * (groupItems[0]?.quantity ?? 1)} درهم</span>
+                          </p>
+                          <p className="text-xs font-bold text-emerald-700">وفّري {bundle.saving * (groupItems[0]?.quantity ?? 1)} درهم</p>
+                        </div>
+                        <div className="text-end">
+                          <p className="shrink-0 text-lg font-black text-[#2C1810]">
+                            {groupItems.reduce((sum, item) => sum + item.price * item.quantity, 0)} درهم
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => groupItems.forEach((item) => removeItem(item.cartKey || item.slug))}
+                            className="mt-1 text-[11px] font-bold text-[#9B8A8A] transition hover:text-rose-deep"
+                          >
+                            إزالة الباقة
+                          </button>
+                        </div>
+                      </div>
+                      <div className="space-y-1.5 border-t border-border/70 pt-3">
+                        {groupItems.map((item) => (
+                          <div key={item.cartKey || item.slug} className="flex items-center justify-between gap-3 text-xs text-[#6B5555]">
+                            <span>{item.name_ar} × {item.quantity}</span>
+                            <span>{item.price * item.quantity} درهم</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+
+                  {items.filter((item) => !item.bundleName).map((item) => (
                     <motion.div
-                      key={item.slug}
+                      key={item.cartKey || item.slug}
                       layout
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -177,7 +254,7 @@ export function CartDrawer() {
                         {/* Qty */}
                         <div className="flex items-center gap-2 mt-2">
                           <button
-                            onClick={() => updateQuantity(item.slug, item.quantity - 1)}
+                            onClick={() => updateQuantity(item.cartKey || item.slug, item.quantity - 1)}
                             className="w-7 h-7 rounded-full bg-white border border-border flex items-center justify-center hover:border-rose-soft transition-colors"
                           >
                             <svg className="w-3 h-3 text-[#2C1810]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -186,7 +263,7 @@ export function CartDrawer() {
                           </button>
                           <span className="text-sm font-bold text-[#2C1810] w-4 text-center">{item.quantity}</span>
                           <button
-                            onClick={() => updateQuantity(item.slug, item.quantity + 1)}
+                            onClick={() => updateQuantity(item.cartKey || item.slug, item.quantity + 1)}
                             className="w-7 h-7 rounded-full bg-white border border-border flex items-center justify-center hover:border-rose-soft transition-colors"
                           >
                             <svg className="w-3 h-3 text-[#2C1810]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -198,7 +275,7 @@ export function CartDrawer() {
 
                       {/* Delete */}
                       <button
-                        onClick={() => removeItem(item.slug)}
+                        onClick={() => removeItem(item.cartKey || item.slug)}
                         className="self-start w-6 h-6 rounded-full flex items-center justify-center text-[#9B8A8A] hover:text-rose-deep hover:bg-rose-blush transition-colors"
                       >
                         <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -235,7 +312,29 @@ export function CartDrawer() {
                     </div>
                   )}
 
-                  {missingRoutineProducts.length > 1 && (
+                  {!hasPack && soloCount > 0 && recommendedPack && (
+                    <div className="rounded-2xl border border-gold/25 bg-white p-4 shadow-ivory-sm">
+                      <p className="text-sm font-bold text-rose-deep">كمّلي روتينك مع باقة Nura Skin</p>
+                      <p className="mt-1 text-xs leading-5 text-[#6B5555]">
+                        {recommendedPack.name_ar} تجمع المنتجات الأساسية بسعر أوضح وقيمة أعلى.
+                      </p>
+                      <div className="mt-3 flex items-end justify-between gap-3">
+                        <div className="text-xs text-[#6B5555]">
+                          <p>القيمة الكاملة: <span className="line-through">{recommendedPack.compareAtPrice} درهم</span></p>
+                          <p className="font-bold text-emerald-700">وفّري {recommendedPack.saving} درهم</p>
+                        </div>
+                        <p className="text-lg font-black text-[#2C1810]">{recommendedPack.price} درهم</p>
+                      </div>
+                      <button
+                        onClick={() => handleAddPack(recommendedPack.id)}
+                        className="mt-3 w-full rounded-full bg-white px-4 py-2 text-xs font-bold text-rose-deep ring-1 ring-rose-soft/40 transition hover:bg-ivory"
+                      >
+                        أضيفي الباقة للسلة
+                      </button>
+                    </div>
+                  )}
+
+                  {missingRoutineProducts.length > 1 && !hasPack && (
                     <div className="rounded-2xl border border-rose-soft/30 bg-rose-blush p-4">
                       <p className="text-sm font-bold text-rose-deep">ترقية الروتين الكامل</p>
                       <p className="mt-1 text-xs leading-5 text-[#6B5555]">
