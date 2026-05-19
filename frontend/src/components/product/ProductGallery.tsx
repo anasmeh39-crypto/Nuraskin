@@ -33,6 +33,8 @@ export function ProductGallery({ productName, productSlug }: Props) {
       GALLERY_SLOTS.map((slot, index) =>
         productSlug === "nura-balance" && index === 0
           ? { ...slot, image: "/images/nura-balance-gallery-1.png" }
+          : productSlug === "nura-balance" && index === 1
+          ? { ...slot, image: "/images/nura-balance-gallery-2.png" }
           : slot
       ),
     [productSlug]
