@@ -140,7 +140,7 @@ export function UpsellContent() {
             روتين متكامل
           </motion.div>
           <h1 className="text-2xl font-black leading-tight text-[#3D2C32] sm:text-3xl">
-            {isSpfPriority ? "أكملي روتينك بخطوة الحماية اليومية" : "✨ خصم خاص لإكمال روتينك اليوم"}
+            أكملي روتينك بخطوة إضافية بسعر خاص
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-sm font-semibold leading-7 text-[#6B4E56] sm:text-base">
             {isSpfPriority

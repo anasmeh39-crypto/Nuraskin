@@ -6,6 +6,8 @@ export interface Product {
   description_ar: string;
   price: number;
   formattedPrice: string;
+  compareAtPrice: number;
+  formattedCompareAtPrice: string;
   image: string;
   heroIngredient: string;
   ingredients: Ingredient[];
@@ -38,11 +40,18 @@ export interface CartItem {
   price: number;
   quantity: number;
   image: string;
+  compareAtPrice?: number;
+  bundleName?: string;
+  discountAmount?: number;
 }
 
 export interface OrderItemIn {
   product_slug: string;
   quantity: number;
+  unit_price?: number;
+  compare_at_price?: number;
+  bundle_name?: string;
+  discount_amount?: number;
 }
 
 export interface CreateOrderRequest {
@@ -81,6 +90,9 @@ export interface OrderItemOut {
   quantity: number;
   unit_price: number;
   is_upsell: boolean;
+  compare_at_price?: number;
+  bundle_name?: string;
+  discount_amount?: number;
 }
 
 export interface OrderDetail {
@@ -100,6 +112,7 @@ export interface Bundle {
   name_ar: string;
   products: string[];
   price: number;
+  compareAtPrice: number;
   saving: number;
   tag?: string;
 }

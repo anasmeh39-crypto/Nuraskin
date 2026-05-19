@@ -26,6 +26,7 @@ def upgrade() -> None:
         sa.Column("description_ar", sa.Text, nullable=True),
         sa.Column("meta_description_ar", sqlmodel.AutoString(300), nullable=True),
         sa.Column("price", sa.Numeric(10, 2), nullable=False),
+        sa.Column("compare_at_price", sa.Numeric(10, 2), nullable=True),
         sa.Column("stock", sa.Integer, default=999),
         sa.Column("is_active", sa.Boolean, default=True),
         sa.Column("sort_order", sa.Integer, default=0),
@@ -59,30 +60,33 @@ def upgrade() -> None:
         sa.Column("product_name", sqlmodel.AutoString(150), nullable=False),
         sa.Column("quantity", sa.Integer, default=1),
         sa.Column("unit_price", sa.Numeric(10, 2), nullable=False),
+        sa.Column("compare_at_price", sa.Numeric(10, 2), nullable=True),
+        sa.Column("bundle_name", sqlmodel.AutoString(150), nullable=True),
+        sa.Column("discount_amount", sa.Numeric(10, 2), nullable=True),
         sa.Column("is_upsell", sa.Boolean, default=False),
     )
     op.create_index("ix_order_items_order_id", "order_items", ["order_id"])
 
     # Seed default products
     op.execute("""
-        INSERT INTO products (slug, name_ar, name_en, description_ar, meta_description_ar, price, stock, is_active, sort_order, created_at)
+        INSERT INTO products (slug, name_ar, name_en, description_ar, meta_description_ar, price, compare_at_price, stock, is_active, sort_order, created_at)
         VALUES
         ('nura-balance', 'سيروم توازن وإشراقة البشرة بالنياسيناميد', 'NURA SKIN Balance Serum', 
          'مركّز يساعد على توحيد مظهر البشرة وتخفيف اللمعان وتضييق مظهر المسام بفضل الناياسيناميد 10%',
-         'سيروم توازن وإشراقة البشرة بالنياسيناميد — 189 درهم، الدفع عند الاستلام وتوصيل مجاني',
-         189, 999, true, 1, NOW()),
+         'سيروم توازن وإشراقة البشرة بالنياسيناميد — 249 درهم، الدفع عند الاستلام وتوصيل مجاني',
+         249, 319, 999, true, 1, NOW()),
         ('nura-night-renewal', 'كريم التجديد الليلي للبشرة', 'NURA SKIN Night Renewal',
          'كريم ليلي يساعد على تجديد مظهر البشرة أثناء النوم لنعومة وإشراقة أكبر',
-         'كريم التجديد الليلي للبشرة — 229 درهم، الدفع عند الاستلام وتوصيل مجاني',
-         229, 999, true, 2, NOW()),
+         'كريم التجديد الليلي للبشرة — 269 درهم، الدفع عند الاستلام وتوصيل مجاني',
+         269, 349, 999, true, 2, NOW()),
         ('nura-eye-revive', 'سيروم نضارة محيط العين', 'NURA SKIN Eye Serum',
          'سيروم يساعد على تخفيف مظهر الهالات والانتفاخات تحت العين لعيون أكثر إشراقاً',
-         'سيروم نضارة محيط العين — 199 درهم، الدفع عند الاستلام وتوصيل مجاني',
-         199, 999, true, 3, NOW()),
+         'سيروم نضارة محيط العين — 249 درهم، الدفع عند الاستلام وتوصيل مجاني',
+         249, 319, 999, true, 3, NOW()),
         ('nura-spf-50', 'واقي الشمس اليومي SPF 50', 'NURA SKIN Daily Sunscreen SPF 50',
          'واقي شمسي مبتكر يوفر حماية عالية من أشعة الشمس الضارة مع تركيبة خفيفة مرطبة وسريعة الامتصاص ولمسة غير دهنية.',
-         'واقي الشمس اليومي SPF 50 بحماية UVA/UVB ولمسة خفيفة غير دهنية — 199 درهم، الدفع عند الاستلام وتوصيل مجاني',
-         199, 999, true, 4, NOW())
+         'واقي الشمس اليومي SPF 50 بحماية UVA/UVB ولمسة خفيفة غير دهنية — 279 درهم، الدفع عند الاستلام وتوصيل مجاني',
+         279, 359, 999, true, 4, NOW())
     """)
 
 

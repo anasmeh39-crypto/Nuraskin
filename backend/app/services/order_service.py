@@ -27,7 +27,7 @@ UPSELL_RULES = [
     ({"nura-balance", "nura-eye-revive", "nura-spf-50"}, "nura-night-renewal", 20),
     ({"nura-balance", "nura-night-renewal", "nura-spf-50"}, "nura-eye-revive", 20),
     ({"nura-night-renewal", "nura-eye-revive", "nura-spf-50"}, "nura-balance", 20),
-    ({"nura-eye-revive"}, "nura-balance", 25),
+    ({"nura-eye-revive"}, "nura-balance", 20),
     ({"nura-spf-50"}, "nura-balance", 20),
 ]
 
@@ -118,7 +118,18 @@ async def create_order(
     for item_in in data.items:
         product = await get_product_by_slug(session, item_in.product_slug)
         product_name = product.name_ar if product else item_in.product_slug
-        unit_price = money_to_float(product.price) if product else 0.0
+        unit_price = (
+            money_to_float(item_in.unit_price)
+            if item_in.unit_price is not None
+            else money_to_float(product.price) if product else 0.0
+        )
+        compare_at_price = (
+            money_to_float(item_in.compare_at_price)
+            if item_in.compare_at_price is not None
+            else money_to_float(product.compare_at_price)
+            if product and product.compare_at_price is not None
+            else None
+        )
 
         order_item = OrderItem(
             order_id=order.id,
@@ -126,6 +137,13 @@ async def create_order(
             product_name=product_name,
             quantity=item_in.quantity,
             unit_price=unit_price,
+            compare_at_price=compare_at_price,
+            bundle_name=item_in.bundle_name,
+            discount_amount=(
+                money_to_float(item_in.discount_amount)
+                if item_in.discount_amount is not None
+                else None
+            ),
         )
         session.add(order_item)
         ordered_slugs.add(item_in.product_slug)
@@ -161,6 +179,7 @@ async def accept_upsell(
 
     product = await get_product_by_slug(session, upsell_slug)
     product_name = product.name_ar if product else upsell_slug
+    original_price = money_to_float(product.price) if product else None
 
     upsell_item = OrderItem(
         order_id=order.id,
@@ -168,6 +187,12 @@ async def accept_upsell(
         product_name=product_name,
         quantity=1,
         unit_price=upsell_price,
+        compare_at_price=original_price,
+        discount_amount=(
+            max(original_price - upsell_price, 0)
+            if original_price is not None
+            else None
+        ),
         is_upsell=True,
     )
     session.add(upsell_item)

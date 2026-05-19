@@ -21,7 +21,14 @@ export function CrossSellsElite({ product }: Props) {
   if (!crossSellProducts.length) return null;
 
   const handleAdd = (p: Product) => {
-    addItem({ slug: p.slug, name_ar: p.name_ar, price: p.price, image: p.image });
+    addItem({
+      slug: p.slug,
+      name_ar: p.name_ar,
+      price: p.price,
+      image: p.image,
+      compareAtPrice: p.compareAtPrice,
+      discountAmount: p.compareAtPrice - p.price,
+    });
     trackAddToCart(
       [{ slug: p.slug, name_ar: p.name_ar, price: p.price, image: p.image, quantity: 1 }],
       p.price,
@@ -86,6 +93,7 @@ export function CrossSellsElite({ product }: Props) {
 
                   <div className="mt-3 flex items-center justify-between">
                     <span className="font-bold text-rose-deep">{p.price} درهم</span>
+                    <span className="text-xs font-semibold text-[#9B8A8A] line-through">بدل {p.compareAtPrice} درهم</span>
                     <button
                       onClick={() => handleAdd(p)}
                       className="text-xs font-bold text-white bg-rose-deep px-3 py-1.5 rounded-full hover:opacity-90 active:scale-95 transition-all"

@@ -120,6 +120,17 @@ async def get_order(
                 quantity=i.quantity,
                 unit_price=order_service.money_to_float(i.unit_price),
                 is_upsell=i.is_upsell,
+                compare_at_price=(
+                    order_service.money_to_float(i.compare_at_price)
+                    if i.compare_at_price is not None
+                    else None
+                ),
+                bundle_name=i.bundle_name,
+                discount_amount=(
+                    order_service.money_to_float(i.discount_amount)
+                    if i.discount_amount is not None
+                    else None
+                ),
             )
             for i in (order.items or [])
         ],

@@ -25,9 +25,22 @@ export function ProductCard({ product, showBadge, badge }: ProductCardProps) {
       name_ar: product.name_ar,
       price: product.price,
       image: product.image,
+      compareAtPrice: product.compareAtPrice,
+      discountAmount: product.compareAtPrice - product.price,
     });
 
-    const updatedItems = [...items, { slug: product.slug, name_ar: product.name_ar, price: product.price, image: product.image, quantity: 1 }];
+    const updatedItems = [
+      ...items,
+      {
+        slug: product.slug,
+        name_ar: product.name_ar,
+        price: product.price,
+        image: product.image,
+        quantity: 1,
+        compareAtPrice: product.compareAtPrice,
+        discountAmount: product.compareAtPrice - product.price,
+      },
+    ];
     const total = updatedItems.reduce((s, i) => s + i.price * i.quantity, 0);
     trackAddToCart(updatedItems, total, generateEventId());
   };
@@ -75,9 +88,14 @@ export function ProductCard({ product, showBadge, badge }: ProductCardProps) {
           </div>
 
           <div className="flex items-center justify-between mt-4 gap-3">
-            <span className="text-2xl font-bold text-rose-deep">
-              {product.formattedPrice}
-            </span>
+            <div>
+              <p className="text-xs font-semibold text-[#9B8A8A] line-through">
+                بدل {product.formattedCompareAtPrice}
+              </p>
+              <span className="text-2xl font-bold text-rose-deep">
+                {product.formattedPrice}
+              </span>
+            </div>
             <button
               onClick={handleAddToCart}
               className="rounded-full bg-rose-deep px-5 py-3 text-sm font-bold text-white transition-all hover:opacity-90 active:scale-95 shrink-0"

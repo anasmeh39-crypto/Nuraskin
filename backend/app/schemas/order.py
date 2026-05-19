@@ -9,6 +9,10 @@ MOROCCO_PHONE_RE = re.compile(r'^0[67]\d{8}$')
 class OrderItemIn(BaseModel):
     product_slug: str
     quantity: int = 1
+    unit_price: Optional[float] = None
+    compare_at_price: Optional[float] = None
+    bundle_name: Optional[str] = None
+    discount_amount: Optional[float] = None
 
 
 class CreateOrderRequest(BaseModel):
@@ -53,6 +57,9 @@ class OrderItemOut(BaseModel):
     quantity: int
     unit_price: float
     is_upsell: bool
+    compare_at_price: Optional[float] = None
+    bundle_name: Optional[str] = None
+    discount_amount: Optional[float] = None
 
 
 class CreateOrderResponse(BaseModel):

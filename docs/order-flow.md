@@ -54,9 +54,9 @@ Response:
   "upsell_product": {
     "slug": "nura-eye-revive",
     "name_ar": "سيروم نيورا آي ريفايف",
-    "price": 199,
-    "discounted_price": 149,
-    "discount_percent": 25
+    "price": 249,
+    "discounted_price": 199,
+    "discount_percent": 20
   }
 }
 ```
@@ -76,7 +76,7 @@ Response:
 Request:
 {
   "upsell_product_slug": "nura-eye-revive",
-  "upsell_price": 149
+  "upsell_price": 199
 }
 
 Response:

@@ -38,8 +38,27 @@ def _sync_order_to_sheets_sync(order: Order) -> None:
     if not service:
         return
 
+    items = order.items or []
     items_str = ", ".join(
-        f"{item.product_name} x{item.quantity}" for item in (order.items or [])
+        f"{item.product_name} x{item.quantity}" for item in items
+    )
+    item_prices_str = ", ".join(
+        f"{item.product_name}: {item.unit_price} MAD x{item.quantity}" for item in items
+    )
+    compare_prices_str = ", ".join(
+        f"{item.product_name}: {item.compare_at_price} MAD"
+        for item in items
+        if item.compare_at_price is not None
+    )
+    bundle_names_str = ", ".join(
+        f"{item.product_name}: {item.bundle_name}"
+        for item in items
+        if item.bundle_name
+    )
+    discount_amounts_str = ", ".join(
+        f"{item.product_name}: {item.discount_amount} MAD"
+        for item in items
+        if item.discount_amount is not None
     )
 
     row = [[
@@ -54,13 +73,17 @@ def _sync_order_to_sheets_sync(order: Order) -> None:
         order.source_url or "",
         str(order.upsell_accepted),
         order.notes or "",
+        item_prices_str,
+        compare_prices_str,
+        bundle_names_str,
+        discount_amounts_str,
     ]]
 
     for attempt in range(3):
         try:
             service.spreadsheets().values().append(
                 spreadsheetId=sheet_id,
-                range="Orders!A:K",
+                range="Orders!A:O",
                 valueInputOption="RAW",
                 insertDataOption="INSERT_ROWS",
                 body={"values": row},

@@ -176,7 +176,7 @@ export function trackInitiateCheckout(total: number, eventId: string) {
     "client_user_agent": "Mozilla/..."
   },
   "custom_data": {
-    "value": 229.0,
+    "value": 269.0,
     "currency": "MAD",
     "order_id": "ORD-001",
     "content_ids": ["nura-balance"]

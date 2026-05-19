@@ -39,9 +39,24 @@ export function CartDrawer() {
   const handleAddCross = (slug: string) => {
     const p = PRODUCTS_MAP[slug];
     if (!p) return;
-    addItem({ slug: p.slug, name_ar: p.name_ar, price: p.price, image: p.image });
+    addItem({
+      slug: p.slug,
+      name_ar: p.name_ar,
+      price: p.price,
+      image: p.image,
+      compareAtPrice: p.compareAtPrice,
+      discountAmount: p.compareAtPrice - p.price,
+    });
     trackAddToCart(
-      [{ slug: p.slug, name_ar: p.name_ar, price: p.price, image: p.image, quantity: 1 }],
+      [{
+        slug: p.slug,
+        name_ar: p.name_ar,
+        price: p.price,
+        image: p.image,
+        quantity: 1,
+        compareAtPrice: p.compareAtPrice,
+        discountAmount: p.compareAtPrice - p.price,
+      }],
       p.price,
       generateEventId()
     );
@@ -150,6 +165,14 @@ export function CartDrawer() {
                         <p className="text-rose-deep font-bold text-sm mt-1">
                           {item.price} درهم
                         </p>
+                        {item.compareAtPrice && item.compareAtPrice > item.price && (
+                          <p className="text-[11px] font-semibold text-[#9B8A8A] line-through">
+                            بدل {item.compareAtPrice} درهم
+                          </p>
+                        )}
+                        {item.bundleName && (
+                          <p className="mt-1 text-[10px] font-bold text-gold">{item.bundleName}</p>
+                        )}
 
                         {/* Qty */}
                         <div className="flex items-center gap-2 mt-2">
@@ -199,6 +222,7 @@ export function CartDrawer() {
                           <div className="flex-1 min-w-0">
                             <p className="text-xs font-semibold text-[#2C1810] line-clamp-1">{p.name_ar}</p>
                             <p className="text-xs text-rose-deep font-bold">{p.price} درهم</p>
+                            <p className="text-[10px] font-semibold text-[#9B8A8A] line-through">بدل {p.compareAtPrice} درهم</p>
                           </div>
                           <button
                             onClick={() => handleAddCross(p.slug)}

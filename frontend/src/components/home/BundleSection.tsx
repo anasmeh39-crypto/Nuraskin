@@ -11,18 +11,22 @@ import { CartItem } from "@/types";
 export function BundleSection() {
   const { addItem } = useCartStore();
 
-  const handleBundleAdd = (productSlugs: string[], bundlePrice: number) => {
+  const handleBundleAdd = (productSlugs: string[], bundlePrice: number, bundleName: string) => {
     const unitPrice = Math.floor(bundlePrice / productSlugs.length);
     const remainder = bundlePrice - unitPrice * productSlugs.length;
 
     productSlugs.forEach((slug, index) => {
       const p = PRODUCTS_MAP[slug];
       if (p) {
+        const allocatedPrice = unitPrice + (index === 0 ? remainder : 0);
         addItem({
           slug: p.slug,
           name_ar: p.name_ar,
-          price: unitPrice + (index === 0 ? remainder : 0),
+          price: allocatedPrice,
           image: p.image,
+          compareAtPrice: p.price,
+          bundleName,
+          discountAmount: Math.max(p.price - allocatedPrice, 0),
         });
       }
     });
@@ -35,6 +39,9 @@ export function BundleSection() {
         price: unitPrice + (index === 0 ? remainder : 0),
         image: "",
         quantity: 1,
+        compareAtPrice: p?.price,
+        bundleName,
+        discountAmount: Math.max((p?.price ?? 0) - (unitPrice + (index === 0 ? remainder : 0)), 0),
       };
     });
     const total = updatedItems.reduce((s, i) => s + i.price, 0);
@@ -123,23 +130,22 @@ export function BundleSection() {
                   </span>
                   <span className={`mb-1 text-sm font-semibold ${isMain ? "text-white/85" : "text-brand-mid"}`}>درهم</span>
                   {bundle.saving > 0 && listTotal > bundle.price && (
-                    <>
-                      <span className={`mb-1 text-sm line-through ${isMain ? "text-white/45" : "text-gray-400"}`}>
-                        {listTotal} درهم
-                      </span>
-                      <span
-                        className={`mb-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold ${
+                    <div className={`mt-3 w-full space-y-1 text-sm ${isMain ? "text-white/78" : "text-gray-600"}`}>
+                      <p>القيمة الكاملة: <span className="line-through">{listTotal} درهم</span></p>
+                      <p>سعر الروتين: <span className={isMain ? "font-bold text-white" : "font-bold text-brand-deep"}>{bundle.price} درهم</span></p>
+                      <p
+                        className={`inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-bold ${
                           isMain ? "bg-white/15 text-gold-light" : "bg-emerald-50 text-emerald-800"
                         }`}
                       >
-                        وفري {bundle.saving} درهم
-                      </span>
-                    </>
+                        وفّري {bundle.saving} درهم
+                      </p>
+                    </div>
                   )}
                 </div>
 
                 <button
-                  onClick={() => handleBundleAdd(bundle.products, bundle.price)}
+                  onClick={() => handleBundleAdd(bundle.products, bundle.price, bundle.name_ar)}
                   className={`w-full rounded-full py-4 text-base font-bold transition-all active:scale-[0.98] ${
                     isMain
                       ? "bg-white text-brand-deep shadow-lg hover:bg-gold-light"

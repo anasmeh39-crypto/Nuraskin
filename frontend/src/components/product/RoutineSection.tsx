@@ -80,18 +80,22 @@ const ROUTINE_STEPS: Record<string, RoutineStep[]> = {
 export function RoutineSection({ currentSlug }: Props) {
   const { addItem } = useCartStore();
 
-  const handleBundleAdd = (slugs: string[], bundlePrice: number) => {
+  const handleBundleAdd = (slugs: string[], bundlePrice: number, bundleName: string) => {
     const unitPrice = Math.floor(bundlePrice / slugs.length);
     const remainder = bundlePrice - unitPrice * slugs.length;
 
     slugs.forEach((slug, index) => {
       const p = PRODUCTS_MAP[slug];
       if (p) {
+        const allocatedPrice = unitPrice + (index === 0 ? remainder : 0);
         addItem({
           slug: p.slug,
           name_ar: p.name_ar,
-          price: unitPrice + (index === 0 ? remainder : 0),
+          price: allocatedPrice,
           image: p.image,
+          compareAtPrice: p.price,
+          bundleName,
+          discountAmount: Math.max(p.price - allocatedPrice, 0),
         });
       }
     });
@@ -103,6 +107,9 @@ export function RoutineSection({ currentSlug }: Props) {
         price: unitPrice + (index === 0 ? remainder : 0),
         image: "",
         quantity: 1,
+        compareAtPrice: p?.price,
+        bundleName,
+        discountAmount: Math.max((p?.price ?? 0) - (unitPrice + (index === 0 ? remainder : 0)), 0),
       };
     });
     const total = cartItems.reduce((s, i) => s + i.price, 0);
@@ -301,18 +308,19 @@ export function RoutineSection({ currentSlug }: Props) {
                       <span className="text-3xl font-black text-rose-deep">{bundle.price}</span>
                       <span className="mb-1 text-sm font-semibold text-rose-mid">درهم</span>
                       {bundle.saving > 0 && listTotal > bundle.price && (
-                        <>
-                          <span className="mb-1 text-sm text-[#9B8A8A] line-through">{listTotal} درهم</span>
-                          <span className="mb-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-800">
-                            وفري {bundle.saving} درهم
-                          </span>
-                        </>
+                        <div className="mt-3 w-full space-y-1 text-sm text-[#6B5555]">
+                          <p>القيمة الكاملة: <span className="line-through">{listTotal} درهم</span></p>
+                          <p>سعر الروتين: <span className="font-bold text-[#2C1810]">{bundle.price} درهم</span></p>
+                          <p className="inline-flex rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-800">
+                            وفّري {bundle.saving} درهم
+                          </p>
+                        </div>
                       )}
                     </div>
 
                     <button
                       type="button"
-                      onClick={() => handleBundleAdd(bundle.products, bundle.price)}
+                      onClick={() => handleBundleAdd(bundle.products, bundle.price, bundle.name_ar)}
                       className={`mt-4 w-full rounded-2xl py-3.5 text-sm font-bold transition-all active:scale-[0.99] ${
                         isPopular
                           ? "bg-brand-deep text-white shadow-lg shadow-brand-deep/20 hover:bg-brand-mid"

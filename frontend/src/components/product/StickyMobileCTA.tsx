@@ -27,6 +27,8 @@ export function StickyMobileCTA({ product }: StickyMobileCTAProps) {
       name_ar: product.name_ar,
       price: product.price,
       image: product.image,
+      compareAtPrice: product.compareAtPrice,
+      discountAmount: product.compareAtPrice - product.price,
     });
 
     const newItems = [...items, { slug: product.slug, name_ar: product.name_ar, price: product.price, image: product.image, quantity: 1 }];
@@ -46,8 +48,9 @@ export function StickyMobileCTA({ product }: StickyMobileCTAProps) {
           <p className="text-gray-500 text-xs">{product.tagline_ar}</p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
-          <span className="font-bold text-brand-deep text-lg">
-            {product.formattedPrice}
+          <span className="text-end">
+            <span className="block text-[10px] font-semibold text-gray-400 line-through">بدل {product.formattedCompareAtPrice}</span>
+            <span className="font-bold text-brand-deep text-lg">{product.formattedPrice}</span>
           </span>
           <button
             onClick={handleAdd}

@@ -16,6 +16,7 @@ class ProductOut(BaseModel):
     name_en: str | None
     description_ar: str | None
     price: float
+    compare_at_price: float | None = None
     stock: int
 
 

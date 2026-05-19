@@ -25,6 +25,9 @@ class OrderItem(SQLModel, table=True):
     product_name: str = Field(max_length=150)
     quantity: int = Field(default=1, ge=1)
     unit_price: float = Field(ge=0)
+    compare_at_price: Optional[float] = Field(default=None, ge=0)
+    bundle_name: Optional[str] = Field(default=None, max_length=150)
+    discount_amount: Optional[float] = Field(default=None, ge=0)
     is_upsell: bool = Field(default=False)
 
     order: Optional["Order"] = Relationship(back_populates="items")

@@ -111,7 +111,7 @@ All CRO decisions are made mobile-first. Desktop is secondary.
 | Test | Variable | Hypothesis |
 |---|---|---|
 | Hero CTA | "أضيفي للسلة" vs "اطلبي الآن" | More transactional = higher CTR |
-| Price display | 189 MAD vs 189.00 MAD | Round numbers feel more premium |
+| Price display | 249 MAD vs 249.00 MAD | Round numbers feel more premium |
 | Upsell timer | 10s vs 15s | More time = higher acceptance |
 | Checkout copy | "أكّدي طلبك" vs "احجزي الآن" | "Reserve" framing reduces commitment anxiety |
 | Free shipping threshold | 300 MAD vs 250 MAD | Lower threshold = higher bundle rate |

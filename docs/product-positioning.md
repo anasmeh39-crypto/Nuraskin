@@ -18,7 +18,7 @@ Each product:
 **Arabic Name:** مركّز نيورا بالانس لتوازن البشرة والمسام
 **Slug:** `nura-balance`
 **Format:** Serum / Concentrate (30ml)
-**Price:** 189 MAD
+**Price:** 249 MAD (compare-at 319 MAD)
 **Use:** Morning and/or evening after cleansing
 
 ### Hero Ingredients
@@ -50,7 +50,7 @@ The customer has tried everything for her pores and shine. She's exhausted by pr
 **Arabic Name:** كريم نيورا رينيو الليلي لتجديد النعومة والإشراقة
 **Slug:** `nura-night-renewal`
 **Format:** Night Cream (50ml)
-**Price:** 229 MAD
+**Price:** 269 MAD (compare-at 349 MAD)
 **Use:** Evening, after serum, as final step
 
 ### Hero Ingredients
@@ -84,7 +84,7 @@ Exhaustion. Tired skin. The customer sees herself in the mirror at night and wan
 **Arabic Name:** سيروم نيورا آي ريفايف للهالات وآثار التعب
 **Slug:** `nura-eye-revive`
 **Format:** Eye Serum (15ml)
-**Price:** 199 MAD
+**Price:** 249 MAD (compare-at 319 MAD)
 **Use:** Morning and evening, gently patted under eyes
 
 ### Hero Ingredients
@@ -116,21 +116,21 @@ The customer is tired. She's a working woman, a mother, a student. She wants to 
 
 ## Bundle Positioning
 
-### Complete Glow Ritual
-**Arabic:** روتين النضارة الكامل
+### Complete Ritual
+**Arabic:** روتين نورا الكامل
 **Contents:** Nura Balance + Nura Night Renewal + Nura Eye Revive + Daily Sunscreen SPF 50
-**Bundle Price:** 699 MAD (saves 117 MAD vs. individual)
+**Bundle Price:** 799 MAD (value 1046 MAD, saves 247 MAD)
 **Positioning:** "كل ما تحتاجيه في روتين واحد — صباحاً وليلاً"
 
-### Morning Ritual Duo
+### Morning Ritual
 **Arabic:** روتين الصباح
-**Contents:** Nura Balance + Daily Sunscreen SPF 50
-**Bundle Price:** 349 MAD
+**Contents:** Nura Balance + Nura Eye Revive + Daily Sunscreen SPF 50
+**Bundle Price:** 599 MAD (value 777 MAD, saves 178 MAD)
 
-### Safe Renewal Duo
-**Arabic:** روتين التجديد الآمن
-**Contents:** Nura Night Renewal + Daily Sunscreen SPF 50
-**Bundle Price:** 389 MAD
+### Night Renewal Ritual
+**Arabic:** روتين التجديد الليلي
+**Contents:** Nura Night Renewal + Nura Eye Revive
+**Bundle Price:** 429 MAD (value 518 MAD, saves 89 MAD)
 
 ---
 
@@ -138,12 +138,12 @@ The customer is tired. She's a working woman, a mother, a student. She wants to 
 
 | Product | Price | Bundle Role |
 |---|---|---|
-| Nura Balance | 189 MAD | Entry / Most popular |
-| Nura Eye Revive | 199 MAD | Cross-sell anchor |
-| Nura Night Renewal | 229 MAD | Premium anchor |
-| Daily Sunscreen SPF 50 | 199 MAD | Protection / routine completion |
-| Morning Duo | 349 MAD | AOV lift |
-| Safe Renewal Duo | 389 MAD | AOV lift |
-| Complete Glow Ritual (all 4) | 699 MAD | Max AOV |
+| Nura Balance | 249 MAD | Entry / Most popular |
+| Nura Eye Revive | 249 MAD | Cross-sell anchor |
+| Nura Night Renewal | 269 MAD | Premium anchor |
+| Daily Sunscreen SPF 50 | 279 MAD | Protection / routine completion |
+| Morning Ritual | 599 MAD | AOV lift |
+| Night Renewal Ritual | 429 MAD | AOV lift |
+| Nura Complete Ritual (all 4) | 799 MAD | Max AOV |
 
 Shipping: Free for all orders across Morocco.

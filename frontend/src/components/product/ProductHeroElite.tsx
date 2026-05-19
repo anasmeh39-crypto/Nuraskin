@@ -9,7 +9,6 @@ import { OfferSelector, Offer } from "./OfferSelector";
 import { StarRating } from "@/components/ui/StarRating";
 import { useCartStore } from "@/store/cart";
 import { generateEventId, trackAddToCart, trackViewContent } from "@/lib/tracking";
-import { PRODUCTS_MAP } from "@/config/products";
 
 interface Props { product: Product }
 
@@ -40,11 +39,16 @@ export function ProductHeroElite({ product }: Props) {
     const remainder = selectedOffer.price - unitPrice * selectedOffer.products.length;
 
     selectedOffer.products.forEach((p, index) => {
+      const allocatedPrice = unitPrice + (index === 0 ? remainder : 0);
+      const compareAtPrice = selectedOffer.products.length > 1 ? p.price : p.compareAtPrice;
       addItem({
         slug: p.slug,
         name_ar: p.name_ar,
-        price: unitPrice + (index === 0 ? remainder : 0),
+        price: allocatedPrice,
         image: p.image,
+        compareAtPrice,
+        bundleName: selectedOffer.bundleName,
+        discountAmount: Math.max(compareAtPrice - allocatedPrice, 0),
       });
     });
 

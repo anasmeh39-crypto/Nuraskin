@@ -28,6 +28,8 @@ export function ProductHeroSection({ product }: Props) {
       name_ar: product.name_ar,
       price: product.price,
       image: product.image,
+      compareAtPrice: product.compareAtPrice,
+      discountAmount: product.compareAtPrice - product.price,
     });
     const newItems = [...items, { slug: product.slug, name_ar: product.name_ar, price: product.price, image: product.image, quantity: 1 }];
     const total = newItems.reduce((s, i) => s + i.price * i.quantity, 0);
@@ -111,6 +113,9 @@ export function ProductHeroSection({ product }: Props) {
                 <div>
                   <div className="text-3xl font-bold text-brand-deep">
                     {product.formattedPrice}
+                  </div>
+                  <div className="text-xs font-semibold text-gray-400 line-through">
+                    بدل {product.formattedCompareAtPrice}
                   </div>
                   <div className="text-xs text-gray-400 mt-1">
                     توصيل مجاني لجميع أنحاء المغرب

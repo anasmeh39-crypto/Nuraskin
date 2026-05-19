@@ -21,7 +21,7 @@ def upgrade() -> None:
         SET
             name_ar = 'سيروم توازن وإشراقة البشرة بالنياسيناميد',
             name_en = 'NURA SKIN Balance Serum',
-            meta_description_ar = 'سيروم توازن وإشراقة البشرة بالنياسيناميد — 189 درهم، الدفع عند الاستلام وتوصيل مجاني'
+            meta_description_ar = 'سيروم توازن وإشراقة البشرة بالنياسيناميد — 249 درهم، الدفع عند الاستلام وتوصيل مجاني'
         WHERE slug = 'nura-balance'
     """)
     op.execute("""
@@ -29,7 +29,7 @@ def upgrade() -> None:
         SET
             name_ar = 'كريم التجديد الليلي للبشرة',
             name_en = 'NURA SKIN Night Renewal',
-            meta_description_ar = 'كريم التجديد الليلي للبشرة — 229 درهم، الدفع عند الاستلام وتوصيل مجاني'
+            meta_description_ar = 'كريم التجديد الليلي للبشرة — 269 درهم، الدفع عند الاستلام وتوصيل مجاني'
         WHERE slug = 'nura-night-renewal'
     """)
     op.execute("""
@@ -37,7 +37,7 @@ def upgrade() -> None:
         SET
             name_ar = 'سيروم نضارة محيط العين',
             name_en = 'NURA SKIN Eye Serum',
-            meta_description_ar = 'سيروم نضارة محيط العين — 199 درهم، الدفع عند الاستلام وتوصيل مجاني'
+            meta_description_ar = 'سيروم نضارة محيط العين — 249 درهم، الدفع عند الاستلام وتوصيل مجاني'
         WHERE slug = 'nura-eye-revive'
     """)
 

@@ -97,7 +97,7 @@ export function generateProductMetadata(product: Product): Metadata {
     "@type": "Offer",
     "url": "https://nuraskin.cc/products/nura-balance",
     "priceCurrency": "MAD",
-    "price": "189",
+    "price": "249",
     "availability": "https://schema.org/InStock",
     "priceValidUntil": "2025-12-31"
   },

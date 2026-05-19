@@ -24,7 +24,14 @@ export function CrossSells({ currentSlug, slugs }: CrossSellsProps) {
   if (products.length === 0) return null;
 
   const handleAdd = (p: NonNullable<typeof products[0]>) => {
-    addItem({ slug: p.slug, name_ar: p.name_ar, price: p.price, image: p.image });
+    addItem({
+      slug: p.slug,
+      name_ar: p.name_ar,
+      price: p.price,
+      image: p.image,
+      compareAtPrice: p.compareAtPrice,
+      discountAmount: p.compareAtPrice - p.price,
+    });
     const newItems: CartItem[] = [...items, { slug: p.slug, name_ar: p.name_ar, price: p.price, image: p.image, quantity: 1 }];
     const total = newItems.reduce((s, i) => s + i.price * i.quantity, 0);
     trackAddToCart(newItems, total, generateEventId());
@@ -56,6 +63,9 @@ export function CrossSells({ currentSlug, slugs }: CrossSellsProps) {
                   <p className="text-xs text-gray-500 mt-0.5">{p!.tagline_ar}</p>
                   <p className="font-bold text-brand-deep mt-1">
                     {p!.formattedPrice}
+                  </p>
+                  <p className="text-xs font-semibold text-gray-400 line-through">
+                    بدل {p!.formattedCompareAtPrice}
                   </p>
                 </Link>
               </div>

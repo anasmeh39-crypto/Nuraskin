@@ -25,7 +25,14 @@ export function StickyMobileCTAElite({ product }: Props) {
   }, []);
 
   const handleAdd = () => {
-    addItem({ slug: product.slug, name_ar: product.name_ar, price: product.price, image: product.image });
+    addItem({
+      slug: product.slug,
+      name_ar: product.name_ar,
+      price: product.price,
+      image: product.image,
+      compareAtPrice: product.compareAtPrice,
+      discountAmount: product.compareAtPrice - product.price,
+    });
     trackAddToCart(
       [{ slug: product.slug, name_ar: product.name_ar, price: product.price, image: product.image, quantity: 1 }],
       product.price,
@@ -56,6 +63,7 @@ export function StickyMobileCTAElite({ product }: Props) {
 
               {/* Price */}
               <div className="text-center shrink-0">
+                <p className="text-[10px] font-semibold text-[#9B8A8A] line-through">بدل {product.compareAtPrice}</p>
                 <p className="font-bold text-rose-deep text-lg">{product.price}</p>
                 <p className="text-[10px] text-rose-mid">درهم</p>
               </div>

@@ -8,8 +8,10 @@ export const PRODUCTS: Product[] = [
     tagline_ar: "لتوازن البشرة، الإشراقة، ومظهر المسام",
     description_ar:
       "مركّز متطور يعمل على استعادة توازن البشرة، تلطيف لمعانها، وتحسين مظهر المسام—بفضل تركيز 10% من النياسيناميد النقي.",
-    price: 189,
-    formattedPrice: "189 درهم",
+    price: 249,
+    formattedPrice: "249 درهم",
+    compareAtPrice: 319,
+    formattedCompareAtPrice: "319 درهم",
     image: "/images/nura-balance.jpg",
     heroIngredient: "نياسيناميد 10%",
     format: "سيروم مركّز",
@@ -63,7 +65,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     metaDescription:
-      "سيروم توازن وإشراقة البشرة بالنياسيناميد لتحسين مظهر المسام واللمعان—189 درهم، الدفع عند الاستلام.",
+      "سيروم توازن وإشراقة البشرة بالنياسيناميد لتحسين مظهر المسام واللمعان—249 درهم، الدفع عند الاستلام.",
   },
   {
     slug: "nura-night-renewal",
@@ -72,8 +74,10 @@ export const PRODUCTS: Product[] = [
     tagline_ar: "لتجديد مظهر البشرة ونعومة الصباح",
     description_ar:
       "كريم ليلي فاخر يساعد على تجديد مظهر البشرة أثناء نومكِ—لتستيقظي على بشرة تنبض بالنعومة والحيوية.",
-    price: 229,
-    formattedPrice: "229 درهم",
+    price: 269,
+    formattedPrice: "269 درهم",
+    compareAtPrice: 349,
+    formattedCompareAtPrice: "349 درهم",
     image: "/images/nura-night-renewal.jpg",
     heroIngredient: "باكوتشيول نباتي وببتيدات مركّزة",
     format: "كريم ليلي",
@@ -132,7 +136,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     metaDescription:
-      "كريم التجديد الليلي للبشرة لمظهر أكثر نعومة ونضارة صباحية—229 درهم، الدفع عند الاستلام.",
+      "كريم التجديد الليلي للبشرة لمظهر أكثر نعومة ونضارة صباحية—269 درهم، الدفع عند الاستلام.",
   },
   {
     slug: "nura-eye-revive",
@@ -141,8 +145,10 @@ export const PRODUCTS: Product[] = [
     tagline_ar: "لإشراقة محيط العين ومظهر التعب",
     description_ar:
       "سيروم لطيف وفعّال صُمم خصيصاً ليخفف من مظهر الهالات والانتفاخات—لتنعمي بنظرة أكثر انتعاشاً وحيوية.",
-    price: 199,
-    formattedPrice: "199 درهم",
+    price: 249,
+    formattedPrice: "249 درهم",
+    compareAtPrice: 319,
+    formattedCompareAtPrice: "319 درهم",
     image: "/images/nura-eye-revive.jpg",
     heroIngredient: "كافيين + ببتيدات",
     format: "سيروم محيط العين",
@@ -201,7 +207,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     metaDescription:
-      "سيروم نضارة محيط العين بمكونات لطيفة لمظهر التعب والانتفاخ—199 درهم، الدفع عند الاستلام.",
+      "سيروم نضارة محيط العين بمكونات لطيفة لمظهر التعب والانتفاخ—249 درهم، الدفع عند الاستلام.",
   },
   {
     slug: "nura-spf-50",
@@ -210,8 +216,10 @@ export const PRODUCTS: Product[] = [
     tagline_ar: "حماية UVA/UVB خفيفة بلمسة غير دهنية",
     description_ar:
       "واقي شمسي مبتكر يوفر حماية عالية من أشعة الشمس الضارة مع الحفاظ على نعومة البشرة وراحتها. تركيبته خفيفة ومدعّمة بمكونات مرطبة ومضادة للأكسدة، تمتص بسرعة وتترك لمسة غير دهنية مثالية للاستخدام اليومي.",
-    price: 199,
-    formattedPrice: "199 درهم",
+    price: 279,
+    formattedPrice: "279 درهم",
+    compareAtPrice: 359,
+    formattedCompareAtPrice: "359 درهم",
     image: "/images/nura-spf-50.jpg",
     heroIngredient: "SPF 50 UVA/UVB",
     format: "كريم واقي شمس",
@@ -288,7 +296,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     metaDescription:
-      "واقي الشمس اليومي SPF 50 بحماية UVA/UVB ولمسة خفيفة غير دهنية—199 درهم، الدفع عند الاستلام وتوصيل مجاني.",
+      "واقي الشمس اليومي SPF 50 بحماية UVA/UVB ولمسة خفيفة غير دهنية—279 درهم، الدفع عند الاستلام وتوصيل مجاني.",
   },
 ];
 
@@ -298,26 +306,31 @@ export const PRODUCTS_MAP: Record<string, Product> = Object.fromEntries(
 
 export const BUNDLES: Bundle[] = [
   {
-    id: "complete-glow-ritual",
-    name_ar: "روتين النضارة الكامل",
-    products: ["nura-balance", "nura-night-renewal", "nura-eye-revive", "nura-spf-50"],
-    price: 699,
-    saving: 117,
-    tag: "الخيار الأفضل",
-  },
-  {
     id: "morning-ritual",
     name_ar: "روتين الصباح",
-    products: ["nura-balance", "nura-spf-50"],
-    price: 349,
-    saving: 39,
+    products: ["nura-balance", "nura-eye-revive", "nura-spf-50"],
+    price: 599,
+    compareAtPrice: 777,
+    saving: 178,
+    tag: "الأكثر اختيارًا للصباح",
   },
   {
-    id: "safe-renewal-ritual",
-    name_ar: "روتين التجديد الآمن",
-    products: ["nura-night-renewal", "nura-spf-50"],
-    price: 389,
-    saving: 39,
+    id: "night-renewal-ritual",
+    name_ar: "روتين التجديد الليلي",
+    products: ["nura-night-renewal", "nura-eye-revive"],
+    price: 429,
+    compareAtPrice: 518,
+    saving: 89,
+    tag: "مثالي للعناية الليلية",
+  },
+  {
+    id: "nura-complete-ritual",
+    name_ar: "روتين نورا الكامل",
+    products: ["nura-balance", "nura-night-renewal", "nura-eye-revive", "nura-spf-50"],
+    price: 799,
+    compareAtPrice: 1046,
+    saving: 247,
+    tag: "أفضل قيمة",
   },
 ];
 

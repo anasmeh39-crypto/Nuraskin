@@ -156,11 +156,19 @@ export function ThankYouContent() {
                           </div>
                           <p className="text-sm font-semibold text-[#8D7D82]">
                             الكمية: {item.quantity}
+                            {item.bundle_name && <span className="me-2 text-gold">• {item.bundle_name}</span>}
                           </p>
                         </div>
-                        <p className="shrink-0 text-sm font-black text-[#3A222C]">
-                          {item.unit_price * item.quantity} درهم
-                        </p>
+                        <div className="shrink-0 text-end">
+                          {item.compare_at_price && item.compare_at_price > item.unit_price && (
+                            <p className="text-[11px] font-semibold text-[#9D8990] line-through">
+                              بدل {item.compare_at_price * item.quantity} درهم
+                            </p>
+                          )}
+                          <p className="text-sm font-black text-[#3A222C]">
+                            {item.unit_price * item.quantity} درهم
+                          </p>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -258,6 +266,9 @@ export function ThankYouContent() {
                 </p>
                 <p className="text-rose-deep text-sm font-bold mt-1">
                   {p.formattedPrice}
+                </p>
+                <p className="text-xs font-semibold text-gray-400 line-through">
+                  بدل {p.formattedCompareAtPrice}
                 </p>
               </Link>
             ))}

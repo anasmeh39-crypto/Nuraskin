@@ -101,7 +101,14 @@ export function CheckoutPopup() {
         customer_phone: phone.replace(/[\s-]/g, ""),
         customer_address: address.trim(),
         customer_city: city,
-        items: items.map((i) => ({ product_slug: i.slug, quantity: i.quantity })),
+        items: items.map((i) => ({
+          product_slug: i.slug,
+          quantity: i.quantity,
+          unit_price: i.price,
+          compare_at_price: i.compareAtPrice,
+          bundle_name: i.bundleName,
+          discount_amount: i.discountAmount,
+        })),
         total: grandTotal,
         shipping_cost: shipping,
         source_url: window.location.href,
@@ -185,8 +192,18 @@ export function CheckoutPopup() {
                   <p className="text-xs font-bold text-[#9B8A8A] uppercase tracking-wider mb-3">ملخص طلبك</p>
                   {items.map((item) => (
                     <div key={item.slug} className="flex justify-between text-sm">
-                      <span className="text-[#6B5555]">{item.name_ar} × {item.quantity}</span>
-                      <span className="font-semibold text-[#2C1810]">{item.price * item.quantity} درهم</span>
+                      <span className="text-[#6B5555]">
+                        {item.name_ar} × {item.quantity}
+                        {item.bundleName && <span className="me-1 text-[10px] font-bold text-gold">({item.bundleName})</span>}
+                      </span>
+                      <span className="text-end">
+                        {item.compareAtPrice && item.compareAtPrice > item.price && (
+                          <span className="block text-[11px] font-semibold text-[#9B8A8A] line-through">
+                            بدل {item.compareAtPrice * item.quantity} درهم
+                          </span>
+                        )}
+                        <span className="font-semibold text-[#2C1810]">{item.price * item.quantity} درهم</span>
+                      </span>
                     </div>
                   ))}
                   <div className="border-t border-border pt-2 flex justify-between text-sm text-[#9B8A8A]">

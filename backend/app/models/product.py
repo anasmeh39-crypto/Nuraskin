@@ -17,6 +17,7 @@ class Product(SQLModel, table=True):
     description_ar: Optional[str] = Field(default=None)
     meta_description_ar: Optional[str] = Field(default=None, max_length=300)
     price: float = Field(ge=0)
+    compare_at_price: Optional[float] = Field(default=None, ge=0)
     stock: int = Field(default=999, ge=0)
     is_active: bool = Field(default=True)
     sort_order: int = Field(default=0)

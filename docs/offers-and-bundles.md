@@ -10,10 +10,10 @@ Discounts appear ONLY in the post-checkout upsell — never sitewide.
 ## Standard Pricing
 | Product | Price |
 |---|---|
-| Nura Balance (30ml) | 189 MAD |
-| Nura Eye Revive (15ml) | 199 MAD |
-| Nura Night Renewal (50ml) | 229 MAD |
-| Daily Sunscreen SPF 50 (50ml) | 199 MAD |
+| Nura Balance (30ml) | 249 MAD (compare-at 319 MAD) |
+| Nura Eye Revive (15ml) | 249 MAD (compare-at 319 MAD) |
+| Nura Night Renewal (50ml) | 269 MAD (compare-at 349 MAD) |
+| Daily Sunscreen SPF 50 (50ml) | 279 MAD (compare-at 359 MAD) |
 
 ## Shipping
 - Free delivery across Morocco
@@ -23,20 +23,20 @@ Discounts appear ONLY in the post-checkout upsell — never sitewide.
 
 ## Bundle Offers
 
-### Bundle 1: روتين النضارة الكامل
+### Bundle 1: روتين الصباح
+Nura Balance + Nura Eye Revive + Daily Sunscreen SPF 50
+Price: 599 MAD (value 777 MAD, saves 178 MAD)
+Badge: "الأكثر اختيارًا للصباح"
+
+### Bundle 2: روتين التجديد الليلي
+Nura Night Renewal + Nura Eye Revive
+Price: 429 MAD (value 518 MAD, saves 89 MAD)
+Badge: "مثالي للعناية الليلية"
+
+### Bundle 3: روتين نورا الكامل
 All 4 products
-Price: 699 MAD (saves 117 MAD vs individual)
-Copy: "كل ما تحتاجيه — صباحاً وليلاً — في طقم واحد"
-
-### Bundle 2: روتين الصباح (Morning Ritual)
-Nura Balance + Daily Sunscreen SPF 50
-Price: 349 MAD (saves 39 MAD)
-Copy: "ابدئي صباحك بروتين مكتمل"
-
-### Bundle 3: روتين التجديد الآمن
-Nura Night Renewal + Daily Sunscreen SPF 50
-Price: 389 MAD (saves 39 MAD)
-Copy: "ليلك للتجديد، وصباحك للحماية"
+Price: 799 MAD (value 1046 MAD, saves 247 MAD)
+Badge: "أفضل قيمة"
 
 ---
 
@@ -57,19 +57,17 @@ Copy: "ليلك للتجديد، وصباحك للحماية"
 
 ### Upsell Copy Template
 ```
-قبل ما تكملي — فرصة خاصة ليك وحدك
+أكملي روتينك بخطوة إضافية بسعر خاص
 
 [Product Name]
 [Arabic Name]
 
-[2-line benefit in Darija]
+[2-line benefit in Arabic]
 
 [Original Price] → [Discounted Price]
 وفري [X] درهم
 
-[Timer: 00:12]
-
-[نعم، أضيفيها لطلبي]  [لا شكراً]
+[أضيفيه لروتيني الآن]  [إكمال الطلب فقط]
 ```
 
 ---
@@ -77,8 +75,7 @@ Copy: "ليلك للتجديد، وصباحك للحماية"
 ## Cart AOV Levers
 
 ### Free Shipping Progress Bar
-Shown in cart drawer when order value < 300 MAD:
-> "بقا غير [X] درهم للشحن المجاني"
+All orders have free delivery across Morocco.
 
 ### Cross-sell Widget in Cart
 Shown when cart has 1–2 items:

@@ -8,9 +8,9 @@
 - [ ] No medical claims (only cosmetic language)
 - [ ] No fake certifications or dermatologist references
 - [ ] Product names consistent across all pages
-- [ ] Price correct on all product pages (Balance: 189, Eye Revive: 199, Night Renewal: 229)
-- [ ] Bundle prices correct (Morning: 349, Night: 389, Golden: 549)
-- [ ] Shipping policy shown: 30 MAD / free over 300 MAD
+- [ ] Price correct on all product pages (Balance: 249, Eye Revive: 249, Night Renewal: 269, SPF: 279)
+- [ ] Bundle prices correct (Morning: 599, Night: 429, Complete: 799)
+- [ ] Shipping policy shown: free delivery across Morocco
 
 ### RTL & Arabic
 - [ ] All pages render RTL correctly

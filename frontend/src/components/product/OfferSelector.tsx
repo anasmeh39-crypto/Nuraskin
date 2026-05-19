@@ -11,7 +11,7 @@ import {
   Sparkles,
   Truck,
 } from "lucide-react";
-import { PRODUCTS_MAP } from "@/config/products";
+import { BUNDLES, PRODUCTS_MAP } from "@/config/products";
 import { Product } from "@/types";
 
 interface Offer {
@@ -25,11 +25,10 @@ interface Offer {
   badge?: string;
   popular?: boolean;
   perUnit?: number;
+  bundleName?: string;
 }
 
 function buildOffers(product: Product): Offer[] {
-  const companions = product.crossSells.map((s) => PRODUCTS_MAP[s]).filter(Boolean);
-
   const offers: Offer[] = [
     {
       id: "single",
@@ -37,43 +36,28 @@ function buildOffers(product: Product): Offer[] {
       sublabel: "للبداية أو التجديد",
       products: [product],
       price: product.price,
+      originalPrice: product.compareAtPrice,
+      saving: product.compareAtPrice - product.price,
       perUnit: product.price,
     },
   ];
 
-  if (companions.length >= 1) {
-    const duo = companions[0];
-    const duoPrice = Math.round((product.price + duo.price) * 0.92);
+  BUNDLES.filter((bundle) => bundle.products.includes(product.slug)).forEach((bundle) => {
+    const products = bundle.products.map((slug) => PRODUCTS_MAP[slug]).filter(Boolean);
     offers.push({
-      id: "duo",
-      label: "ثنائي الروتين",
-      sublabel: "خطوتان متناغمتان",
-      products: [product, duo],
-      price: duoPrice,
-      originalPrice: product.price + duo.price,
-      saving: product.price + duo.price - duoPrice,
-      perUnit: Math.round(duoPrice / 2),
-      badge: "توصيل مجاني",
+      id: bundle.id,
+      label: bundle.name_ar,
+      sublabel: "روتين بسعر خاص",
+      products,
+      price: bundle.price,
+      originalPrice: bundle.compareAtPrice,
+      saving: bundle.saving,
+      perUnit: Math.round(bundle.price / products.length),
+      badge: bundle.tag,
+      popular: bundle.id === "nura-complete-ritual" || bundle.id === "morning-ritual",
+      bundleName: bundle.name_ar,
     });
-  }
-
-  if (companions.length >= 2) {
-    const [c1, c2] = companions;
-    const fullPrice = product.price + c1.price + c2.price;
-    const bundlePrice = Math.round(fullPrice * 0.87);
-    offers.push({
-      id: "ritual",
-      label: "الطقم الكامل",
-      sublabel: "التجربة الأشمل — خطوات مكملة",
-      products: [product, c1, c2],
-      price: bundlePrice,
-      originalPrice: fullPrice,
-      saving: fullPrice - bundlePrice,
-      perUnit: Math.round(bundlePrice / 3),
-      badge: "أقوى قيمة",
-      popular: true,
-    });
-  }
+  });
 
   return offers;
 }
@@ -82,6 +66,9 @@ const offerAccent: Record<string, { Icon: typeof Package; accent: string }> = {
   single: { Icon: Package, accent: "from-rose-blush/90 to-white" },
   duo: { Icon: Layers, accent: "from-gold-light/80 to-white" },
   ritual: { Icon: Crown, accent: "from-brand-deep/[0.06] via-rose-blush/60 to-gold-light/40" },
+  "morning-ritual": { Icon: Layers, accent: "from-gold-light/80 to-white" },
+  "night-renewal-ritual": { Icon: Layers, accent: "from-rose-blush/90 to-white" },
+  "nura-complete-ritual": { Icon: Crown, accent: "from-brand-deep/[0.06] via-rose-blush/60 to-gold-light/40" },
 };
 
 interface Props {

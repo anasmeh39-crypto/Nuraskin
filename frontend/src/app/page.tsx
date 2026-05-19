@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  const routineBundle = BUNDLES[0];
+  const routineBundle = BUNDLES.find((bundle) => bundle.id === "nura-complete-ritual") ?? BUNDLES[0];
 
   return (
     <>
@@ -181,7 +181,11 @@ export default function HomePage() {
             <div className="mt-6 flex flex-col gap-4 border-t border-white/70 pt-5 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm text-[#9B8A8A]">{routineBundle.name_ar}</p>
-                <p className="text-2xl font-bold text-rose-deep">{routineBundle.price} درهم</p>
+                <p className="text-sm text-[#9B8A8A]">
+                  القيمة الكاملة: <span className="line-through">{routineBundle.compareAtPrice} درهم</span>
+                </p>
+                <p className="text-2xl font-bold text-rose-deep">سعر الروتين: {routineBundle.price} درهم</p>
+                <p className="text-xs font-bold text-emerald-700">وفّري {routineBundle.saving} درهم</p>
               </div>
               <Link href="/products" className="rounded-full bg-rose-deep px-6 py-3 text-center text-sm font-bold text-white shadow-rose-md transition hover:bg-[#774956]">
                 اكتشفي الروتين الكامل

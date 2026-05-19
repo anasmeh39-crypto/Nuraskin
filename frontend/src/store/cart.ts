@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { CartItem } from "@/types";
-import { calculateShipping } from "@/config/products";
+import { calculateShipping, PRODUCTS_MAP } from "@/config/products";
 
 interface CartStore {
   items: CartItem[];
@@ -19,6 +19,20 @@ interface CartStore {
   getShipping: () => number;
   getGrandTotal: () => number;
   getItemCount: () => number;
+}
+
+function normalizeCartItem(item: CartItem): CartItem {
+  const product = PRODUCTS_MAP[item.slug];
+  if (!product || item.bundleName) return item;
+
+  return {
+    ...item,
+    name_ar: product.name_ar,
+    image: product.image,
+    price: product.price,
+    compareAtPrice: product.compareAtPrice,
+    discountAmount: product.compareAtPrice - product.price,
+  };
 }
 
 export const useCartStore = create<CartStore>()(
@@ -73,12 +87,7 @@ export const useCartStore = create<CartStore>()(
       openCheckout: () => set({ isCheckoutOpen: true, isDrawerOpen: false }),
       closeCheckout: () => set({ isCheckoutOpen: false }),
 
-      getTotal: () => {
-        return get().items.reduce(
-          (sum, i) => sum + i.price * i.quantity,
-          0
-        );
-      },
+      getTotal: () => get().items.reduce((sum, i) => sum + normalizeCartItem(i).price * i.quantity, 0),
 
       getShipping: () => calculateShipping(get().getTotal()),
 
@@ -89,6 +98,14 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: "nura-skin-cart",
+      version: 2,
+      migrate: (persistedState) => {
+        const state = persistedState as CartStore;
+        return {
+          ...state,
+          items: (state.items || []).map(normalizeCartItem),
+        };
+      },
       partialize: (state) => ({ items: state.items }),
     }
   )
