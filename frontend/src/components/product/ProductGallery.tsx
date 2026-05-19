@@ -35,6 +35,8 @@ export function ProductGallery({ productName, productSlug }: Props) {
           ? { ...slot, image: "/images/nura-balance-gallery-1.png" }
           : productSlug === "nura-balance" && index === 1
           ? { ...slot, image: "/images/nura-balance-gallery-2.png" }
+          : productSlug === "nura-balance" && index === 2
+          ? { ...slot, image: "/images/nura-balance-gallery-3.png" }
           : slot
       ),
     [productSlug]
