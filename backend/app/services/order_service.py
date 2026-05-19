@@ -125,6 +125,16 @@ async def accept_upsell(
     if not order:
         return None
 
+    existing_item = await session.execute(
+        select(OrderItem).where(
+            OrderItem.order_id == order.id,
+            OrderItem.product_slug == upsell_slug,
+        )
+    )
+    if existing_item.scalar_one_or_none():
+        logger.info("Upsell already exists for order %s: %s", order_number, upsell_slug)
+        return order
+
     product = await get_product_by_slug(session, upsell_slug)
     product_name = product.name_ar if product else upsell_slug
 

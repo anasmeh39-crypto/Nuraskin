@@ -106,12 +106,14 @@ export function CheckoutPopup() {
         source_url: window.location.href,
         event_id: eventId,
       });
+      const orderedSlugs = Array.from(new Set(items.map((i) => i.slug)));
       trackLead(phone, eventId);
       clearCart();
       closeCheckout();
       const params = new URLSearchParams({
         order: response.order_number,
-        upsell: response.upsell_eligible ? "1" : "0",
+        upsell: orderedSlugs.length < 3 ? "1" : "0",
+        items: orderedSlugs.join(","),
         ...(response.upsell_product ? {
           uslug: response.upsell_product.slug,
           uname: response.upsell_product.name_ar,
