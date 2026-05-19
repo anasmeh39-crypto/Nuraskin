@@ -2,12 +2,20 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { Product } from "@/types";
 
-const STATS = [
+const DEFAULT_STATS = [
   { value: "10%", label: "تركيز الناياسيناميد", sub: "الحد الأمثل الموثق" },
   { value: "3–4", label: "أسابيع للنتيجة الأولى", sub: "مع الاستخدام المنتظم" },
   { value: "0", label: "مواد ضارة", sub: "بارابين، سيليكون، ألوان صناعية" },
   { value: "100%", label: "شفافية المكونات", sub: "نعلن عن كل ما في التركيبة" },
+];
+
+const SPF_STATS = [
+  { value: "SPF 50", label: "حماية يومية عالية", sub: "ضمن روتين الصباح" },
+  { value: "UVA/UVB", label: "حماية واسعة", sub: "فلاتر متعددة الاتجاه" },
+  { value: "10%", label: "ألوفيرا", sub: "تهدئة وترطيب" },
+  { value: "0%", label: "ملمس دهني ثقيل", sub: "تركيبة خفيفة وسريعة الامتصاص" },
 ];
 
 const FORMULATION_POINTS = [
@@ -29,7 +37,14 @@ const FORMULATION_POINTS = [
   },
 ];
 
-export function ScienceSection() {
+interface Props {
+  product?: Product;
+}
+
+export function ScienceSection({ product }: Props) {
+  const isSpf = product?.slug === "nura-spf-50";
+  const stats = isSpf ? SPF_STATS : DEFAULT_STATS;
+
   return (
     <section className="py-20 bg-[#1C1410] overflow-hidden">
       <div className="container-wide">
@@ -42,13 +57,15 @@ export function ScienceSection() {
           <p className="text-xs text-rose-soft font-semibold tracking-wider uppercase mb-3">فلسفة التركيبة</p>
           <h2 className="section-heading text-white">العلم وراء كل قطرة</h2>
           <p className="text-white/60 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
-            لا ادعاءات طبية — فقط شفافية كاملة في كل ما نضعه ونقوله.
+            {isSpf
+              ? "حماية يومية واضحة، مرطبات مريحة، ولمسة خفيفة تناسب الالتزام الصباحي."
+              : "لا ادعاءات طبية — فقط شفافية كاملة في كل ما نضعه ونقوله."}
           </p>
         </motion.div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
-          {STATS.map((stat, i) => (
+          {stats.map((stat, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}

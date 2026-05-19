@@ -6,6 +6,7 @@ import { ProblemSection } from "@/components/product/ProblemSection";
 import { BeforeAfterSlider } from "@/components/product/BeforeAfterSlider";
 import { IngredientAuthority } from "@/components/product/IngredientAuthority";
 import { ScienceSection } from "@/components/product/ScienceSection";
+import { SunscreenDetailsSection } from "@/components/product/SunscreenDetailsSection";
 import { UsageAndTimeline } from "@/components/product/UsageAndTimeline";
 import { RoutineSection } from "@/components/product/RoutineSection";
 import { ReviewsElite } from "@/components/product/ReviewsElite";
@@ -88,8 +89,11 @@ export default async function ProductPage({ params }: Props) {
       {/* 4. Ingredient authority */}
       <IngredientAuthority product={product} />
 
+      {/* SPF-specific product details */}
+      {product.slug === "nura-spf-50" && <SunscreenDetailsSection />}
+
       {/* 5. Science & clinical positioning */}
-      <ScienceSection />
+      <ScienceSection product={product} />
 
       {/* 6. How to use + realistic timeline */}
       <UsageAndTimeline product={product} />
