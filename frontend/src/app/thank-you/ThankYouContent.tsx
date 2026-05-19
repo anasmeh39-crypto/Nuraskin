@@ -243,8 +243,8 @@ export function ThankYouContent() {
           <h2 className="text-xl font-bold text-[#3A222C] mb-4">
             قد يعجبك أيضاً
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {PRODUCTS.slice(0, 3).map((p) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {PRODUCTS.slice(0, 4).map((p) => (
               <Link
                 key={p.slug}
                 href={`/products/${p.slug}`}

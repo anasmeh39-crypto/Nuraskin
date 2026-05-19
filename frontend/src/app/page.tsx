@@ -17,7 +17,7 @@ import { ProductCard } from "@/components/ui/ProductCard";
 export const metadata: Metadata = {
   title: "نورا سكين | عناية متكاملة لبشرة أكثر توازنًا",
   description:
-    "منتجات عناية بشرة مختارة بعناية لروتين يومي واضح. سيروم النياسيناميد، كريم التجديد الليلي، وسيروم محيط العين. الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.",
+    "منتجات عناية بشرة مختارة بعناية لروتين يومي واضح. سيروم النياسيناميد، كريم التجديد الليلي، سيروم محيط العين، وواقي الشمس اليومي SPF 50. الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.",
   openGraph: {
     title: "نورا سكين | NURA SKIN",
     description: "عناية بشرة مدروسة بروتين بسيط وناعم",
@@ -45,7 +45,7 @@ export default function HomePage() {
               روتين عناية ناعم لبشرة أكثر توازنًا وإشراقًا
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-base leading-8 text-[#6B5555] md:mx-0 md:text-lg">
-              ثلاث تركيبات أساسية مختارة بعناية لتدعم احتياجات البشرة اليومية، دون تعقيد أو وعود مبالغ فيها.
+              أربع تركيبات أساسية مختارة بعناية لتدعم احتياجات البشرة اليومية، من الإشراقة إلى الحماية الصباحية، دون تعقيد أو وعود مبالغ فيها.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:justify-start">
               <Link href="/products" className="rounded-full bg-rose-deep px-8 py-4 text-center font-bold text-white shadow-rose-md transition hover:opacity-90">
@@ -80,13 +80,13 @@ export default function HomePage() {
                     <span className="h-12 w-12 rounded-full border border-rose-deep/30 bg-rose-blush/50" aria-hidden />
                   </div>
                   <p className="font-bold text-[#3A222C]">روتين نورا سكين</p>
-                  <p className="mt-1 text-xs text-rose-mid">ثلاث خطوات يومية</p>
+                  <p className="mt-1 text-xs text-rose-mid">صباحًا وليلًا</p>
                 </div>
               </div>
             </div>
             <div className="absolute -bottom-5 -right-3 rounded-3xl border border-rose-soft/30 bg-white px-5 py-4 shadow-rose-sm">
-              <p className="text-sm font-bold text-[#3A222C]">روتين من 3 خطوات</p>
-              <p className="text-xs text-[#9B8A8A]">صباحًا، ليلًا، ومحيط العين</p>
+              <p className="text-sm font-bold text-[#3A222C]">روتين متكامل</p>
+              <p className="text-xs text-[#9B8A8A]">إشراقة، تجديد، عين، وحماية</p>
             </div>
           </div>
         </div>
@@ -123,11 +123,12 @@ export default function HomePage() {
             <p className="luxury-kicker mb-3">مشاكل يومية، حلول واضحة</p>
             <h2 className="section-heading text-[#3A222C]">عناية تفهم بشرتك… وتمنحها ما تحتاجه كل يوم</h2>
           </div>
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: SunMedium, title: "بهتان وعدم توازن", text: "عندما تبدو البشرة مرهقة أو غير متجانسة، تحتاج إلى خطوة يومية لطيفة تدعم صفاءها.", product: PRODUCTS[0] },
               { icon: Moon, title: "بشرة متعبة ليلًا", text: "بعد يوم طويل، تحتاج البشرة إلى كريم ليلي مريح يدعم مظهر النعومة والنضارة.", product: PRODUCTS[1] },
               { icon: Eye, title: "محيط عين مرهق", text: "المنطقة حول العين تحتاج عناية خفيفة ومركزة لمظهر أكثر انتعاشًا.", product: PRODUCTS[2] },
+              { icon: ShieldCheck, title: "حماية صباحية", text: "الروتين اليومي يحتاج خطوة حماية خفيفة تساعد على الحفاظ على مظهر البشرة المشرق.", product: PRODUCTS[3] },
             ].map((card) => {
               const Icon = card.icon;
               return (
@@ -149,9 +150,9 @@ export default function HomePage() {
         <div className="container-wide">
           <div className="mx-auto mb-12 max-w-2xl text-center">
             <p className="luxury-kicker mb-3">مجموعة نورا سكين</p>
-            <h2 className="section-heading text-[#3A222C]">ثلاثة منتجات أساسية لروتين متكامل</h2>
+            <h2 className="section-heading text-[#3A222C]">أربعة منتجات أساسية لروتين متكامل</h2>
           </div>
-          <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
             {PRODUCTS.map((product, idx) => (
               <div key={product.slug} className="animate-premium-rise" style={{ animationDelay: `${idx * 90}ms` }}>
                 <ProductCard product={product} showBadge={idx === 0} badge="الأكثر اختيارًا" />
@@ -167,10 +168,10 @@ export default function HomePage() {
             <p className="luxury-kicker mb-3">روتين متكامل</p>
             <h2 className="section-heading text-[#3A222C]">روتين متكامل لبشرة أكثر توازنًا وإشراقًا</h2>
             <p className="mt-4 max-w-xl text-sm leading-7 text-[#6B5555]">
-              اجمعي سيروم التوازن، كريم الليل، وسيروم محيط العين في نظام واحد يدعم العناية اليومية والليلية.
+              اجمعي سيروم التوازن، كريم الليل، سيروم محيط العين، وواقي الشمس في نظام واحد يدعم العناية الصباحية والليلية.
             </p>
             <div className="mt-7 space-y-3">
-              {["العناية الصباحية", "العناية الليلية", "عناية محيط العين"].map((step, idx) => (
+              {["العناية الصباحية", "الحماية اليومية", "العناية الليلية", "عناية محيط العين"].map((step, idx) => (
                 <div key={step} className="flex items-center gap-3 rounded-2xl border border-white/70 bg-white/70 p-4 shadow-ivory-sm">
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-rose-light text-xs font-bold text-rose-deep">0{idx + 1}</span>
                   <span className="font-semibold text-[#3A222C]">{step}</span>
@@ -191,8 +192,8 @@ export default function HomePage() {
             <div className="premium-float rounded-[2rem] border border-white/75 bg-[linear-gradient(145deg,#FFFDFC,#F7E8ED_54%,#F6F0E8)] p-4 shadow-rose-lg">
               <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.6rem] border border-white/80 bg-white/50">
                 <div className="absolute inset-x-8 bottom-8 h-16 rounded-full bg-rose-soft/25 blur-2xl" aria-hidden />
-                <div className="grid grid-cols-3 items-end gap-3">
-                  {["h-36", "h-44", "h-32"].map((height, idx) => (
+                <div className="grid grid-cols-4 items-end gap-2 sm:gap-3">
+                  {["h-36", "h-44", "h-32", "h-40"].map((height) => (
                     <div key={height} className={`${height} w-16 rounded-[1.3rem] border border-rose-soft/35 bg-white/80 shadow-ivory-sm md:w-20`}>
                       <div className="mx-auto mt-5 h-10 w-10 rounded-full border border-rose-deep/20 bg-rose-blush/50" />
                       <div className="mx-auto mt-5 h-2 w-8 rounded-full bg-rose-soft/35" />

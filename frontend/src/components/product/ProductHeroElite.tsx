@@ -109,6 +109,7 @@ export function ProductHeroElite({ product }: Props) {
               {product.slug === "nura-balance" && "توازن يومي لطيف يساعد بشرتك على الظهور بإشراقة أكثر صفاءً"}
               {product.slug === "nura-night-renewal" && "كريم ليلي ناعم يدعم مظهر البشرة المريحة عند الاستيقاظ"}
               {product.slug === "nura-eye-revive" && "عناية خفيفة لمحيط العين لمظهر أكثر انتعاشًا وراحة"}
+              {product.slug === "nura-spf-50" && "حماية صباحية خفيفة تكمل روتينك اليومي وتحافظ على إشراقة البشرة"}
             </p>
 
             {/* Rating */}

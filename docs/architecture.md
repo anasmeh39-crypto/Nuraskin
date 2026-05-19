@@ -63,7 +63,7 @@ Browser (Mobile-first)
 ```
 Product Page → Add to Cart → Cart Drawer → Open Checkout Popup
 → Fill name + phone → Validate Morocco number → POST /orders
-→ Redirect to Upsell Page (10–15s timer)
+→ Redirect to Upsell Popup/Page (no countdown)
 → Accept? → POST /orders/{id}/upsell → Redirect to Thank-You
 → Decline? → Redirect to Thank-You
 ```

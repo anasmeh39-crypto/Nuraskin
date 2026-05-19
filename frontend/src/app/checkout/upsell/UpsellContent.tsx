@@ -20,6 +20,7 @@ const BENEFITS: Record<string, string> = {
   "nura-balance": "يمنح إشراقة وتوازنًا للبشرة",
   "nura-night-renewal": "يساعد على ترطيب وتجديد البشرة أثناء النوم",
   "nura-eye-revive": "يساعد على تقليل مظهر التعب حول العينين",
+  "nura-spf-50": "خطوة حماية يومية للحفاظ على إشراقة الروتين",
 };
 
 function getDiscountedPrice(price: number) {
@@ -47,6 +48,13 @@ export function UpsellContent() {
     if (!orderNumber) return [];
 
     if (purchasedSlugs.size > 0) {
+      const spf = PRODUCTS_MAP["nura-spf-50"];
+      const hasRoutineProduct = PRODUCTS.some(
+        (product) => product.slug !== "nura-spf-50" && purchasedSlugs.has(product.slug)
+      );
+      if (hasRoutineProduct && spf && !purchasedSlugs.has(spf.slug)) {
+        return [spf];
+      }
       return PRODUCTS.filter((product) => !purchasedSlugs.has(product.slug));
     }
 
@@ -96,6 +104,8 @@ export function UpsellContent() {
     );
   }
 
+  const isSpfPriority = products.length === 1 && products[0].slug === "nura-spf-50";
+
   return (
     <main dir="rtl" className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#3D2C32]/28 px-3 py-5 text-text-primary backdrop-blur-sm sm:px-6 lg:px-8">
       <div className="pointer-events-none absolute inset-0">
@@ -130,10 +140,12 @@ export function UpsellContent() {
             روتين متكامل
           </motion.div>
           <h1 className="text-2xl font-black leading-tight text-[#3D2C32] sm:text-3xl">
-            ✨ خصم خاص لإكمال روتينك اليوم
+            {isSpfPriority ? "أكملي روتينك بخطوة الحماية اليومية" : "✨ خصم خاص لإكمال روتينك اليوم"}
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-sm font-semibold leading-7 text-[#6B4E56] sm:text-base">
-            منتجات مختارة بعناية لتمنح بشرتك نتائج أفضل مع روتين متكامل.
+            {isSpfPriority
+              ? "واقي الشمس خطوة أساسية للحفاظ على إشراقة البشرة، خاصة مع روتين العناية الليلي."
+              : "منتجات مختارة بعناية لتمنح بشرتك نتائج أفضل مع روتين متكامل."}
           </p>
         </div>
 
@@ -202,7 +214,7 @@ export function UpsellContent() {
                       disabled={Boolean(addingSlug) || isAdded}
                       className="w-full rounded-full bg-[#3D2C32] px-5 py-3.5 text-center text-sm font-extrabold text-white shadow-[0_16px_34px_rgba(61,44,50,0.18),0_0_0_6px_rgba(212,188,155,0.12)] transition duration-300 hover:bg-[#8E5A68] hover:shadow-[0_18px_40px_rgba(142,90,104,0.24),0_0_0_8px_rgba(212,188,155,0.16)] disabled:cursor-not-allowed disabled:opacity-70"
                     >
-                      {isAdded ? "تمت الإضافة إلى روتينك" : isAdding ? "جاري الإضافة..." : "أضيفيه لروتيني الآن ✨"}
+                      {isAdded ? "تمت الإضافة إلى روتينك" : isAdding ? "جاري الإضافة..." : "أضيفيه لروتيني الآن"}
                     </button>
                   </div>
                 </motion.article>

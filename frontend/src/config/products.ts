@@ -38,7 +38,7 @@ export const PRODUCTS: Product[] = [
         description_ar: "يروي عطش البشرة بترطيب عميق يحافظ على امتلائها دون ترك ملمس دهني.",
       },
     ],
-    crossSells: ["nura-night-renewal", "nura-eye-revive"],
+    crossSells: ["nura-spf-50", "nura-eye-revive"],
     reviews: [
       {
         name: "مريم ب.",
@@ -107,7 +107,7 @@ export const PRODUCTS: Product[] = [
         description_ar: "تدعم تماسك البشرة لتمنحكِ مظهراً أكثر شباباً وانتعاشاً.",
       },
     ],
-    crossSells: ["nura-balance", "nura-eye-revive"],
+    crossSells: ["nura-spf-50", "nura-balance"],
     reviews: [
       {
         name: "خديجة أ.",
@@ -176,7 +176,7 @@ export const PRODUCTS: Product[] = [
         description_ar: "يعزز الإشراقة ويحمي البشرة الحساسة حول العينين.",
       },
     ],
-    crossSells: ["nura-balance", "nura-night-renewal"],
+    crossSells: ["nura-balance", "nura-spf-50"],
     reviews: [
       {
         name: "أسماء ق.",
@@ -203,6 +203,70 @@ export const PRODUCTS: Product[] = [
     metaDescription:
       "سيروم نضارة محيط العين بمكونات لطيفة لمظهر التعب والانتفاخ—199 درهم، الدفع عند الاستلام.",
   },
+  {
+    slug: "nura-spf-50",
+    name_ar: "واقي الشمس اليومي SPF 50",
+    name_en: "Daily Sunscreen SPF 50",
+    tagline_ar: "حماية يومية خفيفة لإشراقة الروتين",
+    description_ar:
+      "واقي شمس يومي خفيف يساعد على حماية البشرة من أشعة الشمس ويحافظ على إشراقة الروتين اليومي.",
+    price: 199,
+    formattedPrice: "199 درهم",
+    image: "/images/nura-spf-50.jpg",
+    heroIngredient: "SPF 50",
+    format: "واقي شمس يومي",
+    volume: "50ml",
+    benefits: [
+      "يساعد على حماية البشرة من أشعة الشمس",
+      "يحافظ على مظهر البشرة المشرق",
+      "مناسب للاستعمال اليومي صباحًا",
+      "خطوة أساسية مع روتين التجديد الليلي",
+    ],
+    concerns: ["التعرض اليومي للشمس", "بهتان المظهر", "حماية الروتين الصباحي", "إكمال العناية اليومية"],
+    ingredients: [
+      {
+        name_ar: "مرشحات حماية SPF 50",
+        name_en: "SPF 50 UV Filters",
+        description_ar: "تساعد على حماية البشرة من أشعة الشمس ضمن روتين الصباح اليومي.",
+      },
+      {
+        name_ar: "حمض الهيالورونيك",
+        name_en: "Hyaluronic Acid",
+        description_ar: "يساعد على منح البشرة إحساسًا بالراحة والترطيب الخفيف.",
+      },
+      {
+        name_ar: "فيتامين E",
+        name_en: "Vitamin E",
+        description_ar: "مكوّن معروف في العناية اليومية يدعم مظهر البشرة الناعم.",
+      },
+    ],
+    crossSells: ["nura-balance", "nura-eye-revive"],
+    reviews: [
+      {
+        name: "نادية س.",
+        city: "الدار البيضاء",
+        rating: 5,
+        text: "خفيف ومريح صباحًا، وأحببت أنه لا يجعل روتيني ثقيلاً قبل الخروج.",
+        date: "منذ أسبوعين",
+      },
+      {
+        name: "كوثر ر.",
+        city: "مراكش",
+        rating: 5,
+        text: "أصبح آخر خطوة في روتيني الصباحي، ملمسه ناعم ومناسب قبل المكياج.",
+        date: "منذ شهر",
+      },
+      {
+        name: "سلمى ع.",
+        city: "طنجة",
+        rating: 4,
+        text: "إضافة ضرورية مع كريم الليل، جعلت الروتين يبدو أكثر اكتمالًا.",
+        date: "منذ 3 أسابيع",
+      },
+    ],
+    metaDescription:
+      "واقي الشمس اليومي SPF 50 لحماية صباحية خفيفة—199 درهم، الدفع عند الاستلام وتوصيل مجاني.",
+  },
 ];
 
 export const PRODUCTS_MAP: Record<string, Product> = Object.fromEntries(
@@ -211,24 +275,24 @@ export const PRODUCTS_MAP: Record<string, Product> = Object.fromEntries(
 
 export const BUNDLES: Bundle[] = [
   {
-    id: "golden-ritual",
-    name_ar: "الروتين الذهبي — العناية المتكاملة",
-    products: ["nura-balance", "nura-night-renewal", "nura-eye-revive"],
-    price: 549,
-    saving: 68,
+    id: "complete-glow-ritual",
+    name_ar: "روتين النضارة الكامل",
+    products: ["nura-balance", "nura-night-renewal", "nura-eye-revive", "nura-spf-50"],
+    price: 699,
+    saving: 117,
     tag: "الخيار الأفضل",
   },
   {
     id: "morning-ritual",
-    name_ar: "روتين الصباح المشرق",
-    products: ["nura-balance", "nura-eye-revive"],
+    name_ar: "روتين الصباح",
+    products: ["nura-balance", "nura-spf-50"],
     price: 349,
     saving: 39,
   },
   {
-    id: "night-ritual",
-    name_ar: "روتين المساء المجدد",
-    products: ["nura-night-renewal", "nura-eye-revive"],
+    id: "safe-renewal-ritual",
+    name_ar: "روتين التجديد الآمن",
+    products: ["nura-night-renewal", "nura-spf-50"],
     price: 389,
     saving: 39,
   },

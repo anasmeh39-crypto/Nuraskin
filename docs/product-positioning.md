@@ -2,7 +2,7 @@
 
 ## Product Philosophy
 
-Nura Skin offers exactly 3 products, each solving a specific, clearly-defined skin concern.  
+Nura Skin offers 4 core products, each solving a specific, clearly-defined routine need.
 This restraint is intentional: fewer products = deeper trust, clearer positioning, stronger brand.
 
 Each product:
@@ -15,10 +15,10 @@ Each product:
 
 ## Product 1: Nura Balance
 
-**Arabic Name:** مركّز نيورا بالانس لتوازن البشرة والمسام  
-**Slug:** `nura-balance`  
-**Format:** Serum / Concentrate (30ml)  
-**Price:** 189 MAD  
+**Arabic Name:** مركّز نيورا بالانس لتوازن البشرة والمسام
+**Slug:** `nura-balance`
+**Format:** Serum / Concentrate (30ml)
+**Price:** 189 MAD
 **Use:** Morning and/or evening after cleansing
 
 ### Hero Ingredients
@@ -47,10 +47,10 @@ The customer has tried everything for her pores and shine. She's exhausted by pr
 
 ## Product 2: Nura Night Renewal
 
-**Arabic Name:** كريم نيورا رينيو الليلي لتجديد النعومة والإشراقة  
-**Slug:** `nura-night-renewal`  
-**Format:** Night Cream (50ml)  
-**Price:** 229 MAD  
+**Arabic Name:** كريم نيورا رينيو الليلي لتجديد النعومة والإشراقة
+**Slug:** `nura-night-renewal`
+**Format:** Night Cream (50ml)
+**Price:** 229 MAD
 **Use:** Evening, after serum, as final step
 
 ### Hero Ingredients
@@ -81,10 +81,10 @@ Exhaustion. Tired skin. The customer sees herself in the mirror at night and wan
 
 ## Product 3: Nura Eye Revive
 
-**Arabic Name:** سيروم نيورا آي ريفايف للهالات وآثار التعب  
-**Slug:** `nura-eye-revive`  
-**Format:** Eye Serum (15ml)  
-**Price:** 199 MAD  
+**Arabic Name:** سيروم نيورا آي ريفايف للهالات وآثار التعب
+**Slug:** `nura-eye-revive`
+**Format:** Eye Serum (15ml)
+**Price:** 199 MAD
 **Use:** Morning and evening, gently patted under eyes
 
 ### Hero Ingredients
@@ -108,28 +108,29 @@ The customer is tired. She's a working woman, a mother, a student. She wants to 
 > "منطقة العين أول ما يشوفوها الناس — سيروم آي ريفايف يساعد على تخفيف مظهر الهالات والانتفاخ. نتيجة؟ عيون أكثر إشراقاً وانتعاشاً."
 
 ### Cross-sell
+- Nura SPF 50 for morning protection with Nura Balance and Night Renewal
 - Nura Balance for complete morning ritual
-- Bundle: all 3 = "الروتين الذهبي ديال نيورا"
+- Bundle: full 4-product ritual = "روتين النضارة الكامل"
 
 ---
 
 ## Bundle Positioning
 
-### The Golden Ritual Bundle
-**Arabic:** الروتين الذهبي — الطقم الكامل من نيورا  
-**Contents:** Nura Balance + Nura Night Renewal + Nura Eye Revive  
-**Bundle Price:** 549 MAD (saves 68 MAD vs. individual)  
+### Complete Glow Ritual
+**Arabic:** روتين النضارة الكامل
+**Contents:** Nura Balance + Nura Night Renewal + Nura Eye Revive + Daily Sunscreen SPF 50
+**Bundle Price:** 699 MAD (saves 117 MAD vs. individual)
 **Positioning:** "كل ما تحتاجيه في روتين واحد — صباحاً وليلاً"
 
 ### Morning Ritual Duo
-**Arabic:** روتين الصباح  
-**Contents:** Nura Balance + Nura Eye Revive  
-**Bundle Price:** 349 MAD  
+**Arabic:** روتين الصباح
+**Contents:** Nura Balance + Daily Sunscreen SPF 50
+**Bundle Price:** 349 MAD
 
-### Night Ritual Duo
-**Arabic:** روتين الليل  
-**Contents:** Nura Night Renewal + Nura Eye Revive  
-**Bundle Price:** 389 MAD  
+### Safe Renewal Duo
+**Arabic:** روتين التجديد الآمن
+**Contents:** Nura Night Renewal + Daily Sunscreen SPF 50
+**Bundle Price:** 389 MAD
 
 ---
 
@@ -140,9 +141,9 @@ The customer is tired. She's a working woman, a mother, a student. She wants to 
 | Nura Balance | 189 MAD | Entry / Most popular |
 | Nura Eye Revive | 199 MAD | Cross-sell anchor |
 | Nura Night Renewal | 229 MAD | Premium anchor |
+| Daily Sunscreen SPF 50 | 199 MAD | Protection / routine completion |
 | Morning Duo | 349 MAD | AOV lift |
-| Night Duo | 389 MAD | AOV lift |
-| Golden Ritual (all 3) | 549 MAD | Max AOV |
+| Safe Renewal Duo | 389 MAD | AOV lift |
+| Complete Glow Ritual (all 4) | 699 MAD | Max AOV |
 
-Shipping: Free over 300 MAD (incentivizes upsell to bundle).  
-Standard shipping: 30 MAD.
+Shipping: Free for all orders across Morocco.

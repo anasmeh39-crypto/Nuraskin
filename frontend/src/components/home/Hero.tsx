@@ -32,7 +32,7 @@ export function Hero() {
             </h1>
 
             <p className="mx-auto mb-8 max-w-xl text-lg leading-9 text-gray-600 md:mx-0">
-              روتين فاخر من ثلاث خطوات، يجمع بين مكونات مختارة بعناية وتجربة حسية راقية لبشرة أكثر توازناً وإشراقاً يوماً بعد يوم.
+              روتين فاخر من خطوات صباحية وليلية، يجمع بين مكونات مختارة بعناية وحماية يومية لبشرة أكثر توازناً وإشراقاً يوماً بعد يوم.
             </p>
 
             <div className="flex flex-col justify-center gap-3 sm:flex-row md:justify-start">

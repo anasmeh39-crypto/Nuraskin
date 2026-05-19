@@ -1,8 +1,8 @@
 # Nura Skin — Offers & Bundles System
 
 ## Offer Philosophy
-Offers must feel premium and logical, not desperate.  
-The frame is always: "بناء روتين متكامل" (building a complete routine).  
+Offers must feel premium and logical, not desperate.
+The frame is always: "بناء روتين متكامل" (building a complete routine).
 Discounts appear ONLY in the post-checkout upsell — never sitewide.
 
 ---
@@ -13,30 +13,30 @@ Discounts appear ONLY in the post-checkout upsell — never sitewide.
 | Nura Balance (30ml) | 189 MAD |
 | Nura Eye Revive (15ml) | 199 MAD |
 | Nura Night Renewal (50ml) | 229 MAD |
+| Daily Sunscreen SPF 50 (50ml) | 199 MAD |
 
 ## Shipping
-- Orders under 300 MAD: +30 MAD shipping
-- Orders 300 MAD+: Free shipping
-- Free shipping is the primary AOV driver
+- Free delivery across Morocco
+- الدفع عند الاستلام
 
 ---
 
 ## Bundle Offers
 
-### Bundle 1: الروتين الذهبي (Golden Ritual)
-All 3 products  
-Price: 549 MAD (saves 68 MAD vs individual)  
+### Bundle 1: روتين النضارة الكامل
+All 4 products
+Price: 699 MAD (saves 117 MAD vs individual)
 Copy: "كل ما تحتاجيه — صباحاً وليلاً — في طقم واحد"
 
 ### Bundle 2: روتين الصباح (Morning Ritual)
-Nura Balance + Nura Eye Revive  
-Price: 349 MAD (saves 39 MAD, incl. free shipping)  
+Nura Balance + Daily Sunscreen SPF 50
+Price: 349 MAD (saves 39 MAD)
 Copy: "ابدئي صباحك بروتين مكتمل"
 
-### Bundle 3: روتين الليل (Night Ritual)
-Nura Night Renewal + Nura Eye Revive  
-Price: 389 MAD (saves 39 MAD, incl. free shipping)  
-Copy: "ليلك — طقم الراحة والتجديد"
+### Bundle 3: روتين التجديد الآمن
+Nura Night Renewal + Daily Sunscreen SPF 50
+Price: 389 MAD (saves 39 MAD)
+Copy: "ليلك للتجديد، وصباحك للحماية"
 
 ---
 
@@ -44,20 +44,16 @@ Copy: "ليلك — طقم الراحة والتجديد"
 
 ### Rules
 - Shown ONCE after order confirmation, before thank-you
-- 10–15 second auto-advance timer (customer can dismiss)
-- Discount: 20–30% off the companion product
-- Discount is exclusive to this moment — "فرصة واحدة فقط"
+- No countdown and no fake urgency
+- Discount: 20% off the companion product
+- Copy must feel like routine completion, not pressure
 
 ### Logic
 | Ordered | Upsell Offer |
 |---|---|
-| Nura Balance only | Nura Eye Revive at -25% |
-| Nura Night Renewal only | Nura Balance at -25% |
-| Nura Eye Revive only | Nura Balance at -25% |
-| Balance + Eye Revive | Nura Night Renewal at -30% |
-| Balance + Night Renewal | Nura Eye Revive at -20% |
-| Night Renewal + Eye Revive | Nura Balance at -20% |
-| All 3 | No upsell — go directly to thank-you |
+| Any routine product without SPF | Daily Sunscreen SPF 50 at -20% |
+| SPF only | Nura Balance at -20% |
+| Full 4-product routine | No upsell — go directly to thank-you |
 
 ### Upsell Copy Template
 ```

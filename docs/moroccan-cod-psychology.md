@@ -95,7 +95,7 @@ COD markets have unique AOV dynamics:
 - **Sweet spot: 150–350 MAD per order**
 
 AOV elevation strategies:
-1. **Routine framing**: "الروتين الكامل" (the complete routine) — bundle all 3 products
+1. **Routine framing**: "الروتين الكامل" (the complete routine) — bundle the complete 4-product routine
 2. **Starter + upgrade**: One product + "أضيفي هاد الخطوة لروتينك"
 3. **Post-checkout upsell** (the only place for discounts): offer the companion product at 20–30% off
 4. **Cart drawer cross-sells**: shown as "يكملها" (complements it)

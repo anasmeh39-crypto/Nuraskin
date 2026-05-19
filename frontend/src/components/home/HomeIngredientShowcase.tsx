@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Droplets, MoonStar, ScanEye } from "lucide-react";
+import { Droplets, MoonStar, ScanEye, ShieldCheck } from "lucide-react";
 
 const INGREDIENTS = [
   {
@@ -36,6 +36,17 @@ const INGREDIENTS = [
     ring: "ring-amber-100/70",
     iconBg: "bg-[#FFF8F0] text-[#8B6914]",
     delay: 0.24,
+  },
+  {
+    Icon: ShieldCheck,
+    titleEn: "SPF 50",
+    titleAr: "الحماية اليومية",
+    copy:
+      "خطوة صباحية خفيفة تساعد على حماية البشرة من أشعة الشمس وتحافظ على إشراقة الروتين اليومي دون ثقل.",
+    accent: "from-[#fff7e6] to-[#fdf1f4]",
+    ring: "ring-gold/20",
+    iconBg: "bg-[#FFF8F0] text-[#9A7430]",
+    delay: 0.36,
   },
 ];
 
@@ -77,12 +88,12 @@ export function HomeIngredientShowcase() {
           <p className="luxury-kicker mb-3">لبّ التركيبة</p>
           <h2 className="section-heading text-[#3A222C]">مكونات بلغة واضحة… وهوية أنيقة</h2>
           <p className="mt-3 text-sm leading-7 text-[#6B5555] md:text-base">
-            ثلاثة محاور أساسية تُبرز فلسفتنا: توازن نهاري، تجديد ليلي، ومظهر راحة حول العين — دون مبالغة أو ادعاءات طبّية.
+            أربعة محاور أساسية تُبرز فلسفتنا: توازن نهاري، حماية صباحية، تجديد ليلي، ومظهر راحة حول العين — دون مبالغة أو ادعاءات طبّية.
           </p>
         </motion.div>
 
         <motion.div
-          className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3"
+          className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

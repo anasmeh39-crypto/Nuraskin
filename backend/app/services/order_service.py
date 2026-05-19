@@ -11,14 +11,24 @@ import asyncio
 
 logger = logging.getLogger(__name__)
 
+CORE_PRODUCT_SLUGS = {
+    "nura-balance",
+    "nura-night-renewal",
+    "nura-eye-revive",
+    "nura-spf-50",
+}
+SPF_SLUG = "nura-spf-50"
+
 # Upsell logic: ordered slugs → upsell product + discount
 UPSELL_RULES = [
-    ({"nura-balance", "nura-eye-revive"}, "nura-night-renewal", 30),
-    ({"nura-balance", "nura-night-renewal"}, "nura-eye-revive", 20),
-    ({"nura-night-renewal", "nura-eye-revive"}, "nura-balance", 20),
-    ({"nura-balance"}, "nura-eye-revive", 25),
-    ({"nura-night-renewal"}, "nura-balance", 25),
+    ({"nura-balance", "nura-spf-50"}, "nura-eye-revive", 20),
+    ({"nura-night-renewal", "nura-spf-50"}, "nura-balance", 20),
+    ({"nura-eye-revive", "nura-spf-50"}, "nura-balance", 20),
+    ({"nura-balance", "nura-eye-revive", "nura-spf-50"}, "nura-night-renewal", 20),
+    ({"nura-balance", "nura-night-renewal", "nura-spf-50"}, "nura-eye-revive", 20),
+    ({"nura-night-renewal", "nura-eye-revive", "nura-spf-50"}, "nura-balance", 20),
     ({"nura-eye-revive"}, "nura-balance", 25),
+    ({"nura-spf-50"}, "nura-balance", 20),
 ]
 
 
@@ -48,9 +58,23 @@ async def resolve_upsell(
     ordered_slugs: set[str], session: AsyncSession
 ) -> UpsellProductOut | None:
     """Determine the best upsell product based on what was ordered."""
-    # No upsell if all 3 products are in the order
-    if ordered_slugs >= {"nura-balance", "nura-night-renewal", "nura-eye-revive"}:
+    # No upsell if the full routine is already in the order.
+    if ordered_slugs >= CORE_PRODUCT_SLUGS:
         return None
+
+    # SPF is the highest-priority safety/completion upsell for any routine purchase.
+    if SPF_SLUG not in ordered_slugs and ordered_slugs.intersection(CORE_PRODUCT_SLUGS - {SPF_SLUG}):
+        product = await get_product_by_slug(session, SPF_SLUG)
+        if product:
+            price = money_to_float(product.price)
+            discounted = round(price * 0.8)
+            return UpsellProductOut(
+                slug=product.slug,
+                name_ar=product.name_ar,
+                price=price,
+                discounted_price=discounted,
+                discount_percent=20,
+            )
 
     for rule_slugs, upsell_slug, discount_pct in UPSELL_RULES:
         if rule_slugs == ordered_slugs:

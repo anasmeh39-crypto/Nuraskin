@@ -68,7 +68,7 @@ Response:
 - Client: Redirect to `/checkout/upsell?order_id=ORD-2024-0001`
 
 ### 6. Upsell Page
-- Shows upsell product with 10–15 second countdown
+- Shows the best routine-completion upsell with no countdown or fake urgency
 - Customer can accept or dismiss
 
 ### 7. Upsell Accepted (POST /orders/{id}/upsell)
@@ -152,12 +152,12 @@ def generate_order_number(db_session) -> str:
     from datetime import date
     today = date.today()
     prefix = f"ORD-{today.strftime('%Y%m%d')}"
-    
+
     # Count orders today
     count = db_session.query(Order).filter(
         Order.order_number.like(f"{prefix}%")
     ).count()
-    
+
     return f"{prefix}-{str(count + 1).zfill(3)}"
 ```
 

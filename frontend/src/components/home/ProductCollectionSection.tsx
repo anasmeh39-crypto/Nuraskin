@@ -9,13 +9,13 @@ export function ProductCollectionSection() {
       <div className="container-wide">
         <div className="text-center mb-12">
           <p className="luxury-kicker mx-auto mb-4 w-fit">مجموعة العناية الأساسية</p>
-          <h2 className="section-heading">ثلاثة منتجات بتجربة فاخرة واحدة</h2>
+          <h2 className="section-heading">أربعة منتجات بتجربة فاخرة واحدة</h2>
           <p className="section-subheading max-w-xl mx-auto">
-            تركيبات مختارة بعناية لتدعم توازن البشرة، إشراقة محيط العينين، وتجدد مظهر البشرة خلال الليل.
+            تركيبات مختارة بعناية لتدعم توازن البشرة، إشراقة محيط العينين، تجدد مظهر البشرة خلال الليل، والحماية اليومية.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
           {PRODUCTS.map((product, idx) => (
             <ProductCard
               key={product.slug}

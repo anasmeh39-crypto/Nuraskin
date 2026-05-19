@@ -7,7 +7,7 @@ import { ShieldCheck, Truck, FlaskConical } from "lucide-react";
 export const metadata: Metadata = {
   title: "جميع المنتجات — نورا سكين",
   description:
-    "اكتشفي مجموعة نورا سكين الكاملة: سيروم توازن وإشراقة البشرة بالنياسيناميد، كريم التجديد الليلي للبشرة، وسيروم نضارة محيط العين — الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.",
+    "اكتشفي مجموعة نورا سكين الكاملة: سيروم توازن وإشراقة البشرة بالنياسيناميد، كريم التجديد الليلي، سيروم محيط العين، وواقي الشمس اليومي SPF 50 — الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.",
   alternates: { canonical: "https://nuraskin.cc/products" },
 };
 
@@ -21,10 +21,10 @@ export default function CollectionPage() {
             NURA SKIN COLLECTION
           </p>
           <h1 className="text-3xl md:text-5xl font-bold text-[#3A222C] leading-tight mb-4">
-            ثلاثة منتجات لروتين عناية متكامل
+            أربعة منتجات لروتين عناية متكامل
           </h1>
           <p className="text-[#6B5555] text-lg max-w-xl mx-auto">
-            مجموعة مختارة بعناية لدعم توازن البشرة، نضارة محيط العين، وتجدد مظهر البشرة ليلًا.
+            مجموعة مختارة بعناية لدعم توازن البشرة، نضارة محيط العين، تجدد مظهر البشرة ليلًا، والحماية الصباحية اليومية.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             {[
@@ -47,7 +47,7 @@ export default function CollectionPage() {
       {/* Products */}
       <section className="py-16 bg-white">
         <div className="container-wide">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {PRODUCTS.map((product, idx) => (
               <ProductCard
                 key={product.slug}

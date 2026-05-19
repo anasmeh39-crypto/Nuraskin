@@ -64,7 +64,7 @@ function buildOffers(product: Product): Offer[] {
     offers.push({
       id: "ritual",
       label: "الطقم الكامل",
-      sublabel: "التجربة الأشمل — ثلاث خطوات",
+      sublabel: "التجربة الأشمل — خطوات مكملة",
       products: [product, c1, c2],
       price: bundlePrice,
       originalPrice: fullPrice,

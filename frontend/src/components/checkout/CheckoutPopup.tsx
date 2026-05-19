@@ -6,6 +6,7 @@ import Link from "next/link";
 import { MapPin, Phone, ShieldCheck, Truck } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { BRAND_ASSETS } from "@/config/brand";
+import { PRODUCTS } from "@/config/products";
 import { createOrder } from "@/lib/api";
 import { generateEventId, trackLead } from "@/lib/tracking";
 import { useRouter } from "next/navigation";
@@ -112,7 +113,7 @@ export function CheckoutPopup() {
       closeCheckout();
       const params = new URLSearchParams({
         order: response.order_number,
-        upsell: orderedSlugs.length < 3 ? "1" : "0",
+        upsell: orderedSlugs.length < PRODUCTS.length ? "1" : "0",
         items: orderedSlugs.join(","),
         ...(response.upsell_product ? {
           uslug: response.upsell_product.slug,

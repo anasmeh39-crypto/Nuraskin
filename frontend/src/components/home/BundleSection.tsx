@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Check, Eye, Moon, SunMedium } from "lucide-react";
+import { Check, Eye, Moon, ShieldCheck, SunMedium } from "lucide-react";
 import { BUNDLES, PRODUCTS_MAP, PRODUCTS } from "@/config/products";
 import { useCartStore } from "@/store/cart";
 import { Button } from "@/components/ui/Button";
@@ -50,13 +50,14 @@ export function BundleSection() {
             لبشرة أكثر توازناً وإشراقاً
           </h2>
           <p className="section-subheading max-w-xl mx-auto">
-            ثلاث خطوات واضحة: توازن صباحي، تجديد ليلي، وعناية دقيقة بمحيط العينين.
+            روتين صباحي للحماية والإشراقة، وروتين ليلي يدعم مظهر الراحة والتجدد.
           </p>
         </div>
 
-        <div className="mb-10 grid gap-4 md:grid-cols-3">
+        <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { icon: SunMedium, title: "الصباح", text: "سيروم توازن وإشراقة البشرة بالنياسيناميد." },
+            { icon: ShieldCheck, title: "الحماية", text: "واقي الشمس اليومي SPF 50 كآخر خطوة صباحية." },
             { icon: Moon, title: "المساء", text: "كريم التجديد الليلي للبشرة." },
             { icon: Eye, title: "محيط العين", text: "سيروم نضارة محيط العين." },
           ].map((step) => {

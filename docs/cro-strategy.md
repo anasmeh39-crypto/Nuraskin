@@ -12,17 +12,17 @@ CRO for Moroccan COD is fundamentally different from Western ecommerce:
 ## CRO Funnel Stages
 
 ### Stage 1: Landing (Home / Product Page)
-**Goal:** Create desire and trust within 3 seconds  
+**Goal:** Create desire and trust within 3 seconds
 **KPIs:** Time on page, scroll depth, CTA click rate
 
 **Optimization levers:**
 - Mobile-first hero with product + benefit headline (not brand name)
 - Arabic Darija copy that sounds like a knowledgeable friend
 - Above-fold social proof signal (review count or "اختارها X شخص هاد الأسبوع")
-- Clear CTA: "أضيفي للسلة" — not "Shop Now" or "Buy" 
+- Clear CTA: "أضيفي للسلة" — not "Shop Now" or "Buy"
 
 ### Stage 2: Product Engagement
-**Goal:** Resolve objections before they're asked  
+**Goal:** Resolve objections before they're asked
 **KPIs:** Ingredient section scroll, review scroll, CTA clicks
 
 **Optimization levers:**
@@ -34,7 +34,7 @@ CRO for Moroccan COD is fundamentally different from Western ecommerce:
 - Sticky mobile CTA (always visible)
 
 ### Stage 3: Add to Cart
-**Goal:** Smooth, fast cart action with AOV lift  
+**Goal:** Smooth, fast cart action with AOV lift
 **KPIs:** Add-to-cart rate, cart abandonment, cart value
 
 **Optimization levers:**
@@ -45,7 +45,7 @@ CRO for Moroccan COD is fundamentally different from Western ecommerce:
 - Total visible before checkout
 
 ### Stage 4: Checkout
-**Goal:** Complete purchase with correct phone number  
+**Goal:** Complete purchase with correct phone number
 **KPIs:** Checkout start rate, form completion rate, order placement rate
 
 **Optimization levers:**
@@ -58,18 +58,18 @@ CRO for Moroccan COD is fundamentally different from Western ecommerce:
 - CTA: "أكّدي طلبك" (not "Pay" or "Submit")
 
 ### Stage 5: Post-Checkout Upsell
-**Goal:** Increase AOV with one-time offer  
+**Goal:** Increase AOV with one-time offer
 **KPIs:** Upsell acceptance rate, AOV lift, cancellation rate
 
 **Optimization levers:**
-- Timer: 10–15 seconds creates urgency without pressure
-- Discount: 20–30% off companion product (only here)
-- Framing: "قبل ما تكملي — فرصة خاصة ليك وحدك"
-- "نعم، أضيفيها" / "لا شكراً" — both options visible, no manipulation
+- No countdown and no fake urgency
+- Discount: 20% off companion product (only here)
+- Framing: "أكملي روتينك بخطوة الحماية اليومية"
+- "أضيفيه لروتيني الآن" / "إكمال الطلب فقط" — both options visible, no manipulation
 - If accepted: order updated seamlessly, redirected to thank-you
 
 ### Stage 6: Thank-You Page
-**Goal:** Reduce cancellation, build confidence, plant re-order seed  
+**Goal:** Reduce cancellation, build confidence, plant re-order seed
 **KPIs:** Cancellation rate, repeat order rate
 
 **Optimization levers:**
@@ -89,7 +89,7 @@ All CRO decisions are made mobile-first. Desktop is secondary.
 ### Sticky CTA
 - Always visible on product pages
 - Floats above fold as user scrolls
-- Shows price + "أضيفي للسلة" 
+- Shows price + "أضيفي للسلة"
 - Collapses when cart drawer opens
 
 ### Thumb Zone Optimization

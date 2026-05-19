@@ -46,9 +46,9 @@ const ROUTINE_STEPS: Record<string, RoutineStep[]> = {
     },
     {
       time: "04",
-      label: "المرطب وواقي الشمس",
-      desc: "أكملي طبقة الحماية والراحة الصباحية كما اعتدتِ.",
-      slug: "",
+      label: "واقي الشمس اليومي SPF 50",
+      desc: "يوضع صباحًا كآخر خطوة في روتين العناية بالبشرة، قبل الخروج أو قبل المكياج.",
+      slug: "nura-spf-50",
       Icon: Sun,
     },
   ],
@@ -62,10 +62,10 @@ const ROUTINE_STEPS: Record<string, RoutineStep[]> = {
     },
     {
       time: "02",
-      label: "سيروم توازن وإشراقة البشرة بالنياسيناميد",
-      desc: "اختياري للبشرة الدهنية والمختلطة — بعد التنظيف وبعد جفاف البشرة قليلاً.",
-      slug: "nura-balance",
-      Icon: Sparkles,
+      label: "سيروم نضارة محيط العين",
+      desc: "كمية صغيرة حول محيط العين — برفق ودون فرك.",
+      slug: "nura-eye-revive",
+      Icon: Eye,
     },
     {
       time: "03",
@@ -73,13 +73,6 @@ const ROUTINE_STEPS: Record<string, RoutineStep[]> = {
       desc: "طبقة أخيرة على الوجه والرقبة — استخدميه بعد السيروم إن وُجد.",
       slug: "nura-night-renewal",
       Icon: Moon,
-    },
-    {
-      time: "04",
-      label: "سيروم نضارة محيط العين",
-      desc: "آخر لمسة قبل النوم — برفق على محيط العين.",
-      slug: "nura-eye-revive",
-      Icon: Eye,
     },
   ],
 };

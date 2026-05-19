@@ -1,5 +1,5 @@
 import React from "react";
-import { Beaker, Moon, Sparkles } from "lucide-react";
+import { Beaker, Moon, ShieldCheck, Sparkles } from "lucide-react";
 
 const ingredients = [
   {
@@ -20,6 +20,12 @@ const ingredients = [
     title: "لإشراقة محيط العينين",
     text: "تركيبة خفيفة لمظهر الهالات والانتفاخات، مع امتصاص سريع يناسب روتين الصباح والمساء.",
   },
+  {
+    icon: ShieldCheck,
+    name: "SPF 50",
+    title: "للحماية اليومية صباحًا",
+    text: "خطوة أساسية تساعد على حماية البشرة من أشعة الشمس وتحافظ على إشراقة الروتين اليومي.",
+  },
 ];
 
 export function IngredientAuthoritySection() {
@@ -34,7 +40,7 @@ export function IngredientAuthoritySection() {
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {ingredients.map((item) => {
             const Icon = item.icon;
             return (
