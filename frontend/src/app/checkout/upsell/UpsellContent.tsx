@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Heart, Sparkles } from "lucide-react";
+import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
 import { PRODUCTS, PRODUCTS_MAP } from "@/config/products";
 import { acceptUpsell } from "@/lib/api";
 import {
@@ -153,12 +153,10 @@ export function UpsellContent() {
                   className="group overflow-hidden rounded-[2rem] border border-[#ECDDE1] bg-white/82 shadow-[0_24px_70px_rgba(61,44,50,0.10)] backdrop-blur"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden bg-[#F7EEF0]">
-                    <Image
-                      src={product.image}
-                      alt={product.name_ar}
-                      fill
-                      className="object-cover transition duration-700 group-hover:scale-[1.035]"
-                      sizes="(min-width: 640px) 50vw, 100vw"
+                    <PlaceholderImage
+                      label={product.name_ar}
+                      aspectRatio="landscape"
+                      className="h-full w-full rounded-none transition duration-700 group-hover:scale-[1.035]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#3D2C32]/30 via-transparent to-transparent" />
                     <div className="absolute right-4 top-4 rounded-full bg-white/86 px-3 py-1.5 text-xs font-extrabold text-[#8E5A68] shadow-[0_12px_28px_rgba(61,44,50,0.10)] backdrop-blur">
