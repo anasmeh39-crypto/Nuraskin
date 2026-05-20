@@ -183,39 +183,56 @@ export default function HomePage() {
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: SunMedium, title: "بهتان وعدم التوازن", text: "عندما تبدو البشرة مرهقة أو غير متجانسة، تحتاج إلى خطوة يومية لطيفة تدعم صفاءها.", product: PRODUCTS[0] },
-              { icon: Moon, title: "بشرة متعبة ليلًا", text: "بعد يوم طويل، تحتاج البشرة إلى كريم ليلي مريح يدعم مظهر النعومة والنضارة.", product: PRODUCTS[1] },
-              { icon: Eye, title: "محيط عين مرهق", text: "المنطقة حول العين تحتاج عناية خفيفة ومركزة لمظهر أكثر انتعاشًا.", product: PRODUCTS[2] },
-              { icon: ShieldCheck, title: "حماية صباحية", text: "الروتين اليومي يحتاج خطوة حماية خفيفة تساعد على الحفاظ على مظهر البشرة المشرق.", product: PRODUCTS[3] },
+              {
+                icon: SunMedium,
+                title: "بهتان وعدم التوازن",
+                text: "ملي كتفيقي وكتحسي بشرتك باهتة، مرهقة وما فيهاش داك الإشراق الطبيعي… كتحتاجي خطوة يومية لطيفة ترجع ليها التوازن والصفاء.",
+                image: "/images/problem-dullness-model.png",
+                objectPosition: "object-[9%_54%]",
+              },
+              {
+                icon: Moon,
+                title: "بشرة متعبة ليلاً",
+                text: "بعد يوم طويل، البشرة كتكون محتاجة عناية هادئة تساعدها تبان أكثر نعومة وراحة مع روتين ليلي بسيط.",
+                image: "/images/retinol-texture-card-3.jpeg",
+                objectPosition: "object-[8%_51%]",
+              },
+              {
+                icon: Eye,
+                title: "محيط عين مرهق",
+                text: "التعب، السهر، والخدمة كيبانو بسرعة حول العينين… وهاد المنطقة كتحتاج عناية خفيفة ومركزة باش تبان أكثر انتعاشاً.",
+                image: "/images/moroccan-model-card-2.png",
+                objectPosition: "object-[8%_62%]",
+              },
+              {
+                icon: ShieldCheck,
+                title: "حماية صباحية",
+                text: "كل صباح، البشرة كتحتاج طبقة حماية خفيفة تساعدها تحافظ على مظهر صحي ومشرق خلال اليوم.",
+                image: "/images/nura-spf-50-gallery-1.png",
+                objectPosition: "object-[18%_52%]",
+              },
             ].map((card, idx) => {
               const Icon = card.icon;
               return (
                 <div
                   key={card.title}
-                  className="relative min-h-[17.5rem] overflow-hidden rounded-[2rem] border border-rose-soft/25 bg-white p-6 shadow-rose-sm"
+                  className="relative min-h-[21rem] overflow-hidden rounded-[2rem] border border-rose-soft/25 bg-white p-6 shadow-[0_18px_54px_rgba(61,44,50,0.075)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_68px_rgba(142,90,104,0.13)]"
                 >
-                  {idx === 0 && (
-                    <>
-                      <div className="pointer-events-none absolute inset-y-0 left-0 w-[68%] overflow-hidden sm:w-[62%] lg:w-[66%]" aria-hidden>
-                        <Image
-                          src="/images/problem-dullness-model.png"
-                          alt=""
-                          fill
-                          sizes="(min-width: 1024px) 17vw, (min-width: 640px) 31vw, 68vw"
-                          className="scale-[1.07] object-cover object-[9%_54%] opacity-[0.82] saturate-[0.9] lg:object-[12%_55%]"
-                        />
-                      </div>
-                      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.03)_0%,rgba(255,250,246,0.18)_34%,rgba(255,250,246,0.82)_64%,rgba(255,255,255,0.98)_100%)]" aria-hidden />
-                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(255,244,236,0.34),transparent_30%),radial-gradient(circle_at_88%_16%,rgba(248,224,226,0.42),transparent_36%)]" aria-hidden />
-                    </>
-                  )}
-                  <div className={idx === 0 ? "relative z-10 -m-3 ml-auto max-w-[70%] rounded-[1.4rem] bg-white/55 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.76)] backdrop-blur-[1px] sm:max-w-[68%] lg:max-w-[62%]" : "relative z-10"}>
+                  <div className="pointer-events-none absolute inset-y-0 left-0 w-[76%] overflow-hidden sm:w-[70%] lg:w-[74%]" aria-hidden>
+                    <Image
+                      src={card.image}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 19vw, (min-width: 640px) 35vw, 76vw"
+                      className={`scale-[1.06] object-cover ${card.objectPosition} opacity-[0.94] saturate-[1.03] contrast-[1.02]`}
+                    />
+                  </div>
+                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,250,246,0.10)_36%,rgba(255,250,246,0.54)_68%,rgba(255,255,255,0.90)_100%)]" aria-hidden />
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_18%,rgba(248,224,226,0.22),transparent_36%),radial-gradient(circle_at_18%_86%,rgba(239,216,201,0.14),transparent_30%)]" aria-hidden />
+                  <div className="relative z-10 -m-3 ml-auto max-w-[77%] rounded-[1.4rem] border border-white/45 bg-white/76 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.82),0_12px_34px_rgba(61,44,50,0.055)] backdrop-blur-[2px] sm:max-w-[72%] lg:max-w-[68%]">
                     <Icon className="mb-5 h-6 w-6 text-rose-mid" strokeWidth={1.5} />
-                    <h3 className="text-xl font-bold text-[#3A222C]">{card.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-[#6B5555]">{card.text}</p>
-                    <Link href={`/products/${card.product.slug}`} className="mt-5 inline-flex font-bold text-rose-deep hover:underline">
-                      {card.product.name_ar}
-                    </Link>
+                    <h3 className="text-xl font-bold leading-snug text-[#3A222C]">{card.title}</h3>
+                    <p className="mt-3 text-[13px] leading-7 text-[#5F4A51]">{card.text}</p>
                   </div>
                 </div>
               );
