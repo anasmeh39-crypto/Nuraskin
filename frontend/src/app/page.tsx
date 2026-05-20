@@ -188,7 +188,7 @@ export default function HomePage() {
                 title: "بهتان وعدم التوازن",
                 text: "ملي كتفيقي وكتحسي بشرتك باهتة، مرهقة وما فيهاش داك الإشراق الطبيعي… كتحتاجي خطوة يومية لطيفة ترجع ليها التوازن والصفاء.",
                 image: "/images/skincare-texture-card-1.png",
-                imageClass: "scale-[1.18] object-cover object-left opacity-100 saturate-[1.12] contrast-[1.12] mix-blend-multiply",
+                imageClass: "scale-[1.2] object-cover object-left opacity-100 saturate-[1.16] contrast-[1.16] mix-blend-multiply",
               },
               {
                 icon: Moon,
@@ -201,15 +201,15 @@ export default function HomePage() {
                 icon: Eye,
                 title: "محيط عين مرهق",
                 text: "التعب، السهر، والخدمة كيبانو بسرعة حول العينين… وهاد المنطقة كتحتاج عناية خفيفة ومركزة باش تبان أكثر انتعاشاً.",
-                image: "/images/moroccan-model-card-2.png",
-                imageClass: "scale-[1.06] object-cover object-[8%_62%] opacity-[0.94] saturate-[1.03] contrast-[1.02]",
+                image: "/images/problem-eye-fatigue-closeup.png",
+                imageClass: "scale-[1.08] object-cover object-[12%_49%] opacity-[0.99] saturate-[1.05] contrast-[1.06]",
               },
               {
                 icon: ShieldCheck,
                 title: "حماية صباحية",
                 text: "كل صباح، البشرة كتحتاج طبقة حماية خفيفة تساعدها تحافظ على مظهر صحي ومشرق خلال اليوم.",
-                image: "/images/nura-spf-50-gallery-1.png",
-                imageClass: "scale-[1.06] object-cover object-[18%_52%] opacity-[0.94] saturate-[1.03] contrast-[1.02]",
+                image: "/images/problem-morning-protection-portrait.png",
+                imageClass: "scale-[1.05] object-cover object-[8%_50%] opacity-[0.98] saturate-[1.05] contrast-[1.03]",
               },
             ].map((card) => {
               const Icon = card.icon;
@@ -227,9 +227,9 @@ export default function HomePage() {
                       className={card.imageClass}
                     />
                   </div>
-                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,250,246,0.06)_34%,rgba(255,250,246,0.42)_68%,rgba(255,255,255,0.78)_100%)]" aria-hidden />
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_18%,rgba(248,224,226,0.16),transparent_36%),radial-gradient(circle_at_18%_86%,rgba(239,216,201,0.10),transparent_30%)]" aria-hidden />
-                  <div className="relative z-10 -m-3 ml-auto max-w-[77%] rounded-[1.4rem] border border-white/35 bg-white/68 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.78),0_12px_34px_rgba(61,44,50,0.06)] backdrop-blur-[2px] sm:max-w-[72%] lg:max-w-[68%]">
+                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,250,246,0.04)_32%,rgba(255,250,246,0.34)_68%,rgba(255,255,255,0.68)_100%)]" aria-hidden />
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_18%,rgba(248,224,226,0.12),transparent_36%),radial-gradient(circle_at_18%_86%,rgba(239,216,201,0.08),transparent_30%)]" aria-hidden />
+                  <div className="relative z-10 -m-3 ml-auto max-w-[77%] rounded-[1.4rem] border border-white/30 bg-white/62 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_12px_34px_rgba(61,44,50,0.065)] backdrop-blur-[1.5px] sm:max-w-[72%] lg:max-w-[68%]">
                     <Icon className="mb-5 h-6 w-6 text-rose-mid" strokeWidth={1.5} />
                     <h3 className="text-xl font-bold leading-snug text-[#3A222C]">{card.title}</h3>
                     <p className="mt-3 text-[13px] leading-7 text-[#5F4A51]">{card.text}</p>
