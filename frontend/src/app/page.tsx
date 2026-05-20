@@ -107,63 +107,65 @@ export default function HomePage() {
             return (
               <div
                 key={item.title}
-                className="animate-premium-rise group relative min-h-[16.5rem] overflow-hidden rounded-[1.75rem] border border-rose-soft/20 bg-[linear-gradient(145deg,#FFFFFF,#FDF8F8)] p-8 shadow-[0_18px_52px_rgba(61,44,50,0.055)] transition-all duration-300 hover:-translate-y-1 hover:border-rose-soft/40 hover:shadow-[0_24px_68px_rgba(142,90,104,0.12)] md:min-h-[18rem] md:p-7"
+                className="animate-premium-rise group relative min-h-[18.5rem] overflow-hidden rounded-[1.75rem] border border-rose-soft/20 bg-[linear-gradient(145deg,#FFFFFF,#FDF8F8)] p-8 shadow-[0_18px_52px_rgba(61,44,50,0.065)] transition-all duration-300 hover:-translate-y-1 hover:border-rose-soft/40 hover:shadow-[0_24px_68px_rgba(142,90,104,0.14)] md:min-h-[19rem] md:p-7"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
                 {idx === 0 && (
                   <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[58%] overflow-hidden md:w-[50%]" aria-hidden>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[68%] overflow-hidden md:w-[58%]" aria-hidden>
                       <Image
                         src="/images/skincare-texture-card-1.png"
                         alt=""
                         fill
-                        sizes="(min-width: 768px) 18vw, 50vw"
-                        className="scale-110 object-cover object-left opacity-[0.52] blur-[0.1px] mix-blend-multiply md:opacity-[0.58]"
+                        sizes="(min-width: 768px) 20vw, 68vw"
+                        className="scale-[1.16] object-cover object-left opacity-[0.95] saturate-[1.08] contrast-[1.08] mix-blend-multiply"
                       />
                     </div>
-                    <div className="pointer-events-none absolute left-[7%] top-9 h-9 w-9 rounded-full bg-white/70 shadow-[inset_0_2px_8px_rgba(255,255,255,0.85),0_10px_26px_rgba(142,90,104,0.10)] backdrop-blur-[1px]" aria-hidden />
-                    <div className="pointer-events-none absolute left-[33%] top-16 h-5 w-5 rounded-full bg-white/65 shadow-[inset_0_1px_5px_rgba(255,255,255,0.9),0_8px_18px_rgba(142,90,104,0.08)] backdrop-blur-[1px]" aria-hidden />
-                    <div className="pointer-events-none absolute bottom-7 left-[24%] h-3 w-3 rounded-full bg-white/55 shadow-[0_8px_16px_rgba(142,90,104,0.07)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.42)_34%,rgba(255,255,255,0.92)_64%,rgba(253,248,248,0.99)_100%)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_24%,rgba(255,255,255,0.78),transparent_24%),radial-gradient(circle_at_24%_78%,rgba(255,242,232,0.48),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(248,224,226,0.45),transparent_34%)]" aria-hidden />
-                    <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/20 via-white/85 to-transparent" aria-hidden />
+                    <div className="pointer-events-none absolute left-[8%] top-8 h-10 w-10 rounded-full bg-white/58 shadow-[inset_0_2px_8px_rgba(255,255,255,0.86),0_12px_30px_rgba(142,90,104,0.16)] backdrop-blur-[1px]" aria-hidden />
+                    <div className="pointer-events-none absolute left-[35%] top-14 h-5 w-5 rounded-full bg-white/55 shadow-[inset_0_1px_5px_rgba(255,255,255,0.9),0_8px_18px_rgba(142,90,104,0.12)] backdrop-blur-[1px]" aria-hidden />
+                    <div className="pointer-events-none absolute bottom-8 left-[25%] h-3 w-3 rounded-full bg-white/48 shadow-[0_8px_16px_rgba(142,90,104,0.11)]" aria-hidden />
+                    <div className="pointer-events-none absolute left-[5%] bottom-8 h-24 w-48 rounded-full bg-[#EFD8C9]/24 blur-2xl" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,252,249,0.12)_34%,rgba(255,252,249,0.62)_66%,rgba(253,248,248,0.88)_100%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(255,255,255,0.34),transparent_20%),radial-gradient(circle_at_82%_22%,rgba(248,224,226,0.24),transparent_34%)]" aria-hidden />
+                    <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/20 via-white/65 to-transparent" aria-hidden />
                   </>
                 )}
                 {idx === 1 && (
                   <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[62%] overflow-hidden md:w-[58%]" aria-hidden>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[68%] overflow-hidden md:w-[62%]" aria-hidden>
                       <Image
                         src="/images/moroccan-model-card-2.png"
                         alt=""
                         fill
-                        sizes="(min-width: 768px) 20vw, 58vw"
-                        className="scale-105 object-cover object-[9%_58%] opacity-[0.58] saturate-[0.92] md:object-[11%_60%] md:opacity-[0.64]"
+                        sizes="(min-width: 768px) 21vw, 68vw"
+                        className="scale-[1.03] object-cover object-[6%_62%] opacity-[0.92] saturate-[1.04] contrast-[1.03] md:object-[8%_62%]"
                       />
                     </div>
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.30)_34%,rgba(255,255,255,0.86)_62%,rgba(253,248,248,0.99)_100%)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(255,246,239,0.36),transparent_28%),radial-gradient(circle_at_88%_20%,rgba(248,224,226,0.42),transparent_38%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,250,246,0.10)_34%,rgba(255,250,246,0.56)_66%,rgba(253,248,248,0.88)_100%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_20%,rgba(248,224,226,0.22),transparent_38%)]" aria-hidden />
                   </>
                 )}
                 {idx === 2 && (
                   <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[62%] overflow-hidden md:w-[58%]" aria-hidden>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[68%] overflow-hidden md:w-[62%]" aria-hidden>
                       <Image
                         src="/images/retinol-texture-card-3.jpeg"
                         alt=""
                         fill
-                        sizes="(min-width: 768px) 20vw, 58vw"
-                        className="scale-105 object-cover object-[10%_52%] opacity-[0.70] saturate-[0.94] md:opacity-[0.76]"
+                        sizes="(min-width: 768px) 21vw, 68vw"
+                        className="scale-[1.03] object-cover object-[6%_51%] opacity-[0.94] saturate-[1.05] contrast-[1.04]"
                       />
                     </div>
-                    <div className="pointer-events-none absolute left-[31%] top-[23%] h-24 w-20 rounded-full bg-white/22 blur-xl" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.34)_36%,rgba(255,255,255,0.88)_64%,rgba(253,248,248,0.99)_100%)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_24%_28%,rgba(255,247,239,0.38),transparent_30%),radial-gradient(circle_at_86%_22%,rgba(248,224,226,0.38),transparent_38%)]" aria-hidden />
+                    <div className="pointer-events-none absolute left-[32%] top-[22%] h-28 w-24 rounded-full bg-white/16 blur-xl" aria-hidden />
+                    <div className="pointer-events-none absolute left-[23%] bottom-[18%] h-16 w-32 rounded-full bg-[#F2DCCF]/20 blur-xl" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,250,246,0.12)_36%,rgba(255,250,246,0.58)_66%,rgba(253,248,248,0.88)_100%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_22%,rgba(248,224,226,0.22),transparent_38%)]" aria-hidden />
                   </>
                 )}
                 <div className="relative z-10 mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-blush text-rose-deep transition-transform duration-300 group-hover:-translate-y-1">
                   <Icon className="h-5 w-5" strokeWidth={1.25} />
                 </div>
-                <div className="relative z-10 rounded-2xl bg-white/48 p-3 -m-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-[1px] md:ml-auto md:max-w-[62%]">
+                <div className="relative z-10 -m-3 ml-auto max-w-[76%] rounded-2xl border border-white/48 bg-white/78 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.82),0_12px_34px_rgba(61,44,50,0.055)] backdrop-blur-[3px] sm:max-w-[72%] md:max-w-[62%]">
                   <h2 className="text-[1.35rem] font-bold leading-snug text-[#3A222C]">{item.title}</h2>
                   <p className="mt-3 text-sm leading-7 text-[#5F4A51]">{item.text}</p>
                 </div>
