@@ -336,14 +336,25 @@ export default function HomePage() {
       </section>
 
       <section className="px-4 py-16">
-        <div className="container-wide rounded-[2rem] bg-rose-blush p-8 text-center md:p-12">
-          <h2 className="text-3xl font-bold text-[#3A222C]">ابدئي روتين نورا سكين اليوم</h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#6B5555]">
-            عناية ناعمة، تجربة موثوقة، الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.
-          </p>
-          <Link href="/products" className="mt-7 inline-flex rounded-full bg-rose-deep px-8 py-4 font-bold text-white shadow-rose-md">
-            تسوقي المنتجات
-          </Link>
+        <div className="container-wide relative min-h-[25rem] overflow-hidden rounded-[2rem] border border-[#E7D8CB] bg-[#F8EEE8] text-center shadow-[0_26px_74px_rgba(97,70,58,0.13)] md:min-h-[28rem]">
+          <Image
+            src="/images/cta-routine-atmosphere.png"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,250,246,0.28)_0%,rgba(255,252,248,0.72)_34%,rgba(255,252,248,0.76)_64%,rgba(255,250,246,0.30)_100%)]" aria-hidden />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(255,255,255,0.48),rgba(255,252,248,0.18)_42%,transparent_72%)]" aria-hidden />
+          <div className="relative z-10 mx-auto flex min-h-[25rem] max-w-xl flex-col items-center justify-center px-6 py-14 md:min-h-[28rem] md:px-8">
+            <h2 className="text-3xl font-semibold leading-tight text-[#6F5046] md:text-4xl">ابدئي روتين نورا سكين اليوم</h2>
+            <p className="mx-auto mt-4 max-w-lg text-sm leading-8 text-[#81695F]">
+              عناية ناعمة، تجربة موثوقة، الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.
+            </p>
+            <Link href="/products" className="mt-8 inline-flex rounded-full border border-[#D9BFAE] bg-[linear-gradient(135deg,#8A655A,#B98D72)] px-8 py-4 font-bold text-white shadow-[0_16px_38px_rgba(137,94,78,0.20)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(137,94,78,0.26)]">
+              تسوقي المنتجات
+            </Link>
+          </div>
         </div>
       </section>
     </>
