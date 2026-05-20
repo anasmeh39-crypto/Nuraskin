@@ -188,49 +188,49 @@ export default function HomePage() {
                 title: "بهتان وعدم التوازن",
                 text: "ملي كتفيقي وكتحسي بشرتك باهتة، مرهقة وما فيهاش داك الإشراق الطبيعي… كتحتاجي خطوة يومية لطيفة ترجع ليها التوازن والصفاء.",
                 image: "/images/skincare-texture-card-1.png",
-                imageClass: "scale-[1.2] object-cover object-left opacity-100 saturate-[1.16] contrast-[1.16] mix-blend-multiply",
+                imageClass: "scale-[1.04] object-cover object-left opacity-100 saturate-[1.16] contrast-[1.14] mix-blend-multiply",
               },
               {
                 icon: Moon,
                 title: "بشرة متعبة ليلاً",
                 text: "بعد يوم طويل، البشرة كتكون محتاجة عناية هادئة تساعدها تبان أكثر نعومة وراحة مع روتين ليلي بسيط.",
                 image: "/images/problem-tired-skin-closeup.jpeg",
-                imageClass: "scale-[1.08] object-cover object-[8%_52%] opacity-[0.98] saturate-[1.04] contrast-[1.05]",
+                imageClass: "scale-100 object-cover object-[35%_50%] opacity-[0.99] saturate-[1.04] contrast-[1.04]",
               },
               {
                 icon: Eye,
                 title: "محيط عين مرهق",
                 text: "التعب، السهر، والخدمة كيبانو بسرعة حول العينين… وهاد المنطقة كتحتاج عناية خفيفة ومركزة باش تبان أكثر انتعاشاً.",
                 image: "/images/problem-eye-fatigue-closeup.png",
-                imageClass: "scale-[1.08] object-cover object-[12%_49%] opacity-[0.99] saturate-[1.05] contrast-[1.06]",
+                imageClass: "scale-100 object-cover object-[42%_48%] opacity-[0.99] saturate-[1.05] contrast-[1.05]",
               },
               {
                 icon: ShieldCheck,
                 title: "حماية صباحية",
                 text: "كل صباح، البشرة كتحتاج طبقة حماية خفيفة تساعدها تحافظ على مظهر صحي ومشرق خلال اليوم.",
                 image: "/images/problem-morning-protection-portrait.png",
-                imageClass: "scale-[1.05] object-cover object-[8%_50%] opacity-[0.98] saturate-[1.05] contrast-[1.03]",
+                imageClass: "scale-100 object-cover object-[34%_50%] opacity-[0.99] saturate-[1.05] contrast-[1.03]",
               },
             ].map((card) => {
               const Icon = card.icon;
               return (
                 <div
                   key={card.title}
-                  className="relative min-h-[21rem] overflow-hidden rounded-[2rem] border border-rose-soft/25 bg-white p-6 shadow-[0_18px_54px_rgba(61,44,50,0.075)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_68px_rgba(142,90,104,0.13)]"
+                  className="relative min-h-[25.5rem] overflow-hidden rounded-[2rem] border border-rose-soft/25 bg-white shadow-[0_18px_54px_rgba(61,44,50,0.075)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_68px_rgba(142,90,104,0.13)]"
                 >
-                  <div className="pointer-events-none absolute inset-y-0 left-0 w-[76%] overflow-hidden sm:w-[70%] lg:w-[74%]" aria-hidden>
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-[62%] overflow-hidden" aria-hidden>
                     <Image
                       src={card.image}
                       alt=""
                       fill
-                      sizes="(min-width: 1024px) 19vw, (min-width: 640px) 35vw, 76vw"
+                      sizes="(min-width: 1024px) 24vw, (min-width: 640px) 48vw, 100vw"
                       className={card.imageClass}
                     />
                   </div>
-                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,250,246,0.04)_32%,rgba(255,250,246,0.34)_68%,rgba(255,255,255,0.68)_100%)]" aria-hidden />
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_18%,rgba(248,224,226,0.12),transparent_36%),radial-gradient(circle_at_18%_86%,rgba(239,216,201,0.08),transparent_30%)]" aria-hidden />
-                  <div className="relative z-10 -m-3 ml-auto max-w-[77%] rounded-[1.4rem] border border-white/30 bg-white/62 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_12px_34px_rgba(61,44,50,0.065)] backdrop-blur-[1.5px] sm:max-w-[72%] lg:max-w-[68%]">
-                    <Icon className="mb-5 h-6 w-6 text-rose-mid" strokeWidth={1.5} />
+                  <div className="pointer-events-none absolute inset-x-0 top-[42%] h-[32%] bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,250,246,0.54)_62%,rgba(255,255,255,0.90)_100%)]" aria-hidden />
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.08),transparent_26%),radial-gradient(circle_at_84%_72%,rgba(248,224,226,0.12),transparent_34%)]" aria-hidden />
+                  <div className="absolute inset-x-4 bottom-4 z-10 rounded-[1.4rem] border border-white/34 bg-white/72 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.74),0_12px_34px_rgba(61,44,50,0.065)] backdrop-blur-[1.5px]">
+                    <Icon className="mb-4 h-6 w-6 text-rose-mid" strokeWidth={1.5} />
                     <h3 className="text-xl font-bold leading-snug text-[#3A222C]">{card.title}</h3>
                     <p className="mt-3 text-[13px] leading-7 text-[#5F4A51]">{card.text}</p>
                   </div>
