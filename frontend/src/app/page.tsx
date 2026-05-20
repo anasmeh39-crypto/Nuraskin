@@ -107,14 +107,31 @@ export default function HomePage() {
             return (
               <div
                 key={item.title}
-                className="animate-premium-rise group rounded-[1.75rem] border border-rose-soft/20 bg-[linear-gradient(145deg,#FFFFFF,#FDF8F8)] p-7 shadow-[0_16px_45px_rgba(61,44,50,0.045)] transition-all duration-300 hover:-translate-y-1 hover:border-rose-soft/40 hover:shadow-[0_20px_58px_rgba(142,90,104,0.10)]"
+                className="animate-premium-rise group relative overflow-hidden rounded-[1.75rem] border border-rose-soft/20 bg-[linear-gradient(145deg,#FFFFFF,#FDF8F8)] p-7 shadow-[0_16px_45px_rgba(61,44,50,0.045)] transition-all duration-300 hover:-translate-y-1 hover:border-rose-soft/40 hover:shadow-[0_20px_58px_rgba(142,90,104,0.10)]"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-blush text-rose-deep transition-transform duration-300 group-hover:-translate-y-1">
+                {idx === 0 && (
+                  <>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[52%] overflow-hidden md:w-[46%]" aria-hidden>
+                      <Image
+                        src="/images/skincare-texture-card-1.png"
+                        alt=""
+                        fill
+                        sizes="(min-width: 768px) 18vw, 50vw"
+                        className="object-cover object-left opacity-[0.38] blur-[0.2px] mix-blend-multiply md:opacity-[0.44]"
+                      />
+                    </div>
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.58)_36%,rgba(255,255,255,0.95)_64%,rgba(253,248,248,0.99)_100%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.72),transparent_30%),radial-gradient(circle_at_82%_22%,rgba(248,224,226,0.45),transparent_34%)]" aria-hidden />
+                  </>
+                )}
+                <div className="relative z-10 mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-blush text-rose-deep transition-transform duration-300 group-hover:-translate-y-1">
                   <Icon className="h-5 w-5" strokeWidth={1.25} />
                 </div>
-                <h2 className="text-xl font-bold text-[#3A222C]">{item.title}</h2>
-                <p className="mt-3 text-sm leading-7 text-[#6B5555]">{item.text}</p>
+                <div className="relative z-10 md:ml-auto md:max-w-[62%]">
+                  <h2 className="text-xl font-bold text-[#3A222C]">{item.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-[#6B5555]">{item.text}</p>
+                </div>
               </div>
             );
           })}
