@@ -20,6 +20,13 @@ const GALLERY_SLOTS: GallerySlot[] = [
   { label: "النتيجة", sublabel: "إشراقة البشرة", bg: "from-yellow-50 to-pink-50" },
 ];
 
+const PRODUCT_FIRST_IMAGES: Record<string, string> = {
+  "nura-balance": "/images/nura-balance-gallery-1.png",
+  "nura-night-renewal": "/images/nura-night-renewal-gallery-1.png",
+  "nura-eye-revive": "/images/nura-eye-revive-gallery-1.png",
+  "nura-spf-50": "/images/nura-spf-50-gallery-1.png",
+};
+
 interface Props {
   productName: string;
   productSlug: string;
@@ -31,8 +38,8 @@ export function ProductGallery({ productName, productSlug }: Props) {
   const gallerySlots = React.useMemo(
     () =>
       GALLERY_SLOTS.map((slot, index) =>
-        productSlug === "nura-balance" && index === 0
-          ? { ...slot, image: "/images/nura-balance-gallery-1.png" }
+        index === 0 && PRODUCT_FIRST_IMAGES[productSlug]
+          ? { ...slot, image: PRODUCT_FIRST_IMAGES[productSlug] }
           : productSlug === "nura-balance" && index === 1
           ? { ...slot, image: "/images/nura-balance-gallery-2.png" }
           : productSlug === "nura-balance" && index === 2

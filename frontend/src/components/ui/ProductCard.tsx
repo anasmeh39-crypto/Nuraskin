@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ShieldCheck, Star } from "lucide-react";
 import { Product } from "@/types";
-import { PlaceholderImage } from "./PlaceholderImage";
 import { useCartStore } from "@/store/cart";
 import { generateEventId, trackAddToCart } from "@/lib/tracking";
 
@@ -53,11 +53,15 @@ export function ProductCard({ product, showBadge, badge }: ProductCardProps) {
         className="overflow-hidden rounded-[2rem] border border-rose-soft/25 bg-white p-3 shadow-rose-sm"
       >
         <div className="relative overflow-hidden rounded-[1.6rem]">
-          <PlaceholderImage
-            label={product.name_ar}
-            aspectRatio="square"
-            className="w-full"
-          />
+          <div className="relative aspect-square w-full bg-rose-blush">
+            <Image
+              src={product.image}
+              alt={product.name_ar}
+              fill
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 92vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            />
+          </div>
           {showBadge && badge && (
             <span className="absolute top-4 start-4 badge-gold text-xs font-semibold">
               {badge}
