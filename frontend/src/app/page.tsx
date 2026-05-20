@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Droplets,
@@ -73,16 +74,18 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="premium-float relative mx-auto w-full max-w-md">
+          <div className="premium-float relative mx-auto w-full max-w-xl lg:max-w-2xl">
             <div className="rounded-[2.5rem] border border-white/80 bg-white/70 p-4 shadow-rose-lg backdrop-blur">
-              <div className="flex aspect-[4/5] items-center justify-center overflow-hidden rounded-[2rem] bg-[radial-gradient(circle_at_50%_42%,rgba(244,216,182,0.58),rgba(250,247,244,0.94)_38%,rgba(227,226,222,0.82)_100%)] px-7">
-                <div className="text-center">
-                  <div className="mx-auto mb-5 flex h-28 w-28 items-center justify-center rounded-full bg-white/88 shadow-rose-sm">
-                    <span className="h-12 w-12 rounded-full border border-rose-deep/30 bg-rose-blush/50" aria-hidden />
-                  </div>
-                  <p className="font-bold text-[#3A222C]">روتين نورا سكين</p>
-                  <p className="mt-1 text-xs text-rose-mid">صباحًا وليلًا</p>
-                </div>
+              <div className="overflow-hidden rounded-[2rem] bg-[radial-gradient(circle_at_50%_42%,rgba(244,216,182,0.28),rgba(250,247,244,0.82)_42%,rgba(227,226,222,0.62)_100%)]">
+                <Image
+                  src="/images/nura-complete-routine-hero.png"
+                  alt="روتين نورا سكين الكامل للعناية بالبشرة"
+                  width={1693}
+                  height={929}
+                  priority
+                  sizes="(min-width: 1024px) 50vw, (min-width: 768px) 46vw, 92vw"
+                  className="h-auto w-full object-contain"
+                />
               </div>
             </div>
             <div className="absolute -bottom-5 -right-3 rounded-3xl border border-rose-soft/30 bg-white px-5 py-4 shadow-rose-sm">
