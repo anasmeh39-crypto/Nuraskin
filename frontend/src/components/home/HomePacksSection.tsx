@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Check, Sparkles } from "lucide-react";
 import { BUNDLES, PRODUCTS_MAP } from "@/config/products";
 import { PackCard, addBundleToCart } from "@/components/packs/PackCard";
@@ -24,36 +25,36 @@ export function HomePacksSection() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.18fr_0.82fr]">
-          <article className="relative overflow-hidden rounded-[2.2rem] border border-gold/30 bg-gradient-to-br from-[#3D2C32] via-[#46313A] to-[#7B5260] p-6 text-white shadow-[0_28px_80px_rgba(61,44,50,0.26)] md:p-8">
-            <div className="absolute start-8 top-0 rounded-b-2xl bg-gold px-4 py-1.5 text-[11px] font-bold text-[#3A222C]">
+          <article className="relative overflow-hidden rounded-[2.2rem] border border-[#E7D8CB] bg-[linear-gradient(135deg,#FFFDF9_0%,#F8EEE8_100%)] p-5 shadow-[0_28px_80px_rgba(97,70,58,0.14)] md:p-7">
+            <div className="absolute start-8 top-0 z-20 rounded-b-2xl border-x border-b border-[#E2CCBB] bg-[#F4E4D8]/92 px-4 py-1.5 text-[11px] font-bold text-[#765A4D] shadow-[0_10px_28px_rgba(97,70,58,0.08)] backdrop-blur">
               {completePack.tag}
             </div>
 
-            <div className="grid items-center gap-8 md:grid-cols-[0.95fr_1.05fr]">
-              <div className="order-2 md:order-1">
-                <h3 className="mt-4 text-3xl font-black leading-tight md:text-4xl">{completePack.name_ar}</h3>
-                <p className="mt-3 text-sm leading-8 text-white/78">
+            <div className="grid items-center gap-7 md:grid-cols-[0.85fr_1.15fr]">
+              <div className="order-2 max-w-[28rem] md:order-1">
+                <h3 className="mt-3 text-3xl font-semibold leading-tight text-[#72544A] md:text-[2.55rem] md:leading-[1.16]">{completePack.name_ar}</h3>
+                <p className="mt-4 text-sm leading-8 text-[#8A7268]">
                   روتين كامل يجمع بين التوازن، النضارة، التجديد الليلي، والحماية اليومية في باقة واحدة عالية القيمة.
                 </p>
 
                 <ul className="mt-6 space-y-2.5">
                   {completeProducts.map((product) => (
-                    <li key={product!.slug} className="flex items-start gap-2 text-sm leading-6 text-white/86">
-                      <Check className="mt-1 h-4 w-4 shrink-0 text-gold" strokeWidth={2.1} />
+                    <li key={product!.slug} className="flex items-start gap-2 text-sm leading-6 text-[#765F55]">
+                      <Check className="mt-1 h-4 w-4 shrink-0 text-[#B98D72]" strokeWidth={2.1} />
                       <span>{product!.name_ar}</span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-7 rounded-3xl border border-white/15 bg-white/8 p-4">
-                  <p className="text-sm text-white/72">
+                <div className="mt-7 rounded-3xl border border-[#E7D8CB] bg-white/54 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur">
+                  <p className="text-sm text-[#9A8175]">
                     القيمة الكاملة: <span className="line-through">{completePack.compareAtPrice} درهم</span>
                   </p>
                   <div className="mt-1 flex flex-wrap items-end justify-between gap-3">
-                    <p className="text-4xl font-black">
+                    <p className="text-4xl font-semibold text-[#674A42]">
                       {completePack.price} <span className="text-sm font-bold">درهم</span>
                     </p>
-                    <p className="rounded-full bg-white/12 px-3 py-1 text-xs font-bold text-gold-light">
+                    <p className="rounded-full border border-[#E2CCBB] bg-[#F7E9DE] px-3 py-1 text-xs font-bold text-[#8D684E]">
                       وفّري {completePack.saving} درهم
                     </p>
                   </div>
@@ -62,7 +63,7 @@ export function HomePacksSection() {
                 <button
                   type="button"
                   onClick={() => addBundleToCart(completePack, addItem)}
-                  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-4 text-sm font-extrabold text-[#3D2C32] shadow-lg transition hover:bg-gold-light sm:w-auto"
+                  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#D9BFAE] bg-[linear-gradient(135deg,#8A655A,#B98D72)] px-6 py-4 text-sm font-bold text-white shadow-[0_16px_38px_rgba(137,94,78,0.20)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(137,94,78,0.26)] sm:w-auto"
                 >
                   <Sparkles className="h-4 w-4" strokeWidth={1.5} />
                   اطلبي الروتين الكامل
@@ -70,25 +71,16 @@ export function HomePacksSection() {
               </div>
 
               <div className="order-1 md:order-2">
-                <div className="rounded-[2rem] border border-white/15 bg-white/8 p-4">
-                  <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.6rem] border border-white/15 bg-white/8">
-                    <div className="absolute inset-x-10 bottom-8 h-14 rounded-full bg-gold/18 blur-2xl" />
-                    <div className="relative grid grid-cols-4 items-end gap-2 sm:gap-3">
-                      {completeProducts.map((product, index) => (
-                        <div
-                          key={product!.slug}
-                          className="w-12 rounded-[1.1rem] border border-white/20 bg-white/14 shadow-ivory-sm sm:w-16"
-                          style={{ height: `${104 + ((index % 3) * 18)}px` }}
-                        >
-                          <div className="mx-auto mt-5 h-8 w-8 rounded-full border border-gold/40 bg-white/10" />
-                          <div className="mx-auto mt-5 h-1.5 w-8 rounded-full bg-white/25" />
-                          <div className="mx-auto mt-2 h-1.5 w-10 rounded-full bg-white/18" />
-                        </div>
-                      ))}
-                    </div>
-                    <span className="absolute bottom-4 rounded-full border border-white/20 bg-white/12 px-4 py-2 text-xs font-semibold text-white/86">
-                      صورة الروتين الكامل
-                    </span>
+                <div className="rounded-[2rem] border border-white/70 bg-white/40 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.82),0_18px_52px_rgba(97,70,58,0.12)]">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-[1.6rem] border border-[#E5D2C3] bg-[#F6EDE5] md:aspect-[16/11]">
+                    <Image
+                      src="/images/nura-complete-bathroom-editorial.jpg"
+                      alt="روتين نورا الكامل للعناية بالبشرة"
+                      fill
+                      sizes="(min-width: 1024px) 46vw, 100vw"
+                      className="object-cover object-center"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_52%_42%,transparent_46%,rgba(255,250,246,0.16)_100%)]" />
                   </div>
                 </div>
               </div>
