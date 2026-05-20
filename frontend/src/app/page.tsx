@@ -187,31 +187,31 @@ export default function HomePage() {
                 icon: SunMedium,
                 title: "بهتان وعدم التوازن",
                 text: "ملي كتفيقي وكتحسي بشرتك باهتة، مرهقة وما فيهاش داك الإشراق الطبيعي… كتحتاجي خطوة يومية لطيفة ترجع ليها التوازن والصفاء.",
-                image: "/images/problem-dullness-model.png",
-                objectPosition: "object-[9%_54%]",
+                image: "/images/skincare-texture-card-1.png",
+                imageClass: "scale-[1.18] object-cover object-left opacity-100 saturate-[1.12] contrast-[1.12] mix-blend-multiply",
               },
               {
                 icon: Moon,
                 title: "بشرة متعبة ليلاً",
                 text: "بعد يوم طويل، البشرة كتكون محتاجة عناية هادئة تساعدها تبان أكثر نعومة وراحة مع روتين ليلي بسيط.",
-                image: "/images/retinol-texture-card-3.jpeg",
-                objectPosition: "object-[8%_51%]",
+                image: "/images/problem-tired-skin-closeup.jpeg",
+                imageClass: "scale-[1.08] object-cover object-[8%_52%] opacity-[0.98] saturate-[1.04] contrast-[1.05]",
               },
               {
                 icon: Eye,
                 title: "محيط عين مرهق",
                 text: "التعب، السهر، والخدمة كيبانو بسرعة حول العينين… وهاد المنطقة كتحتاج عناية خفيفة ومركزة باش تبان أكثر انتعاشاً.",
                 image: "/images/moroccan-model-card-2.png",
-                objectPosition: "object-[8%_62%]",
+                imageClass: "scale-[1.06] object-cover object-[8%_62%] opacity-[0.94] saturate-[1.03] contrast-[1.02]",
               },
               {
                 icon: ShieldCheck,
                 title: "حماية صباحية",
                 text: "كل صباح، البشرة كتحتاج طبقة حماية خفيفة تساعدها تحافظ على مظهر صحي ومشرق خلال اليوم.",
                 image: "/images/nura-spf-50-gallery-1.png",
-                objectPosition: "object-[18%_52%]",
+                imageClass: "scale-[1.06] object-cover object-[18%_52%] opacity-[0.94] saturate-[1.03] contrast-[1.02]",
               },
-            ].map((card, idx) => {
+            ].map((card) => {
               const Icon = card.icon;
               return (
                 <div
@@ -224,12 +224,12 @@ export default function HomePage() {
                       alt=""
                       fill
                       sizes="(min-width: 1024px) 19vw, (min-width: 640px) 35vw, 76vw"
-                      className={`scale-[1.06] object-cover ${card.objectPosition} opacity-[0.94] saturate-[1.03] contrast-[1.02]`}
+                      className={card.imageClass}
                     />
                   </div>
-                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,250,246,0.10)_36%,rgba(255,250,246,0.54)_68%,rgba(255,255,255,0.90)_100%)]" aria-hidden />
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_18%,rgba(248,224,226,0.22),transparent_36%),radial-gradient(circle_at_18%_86%,rgba(239,216,201,0.14),transparent_30%)]" aria-hidden />
-                  <div className="relative z-10 -m-3 ml-auto max-w-[77%] rounded-[1.4rem] border border-white/45 bg-white/76 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.82),0_12px_34px_rgba(61,44,50,0.055)] backdrop-blur-[2px] sm:max-w-[72%] lg:max-w-[68%]">
+                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,250,246,0.06)_34%,rgba(255,250,246,0.42)_68%,rgba(255,255,255,0.78)_100%)]" aria-hidden />
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_18%,rgba(248,224,226,0.16),transparent_36%),radial-gradient(circle_at_18%_86%,rgba(239,216,201,0.10),transparent_30%)]" aria-hidden />
+                  <div className="relative z-10 -m-3 ml-auto max-w-[77%] rounded-[1.4rem] border border-white/35 bg-white/68 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.78),0_12px_34px_rgba(61,44,50,0.06)] backdrop-blur-[2px] sm:max-w-[72%] lg:max-w-[68%]">
                     <Icon className="mb-5 h-6 w-6 text-rose-mid" strokeWidth={1.5} />
                     <h3 className="text-xl font-bold leading-snug text-[#3A222C]">{card.title}</h3>
                     <p className="mt-3 text-[13px] leading-7 text-[#5F4A51]">{card.text}</p>
