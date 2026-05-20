@@ -40,24 +40,24 @@ export default function HomePage() {
         <div className="premium-glow premium-glow-b absolute bottom-0 right-0 h-72 w-72 rounded-full bg-rose-soft/25 blur-3xl" />
         <div className="absolute left-[16%] top-[24%] h-2 w-2 rounded-full bg-[#D7B9A8]/35 premium-particle" aria-hidden />
         <div className="absolute right-[11%] top-[18%] h-3 w-3 rounded-full bg-white/50 premium-particle premium-particle-delay" aria-hidden />
-        <div className="container-wide relative grid items-center gap-10 py-14 md:grid-cols-2 md:py-24">
-          <div className="animate-premium-rise text-center md:text-right">
-            <p className="mb-5 text-xs font-bold uppercase tracking-[0.22em] text-rose-mid">NURA SKIN — نورا سكين</p>
-            <h1 className="text-4xl font-bold leading-tight text-[#3A222C] md:text-6xl">
+        <div className="container-wide relative grid items-center gap-6 py-6 pb-12 md:grid-cols-2 md:gap-10 md:py-24">
+          <div className="animate-premium-rise order-2 text-center md:order-1 md:text-right">
+            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.22em] text-rose-mid md:mb-5 md:text-xs">NURA SKIN — نورا سكين</p>
+            <h1 className="text-[2rem] font-bold leading-[1.16] text-[#3A222C] md:text-6xl md:leading-tight">
               روتين عناية ناعم لبشرة أكثر توازنًا وإشراقًا
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-base leading-8 text-[#6B5555] md:mx-0 md:text-lg">
+            <p className="mx-auto mt-3 max-w-[22rem] text-sm leading-7 text-[#6B5555] md:mx-0 md:mt-6 md:max-w-xl md:text-lg md:leading-8">
               أربع تركيبات أساسية مختارة بعناية لتدعم احتياجات البشرة اليومية، من الإشراقة إلى الحماية الصباحية، دون تعقيد أو وعود مبالغ فيها.
             </p>
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:justify-start">
-              <Link href="/products" className="rounded-full bg-rose-deep px-8 py-4 text-center font-bold text-white shadow-rose-md transition hover:opacity-90">
+            <div className="mt-5 grid grid-cols-2 justify-center gap-2 md:mt-8 md:flex md:gap-3 md:justify-start">
+              <Link href="/products" className="rounded-full bg-rose-deep px-4 py-3 text-center text-sm font-bold text-white shadow-rose-md transition hover:opacity-90 md:px-8 md:py-4 md:text-base">
                 اكتشفي المجموعة
               </Link>
-              <Link href="/about" className="rounded-full border border-rose-soft bg-white/70 px-8 py-4 text-center font-bold text-rose-deep transition hover:bg-white">
+              <Link href="/about" className="rounded-full border border-rose-soft bg-white/70 px-4 py-3 text-center text-sm font-bold text-rose-deep transition hover:bg-white md:px-8 md:py-4 md:text-base">
                 لماذا نورا؟
               </Link>
             </div>
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            <div className="mt-5 grid grid-cols-3 gap-2 md:mt-8 md:gap-3">
               {[
                 { icon: ShieldCheck, text: "الدفع عند الاستلام" },
                 { icon: Truck, text: "توصيل مجاني لجميع أنحاء المغرب" },
@@ -65,8 +65,8 @@ export default function HomePage() {
               ].map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.text} className="flex items-center justify-center gap-2 rounded-2xl border border-rose-soft/30 bg-white/75 px-4 py-3 text-sm font-semibold text-[#3A222C]">
-                    <Icon className="h-4 w-4 text-rose-mid" strokeWidth={1.5} />
+                  <div key={item.text} className="flex min-h-16 flex-col items-center justify-center gap-1 rounded-2xl border border-rose-soft/30 bg-white/75 px-2 py-2 text-center text-[10px] font-semibold leading-4 text-[#3A222C] shadow-[0_10px_28px_rgba(61,44,50,0.035)] md:min-h-0 md:flex-row md:gap-2 md:px-4 md:py-3 md:text-sm">
+                    <Icon className="h-3.5 w-3.5 shrink-0 text-rose-mid md:h-4 md:w-4" strokeWidth={1.5} />
                     <span>{item.text}</span>
                   </div>
                 );
@@ -74,9 +74,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="premium-float relative mx-auto w-full max-w-xl lg:max-w-2xl">
-            <div className="rounded-[2.5rem] border border-white/80 bg-white/70 p-4 shadow-rose-lg backdrop-blur">
-              <div className="overflow-hidden rounded-[2rem] bg-[radial-gradient(circle_at_50%_42%,rgba(244,216,182,0.28),rgba(250,247,244,0.82)_42%,rgba(227,226,222,0.62)_100%)]">
+          <div className="premium-float order-1 relative mx-auto w-[min(94vw,42rem)] max-w-xl md:order-2 md:w-full lg:max-w-2xl">
+            <div className="rounded-[1.65rem] border border-white/80 bg-white/70 p-2.5 shadow-rose-lg backdrop-blur md:rounded-[2.5rem] md:p-4">
+              <div className="overflow-hidden rounded-[1.35rem] bg-[radial-gradient(circle_at_50%_42%,rgba(244,216,182,0.28),rgba(250,247,244,0.82)_42%,rgba(227,226,222,0.62)_100%)] md:rounded-[2rem]">
                 <Image
                   src="/images/nura-complete-routine-hero.png"
                   alt="روتين نورا سكين الكامل للعناية بالبشرة"
@@ -88,9 +88,9 @@ export default function HomePage() {
                 />
               </div>
             </div>
-            <div className="absolute -bottom-5 -right-3 rounded-3xl border border-rose-soft/30 bg-white px-5 py-4 shadow-rose-sm">
-              <p className="text-sm font-bold text-[#3A222C]">روتين متكامل</p>
-              <p className="text-xs text-[#9B8A8A]">إشراقة، تجديد، عين، وحماية</p>
+            <div className="absolute -bottom-3 right-3 rounded-2xl border border-rose-soft/30 bg-white/95 px-4 py-3 shadow-rose-sm backdrop-blur md:-bottom-5 md:-right-3 md:rounded-3xl md:px-5 md:py-4">
+              <p className="text-xs font-bold text-[#3A222C] md:text-sm">روتين متكامل</p>
+              <p className="text-[10px] text-[#9B8A8A] md:text-xs">إشراقة، تجديد، عين، وحماية</p>
             </div>
           </div>
         </div>
