@@ -125,6 +125,21 @@ export default function HomePage() {
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.72),transparent_30%),radial-gradient(circle_at_82%_22%,rgba(248,224,226,0.45),transparent_34%)]" aria-hidden />
                   </>
                 )}
+                {idx === 1 && (
+                  <>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[58%] overflow-hidden md:w-[54%]" aria-hidden>
+                      <Image
+                        src="/images/moroccan-model-card-2.png"
+                        alt=""
+                        fill
+                        sizes="(min-width: 768px) 20vw, 58vw"
+                        className="object-cover object-left opacity-[0.56] saturate-[0.92] md:opacity-[0.62]"
+                      />
+                    </div>
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0.34)_36%,rgba(255,255,255,0.88)_63%,rgba(253,248,248,0.99)_100%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(255,246,239,0.42),transparent_28%),radial-gradient(circle_at_88%_20%,rgba(248,224,226,0.42),transparent_38%)]" aria-hidden />
+                  </>
+                )}
                 <div className="relative z-10 mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-blush text-rose-deep transition-transform duration-300 group-hover:-translate-y-1">
                   <Icon className="h-5 w-5" strokeWidth={1.25} />
                 </div>
