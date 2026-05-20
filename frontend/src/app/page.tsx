@@ -107,60 +107,65 @@ export default function HomePage() {
             return (
               <div
                 key={item.title}
-                className="animate-premium-rise group relative overflow-hidden rounded-[1.75rem] border border-rose-soft/20 bg-[linear-gradient(145deg,#FFFFFF,#FDF8F8)] p-7 shadow-[0_16px_45px_rgba(61,44,50,0.045)] transition-all duration-300 hover:-translate-y-1 hover:border-rose-soft/40 hover:shadow-[0_20px_58px_rgba(142,90,104,0.10)]"
+                className="animate-premium-rise group relative min-h-[16.5rem] overflow-hidden rounded-[1.75rem] border border-rose-soft/20 bg-[linear-gradient(145deg,#FFFFFF,#FDF8F8)] p-8 shadow-[0_18px_52px_rgba(61,44,50,0.055)] transition-all duration-300 hover:-translate-y-1 hover:border-rose-soft/40 hover:shadow-[0_24px_68px_rgba(142,90,104,0.12)] md:min-h-[18rem] md:p-7"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
                 {idx === 0 && (
                   <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[52%] overflow-hidden md:w-[46%]" aria-hidden>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[58%] overflow-hidden md:w-[50%]" aria-hidden>
                       <Image
                         src="/images/skincare-texture-card-1.png"
                         alt=""
                         fill
                         sizes="(min-width: 768px) 18vw, 50vw"
-                        className="object-cover object-left opacity-[0.38] blur-[0.2px] mix-blend-multiply md:opacity-[0.44]"
+                        className="scale-110 object-cover object-left opacity-[0.52] blur-[0.1px] mix-blend-multiply md:opacity-[0.58]"
                       />
                     </div>
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.58)_36%,rgba(255,255,255,0.95)_64%,rgba(253,248,248,0.99)_100%)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.72),transparent_30%),radial-gradient(circle_at_82%_22%,rgba(248,224,226,0.45),transparent_34%)]" aria-hidden />
+                    <div className="pointer-events-none absolute left-[7%] top-9 h-9 w-9 rounded-full bg-white/70 shadow-[inset_0_2px_8px_rgba(255,255,255,0.85),0_10px_26px_rgba(142,90,104,0.10)] backdrop-blur-[1px]" aria-hidden />
+                    <div className="pointer-events-none absolute left-[33%] top-16 h-5 w-5 rounded-full bg-white/65 shadow-[inset_0_1px_5px_rgba(255,255,255,0.9),0_8px_18px_rgba(142,90,104,0.08)] backdrop-blur-[1px]" aria-hidden />
+                    <div className="pointer-events-none absolute bottom-7 left-[24%] h-3 w-3 rounded-full bg-white/55 shadow-[0_8px_16px_rgba(142,90,104,0.07)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.42)_34%,rgba(255,255,255,0.92)_64%,rgba(253,248,248,0.99)_100%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_24%,rgba(255,255,255,0.78),transparent_24%),radial-gradient(circle_at_24%_78%,rgba(255,242,232,0.48),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(248,224,226,0.45),transparent_34%)]" aria-hidden />
+                    <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/20 via-white/85 to-transparent" aria-hidden />
                   </>
                 )}
                 {idx === 1 && (
                   <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[58%] overflow-hidden md:w-[54%]" aria-hidden>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[62%] overflow-hidden md:w-[58%]" aria-hidden>
                       <Image
                         src="/images/moroccan-model-card-2.png"
                         alt=""
                         fill
                         sizes="(min-width: 768px) 20vw, 58vw"
-                        className="object-cover object-left opacity-[0.56] saturate-[0.92] md:opacity-[0.62]"
+                        className="scale-105 object-cover object-[9%_58%] opacity-[0.58] saturate-[0.92] md:object-[11%_60%] md:opacity-[0.64]"
                       />
                     </div>
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0.34)_36%,rgba(255,255,255,0.88)_63%,rgba(253,248,248,0.99)_100%)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(255,246,239,0.42),transparent_28%),radial-gradient(circle_at_88%_20%,rgba(248,224,226,0.42),transparent_38%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.30)_34%,rgba(255,255,255,0.86)_62%,rgba(253,248,248,0.99)_100%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(255,246,239,0.36),transparent_28%),radial-gradient(circle_at_88%_20%,rgba(248,224,226,0.42),transparent_38%)]" aria-hidden />
                   </>
                 )}
                 {idx === 2 && (
                   <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[58%] overflow-hidden md:w-[54%]" aria-hidden>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[62%] overflow-hidden md:w-[58%]" aria-hidden>
                       <Image
                         src="/images/retinol-texture-card-3.jpeg"
                         alt=""
                         fill
                         sizes="(min-width: 768px) 20vw, 58vw"
-                        className="object-cover object-left opacity-[0.58] saturate-[0.9] md:opacity-[0.64]"
+                        className="scale-105 object-cover object-[10%_52%] opacity-[0.70] saturate-[0.94] md:opacity-[0.76]"
                       />
                     </div>
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.38)_36%,rgba(255,255,255,0.9)_64%,rgba(253,248,248,0.99)_100%)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(255,247,239,0.46),transparent_30%),radial-gradient(circle_at_86%_22%,rgba(248,224,226,0.38),transparent_38%)]" aria-hidden />
+                    <div className="pointer-events-none absolute left-[31%] top-[23%] h-24 w-20 rounded-full bg-white/22 blur-xl" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.34)_36%,rgba(255,255,255,0.88)_64%,rgba(253,248,248,0.99)_100%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_24%_28%,rgba(255,247,239,0.38),transparent_30%),radial-gradient(circle_at_86%_22%,rgba(248,224,226,0.38),transparent_38%)]" aria-hidden />
                   </>
                 )}
                 <div className="relative z-10 mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-blush text-rose-deep transition-transform duration-300 group-hover:-translate-y-1">
                   <Icon className="h-5 w-5" strokeWidth={1.25} />
                 </div>
-                <div className="relative z-10 md:ml-auto md:max-w-[62%]">
-                  <h2 className="text-xl font-bold text-[#3A222C]">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-[#6B5555]">{item.text}</p>
+                <div className="relative z-10 rounded-2xl bg-white/48 p-3 -m-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-[1px] md:ml-auto md:max-w-[62%]">
+                  <h2 className="text-[1.35rem] font-bold leading-snug text-[#3A222C]">{item.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-[#5F4A51]">{item.text}</p>
                 </div>
               </div>
             );
