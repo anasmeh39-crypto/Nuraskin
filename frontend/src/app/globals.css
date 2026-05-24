@@ -609,9 +609,9 @@
 @media (min-width: 1024px) {
   .hero-container {
     display: grid;
-    /* RTL grid: column 1 (40%) → visual RIGHT → text
-                 column 2 (60%) → visual LEFT  → image */
-    grid-template-columns: 40% 60%;
+    /* dir="ltr" on the container gives physical column control.
+       Col 1 (left 60%) = image panel   Col 2 (right 40%) = text panel */
+    grid-template-columns: 60% 40%;
     column-gap: 56px;
     row-gap: 0;
     padding: 64px 64px;
@@ -620,11 +620,12 @@
   }
 }
 
-/* Image panel — DOM first = top on mobile */
+/* Image panel — DOM first = top on mobile, left col on desktop */
 .hero-image-panel { width: 100%; max-width: 480px; margin: 0 auto; }
 
 @media (min-width: 1024px) {
-  .hero-image-panel { grid-column: 2; max-width: none; margin: 0; }
+  /* Auto-placed into column 1 (left 60%) by the LTR grid container */
+  .hero-image-panel { max-width: none; margin: 0; }
 }
 
 /* 4:5 portrait frame */
@@ -664,10 +665,12 @@
   margin: 2px 0 0; line-height: 1.4;
 }
 
-/* Text panel — DOM second = bottom on mobile */
-.hero-text-panel { text-align: start; }
-
-@media (min-width: 1024px) { .hero-text-panel { grid-column: 1; } }
+/* Text panel — DOM second = bottom on mobile, right col on desktop.
+   direction:rtl restores Arabic text rendering inside the LTR grid. */
+.hero-text-panel {
+  text-align: start; /* logical start = right in RTL */
+  direction: rtl;
+}
 
 /* Eyebrow — Playfair Display italic (already loaded) */
 .hero-eyebrow {

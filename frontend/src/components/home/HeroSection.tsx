@@ -11,7 +11,9 @@ import Link from "next/link";
 export function HeroSection() {
   return (
     <section className="hero-section" aria-label="نورا سكين — روتين العناية بالبشرة">
-      <div className="hero-container">
+      {/* dir="ltr" gives us physical left→right column control.
+          The text panel overrides with direction:rtl for Arabic text. */}
+      <div className="hero-container" dir="ltr">
 
         {/* ── IMAGE PANEL ─────────────────────────────────────────
             DOM-first → appears on TOP on mobile, LEFT on desktop.
