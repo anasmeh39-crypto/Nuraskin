@@ -9,9 +9,10 @@ import {
   ShieldCheck,
   Sparkles,
   SunMedium,
-  Truck,
 } from "lucide-react";
 import { CertificationsTrustStrip } from "@/components/home/CertificationsTrustStrip";
+import { HeroSection } from "@/components/home/HeroSection";
+import { HeroTrustStrip } from "@/components/home/HeroTrustStrip";
 import { HomeIngredientShowcase } from "@/components/home/HomeIngredientShowcase";
 import { HomePacksSection } from "@/components/home/HomePacksSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
@@ -36,68 +37,8 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#FDFAF6_0%,#FDF5F7_55%,#FAF0F2_100%)]">
-        <div className="premium-ambient absolute inset-0 opacity-80" aria-hidden />
-        <div className="premium-glow premium-glow-a absolute -top-24 -left-24 h-72 w-72 rounded-full bg-white/60 blur-3xl" />
-        <div className="premium-glow premium-glow-b absolute bottom-0 right-0 h-72 w-72 rounded-full bg-rose-soft/25 blur-3xl" />
-        <div className="absolute left-[16%] top-[24%] h-2 w-2 rounded-full bg-[#D7B9A8]/35 premium-particle" aria-hidden />
-        <div className="absolute right-[11%] top-[18%] h-3 w-3 rounded-full bg-white/50 premium-particle premium-particle-delay" aria-hidden />
-        <div className="container-wide relative grid items-center gap-6 py-6 pb-12 md:grid-cols-2 md:gap-10 md:py-24">
-          <div className="animate-premium-rise order-2 text-center md:order-1 md:text-right">
-            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.22em] text-rose-mid md:mb-5 md:text-xs">NURA SKIN — نورا سكين</p>
-            <h1 className="text-[2rem] font-bold leading-[1.16] text-[#3A222C] md:text-6xl md:leading-tight">
-              روتين عناية ناعم لبشرة أكثر توازنًا وإشراقًا
-            </h1>
-            <p className="mx-auto mt-3 max-w-[22rem] text-sm leading-7 text-[#6B5555] md:mx-0 md:mt-6 md:max-w-xl md:text-lg md:leading-8">
-              أربع تركيبات أساسية مختارة بعناية لتدعم احتياجات البشرة اليومية، من الإشراقة إلى الحماية الصباحية، دون تعقيد أو وعود مبالغ فيها.
-            </p>
-            <div className="mt-5 grid grid-cols-2 justify-center gap-2 md:mt-8 md:flex md:gap-3 md:justify-start">
-              <Link href="/products" className="rounded-full bg-rose-deep px-4 py-3 text-center text-sm font-bold text-white shadow-rose-md transition hover:opacity-90 md:px-8 md:py-4 md:text-base">
-                اكتشفي المجموعة
-              </Link>
-              <Link href="/about" className="rounded-full border border-rose-soft bg-white/70 px-4 py-3 text-center text-sm font-bold text-rose-deep transition hover:bg-white md:px-8 md:py-4 md:text-base">
-                لماذا نورا؟
-              </Link>
-            </div>
-            <div className="mt-5 grid grid-cols-3 gap-2 md:mt-8 md:gap-3">
-              {[
-                { icon: ShieldCheck, text: "الدفع عند الاستلام" },
-                { icon: Truck, text: "توصيل مجاني لجميع أنحاء المغرب" },
-                { icon: FlaskConical, text: "تركيبات مختارة بعناية" },
-              ].map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div key={item.text} className="flex min-h-16 flex-col items-center justify-center gap-1 rounded-2xl border border-rose-soft/30 bg-white/75 px-2 py-2 text-center text-[10px] font-semibold leading-4 text-[#3A222C] shadow-[0_10px_28px_rgba(61,44,50,0.035)] md:min-h-0 md:flex-row md:gap-2 md:px-4 md:py-3 md:text-sm">
-                    <Icon className="h-3.5 w-3.5 shrink-0 text-rose-mid md:h-4 md:w-4" strokeWidth={1.5} />
-                    <span>{item.text}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="premium-float order-1 relative mx-auto w-[min(94vw,42rem)] max-w-xl md:order-2 md:w-full lg:max-w-2xl">
-            <div className="rounded-[1.65rem] border border-white/80 bg-white/70 p-2.5 shadow-rose-lg backdrop-blur md:rounded-[2.5rem] md:p-4">
-              <div className="overflow-hidden rounded-[1.35rem] bg-[radial-gradient(circle_at_50%_42%,rgba(244,216,182,0.28),rgba(250,247,244,0.82)_42%,rgba(227,226,222,0.62)_100%)] md:rounded-[2rem]">
-                <Image
-                  src="/images/nura-complete-routine-hero.png"
-                  alt="روتين نورا سكين الكامل للعناية بالبشرة"
-                  width={1693}
-                  height={929}
-                  priority
-                  sizes="(min-width: 1024px) 50vw, (min-width: 768px) 46vw, 92vw"
-                  className="h-auto w-full object-contain"
-                />
-              </div>
-            </div>
-            <div className="absolute -bottom-3 right-3 rounded-2xl border border-rose-soft/30 bg-white/95 px-4 py-3 shadow-rose-sm backdrop-blur md:-bottom-5 md:-right-3 md:rounded-3xl md:px-5 md:py-4">
-              <p className="text-xs font-bold text-[#3A222C] md:text-sm">روتين متكامل</p>
-              <p className="text-[10px] text-[#9B8A8A] md:text-xs">إشراقة، تجديد، عين، وحماية</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <HeroSection />
+      <HeroTrustStrip />
       <CertificationsTrustStrip />
 
       <section className="bg-white py-16 md:py-20">
@@ -116,20 +57,22 @@ export default function HomePage() {
               >
                 {idx === 0 && (
                   <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[74%] overflow-hidden md:w-[64%]" aria-hidden>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[68%] overflow-hidden md:w-[58%]" aria-hidden>
                       <Image
-                        src="/images/feature-ingredients-lab.png"
+                        src="/images/skincare-texture-card-1.png"
                         alt=""
                         fill
-                        sizes="(min-width: 768px) 22vw, 74vw"
-                        className="scale-[1.03] object-cover object-[18%_52%] opacity-[0.98] saturate-[1.04] contrast-[1.04]"
+                        sizes="(min-width: 768px) 20vw, 68vw"
+                        className="scale-[1.16] object-cover object-left opacity-[0.95] saturate-[1.08] contrast-[1.08] mix-blend-multiply"
                       />
                     </div>
-                    <div className="pointer-events-none absolute left-[3%] top-5 h-24 w-36 rounded-full bg-white/18 blur-2xl" aria-hidden />
-                    <div className="pointer-events-none absolute bottom-6 left-[16%] h-20 w-44 rounded-full bg-[#EFD8C9]/18 blur-2xl" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,252,249,0.05)_34%,rgba(255,252,249,0.30)_61%,rgba(253,248,248,0.76)_100%)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_84%_20%,rgba(248,224,226,0.18),transparent_34%)]" aria-hidden />
-                    <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/15 via-white/55 to-transparent" aria-hidden />
+                    <div className="pointer-events-none absolute left-[8%] top-8 h-10 w-10 rounded-full bg-white/58 shadow-[inset_0_2px_8px_rgba(255,255,255,0.86),0_12px_30px_rgba(142,90,104,0.16)] backdrop-blur-[1px]" aria-hidden />
+                    <div className="pointer-events-none absolute left-[35%] top-14 h-5 w-5 rounded-full bg-white/55 shadow-[inset_0_1px_5px_rgba(255,255,255,0.9),0_8px_18px_rgba(142,90,104,0.12)] backdrop-blur-[1px]" aria-hidden />
+                    <div className="pointer-events-none absolute bottom-8 left-[25%] h-3 w-3 rounded-full bg-white/48 shadow-[0_8px_16px_rgba(142,90,104,0.11)]" aria-hidden />
+                    <div className="pointer-events-none absolute left-[5%] bottom-8 h-24 w-48 rounded-full bg-[#EFD8C9]/24 blur-2xl" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,252,249,0.12)_34%,rgba(255,252,249,0.62)_66%,rgba(253,248,248,0.88)_100%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(255,255,255,0.34),transparent_20%),radial-gradient(circle_at_82%_22%,rgba(248,224,226,0.24),transparent_34%)]" aria-hidden />
+                    <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/20 via-white/65 to-transparent" aria-hidden />
                   </>
                 )}
                 {idx === 1 && (
@@ -167,7 +110,7 @@ export default function HomePage() {
                 <div className="relative z-10 mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-blush text-rose-deep transition-transform duration-300 group-hover:-translate-y-1">
                   <Icon className="h-5 w-5" strokeWidth={1.25} />
                 </div>
-                <div className={`relative z-10 -m-3 ml-auto max-w-[76%] rounded-2xl p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.82),0_12px_34px_rgba(61,44,50,0.055)] backdrop-blur-[3px] sm:max-w-[72%] md:max-w-[62%] ${idx === 0 ? "border border-white/38 bg-white/70" : "border border-white/48 bg-white/78"}`}>
+                <div className="relative z-10 -m-3 ml-auto max-w-[76%] rounded-2xl border border-white/48 bg-white/78 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.82),0_12px_34px_rgba(61,44,50,0.055)] backdrop-blur-[3px] sm:max-w-[72%] md:max-w-[62%]">
                   <h2 className="text-[1.35rem] font-bold leading-snug text-[#3A222C]">{item.title}</h2>
                   <p className="mt-3 text-sm leading-7 text-[#5F4A51]">{item.text}</p>
                 </div>
@@ -189,8 +132,8 @@ export default function HomePage() {
                 icon: SunMedium,
                 title: "بهتان وعدم التوازن",
                 text: "ملي كتفيقي وكتحسي بشرتك باهتة، مرهقة وما فيهاش داك الإشراق الطبيعي… كتحتاجي خطوة يومية لطيفة ترجع ليها التوازن والصفاء.",
-                image: "/images/problem-dullness-portrait.png",
-                imageClass: "scale-100 object-cover object-[45%_31%] opacity-[0.99] saturate-[1.05] contrast-[1.04]",
+                image: "/images/skincare-texture-card-1.png",
+                imageClass: "scale-[1.04] object-cover object-left opacity-100 saturate-[1.16] contrast-[1.14] mix-blend-multiply",
               },
               {
                 icon: Moon,
