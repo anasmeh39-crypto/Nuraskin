@@ -194,12 +194,27 @@ export function TestimonialsSection() {
   return (
     <section className="bg-ivory py-16 md:pb-16 md:pt-20" dir="rtl" aria-labelledby="testimonials-heading">
       <div className="container-wide">
-        <div className="mx-auto mb-10 max-w-[520px] text-center">
+        <div className="mx-auto mb-7 max-w-[520px] text-center md:mb-9">
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-deep/60">{TESTIMONIAL_EYEBROW}</p>
           <h2 id="testimonials-heading" className="text-2xl font-semibold text-brand-deep md:text-[32px]">
             {TESTIMONIAL_HEADLINE}
           </h2>
           <p className="mt-4 text-base leading-8 text-brand-deep/65">{TESTIMONIAL_SUBHEADLINE}</p>
+        </div>
+
+        <div className="relative mx-auto mb-9 max-w-6xl overflow-hidden rounded-[1.7rem] border border-white/70 bg-cream shadow-[0_22px_70px_rgba(61,44,50,0.09)] md:mb-12 md:rounded-[2rem]">
+          <Image
+            src="/images/testimonials/social-proof-hero.png"
+            alt="آراء زبونات نورا سكين مع منتجات العناية وتقييم 4.8 من 5"
+            width={1536}
+            height={1024}
+            sizes="(min-width: 1280px) 1120px, (min-width: 768px) 92vw, 92vw"
+            className="h-auto w-full"
+          />
+          <div
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,250,246,0.035)_0%,rgba(255,250,246,0.01)_52%,rgba(255,250,246,0.10)_100%)]"
+            aria-hidden
+          />
         </div>
       </div>
 
