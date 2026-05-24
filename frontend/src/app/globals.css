@@ -614,8 +614,9 @@
     grid-template-columns: 40% 60%;
     column-gap: 56px;
     row-gap: 0;
-    padding: 80px 64px;
+    padding: 64px 64px;
     align-items: center;
+    min-height: 88vh;
   }
 }
 
@@ -636,7 +637,7 @@
   overflow: hidden;
 }
 
-@media (min-width: 1024px) { .hero-image-frame { max-height: none; } }
+@media (min-width: 1024px) { .hero-image-frame { max-height: 72vh; } }
 
 .hero-image { object-fit: cover; object-position: center 18%; }
 
