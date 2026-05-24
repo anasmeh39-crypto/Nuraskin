@@ -640,7 +640,8 @@
 
 @media (min-width: 1024px) { .hero-image-frame { max-height: 72vh; } }
 
-.hero-image { object-fit: cover; object-position: center 18%; }
+/* Landscape lifestyle photo — center crop keeps products + model in frame */
+.hero-image { object-fit: cover; object-position: center 30%; }
 
 /* Editorial caption — replaces floating card */
 .hero-image-caption {

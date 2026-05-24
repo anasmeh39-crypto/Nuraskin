@@ -22,7 +22,7 @@ export function HeroSection() {
         <div className="hero-image-panel hero-animate-img">
           <div className="hero-image-frame">
             <Image
-              src="/images/nura-complete-routine-hero.png"
+              src="/images/nura-hero-lifestyle.png"
               alt="روتين نورا سكين الكامل للعناية بالبشرة"
               fill
               priority
