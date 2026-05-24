@@ -343,7 +343,7 @@
 
 @keyframes nuraMarqueeRtl {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  to { transform: translateX(-33.333333%); }
 }
 
 .nura-marquee-viewport {
@@ -367,7 +367,6 @@
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  padding-inline: 12px;
 }
 
 .nura-marquee-viewport:hover .nura-marquee-track,
@@ -380,6 +379,28 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+.nura-cert-logo {
+  filter:
+    grayscale(1)
+    sepia(0.22)
+    saturate(0.85)
+    hue-rotate(286deg)
+    brightness(0.72)
+    contrast(1.12);
+  opacity: 0.82;
+}
+
+.nura-cert-card:hover .nura-cert-logo {
+  filter:
+    grayscale(1)
+    sepia(0.2)
+    saturate(1.1)
+    hue-rotate(286deg)
+    brightness(0.62)
+    contrast(1.16);
+  opacity: 0.98;
 }
 
 @keyframes premiumRise {

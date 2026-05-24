@@ -23,15 +23,17 @@ const CERTIFICATIONS = [
 
 function CertificationItem({ certification }: { certification: (typeof CERTIFICATIONS)[number] }) {
   return (
-    <div className="flex h-20 min-w-[180px] flex-col items-center justify-center text-center">
+    <div className="nura-cert-card group flex h-[72px] min-w-[150px] flex-col items-center justify-center rounded-2xl bg-white/42 px-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] ring-1 ring-white/70 backdrop-blur-sm transition duration-300 hover:bg-white/70 hover:shadow-[0_16px_38px_rgba(61,44,50,0.055)] md:h-20 md:min-w-[180px]">
       <Image
         src={certification.src}
         alt={certification.alt}
-        width={160}
-        height={40}
-        className="max-h-10 w-auto object-contain saturate-[0.7] transition duration-[250ms] hover:saturate-100"
+        width={150}
+        height={42}
+        className="nura-cert-logo max-h-8 w-auto object-contain transition duration-300 md:max-h-10"
       />
-      <p className="mt-2 max-w-[140px] text-[10px] font-medium leading-4 text-brand-deep/65">{certification.label}</p>
+      <p className="mt-1.5 max-w-[132px] text-[9px] font-semibold leading-3 text-brand-deep/58 md:mt-2 md:max-w-[140px] md:text-[10px] md:leading-4">
+        {certification.label}
+      </p>
     </div>
   );
 }
@@ -42,20 +44,23 @@ export function CertificationsTrustStrip() {
       role="region"
       aria-label="شهادات الجودة"
       dir="rtl"
-      className="border-y-[0.5px] border-brand-deep/10 bg-ivory py-8"
+      className="relative overflow-hidden border-y-[0.5px] border-brand-deep/10 bg-[linear-gradient(180deg,#FFF9F6_0%,#FAF7F4_100%)] py-7 md:py-8"
     >
-      <div className="mb-5 text-center text-[13px] font-medium tracking-[0.15em] text-brand-deep/65">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#FAF7F4] to-transparent md:w-24" aria-hidden />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#FAF7F4] to-transparent md:w-24" aria-hidden />
+
+      <div className="relative z-20 mb-5 text-center text-[13px] font-medium tracking-[0.15em] text-brand-deep/65">
         <p>{CERTIFICATION_HEADING_AR}</p>
         <p className="mt-1 text-[11px] uppercase">{CERTIFICATION_HEADING_FR}</p>
       </div>
 
-      <div className="nura-marquee-viewport" role="region" aria-label="شعارات الشهادات وإشارات الثقة">
+      <div className="nura-marquee-viewport nura-certifications-viewport" role="region" aria-label="شعارات الشهادات وإشارات الثقة">
         <div className="nura-marquee-track nura-marquee-track--certifications">
-          {[0, 1].map((setIndex) => (
+          {[0, 1, 2].map((setIndex) => (
             <div
               key={setIndex}
-              className={`nura-marquee-set gap-12 ${setIndex === 1 ? "nura-marquee-set--duplicate" : ""}`}
-              aria-hidden={setIndex === 1}
+              className={`nura-marquee-set gap-4 px-2 md:gap-7 md:px-3 ${setIndex > 0 ? "nura-marquee-set--duplicate" : ""}`}
+              aria-hidden={setIndex > 0}
             >
               {CERTIFICATIONS.map((certification) => (
                 <CertificationItem key={`${setIndex}-${certification.src}`} certification={certification} />

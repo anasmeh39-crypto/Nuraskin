@@ -1,9 +1,7 @@
 <svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
-  <title id="title">Made in Morocco placeholder</title>
-  <rect width="240" height="80" rx="18" fill="#FFF9F6"/>
-  <rect x="1" y="1" width="238" height="78" rx="17" stroke="#3D2C32" stroke-opacity=".12"/>
-  <circle cx="60" cy="40" r="20" fill="#C1272D"/>
-  <path d="M60 26l3.3 10.1h10.6l-8.6 6.2 3.3 10.1L60 46.2l-8.6 6.2 3.3-10.1-8.6-6.2h10.6L60 26z" fill="#006233"/>
-  <text x="146" y="36" text-anchor="middle" fill="#3D2C32" font-family="Arial, sans-serif" font-size="17" font-weight="700">Made in Morocco</text>
-  <text x="146" y="56" text-anchor="middle" fill="#8E5A68" font-family="Arial, sans-serif" font-size="12">5F9 AJ 'DE:1(</text>
+  <title id="title">Made in Morocco</title>
+  <circle cx="62" cy="40" r="25" fill="#F5E8EC"/>
+  <path d="M62 24l3.4 10.5h11l-8.9 6.5 3.4 10.5L62 45l-8.9 6.5 3.4-10.5-8.9-6.5h11L62 24z" fill="#8E5A68"/>
+  <text x="148" y="38" text-anchor="middle" fill="#3D2C32" font-family="Arial, sans-serif" font-size="18" font-weight="700">MADE IN</text>
+  <text x="148" y="58" text-anchor="middle" fill="#6B4E56" font-family="Arial, sans-serif" font-size="18" font-weight="700">MOROCCO</text>
 </svg>
