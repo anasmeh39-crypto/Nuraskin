@@ -24,7 +24,7 @@ export function HomePacksSection() {
       <div className="container-wide">
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <p className="luxury-kicker mx-auto mb-4 w-fit">الباقات</p>
-          <h2 className="section-heading text-[#3A222C]">روتينات Nura Skin المتكاملة</h2>
+          <h2 className="section-heading text-[#3A222C]">روتينات نورا سكين المتكاملة</h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-8 text-[#6B5555]">
             اختاري الباقة المناسبة لبشرتك وابدئي روتينًا واضحًا يجمع بين العناية، النضارة، والحماية.
           </p>
