@@ -233,20 +233,21 @@ export default function HomePage() {
             </div>
           </div>
           <div className="order-1 md:order-2">
-            <div className="premium-float rounded-[2rem] border border-white/75 bg-[linear-gradient(145deg,#FFFDFC,#F7E8ED_54%,#F6F0E8)] p-4 shadow-rose-lg">
-              <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.6rem] border border-white/80 bg-white/50">
-                <div className="absolute inset-x-8 bottom-8 h-16 rounded-full bg-rose-soft/25 blur-2xl" aria-hidden />
-                <div className="grid grid-cols-4 items-end gap-2 sm:gap-3">
-                  {["h-36", "h-44", "h-32", "h-40"].map((height) => (
-                    <div key={height} className={`${height} w-16 rounded-[1.3rem] border border-rose-soft/35 bg-white/80 shadow-ivory-sm md:w-20`}>
-                      <div className="mx-auto mt-5 h-10 w-10 rounded-full border border-rose-deep/20 bg-rose-blush/50" />
-                      <div className="mx-auto mt-5 h-2 w-8 rounded-full bg-rose-soft/35" />
-                      <div className="mx-auto mt-2 h-2 w-10 rounded-full bg-rose-soft/25" />
-                    </div>
-                  ))}
-                </div>
-                <span className="absolute bottom-4 rounded-full border border-white/90 bg-white/75 px-4 py-2 text-xs font-semibold text-rose-deep shadow-ivory-sm">
-                  صورة الروتين الكامل
+            <div className="premium-float rounded-[2rem] border border-white/75 bg-[linear-gradient(145deg,#FFFDFC,#F7E8ED_54%,#F6F0E8)] p-2.5 shadow-rose-lg md:p-4">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.6rem] border border-white/80 bg-white/50 shadow-ivory-sm sm:aspect-[16/10] md:aspect-[4/3]">
+                <Image
+                  src="/images/nura-complete-routine-section.png"
+                  alt="روتين نورا سكين الكامل لبشرة أكثر توازنًا وإشراقًا"
+                  fill
+                  sizes="(min-width: 1024px) 48vw, (min-width: 768px) 52vw, 92vw"
+                  className="object-cover object-[50%_50%]"
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,250,247,0.02)_0%,rgba(255,250,247,0.04)_54%,rgba(255,250,247,0.24)_100%)]"
+                  aria-hidden
+                />
+                <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-white/85 bg-white/72 px-4 py-2 text-xs font-semibold text-rose-deep shadow-ivory-sm backdrop-blur-md">
+                  روتين نورا الكامل
                 </span>
               </div>
             </div>
