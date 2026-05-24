@@ -189,8 +189,8 @@ export default function HomePage() {
                 icon: SunMedium,
                 title: "بهتان وعدم التوازن",
                 text: "ملي كتفيقي وكتحسي بشرتك باهتة، مرهقة وما فيهاش داك الإشراق الطبيعي… كتحتاجي خطوة يومية لطيفة ترجع ليها التوازن والصفاء.",
-                image: "/images/skincare-texture-card-1.png",
-                imageClass: "scale-[1.04] object-cover object-left opacity-100 saturate-[1.16] contrast-[1.14] mix-blend-multiply",
+                image: "/images/problem-dullness-portrait.png",
+                imageClass: "scale-100 object-cover object-[45%_31%] opacity-[0.99] saturate-[1.05] contrast-[1.04]",
               },
               {
                 icon: Moon,
