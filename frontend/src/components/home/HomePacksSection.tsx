@@ -18,6 +18,14 @@ const BUNDLE_DISPLAY = [
     cta: "أضيفي روتين الصباح للسلة",
     imageSrc: "/images/bundles/morning-routine.jpg",
     imageAlt: "روتين الصباح من نورا سكين",
+    /* Photo overlay pill — one key promise */
+    imageBadge: "☀️ روتين الإشراقة الصباحية",
+    /* 3 compact reasons — why choose this pack */
+    reasons: [
+      "واقي SPF 50 مضمّن",
+      "إشراقة وتوازن يومي",
+      "وفّري 178 درهماً",
+    ],
     featured: false,
     priority: false,
   },
@@ -29,6 +37,12 @@ const BUNDLE_DISPLAY = [
     cta: "أضيفي روتين الليل للسلة",
     imageSrc: "/images/bundles/night-renewal.jpg",
     imageAlt: "روتين التجديد الليلي من نورا سكين",
+    imageBadge: "🌙 بشرتكِ تتجدد وأنتِ نائمة",
+    reasons: [
+      "تجديد ليلي فعّال",
+      "ترطيب عميق للعينين",
+      "خطوتان — روتين مختصر",
+    ],
     featured: false,
     priority: false,
   },
@@ -41,6 +55,12 @@ const BUNDLE_DISPLAY = [
     cta: "أضيفي الروتين الكامل للسلة",
     imageSrc: "/images/bundles/complete-routine.jpg",
     imageAlt: "روتين نورا الكامل من نورا سكين",
+    imageBadge: "⭐ الأعلى قيمة · الأوفر تكلفة",
+    reasons: [
+      "وفّري 247 درهماً",
+      "صباح + مساء في باقة",
+      "الأكثر مبيعاً هذا الموسم",
+    ],
     featured: true,
     priority: true,
   },
@@ -123,6 +143,8 @@ function BundleCard({
         />
         {/* Gradient that bleeds image into card background */}
         <div className="bundle-image-fade" aria-hidden="true" />
+        {/* Frosted-glass pill — one key promise floated over the photo */}
+        <div className="bundle-image-badge">{display.imageBadge}</div>
       </div>
 
       <div className="bundle-content">
@@ -138,12 +160,22 @@ function BundleCard({
         {/* 3. Description */}
         <p className="bundle-desc">{display.description}</p>
 
+        {/* 3b. Why this pack — 3 compact reason pills */}
+        <div className="bundle-reason-pills" role="list" aria-label="مزايا الباقة">
+          {display.reasons.map((reason) => (
+            <span key={reason} className="bundle-reason-pill" role="listitem">
+              {reason}
+            </span>
+          ))}
+        </div>
+
         {/* 4. Product checklist — checkmark + text only, no thumbnails */}
         <ul className="bundle-checklist" role="list">
           {products.map((product) => (
             <li key={product!.slug} className="bundle-checklist-item" role="listitem">
               <BundleCheckIcon />
-              <span>{product!.name_ar}</span>
+              {/* flex:1 + min-width:0 prevents long Arabic names from collapsing */}
+              <span className="bundle-checklist-text">{product!.name_ar}</span>
             </li>
           ))}
         </ul>
