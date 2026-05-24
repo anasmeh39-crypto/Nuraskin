@@ -19,19 +19,15 @@ const C = {
   muted:  "#6B4E56",   /* --nura-plum-mid      */
 } as const;
 
-/* ─── Shared 52×52 medallion wrapper ────────────────────────────── */
+/* ─── Shared 52×52 medallion shell ─────────────────────────────── */
 function Medallion({ children }: { children: React.ReactNode }) {
   return (
     <svg
-      width="52"
-      height="52"
-      viewBox="0 0 52 52"
-      fill="none"
-      aria-hidden="true"
+      width="52" height="52" viewBox="0 0 52 52"
+      fill="none" aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle
-        cx="26" cy="26" r="24"
+      <circle cx="26" cy="26" r="24"
         stroke={C.accent} strokeWidth="1.5"
         fill={C.cream} fillOpacity="0.5"
       />
@@ -40,141 +36,179 @@ function Medallion({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ─── 1. DMP — Direction du Médicament et de la Pharmacie ─────────
-   Placeholder medallion. Replace icon content when client provides
-   /public/images/certifications/dmp-official.svg
-────────────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   ICON 1 — DMP (Direction des Médicaments et de la Pharmacie)
+   Visual reference: the DMP "d" letterform — a bold geometric
+   stroke with an upward ascender + oval bowl on the left,
+   and the characteristic horizontal pill accent inside the bowl.
+   Colors: DMP's navy → brand-brown | teal pill → rose-burgundy.
+═══════════════════════════════════════════════════════════════ */
 function DmpIcon() {
   return (
     <Medallion>
-      {/* Capsule divided by a center line — pharmaceutical authority */}
-      <rect x="12" y="20" width="28" height="12" rx="6"
-        stroke={C.accent} strokeWidth="1.5" fill={C.accent} fillOpacity="0.1" />
-      <line x1="26" y1="20" x2="26" y2="32"
-        stroke={C.accent} strokeWidth="1.2" />
-      {/* Top dot — Rx symbol reference */}
-      <circle cx="26" cy="14.5" r="2.5" fill={C.accent} />
+      {/* Ascender + baseline stem — right-side vertical of the "d" */}
+      <line x1="33" y1="11" x2="33" y2="41"
+        stroke={C.brown} strokeWidth="5.5" strokeLinecap="round" />
+      {/* Bowl — curves left from stem top to stem bottom */}
+      <path
+        d="M33 20 C33 13 12 13 12 26 C12 39 33 39 33 39"
+        stroke={C.brown} strokeWidth="5.5"
+        fill="none" strokeLinecap="round"
+      />
+      {/* Horizontal pill — DMP's teal bar, recolored to rose-burgundy */}
+      <rect x="13.5" y="23.5" width="17" height="5.5" rx="2.75" fill={C.accent} />
     </Medallion>
   );
 }
 
-/* ─── 2. ONSSA ────────────────────────────────────────────────────
-   NOTE: ONSSA primarily regulates food products. Only display if
-   Nuraskin holds a confirmed ONSSA certification.
-   Placeholder medallion — replace with dmp-official logic when
-   /public/images/certifications/onssa-official.svg is provided.
-────────────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   ICON 2 — ONSSA
+   Visual reference: ONSSA's three-arc swoosh motif (blue/green/
+   yellow) + 5-pointed star apex (red). Recolored: outer arc →
+   gold, middle → rose-burgundy, inner → muted brown, star →
+   brand-brown. Retains the energy of the original mark.
+═══════════════════════════════════════════════════════════════ */
 function OnssaIcon() {
   return (
     <Medallion>
-      {/* Stylised leaf — quality / organic authority mark */}
-      <path
-        d="M26 13C26 13 35 20 35 29C35 34 31 38.5 26 38.5C21 38.5 17 34 17 29C17 20 26 13 26 13Z"
-        stroke={C.accent} strokeWidth="1.4"
-        fill={C.accent} fillOpacity="0.12"
-      />
-      {/* Quality checkmark inside leaf */}
-      <path
-        d="M21.5 28.5L24.5 31.5L31.5 24"
-        stroke={C.brown} strokeWidth="1.8"
-        strokeLinecap="round" strokeLinejoin="round"
+      {/* Outer arc — gold (was yellow/gold in original) */}
+      <path d="M14 40 C17 29 22 18 32 13"
+        stroke={C.gold} strokeWidth="3.2"
+        fill="none" strokeLinecap="round" />
+      {/* Middle arc — rose-burgundy (was blue in original) */}
+      <path d="M18 41 C22 30 27 20 37 15"
+        stroke={C.accent} strokeWidth="3.2"
+        fill="none" strokeLinecap="round" />
+      {/* Inner arc — muted brown (was green in original) */}
+      <path d="M23 42 C27 31 32 22 40 19"
+        stroke={C.muted} strokeWidth="3.2"
+        fill="none" strokeLinecap="round" />
+      {/* 5-pointed star at arc apex — brand-brown (was red in original)
+          Center (32.5, 11), outer r=4.2, inner r=1.7 */}
+      <polygon
+        points="32.5,6.8 33.7,10.3 37.4,10.3 34.5,12.4 35.6,15.9 32.5,13.8 29.4,15.9 30.5,12.4 27.6,10.3 31.3,10.3"
+        fill={C.brown}
       />
     </Medallion>
   );
 }
 
-/* ─── 3. ISO 22716 — Cosmetic GMP ─────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   ICON 3 — ISO 22716 (Cosmetic GMP)
+   A quality shield with a bold checkmark — universally understood
+   as a standards / certification seal.
+═══════════════════════════════════════════════════════════════ */
 function IsoIcon() {
   return (
     <Medallion>
-      {/* Shield — quality / standards seal */}
+      {/* Shield */}
       <path
-        d="M26 13L35 16.5L35 26C35 31.5 31 35.5 26 38C21 35.5 17 31.5 17 26L17 16.5Z"
-        stroke={C.accent} strokeWidth="1.4"
+        d="M26 12 L35.5 16 L35.5 26.5 C35.5 32.5 31.2 37 26 39.5 C20.8 37 16.5 32.5 16.5 26.5 L16.5 16 Z"
+        stroke={C.accent} strokeWidth="1.5"
         fill={C.accent} fillOpacity="0.1"
       />
-      <path
-        d="M21 26.5L24.5 30L32 22"
-        stroke={C.brown} strokeWidth="1.8"
+      {/* Checkmark */}
+      <path d="M20.5 26.5 L24.5 30.5 L32.5 21.5"
+        stroke={C.brown} strokeWidth="2.1"
         strokeLinecap="round" strokeLinejoin="round"
       />
     </Medallion>
   );
 }
 
-/* ─── 4. Halal Certified ───────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   ICON 4 — Halal Certified
+   A precise 8-pointed geometric star — drawn from Arabic/Islamic
+   geometric art tradition. NOT a crescent (religious symbol).
+   A purely abstract, decorative geometric form.
+═══════════════════════════════════════════════════════════════ */
 function HalalIcon() {
   return (
     <Medallion>
-      {/* 8-pointed geometric star — Arabic/Islamic art reference
-          NOT a crescent (religious symbol). A purely geometric form. */}
+      {/* 8-pointed star: 8 outer + 8 inner alternating points
+          Outer r=11, inner r=4.5, center (26,26) */}
       <polygon
-        points="26,14 28.3,20.5 34.5,17.5 31.5,23.7 38,26 31.5,28.3 34.5,34.5 28.3,31.5 26,38 23.7,31.5 17.5,34.5 20.5,28.3 14,26 20.5,23.7 17.5,17.5 23.7,20.5"
+        points="26,15 28.3,21.4 34.8,18.5 31.8,24.7 38.8,26 31.8,27.3 34.8,33.5 28.3,30.6 26,37 23.7,30.6 17.2,33.5 20.2,27.3 13.2,26 20.2,24.7 17.2,18.5 23.7,21.4"
         stroke={C.accent} strokeWidth="1.3"
-        fill={C.accent} fillOpacity="0.14"
+        fill={C.accent} fillOpacity="0.15"
       />
+      {/* Small circle at center — jewel */}
+      <circle cx="26" cy="26" r="2.5" fill={C.accent} fillOpacity="0.5" />
     </Medallion>
   );
 }
 
-/* ─── 5. Made in Morocco ──────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   ICON 5 — Made in Morocco
+   A bold 5-pointed star (Moroccan flag reference) with a thin
+   gold horizontal rule beneath — understated national pride.
+═══════════════════════════════════════════════════════════════ */
 function MoroccoIcon() {
   return (
     <Medallion>
-      {/* Stylised 5-pointed star — Moroccan flag reference */}
+      {/* Moroccan 5-pointed star
+          Center (26,24.5), outer r=10, inner r=4
+          Starting at top (-90°) */}
       <polygon
-        points="26,15 28.4,22.8 36.5,22.8 30.1,27.4 32.5,35.2 26,30.6 19.5,35.2 21.9,27.4 15.5,22.8 23.6,22.8"
-        stroke={C.brown} strokeWidth="1.4"
-        fill={C.accent} fillOpacity="0.18"
+        points="26,14.5 28.4,22.3 36.5,22.3 30.0,27.1 32.5,34.8 26,30.0 19.5,34.8 22.0,27.1 15.5,22.3 23.6,22.3"
+        stroke={C.brown} strokeWidth="1.5"
+        fill={C.accent} fillOpacity="0.22"
       />
-      {/* Gold accent line beneath — premium underline */}
-      <line x1="19" y1="38" x2="33" y2="38"
-        stroke={C.gold} strokeWidth="1.2" />
+      {/* Gold rule — premium underline */}
+      <line x1="18" y1="39" x2="34" y2="39"
+        stroke={C.gold} strokeWidth="1.5" strokeLinecap="round" />
     </Medallion>
   );
 }
 
-/* ─── 6. Dermatologist Recommended ───────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   ICON 6 — Dermatologist Recommended
+   A clean stethoscope — the universal symbol of medical authority.
+   Two symmetric tube arms + chest piece at base.
+═══════════════════════════════════════════════════════════════ */
 function DermaIcon() {
   return (
     <Medallion>
-      {/* Stethoscope — clean stroke outline */}
-      {/* Chest piece — circular disc at bottom */}
-      <circle cx="26" cy="35" r="4"
+      {/* Left earpiece bar */}
+      <line x1="17" y1="17" x2="21.5" y2="17"
+        stroke={C.brown} strokeWidth="1.6" strokeLinecap="round" />
+      {/* Right earpiece bar */}
+      <line x1="30.5" y1="17" x2="35" y2="17"
+        stroke={C.brown} strokeWidth="1.6" strokeLinecap="round" />
+      {/* Left tube — down then curves to chest piece */}
+      <path d="M19.5 17 L19.5 30 C19.5 34 22.5 36.5 26 36.5"
+        stroke={C.brown} strokeWidth="1.6"
+        fill="none" strokeLinecap="round"
+      />
+      {/* Right tube — mirror */}
+      <path d="M32.5 17 L32.5 30 C32.5 34 29.5 36.5 26 36.5"
+        stroke={C.brown} strokeWidth="1.6"
+        fill="none" strokeLinecap="round"
+      />
+      {/* Chest piece — disc with rose tint */}
+      <circle cx="26" cy="36.5" r="4"
         stroke={C.accent} strokeWidth="1.5"
-        fill={C.accent} fillOpacity="0.15"
+        fill={C.accent} fillOpacity="0.2"
       />
-      {/* Tube left arm */}
-      <path
-        d="M26 31C26 28 21 26 19 23L19 18"
-        stroke={C.brown} strokeWidth="1.5"
-        fill="none" strokeLinecap="round"
-      />
-      {/* Tube right arm */}
-      <path
-        d="M26 31C26 28 31 26 33 23L33 18"
-        stroke={C.brown} strokeWidth="1.5"
-        fill="none" strokeLinecap="round"
-      />
-      {/* Earpieces */}
-      <path d="M17 18L17 15.5M21 18L21 15.5"
-        stroke={C.brown} strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M31 18L31 15.5M35 18L35 15.5"
-        stroke={C.brown} strokeWidth="1.5" strokeLinecap="round" />
     </Medallion>
   );
 }
 
-/* ─── 7. Available in Pharmacies ─────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   ICON 7 — Available in Pharmacies
+   The pharmacy cross (+) — universally recognised, recolored
+   from the standard green to brand rose-burgundy.
+═══════════════════════════════════════════════════════════════ */
 function PharmacyIcon() {
   return (
     <Medallion>
-      {/* Pharmacy cross — brand-brown/rose, NOT green */}
-      <rect x="22" y="14" width="8" height="24" rx="3"
+      {/* Vertical bar of the cross */}
+      <rect x="22.5" y="13" width="7" height="26" rx="3"
         stroke={C.accent} strokeWidth="1.4"
         fill={C.accent} fillOpacity="0.18"
       />
-      <rect x="14" y="22" width="24" height="8" rx="3"
+      {/* Horizontal bar */}
+      <rect x="13" y="22.5" width="26" height="7" rx="3"
         stroke={C.accent} strokeWidth="1.4"
         fill={C.accent} fillOpacity="0.18"
       />
@@ -182,24 +216,33 @@ function PharmacyIcon() {
   );
 }
 
-/* ─── 8. Cruelty-Free ─────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   ICON 8 — Cruelty-Free
+   A heart silhouette with a small leaf flourish at the base —
+   signifying compassion for animals without using a literal
+   rabbit icon.
+═══════════════════════════════════════════════════════════════ */
 function CrueltyFreeIcon() {
   return (
     <Medallion>
-      {/* Abstract heart — minimal, non-literal */}
+      {/* Heart form */}
       <path
-        d="M26 35C26 35 13 27 13 19C13 15.5 15.8 13 19 13C21.8 13 24 15 26 18C28 15 30.2 13 33 13C36.2 13 39 15.5 39 19C39 27 26 35 26 35Z"
-        stroke={C.accent} strokeWidth="1.4"
-        fill={C.accent} fillOpacity="0.14"
+        d="M26 36 C26 36 12.5 27.5 12.5 18.5 C12.5 14.5 15.5 12 19 12 C22 12 24.2 14 26 17 C27.8 14 30 12 33 12 C36.5 12 39.5 14.5 39.5 18.5 C39.5 27.5 26 36 26 36 Z"
+        stroke={C.accent} strokeWidth="1.5"
+        fill={C.accent} fillOpacity="0.16"
+      />
+      {/* Leaf at base — compassion / nature signal */}
+      <path d="M26 36 C26 36 23 38.5 26 40 C29 38.5 26 36 26 36 Z"
+        fill={C.muted} fillOpacity="0.55"
       />
     </Medallion>
   );
 }
 
 /* ─── Badge data ─────────────────────────────────────────────────
-   Edit title/subtitle here without touching JSX.
-   All text lives in HTML — no Arabic in SVG elements, which
-   prevents the font-encoding errors seen in previous iterations.
+   All Arabic / French text lives here in JS strings — never inside
+   SVG <text> elements — eliminating the font-encoding errors that
+   caused "5F9 AJ 'DE:1(" and "-D'D" in prior iterations.
 ────────────────────────────────────────────────────────────────── */
 const BADGES = [
   {
@@ -278,7 +321,7 @@ function TrustBadge({
       <div className="trust-badge-icon">
         <badge.Icon />
       </div>
-      {/* Gold rule between icon and text */}
+      {/* Gold gradient rule between medallion and title */}
       <div className="trust-badge-rule" aria-hidden="true" />
       <p className="trust-badge-title">{badge.title}</p>
       <p className="trust-badge-subtitle">{badge.subtitle}</p>
@@ -294,7 +337,7 @@ export function CertificationsTrustStrip() {
       aria-label="شهادات الجودة والاعتماد"
       className="trust-strip-section"
     >
-      {/* Heading */}
+      {/* Heading group */}
       <div className="trust-strip-header">
         <p className="trust-strip-eyebrow">{SECTION_EYEBROW}</p>
         <p className="trust-strip-headline" aria-level={2} role="heading">
@@ -303,12 +346,8 @@ export function CertificationsTrustStrip() {
       </div>
 
       {/* Marquee — 3 identical sets for seamless infinite loop.
-          translateX(-33.33%) moves by exactly one set width. */}
-      <div
-        className="trust-strip"
-        aria-label="شعارات الشهادات"
-        role="region"
-      >
+          translateX(-33.33%) moves exactly one set width. */}
+      <div className="trust-strip" role="region" aria-label="شعارات الشهادات">
         <div className="trust-strip-track" aria-live="off">
           {[0, 1, 2].map((setIndex) => (
             <div
