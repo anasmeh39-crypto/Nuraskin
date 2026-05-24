@@ -11,8 +11,10 @@ import {
   SunMedium,
   Truck,
 } from "lucide-react";
+import { CertificationsTrustStrip } from "@/components/home/CertificationsTrustStrip";
 import { HomeIngredientShowcase } from "@/components/home/HomeIngredientShowcase";
 import { HomePacksSection } from "@/components/home/HomePacksSection";
+import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { PRODUCTS, BUNDLES } from "@/config/products";
 import { ProductCard } from "@/components/ui/ProductCard";
 
@@ -95,6 +97,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <CertificationsTrustStrip />
 
       <section className="bg-white py-16 md:py-20">
         <div className="container-wide grid gap-8 md:grid-cols-3">
@@ -311,29 +315,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <HomeIngredientShowcase />
+      <TestimonialsSection />
 
-      <section className="bg-ivory py-16 md:py-20">
-        <div className="container-wide">
-          <div className="mx-auto mb-12 max-w-2xl text-center">
-            <p className="luxury-kicker mb-3">آراء العميلات</p>
-            <h2 className="section-heading text-[#3A222C]">تجارب هادئة وواقعية</h2>
-          </div>
-          <div className="grid gap-5 md:grid-cols-3">
-            {[
-              ["مريم، الدار البيضاء", "أحببت أن المنتجات خفيفة وسهلة داخل الروتين. شعرت أن بشرتي تبدو أكثر توازنًا مع الاستعمال."],
-              ["هدى، الرباط", "التجربة أنيقة من أول طلب. الدفع عند الاستلام والتوصيل المجاني جعلا الطلب مريحًا وواضحًا."],
-              ["ليلى، طنجة", "سيروم محيط العين أصبح خطوة يومية عندي. ملمسه خفيف ومناسب قبل المكياج."],
-            ].map(([name, text]) => (
-              <div key={name} className="rounded-3xl border border-rose-soft/20 bg-white p-6 shadow-rose-sm">
-                <div className="mb-4 flex gap-1 text-[#C8A24A] drop-shadow-[0_1px_0_rgba(61,44,50,0.10)]" aria-label="5 نجوم">{"★★★★★"}</div>
-                <p className="text-sm leading-7 text-[#6B5555]">"{text}"</p>
-                <p className="mt-5 font-bold text-[#3A222C]">{name}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomeIngredientShowcase />
 
       <section className="px-4 py-16 md:py-16">
         <div className="container-wide relative min-h-[34rem] overflow-hidden rounded-[2rem] border border-[#E7D8CB] bg-[#F8EEE8] text-center shadow-[0_26px_74px_rgba(97,70,58,0.13)] md:min-h-[28rem]">

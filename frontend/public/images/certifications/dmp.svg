@@ -1,0 +1,7 @@
+<svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">DMP placeholder</title>
+  <rect width="240" height="80" rx="18" fill="#FFF9F6"/>
+  <rect x="1" y="1" width="238" height="78" rx="17" stroke="#3D2C32" stroke-opacity=".12"/>
+  <text x="120" y="35" text-anchor="middle" fill="#0B3A75" font-family="Arial, sans-serif" font-size="26" font-weight="700">DMP</text>
+  <text x="120" y="56" text-anchor="middle" fill="#6B4E56" font-family="Arial, sans-serif" font-size="11">Direction des Medicaments</text>
+</svg>

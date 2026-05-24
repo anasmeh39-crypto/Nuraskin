@@ -1,0 +1,8 @@
+<svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">Halal certification placeholder</title>
+  <rect width="240" height="80" rx="18" fill="#FFF9F6"/>
+  <rect x="1" y="1" width="238" height="78" rx="17" stroke="#3D2C32" stroke-opacity=".12"/>
+  <circle cx="78" cy="40" r="20" fill="#0F7A4F" fill-opacity=".14"/>
+  <text x="78" y="47" text-anchor="middle" fill="#0F7A4F" font-family="Arial, sans-serif" font-size="22" font-weight="700">-D'D</text>
+  <text x="145" y="45" text-anchor="middle" fill="#3D2C32" font-family="Arial, sans-serif" font-size="18" font-weight="700">HALAL</text>
+</svg>

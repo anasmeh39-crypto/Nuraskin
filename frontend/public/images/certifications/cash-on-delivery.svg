@@ -1,0 +1,9 @@
+<svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">Cash on delivery placeholder</title>
+  <rect width="240" height="80" rx="18" fill="#FFF9F6"/>
+  <rect x="1" y="1" width="238" height="78" rx="17" stroke="#3D2C32" stroke-opacity=".12"/>
+  <rect x="38" y="27" width="56" height="32" rx="8" fill="#EDE4D7" stroke="#8E5A68" stroke-width="2"/>
+  <circle cx="66" cy="43" r="8" fill="#D4BC9B"/>
+  <text x="153" y="38" text-anchor="middle" fill="#3D2C32" font-family="Arial, sans-serif" font-size="18" font-weight="700">COD</text>
+  <text x="153" y="57" text-anchor="middle" fill="#8E5A68" font-family="Arial, sans-serif" font-size="12">'D/A9 9F/ 'D'3*D'E</text>
+</svg>
