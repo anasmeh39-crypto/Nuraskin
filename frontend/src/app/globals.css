@@ -913,3 +913,387 @@
     padding: 0;
   }
 }
+
+/* ─── Bundles Section ("الباقات") ──────────────────────────────────────────
+   Three equal cards in a row on desktop (RTL auto-placement:
+     DOM order morning→night→complete maps visually to right→middle→left).
+   Mobile: stacked vertically, featured card moved to first via order:-1.
+──────────────────────────────────────────────────────────────────────────── */
+
+.bundles-section {
+  padding: 72px 0 80px;
+  background: linear-gradient(180deg, #FFFDFC 0%, #FDF5F7 100%);
+}
+
+/* ── Section header ─────────────────────────────────────── */
+.bundles-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.bundles-eyebrow {
+  font-family: var(--font-playfair), serif;
+  font-style: italic;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: rgba(200, 164, 174, 0.85); /* brand-rose 85% */
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.bundles-heading {
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 500;
+  color: #3D2C32;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.bundles-subline {
+  font-size: 15px;
+  color: rgba(61, 44, 50, 0.65);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ── Cards grid ─────────────────────────────────────────── */
+.bundles-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* On mobile, featured card rises to top via order:-1 on .bundle-card-featured */
+}
+
+@media (min-width: 1024px) {
+  .bundles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start; /* cards anchor to top; featured "rises" via negative margin-top */
+  }
+}
+
+/* ── Base card ──────────────────────────────────────────── */
+.bundle-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  border: 1px solid rgba(61, 44, 50, 0.08);
+  background: #FDFAF8;
+  overflow: hidden;
+  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+}
+
+.bundle-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(61, 44, 50, 0.18);
+}
+
+/* ── Featured / highlighted card (روتين نورا الكامل) ────── */
+.bundle-card-featured {
+  border: 2px solid #8E5A68;
+  background: #FDF8F5;
+  box-shadow: 0 0 0 6px rgba(142, 90, 104, 0.06);
+}
+
+@media (min-width: 1024px) {
+  .bundle-card-featured {
+    transform: scale(1.04);
+    margin-top: -12px;
+  }
+
+  .bundle-card-featured:hover {
+    transform: scale(1.04) translateY(-4px);
+  }
+}
+
+/* On mobile: featured card jumps to first position */
+@media (max-width: 767px) {
+  .bundle-card-featured {
+    order: -1;
+  }
+}
+
+/* ── "أفضل قيمة" floating badge ─────────────────────────── */
+.bundle-best-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: #8E5A68;
+  color: #FFF9F6;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(142, 90, 104, 0.22);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ── Hero image ─────────────────────────────────────────── */
+.bundle-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+  flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+  .bundle-image-wrap { aspect-ratio: 16 / 9; }
+}
+
+.bundle-image-photo {
+  object-fit: cover;
+  object-position: center;
+}
+
+.bundle-image-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 68%, rgba(253, 250, 248, 0.82) 100%);
+  pointer-events: none;
+}
+
+.bundle-card-featured .bundle-image-fade {
+  background: linear-gradient(to bottom, transparent 68%, rgba(253, 248, 245, 0.82) 100%);
+}
+
+/* ── Card content area ──────────────────────────────────── */
+.bundle-content {
+  padding: 28px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  direction: rtl;
+}
+
+/* ── Time-of-use row ────────────────────────────────────── */
+.bundle-time-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(61, 44, 50, 0.60);
+  margin-bottom: 12px;
+}
+
+/* ── Bundle name ────────────────────────────────────────── */
+.bundle-name {
+  font-size: 22px;
+  font-weight: 500;
+  color: #3D2C32;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+
+.bundle-card-featured .bundle-name {
+  font-size: 24px;
+}
+
+/* ── Description ────────────────────────────────────────── */
+.bundle-desc {
+  font-size: 14px;
+  color: rgba(61, 44, 50, 0.62);
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+
+/* ── Product checklist (no thumbnails) ─────────────────── */
+.bundle-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bundle-checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #3D2C32;
+}
+
+.bundle-check-icon {
+  color: #8E5A68;
+  flex-shrink: 0;
+}
+
+/* ── Price block ────────────────────────────────────────── */
+.bundle-price-block {
+  margin-bottom: 20px;
+}
+
+.bundle-price-original {
+  font-size: 13px;
+  color: rgba(61, 44, 50, 0.50);
+}
+
+.bundle-price-strikethrough {
+  text-decoration: line-through;
+}
+
+.bundle-price-row {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-top: 6px;
+}
+
+.bundle-price-main {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  line-height: 1;
+}
+
+.bundle-price-number {
+  font-size: 44px;
+  font-weight: 600;
+  color: #8E5A68;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.bundle-price-currency {
+  font-size: 18px;
+  font-weight: 500;
+  color: #8E5A68;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+@media (max-width: 767px) {
+  .bundle-price-number { font-size: 36px; }
+}
+
+/* Savings pill — success green (section-local only, not a global token) */
+.bundle-savings-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(45, 106, 79, 0.10);
+  border: 1px solid rgba(45, 106, 79, 0.22);
+  color: #1E5232;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* ── Social proof ───────────────────────────────────────── */
+.bundle-social-proof {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.bundle-social-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-size: 12px;
+  color: rgba(61, 44, 50, 0.68);
+}
+
+.bundle-social-sep {
+  opacity: 0.40;
+  margin: 0 2px;
+}
+
+.bundle-social-urgency {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #8E5A68;
+}
+
+/* ── CTA button ─────────────────────────────────────────── */
+.bundle-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: var(--font-cairo), sans-serif;
+  cursor: pointer;
+  transition: background 250ms ease, color 250ms ease, border-color 250ms ease;
+  margin-top: auto; /* pushes to card bottom */
+  text-align: center;
+}
+
+.bundle-cta-primary {
+  background: #8E5A68;
+  color: #FFF9F6;
+  border: none;
+}
+
+.bundle-cta-primary:hover {
+  background: #7A4D5A;
+}
+
+.bundle-cta-primary:active {
+  transform: scale(0.98);
+}
+
+.bundle-cta-outlined {
+  background: transparent;
+  color: #3D2C32;
+  border: 1.5px solid rgba(61, 44, 50, 0.75);
+}
+
+.bundle-cta-outlined:hover {
+  background: #3D2C32;
+  color: #FFF9F6;
+  border-color: #3D2C32;
+}
+
+.bundle-cta-outlined:active {
+  transform: scale(0.98);
+}
+
+/* ── Reassurance bar below cards ────────────────────────── */
+.bundles-reassurance {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(61, 44, 50, 0.58);
+  padding-top: 32px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Brand benefit row ──────────────────────────────────── */
+.bundles-benefit-row {
+  margin-top: 40px;
+  border-top: 1px solid rgba(61, 44, 50, 0.06);
+  padding-top: 32px;
+}
+
+/* ── Mobile (<640px) section header shrink ─────────────── */
+@media (max-width: 639px) {
+  .bundles-section { padding: 56px 0 64px; }
+  .bundles-eyebrow { font-size: 10px; }
+  .bundles-heading { font-size: 1.5rem; }
+  .bundles-header { margin-bottom: 32px; }
+}
