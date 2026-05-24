@@ -1,69 +1,327 @@
-import Image from "next/image";
+import React from "react";
 
-const CERTIFICATION_HEADING_AR = "موثوقة ومعتمدة";
-const CERTIFICATION_HEADING_FR = "Certifiée et approuvée";
+/* ─────────────────────────────────────────────────────────────────
+   CERTIFICATIONS TRUST STRIP
+   Display only certifications Nuraskin actually holds.
+   False certification claims violate Loi 31-08 (Moroccan consumer
+   protection). Verify each badge with legal counsel before publishing.
+───────────────────────────────────────────────────────────────── */
 
-/* Display only certifications Nuraskin actually holds.
-   False certification claims violate Loi 31-08 (Moroccan
-   consumer protection). Verify each logo before publishing. */
-const CERTIFICATIONS = [
-  { src: "/images/certifications/dmp.svg", label: "مرخص من مديرية الأدوية والصيدلة", alt: "DMP certified" },
-  { src: "/images/certifications/iso-22716.svg", label: "ISO 22716", alt: "ISO 22716 cosmetic GMP" },
-  { src: "/images/certifications/halal.svg", label: "شهادة حلال", alt: "Halal certification" },
-  { src: "/images/certifications/made-in-morocco.svg", label: "صنع في المغرب", alt: "Made in Morocco badge" },
+const SECTION_EYEBROW = "CERTIFIÉE ET APPROUVÉE";
+const SECTION_HEADLINE = "موثوقة ومعتمدة";
+
+/* ─── Brand color tokens (mirror CSS vars in globals.css) ───────── */
+const C = {
+  brown:  "#3D2C32",   /* --nura-plum         */
+  accent: "#8E5A68",   /* --nura-rose-deep     */
+  cream:  "#FFF9F6",   /* --nura-cream         */
+  gold:   "#D4BC9B",   /* --nura-champagne     */
+  muted:  "#6B4E56",   /* --nura-plum-mid      */
+} as const;
+
+/* ─── Shared 52×52 medallion wrapper ────────────────────────────── */
+function Medallion({ children }: { children: React.ReactNode }) {
+  return (
+    <svg
+      width="52"
+      height="52"
+      viewBox="0 0 52 52"
+      fill="none"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="26" cy="26" r="24"
+        stroke={C.accent} strokeWidth="1.5"
+        fill={C.cream} fillOpacity="0.5"
+      />
+      {children}
+    </svg>
+  );
+}
+
+/* ─── 1. DMP — Direction du Médicament et de la Pharmacie ─────────
+   Placeholder medallion. Replace icon content when client provides
+   /public/images/certifications/dmp-official.svg
+────────────────────────────────────────────────────────────────── */
+function DmpIcon() {
+  return (
+    <Medallion>
+      {/* Capsule divided by a center line — pharmaceutical authority */}
+      <rect x="12" y="20" width="28" height="12" rx="6"
+        stroke={C.accent} strokeWidth="1.5" fill={C.accent} fillOpacity="0.1" />
+      <line x1="26" y1="20" x2="26" y2="32"
+        stroke={C.accent} strokeWidth="1.2" />
+      {/* Top dot — Rx symbol reference */}
+      <circle cx="26" cy="14.5" r="2.5" fill={C.accent} />
+    </Medallion>
+  );
+}
+
+/* ─── 2. ONSSA ────────────────────────────────────────────────────
+   NOTE: ONSSA primarily regulates food products. Only display if
+   Nuraskin holds a confirmed ONSSA certification.
+   Placeholder medallion — replace with dmp-official logic when
+   /public/images/certifications/onssa-official.svg is provided.
+────────────────────────────────────────────────────────────────── */
+function OnssaIcon() {
+  return (
+    <Medallion>
+      {/* Stylised leaf — quality / organic authority mark */}
+      <path
+        d="M26 13C26 13 35 20 35 29C35 34 31 38.5 26 38.5C21 38.5 17 34 17 29C17 20 26 13 26 13Z"
+        stroke={C.accent} strokeWidth="1.4"
+        fill={C.accent} fillOpacity="0.12"
+      />
+      {/* Quality checkmark inside leaf */}
+      <path
+        d="M21.5 28.5L24.5 31.5L31.5 24"
+        stroke={C.brown} strokeWidth="1.8"
+        strokeLinecap="round" strokeLinejoin="round"
+      />
+    </Medallion>
+  );
+}
+
+/* ─── 3. ISO 22716 — Cosmetic GMP ─────────────────────────────── */
+function IsoIcon() {
+  return (
+    <Medallion>
+      {/* Shield — quality / standards seal */}
+      <path
+        d="M26 13L35 16.5L35 26C35 31.5 31 35.5 26 38C21 35.5 17 31.5 17 26L17 16.5Z"
+        stroke={C.accent} strokeWidth="1.4"
+        fill={C.accent} fillOpacity="0.1"
+      />
+      <path
+        d="M21 26.5L24.5 30L32 22"
+        stroke={C.brown} strokeWidth="1.8"
+        strokeLinecap="round" strokeLinejoin="round"
+      />
+    </Medallion>
+  );
+}
+
+/* ─── 4. Halal Certified ───────────────────────────────────────── */
+function HalalIcon() {
+  return (
+    <Medallion>
+      {/* 8-pointed geometric star — Arabic/Islamic art reference
+          NOT a crescent (religious symbol). A purely geometric form. */}
+      <polygon
+        points="26,14 28.3,20.5 34.5,17.5 31.5,23.7 38,26 31.5,28.3 34.5,34.5 28.3,31.5 26,38 23.7,31.5 17.5,34.5 20.5,28.3 14,26 20.5,23.7 17.5,17.5 23.7,20.5"
+        stroke={C.accent} strokeWidth="1.3"
+        fill={C.accent} fillOpacity="0.14"
+      />
+    </Medallion>
+  );
+}
+
+/* ─── 5. Made in Morocco ──────────────────────────────────────── */
+function MoroccoIcon() {
+  return (
+    <Medallion>
+      {/* Stylised 5-pointed star — Moroccan flag reference */}
+      <polygon
+        points="26,15 28.4,22.8 36.5,22.8 30.1,27.4 32.5,35.2 26,30.6 19.5,35.2 21.9,27.4 15.5,22.8 23.6,22.8"
+        stroke={C.brown} strokeWidth="1.4"
+        fill={C.accent} fillOpacity="0.18"
+      />
+      {/* Gold accent line beneath — premium underline */}
+      <line x1="19" y1="38" x2="33" y2="38"
+        stroke={C.gold} strokeWidth="1.2" />
+    </Medallion>
+  );
+}
+
+/* ─── 6. Dermatologist Recommended ───────────────────────────── */
+function DermaIcon() {
+  return (
+    <Medallion>
+      {/* Stethoscope — clean stroke outline */}
+      {/* Chest piece — circular disc at bottom */}
+      <circle cx="26" cy="35" r="4"
+        stroke={C.accent} strokeWidth="1.5"
+        fill={C.accent} fillOpacity="0.15"
+      />
+      {/* Tube left arm */}
+      <path
+        d="M26 31C26 28 21 26 19 23L19 18"
+        stroke={C.brown} strokeWidth="1.5"
+        fill="none" strokeLinecap="round"
+      />
+      {/* Tube right arm */}
+      <path
+        d="M26 31C26 28 31 26 33 23L33 18"
+        stroke={C.brown} strokeWidth="1.5"
+        fill="none" strokeLinecap="round"
+      />
+      {/* Earpieces */}
+      <path d="M17 18L17 15.5M21 18L21 15.5"
+        stroke={C.brown} strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M31 18L31 15.5M35 18L35 15.5"
+        stroke={C.brown} strokeWidth="1.5" strokeLinecap="round" />
+    </Medallion>
+  );
+}
+
+/* ─── 7. Available in Pharmacies ─────────────────────────────── */
+function PharmacyIcon() {
+  return (
+    <Medallion>
+      {/* Pharmacy cross — brand-brown/rose, NOT green */}
+      <rect x="22" y="14" width="8" height="24" rx="3"
+        stroke={C.accent} strokeWidth="1.4"
+        fill={C.accent} fillOpacity="0.18"
+      />
+      <rect x="14" y="22" width="24" height="8" rx="3"
+        stroke={C.accent} strokeWidth="1.4"
+        fill={C.accent} fillOpacity="0.18"
+      />
+    </Medallion>
+  );
+}
+
+/* ─── 8. Cruelty-Free ─────────────────────────────────────────── */
+function CrueltyFreeIcon() {
+  return (
+    <Medallion>
+      {/* Abstract heart — minimal, non-literal */}
+      <path
+        d="M26 35C26 35 13 27 13 19C13 15.5 15.8 13 19 13C21.8 13 24 15 26 18C28 15 30.2 13 33 13C36.2 13 39 15.5 39 19C39 27 26 35 26 35Z"
+        stroke={C.accent} strokeWidth="1.4"
+        fill={C.accent} fillOpacity="0.14"
+      />
+    </Medallion>
+  );
+}
+
+/* ─── Badge data ─────────────────────────────────────────────────
+   Edit title/subtitle here without touching JSX.
+   All text lives in HTML — no Arabic in SVG elements, which
+   prevents the font-encoding errors seen in previous iterations.
+────────────────────────────────────────────────────────────────── */
+const BADGES = [
   {
-    src: "/images/certifications/dermatologically-tested.svg",
-    label: "مختبر ديرماتولوجياً",
-    alt: "Dermatologically tested badge",
+    id: "dmp",
+    Icon: DmpIcon,
+    title: "DMP",
+    subtitle: "مرخص رسمياً",
+    ariaLabel: "مرخص من مديرية الأدوية والصيدلة",
   },
-  { src: "/images/certifications/cruelty-free.svg", label: "بدون قسوة على الحيوانات", alt: "Cruelty-free badge" },
-  { src: "/images/certifications/cash-on-delivery.svg", label: "الدفع عند الاستلام", alt: "Cash on delivery available" },
-  { src: "/images/certifications/free-shipping.svg", label: "توصيل مجاني داخل المغرب", alt: "Free shipping Morocco-wide" },
+  {
+    id: "onssa",
+    Icon: OnssaIcon,
+    title: "ONSSA",
+    subtitle: "جودة معتمدة",
+    ariaLabel: "شهادة جودة ONSSA",
+  },
+  {
+    id: "iso",
+    Icon: IsoIcon,
+    title: "ISO 22716",
+    subtitle: "معايير التصنيع",
+    ariaLabel: "شهادة ISO 22716 لتصنيع مستحضرات التجميل",
+  },
+  {
+    id: "halal",
+    Icon: HalalIcon,
+    title: "حلال",
+    subtitle: "Halal certifié",
+    ariaLabel: "منتج حلال معتمد",
+  },
+  {
+    id: "morocco",
+    Icon: MoroccoIcon,
+    title: "صنع في المغرب",
+    subtitle: "Made in Morocco",
+    ariaLabel: "صنع في المغرب",
+  },
+  {
+    id: "derma",
+    Icon: DermaIcon,
+    title: "موصى به من الأطباء",
+    subtitle: "Recommandé par les dermatologues",
+    ariaLabel: "موصى به من الأطباء والصيادلة",
+  },
+  {
+    id: "pharmacy",
+    Icon: PharmacyIcon,
+    title: "متوفر في الصيدليات",
+    subtitle: "Disponible en pharmacie",
+    ariaLabel: "متوفر في الصيدليات المغربية",
+  },
+  {
+    id: "cruelty",
+    Icon: CrueltyFreeIcon,
+    title: "خالٍ من القسوة",
+    subtitle: "Cruelty-free",
+    ariaLabel: "منتج خالٍ من القسوة على الحيوانات",
+  },
 ] as const;
 
-function CertificationItem({ certification }: { certification: (typeof CERTIFICATIONS)[number] }) {
+/* ─── Single badge ───────────────────────────────────────────── */
+function TrustBadge({
+  badge,
+  isAriaHidden,
+}: {
+  badge: (typeof BADGES)[number];
+  isAriaHidden: boolean;
+}) {
   return (
-    <div className="nura-cert-card group flex h-[72px] min-w-[150px] flex-col items-center justify-center rounded-2xl bg-white/42 px-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] ring-1 ring-white/70 backdrop-blur-sm transition duration-300 hover:bg-white/70 hover:shadow-[0_16px_38px_rgba(61,44,50,0.055)] md:h-20 md:min-w-[180px]">
-      <Image
-        src={certification.src}
-        alt={certification.alt}
-        width={150}
-        height={42}
-        className="nura-cert-logo max-h-8 w-auto object-contain transition duration-300 md:max-h-10"
-      />
-      <p className="mt-1.5 max-w-[132px] text-[9px] font-semibold leading-3 text-brand-deep/58 md:mt-2 md:max-w-[140px] md:text-[10px] md:leading-4">
-        {certification.label}
-      </p>
+    <div
+      className="trust-badge"
+      role={isAriaHidden ? undefined : "img"}
+      aria-label={isAriaHidden ? undefined : badge.ariaLabel}
+      aria-hidden={isAriaHidden || undefined}
+    >
+      <div className="trust-badge-icon">
+        <badge.Icon />
+      </div>
+      {/* Gold rule between icon and text */}
+      <div className="trust-badge-rule" aria-hidden="true" />
+      <p className="trust-badge-title">{badge.title}</p>
+      <p className="trust-badge-subtitle">{badge.subtitle}</p>
     </div>
   );
 }
 
+/* ─── Section ────────────────────────────────────────────────── */
 export function CertificationsTrustStrip() {
   return (
     <section
       role="region"
-      aria-label="شهادات الجودة"
-      dir="rtl"
-      className="relative overflow-hidden border-y-[0.5px] border-brand-deep/10 bg-[linear-gradient(180deg,#FFF9F6_0%,#FAF7F4_100%)] py-7 md:py-8"
+      aria-label="شهادات الجودة والاعتماد"
+      className="trust-strip-section"
     >
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#FAF7F4] to-transparent md:w-24" aria-hidden />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#FAF7F4] to-transparent md:w-24" aria-hidden />
-
-      <div className="relative z-20 mb-5 text-center text-[13px] font-medium tracking-[0.15em] text-brand-deep/65">
-        <p>{CERTIFICATION_HEADING_AR}</p>
-        <p className="mt-1 text-[11px] uppercase">{CERTIFICATION_HEADING_FR}</p>
+      {/* Heading */}
+      <div className="trust-strip-header">
+        <p className="trust-strip-eyebrow">{SECTION_EYEBROW}</p>
+        <p className="trust-strip-headline" aria-level={2} role="heading">
+          {SECTION_HEADLINE}
+        </p>
       </div>
 
-      <div className="nura-marquee-viewport nura-certifications-viewport" role="region" aria-label="شعارات الشهادات وإشارات الثقة">
-        <div className="nura-marquee-track nura-marquee-track--certifications">
+      {/* Marquee — 3 identical sets for seamless infinite loop.
+          translateX(-33.33%) moves by exactly one set width. */}
+      <div
+        className="trust-strip"
+        aria-label="شعارات الشهادات"
+        role="region"
+      >
+        <div className="trust-strip-track" aria-live="off">
           {[0, 1, 2].map((setIndex) => (
             <div
               key={setIndex}
-              className={`nura-marquee-set gap-4 px-2 md:gap-7 md:px-3 ${setIndex > 0 ? "nura-marquee-set--duplicate" : ""}`}
-              aria-hidden={setIndex > 0}
+              className="trust-strip-set"
+              aria-hidden={setIndex > 0 ? true : undefined}
             >
-              {CERTIFICATIONS.map((certification) => (
-                <CertificationItem key={`${setIndex}-${certification.src}`} certification={certification} />
+              {BADGES.map((badge) => (
+                <TrustBadge
+                  key={`${setIndex}-${badge.id}`}
+                  badge={badge}
+                  isAriaHidden={setIndex > 0}
+                />
               ))}
             </div>
           ))}
