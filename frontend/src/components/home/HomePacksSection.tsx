@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { Check, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { BUNDLES, PRODUCTS_MAP } from "@/config/products";
-import { PackCard, addBundleToCart } from "@/components/packs/PackCard";
+import { BenefitIconRow, PackCard, ProductChecklist, TrustPill, addBundleToCart } from "@/components/packs/PackCard";
 import { useCartStore } from "@/store/cart";
 
 const completePack = BUNDLES.find((bundle) => bundle.id === "nura-complete-ritual") ?? BUNDLES[0];
@@ -14,6 +14,12 @@ export function HomePacksSection() {
   const completeProducts = completePack.products.map((slug) => PRODUCTS_MAP[slug]).filter(Boolean);
 
   return (
+    /* IMAGES NEEDED:
+       /images/bundles/morning-routine-hero.jpg  (4:3, min 1200x900)
+       /images/bundles/night-renewal-hero.jpg   (4:3, min 1200x900)
+       /images/bundles/full-routine-hero.jpg    (4:3, min 1200x900)
+       /images/products/*.jpg                   (1:1, min 400x400)
+       */
     <section className="bg-[linear-gradient(180deg,#FFFDFC_0%,#FDF5F7_100%)] py-16 md:py-24">
       <div className="container-wide">
         <div className="mx-auto mb-12 max-w-2xl text-center">
@@ -26,10 +32,6 @@ export function HomePacksSection() {
 
         <div className="grid gap-6 lg:grid-cols-[1.18fr_0.82fr]">
           <article className="relative overflow-hidden rounded-[2.2rem] border border-[#E7D8CB] bg-[linear-gradient(135deg,#FFFDF9_0%,#F8EEE8_100%)] p-5 shadow-[0_28px_80px_rgba(97,70,58,0.14)] md:p-7">
-            <div className="absolute start-8 top-0 z-20 rounded-b-2xl border-x border-b border-[#E2CCBB] bg-[#F4E4D8]/92 px-4 py-1.5 text-[11px] font-bold text-[#765A4D] shadow-[0_10px_28px_rgba(97,70,58,0.08)] backdrop-blur">
-              {completePack.tag}
-            </div>
-
             <div className="grid items-center gap-7 md:grid-cols-[0.85fr_1.15fr]">
               <div className="order-2 max-w-[28rem] md:order-1">
                 <h3 className="mt-3 text-3xl font-semibold leading-tight text-[#72544A] md:text-[2.55rem] md:leading-[1.16]">{completePack.name_ar}</h3>
@@ -37,14 +39,13 @@ export function HomePacksSection() {
                   روتين كامل يجمع بين التوازن، النضارة، التجديد الليلي، والحماية اليومية في باقة واحدة عالية القيمة.
                 </p>
 
-                <ul className="mt-6 space-y-2.5">
-                  {completeProducts.map((product) => (
-                    <li key={product!.slug} className="flex items-start gap-2 text-sm leading-6 text-[#765F55]">
-                      <Check className="mt-1 h-4 w-4 shrink-0 text-[#B98D72]" strokeWidth={2.1} />
-                      <span>{product!.name_ar}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-6">
+                  <ProductChecklist products={completeProducts} />
+                </div>
+
+                <div className="mt-6">
+                  <BenefitIconRow />
+                </div>
 
                 <div className="mt-7 rounded-3xl border border-[#E7D8CB] bg-white/54 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur">
                   <p className="text-sm text-[#9A8175]">
@@ -58,6 +59,10 @@ export function HomePacksSection() {
                       وفّري {completePack.saving} درهم
                     </p>
                   </div>
+                </div>
+
+                <div className="mt-5">
+                  <TrustPill />
                 </div>
 
                 <button
@@ -74,12 +79,16 @@ export function HomePacksSection() {
                 <div className="rounded-[2rem] border border-white/70 bg-white/40 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.82),0_18px_52px_rgba(97,70,58,0.12)]">
                   <div className="relative aspect-[16/10] overflow-hidden rounded-[1.6rem] border border-[#E5D2C3] bg-[#F6EDE5] md:aspect-[16/11]">
                     <Image
-                      src="/images/nura-complete-bathroom-editorial.jpg"
+                      src="/images/bundles/full-routine-hero.jpg"
                       alt="روتين نورا الكامل للعناية بالبشرة"
                       fill
                       sizes="(min-width: 1024px) 46vw, 100vw"
+                      priority
                       className="object-cover object-center"
                     />
+                    <span className="absolute end-4 top-4 z-10 rounded-full border border-[#E2CCBB] bg-[#F4E4D8]/92 px-4 py-1.5 text-[11px] font-bold text-[#765A4D] shadow-[0_10px_28px_rgba(97,70,58,0.08)] backdrop-blur">
+                      {completePack.tag}
+                    </span>
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_52%_42%,transparent_46%,rgba(255,250,246,0.16)_100%)]" />
                   </div>
                 </div>

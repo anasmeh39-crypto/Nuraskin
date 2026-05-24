@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Check, Sparkles } from "lucide-react";
+import Image from "next/image";
+import { Check, Sparkles, Star, Truck } from "lucide-react";
 import { Bundle, CartItem } from "@/types";
 import { PRODUCTS_MAP } from "@/config/products";
 import { useCartStore } from "@/store/cart";
@@ -12,6 +13,111 @@ interface PackCardProps {
   cta: string;
   positioning?: string;
   featured?: boolean;
+}
+
+export const REVIEW_COUNT = "2,341";
+
+export const PRODUCT_THUMBNAILS: Record<string, string> = {
+  "nura-balance": "/images/products/serum-niacinamide.jpg",
+  "nura-night-renewal": "/images/products/night-cream.jpg",
+  "nura-eye-revive": "/images/products/eye-serum.jpg",
+  "nura-spf-50": "/images/products/sunscreen-spf50.jpg",
+};
+
+export const BUNDLE_HERO_IMAGES: Record<string, { src: string; alt: string }> = {
+  "morning-ritual": {
+    src: "/images/bundles/morning-routine-hero.jpg",
+    alt: "روتين الصباح من نوراسكين",
+  },
+  "night-renewal-ritual": {
+    src: "/images/bundles/night-renewal-hero.jpg",
+    alt: "روتين التجديد الليلي من نوراسكين",
+  },
+  "nura-complete-ritual": {
+    src: "/images/bundles/full-routine-hero.jpg",
+    alt: "روتين نورا الكامل من نوراسكين",
+  },
+};
+
+const benefitIcons = [
+  { icon: "/images/icons/argan.svg", label: "طبيعي 100%" },
+  { icon: "/images/icons/water-drop.svg", label: "ترطيب عميق" },
+  { icon: "/images/icons/sun.svg", label: "حماية SPF 50" },
+  { icon: "/images/icons/natural.svg", label: "صنع في المغرب" },
+];
+
+export function BenefitIconRow({ dark = false }: { dark?: boolean }) {
+  return (
+    <div className={`grid grid-cols-2 gap-3 border-y py-3 min-[480px]:grid-cols-4 ${dark ? "border-white/12" : "border-[#6F5046]/10"}`}>
+      {benefitIcons.map((item) => (
+        <div key={item.label} role="group" aria-label={item.label} className="flex flex-col items-center gap-1 text-center">
+          <Image
+            src={item.icon}
+            alt=""
+            width={20}
+            height={20}
+            className={dark ? "brightness-0 invert opacity-90" : "opacity-90"}
+          />
+          <span className={`text-[11px] font-medium leading-4 ${dark ? "text-white/82" : "text-[#7A6560]"}`}>{item.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function TrustPill({ dark = false }: { dark?: boolean }) {
+  return (
+    <div className={`flex flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full px-3 py-1.5 text-[11px] font-medium min-[380px]:gap-x-2.5 ${dark ? "border border-white/10 bg-white/8 text-white/84" : "border border-[#6F5046]/10 bg-[#FFF7EE]/60 text-[#745C52]"}`}>
+      <span className="inline-flex items-center gap-1.5">
+        <Truck className="h-3.5 w-3.5" strokeWidth={1.6} />
+        الدفع عند الاستلام
+      </span>
+      <span className="hidden min-[380px]:inline text-current/45">·</span>
+      <span className="inline-flex items-center gap-1.5">
+        <Star className="h-3.5 w-3.5" strokeWidth={1.6} />
+        4.8 من {REVIEW_COUNT} تقييم
+      </span>
+    </div>
+  );
+}
+
+export function BundleHeroImage({ bundle, featured = false, priority = false }: { bundle: Bundle; featured?: boolean; priority?: boolean }) {
+  const hero = BUNDLE_HERO_IMAGES[bundle.id] ?? BUNDLE_HERO_IMAGES["nura-complete-ritual"];
+
+  return (
+    <div className={`relative aspect-[16/10] overflow-hidden sm:aspect-[4/3] ${featured ? "after:to-[#3D2C32]" : "after:to-white"} after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-2/3 after:bg-gradient-to-b after:from-transparent after:via-transparent`}>
+      <Image
+        src={hero.src}
+        alt={hero.alt}
+        fill
+        sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw"
+        className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+        priority={priority}
+        loading={priority ? undefined : "lazy"}
+      />
+    </div>
+  );
+}
+
+export function ProductChecklist({ products, dark = false }: { products: Array<(typeof PRODUCTS_MAP)[string]>; dark?: boolean }) {
+  return (
+    <ul className="space-y-2">
+      {products.map((product) => (
+        <li key={product!.slug} className={`flex items-center gap-2.5 text-sm leading-6 ${dark ? "text-white/86" : "text-[#5C4A4A]"}`}>
+          <span className="min-w-0 flex-1">{product!.name_ar}</span>
+          <Image
+            src={PRODUCT_THUMBNAILS[product!.slug] ?? PRODUCT_THUMBNAILS["nura-balance"]}
+            alt={`صورة ${product!.name_ar}`}
+            width={28}
+            height={28}
+            className={`h-6 w-6 rounded-full object-cover min-[480px]:h-7 min-[480px]:w-7 ${dark ? "border border-white/18" : "border border-[#6F5046]/10"}`}
+            loading="lazy"
+          />
+          <Check className={`h-4 w-4 shrink-0 ${dark ? "text-gold" : "text-[#B98D72]"}`} strokeWidth={2.1} />
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export function addBundleToCart(bundle: Bundle, addItem: (item: Omit<CartItem, "quantity">) => void) {
@@ -58,38 +164,19 @@ export function PackCard({ bundle, cta, positioning, featured = false }: PackCar
 
   return (
     <article
-      className={`relative overflow-hidden rounded-[2rem] border p-6 transition-all duration-300 hover:-translate-y-1 ${
+      className={`group relative overflow-hidden rounded-[2rem] border transition-all duration-300 hover:-translate-y-1 ${
         featured
           ? "border-gold/40 bg-gradient-to-br from-[#3D2C32] via-[#46313A] to-[#7B5260] text-white shadow-[0_28px_80px_rgba(61,44,50,0.28)]"
           : "border-rose-soft/25 bg-white text-[#3A222C] shadow-rose-sm"
       }`}
     >
-      <div className={`absolute start-6 top-0 rounded-b-2xl px-4 py-1.5 text-[11px] font-bold ${featured ? "bg-gold text-[#3A222C]" : "bg-rose-blush text-rose-deep"}`}>
+      <BundleHeroImage bundle={bundle} featured={featured} />
+
+      <div className={`absolute end-5 top-4 z-10 rounded-full px-4 py-1.5 text-[11px] font-bold shadow-[0_10px_28px_rgba(61,44,50,0.12)] backdrop-blur ${featured ? "bg-gold/92 text-[#3A222C]" : "bg-rose-blush/92 text-rose-deep"}`}>
         {bundle.tag}
       </div>
 
-      <div className={`mb-5 mt-6 flex aspect-[4/3] items-center justify-center rounded-[1.6rem] border ${
-        featured ? "border-white/15 bg-white/8" : "border-rose-soft/20 bg-ivory"
-      }`}>
-        <div className="relative grid grid-cols-4 items-end gap-2">
-          {products.map((product, index) => (
-            <div
-              key={product!.slug}
-              className={`w-11 rounded-[1rem] border shadow-ivory-sm sm:w-14 ${
-                featured ? "border-white/20 bg-white/16" : "border-rose-soft/30 bg-white/80"
-              }`}
-              style={{ height: `${86 + ((index % 3) * 16)}px` }}
-              aria-label={product!.name_ar}
-            >
-              <div className={`mx-auto mt-4 h-7 w-7 rounded-full border ${featured ? "border-gold/45 bg-white/10" : "border-rose-deep/20 bg-rose-blush/60"}`} />
-              <div className={`mx-auto mt-4 h-1.5 w-7 rounded-full ${featured ? "bg-white/25" : "bg-rose-soft/30"}`} />
-              <div className={`mx-auto mt-1.5 h-1.5 w-8 rounded-full ${featured ? "bg-white/18" : "bg-rose-soft/20"}`} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="space-y-4">
+      <div className="space-y-4 p-6">
         <div>
           <h2 className={`text-2xl font-black leading-tight ${featured ? "text-white" : "text-[#3A222C]"}`}>
             {bundle.name_ar}
@@ -101,14 +188,9 @@ export function PackCard({ bundle, cta, positioning, featured = false }: PackCar
           )}
         </div>
 
-        <ul className="space-y-2">
-          {products.map((product) => (
-            <li key={product!.slug} className={`flex items-start gap-2 text-sm leading-6 ${featured ? "text-white/86" : "text-[#5C4A4A]"}`}>
-              <Check className="mt-1 h-4 w-4 shrink-0 text-gold" strokeWidth={2.1} />
-              <span>{product!.name_ar}</span>
-            </li>
-          ))}
-        </ul>
+        <ProductChecklist products={products} dark={featured} />
+
+        <BenefitIconRow dark={featured} />
 
         <div className={`rounded-3xl border p-4 ${featured ? "border-white/15 bg-white/8" : "border-rose-soft/20 bg-ivory"}`}>
           <p className={`text-sm ${featured ? "text-white/72" : "text-[#7A6560]"}`}>
@@ -123,6 +205,8 @@ export function PackCard({ bundle, cta, positioning, featured = false }: PackCar
             </p>
           </div>
         </div>
+
+        <TrustPill dark={featured} />
 
         <button
           type="button"

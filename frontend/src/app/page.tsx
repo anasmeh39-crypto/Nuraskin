@@ -335,23 +335,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
-        <div className="container-wide relative min-h-[25rem] overflow-hidden rounded-[2rem] border border-[#E7D8CB] bg-[#F8EEE8] text-center shadow-[0_26px_74px_rgba(97,70,58,0.13)] md:min-h-[28rem]">
+      <section className="px-4 py-16 md:py-16">
+        <div className="container-wide relative min-h-[34rem] overflow-hidden rounded-[2rem] border border-[#E7D8CB] bg-[#F8EEE8] text-center shadow-[0_26px_74px_rgba(97,70,58,0.13)] md:min-h-[28rem]">
           <Image
             src="/images/cta-routine-atmosphere.png"
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-center"
+            className="scale-[1.02] object-cover object-[44%_50%] md:scale-100 md:object-center"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,250,246,0.28)_0%,rgba(255,252,248,0.72)_34%,rgba(255,252,248,0.76)_64%,rgba(255,250,246,0.30)_100%)]" aria-hidden />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(255,255,255,0.48),rgba(255,252,248,0.18)_42%,transparent_72%)]" aria-hidden />
-          <div className="relative z-10 mx-auto flex min-h-[25rem] max-w-xl flex-col items-center justify-center px-6 py-14 md:min-h-[28rem] md:px-8">
-            <h2 className="text-3xl font-semibold leading-tight text-[#6F5046] md:text-4xl">ابدئي روتين نورا سكين اليوم</h2>
-            <p className="mx-auto mt-4 max-w-lg text-sm leading-8 text-[#81695F]">
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,250,246,0.42)_0%,rgba(255,252,248,0.82)_32%,rgba(255,252,248,0.84)_68%,rgba(255,250,246,0.40)_100%)] md:bg-[linear-gradient(90deg,rgba(255,250,246,0.28)_0%,rgba(255,252,248,0.72)_34%,rgba(255,252,248,0.76)_64%,rgba(255,250,246,0.30)_100%)]" aria-hidden />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(255,255,255,0.62),rgba(255,252,248,0.28)_44%,transparent_74%)] md:bg-[radial-gradient(circle_at_50%_48%,rgba(255,255,255,0.48),rgba(255,252,248,0.18)_42%,transparent_72%)]" aria-hidden />
+          <div className="relative z-10 mx-auto flex min-h-[34rem] max-w-[19rem] flex-col items-center justify-center px-6 pb-16 pt-20 md:min-h-[28rem] md:max-w-xl md:px-8 md:py-14">
+            <h2 className="max-w-[16rem] text-[2rem] font-semibold leading-[1.25] text-[#6F5046] md:max-w-none md:text-4xl md:leading-tight">ابدئي روتين نورا سكين اليوم</h2>
+            <p className="mx-auto mt-6 max-w-[17.5rem] text-sm leading-8 text-[#81695F] md:mt-4 md:max-w-lg">
               عناية ناعمة، تجربة موثوقة، الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.
             </p>
-            <Link href="/products" className="mt-8 inline-flex rounded-full border border-[#D9BFAE] bg-[linear-gradient(135deg,#8A655A,#B98D72)] px-8 py-4 font-bold text-white shadow-[0_16px_38px_rgba(137,94,78,0.20)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(137,94,78,0.26)]">
+            <Link href="/products" className="mt-11 inline-flex w-full justify-center rounded-full border border-[#D9BFAE] bg-[linear-gradient(135deg,#8A655A,#B98D72)] px-9 py-4 font-bold text-white shadow-[0_18px_42px_rgba(137,94,78,0.24)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(137,94,78,0.26)] md:mt-8 md:w-auto md:px-8 md:shadow-[0_16px_38px_rgba(137,94,78,0.20)]">
               تسوقي المنتجات
             </Link>
           </div>
