@@ -57,22 +57,20 @@ export default function HomePage() {
               >
                 {idx === 0 && (
                   <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[68%] overflow-hidden md:w-[58%]" aria-hidden>
+                    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
                       <Image
-                        src="/images/skincare-texture-card-1.png"
+                        src="/images/feature-ingredients-clean.png"
                         alt=""
                         fill
-                        sizes="(min-width: 768px) 20vw, 68vw"
-                        className="scale-[1.16] object-cover object-left opacity-[0.95] saturate-[1.08] contrast-[1.08] mix-blend-multiply"
+                        sizes="(min-width: 768px) 32vw, 100vw"
+                        className="scale-[1.05] object-cover object-[58%_50%] opacity-100 saturate-[1.06] contrast-[1.06]"
                       />
                     </div>
-                    <div className="pointer-events-none absolute left-[8%] top-8 h-10 w-10 rounded-full bg-white/58 shadow-[inset_0_2px_8px_rgba(255,255,255,0.86),0_12px_30px_rgba(142,90,104,0.16)] backdrop-blur-[1px]" aria-hidden />
-                    <div className="pointer-events-none absolute left-[35%] top-14 h-5 w-5 rounded-full bg-white/55 shadow-[inset_0_1px_5px_rgba(255,255,255,0.9),0_8px_18px_rgba(142,90,104,0.12)] backdrop-blur-[1px]" aria-hidden />
-                    <div className="pointer-events-none absolute bottom-8 left-[25%] h-3 w-3 rounded-full bg-white/48 shadow-[0_8px_16px_rgba(142,90,104,0.11)]" aria-hidden />
-                    <div className="pointer-events-none absolute left-[5%] bottom-8 h-24 w-48 rounded-full bg-[#EFD8C9]/24 blur-2xl" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,252,249,0.12)_34%,rgba(255,252,249,0.62)_66%,rgba(253,248,248,0.88)_100%)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(255,255,255,0.34),transparent_20%),radial-gradient(circle_at_82%_22%,rgba(248,224,226,0.24),transparent_34%)]" aria-hidden />
-                    <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/20 via-white/65 to-transparent" aria-hidden />
+                    <div className="pointer-events-none absolute left-[3%] top-5 h-24 w-36 rounded-full bg-white/18 blur-2xl" aria-hidden />
+                    <div className="pointer-events-none absolute bottom-6 left-[16%] h-20 w-44 rounded-full bg-[#EFD8C9]/18 blur-2xl" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.06)_0%,rgba(255,252,249,0.10)_42%,rgba(255,252,249,0.34)_68%,rgba(253,248,248,0.68)_100%)]" aria-hidden />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_84%_20%,rgba(248,224,226,0.12),transparent_34%)]" aria-hidden />
+                    <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/15 via-white/55 to-transparent" aria-hidden />
                   </>
                 )}
                 {idx === 1 && (
@@ -110,7 +108,7 @@ export default function HomePage() {
                 <div className="relative z-10 mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-blush text-rose-deep transition-transform duration-300 group-hover:-translate-y-1">
                   <Icon className="h-5 w-5" strokeWidth={1.25} />
                 </div>
-                <div className="relative z-10 -m-3 ml-auto max-w-[76%] rounded-2xl border border-white/48 bg-white/78 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.82),0_12px_34px_rgba(61,44,50,0.055)] backdrop-blur-[3px] sm:max-w-[72%] md:max-w-[62%]">
+                <div className={`relative z-10 -m-3 ml-auto max-w-[76%] rounded-2xl p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.82),0_12px_34px_rgba(61,44,50,0.055)] backdrop-blur-[3px] sm:max-w-[72%] md:max-w-[62%] ${idx === 0 ? "border border-white/36 bg-white/76" : "border border-white/48 bg-white/78"}`}>
                   <h2 className="text-[1.35rem] font-bold leading-snug text-[#3A222C]">{item.title}</h2>
                   <p className="mt-3 text-sm leading-7 text-[#5F4A51]">{item.text}</p>
                 </div>
