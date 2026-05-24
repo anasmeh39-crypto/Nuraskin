@@ -345,9 +345,13 @@ export function CertificationsTrustStrip() {
         </p>
       </div>
 
-      {/* Marquee — 3 identical sets for seamless infinite loop.
-          translateX(-33.33%) moves exactly one set width. */}
-      <div className="trust-strip" role="region" aria-label="شعارات الشهادات">
+      {/* Marquee — dir="ltr" overrides the page's global dir="rtl" so the
+          flex track is laid out left→right and translateX(-33.33%) exits
+          badges on the LEFT edge, looping seamlessly. Without this, the RTL
+          flex start is on the right, causing the strip to empty after one pass
+          instead of looping. Arabic text inside each badge is still centered
+          and unaffected. */}
+      <div className="trust-strip" dir="ltr" role="region" aria-label="شعارات الشهادات">
         <div className="trust-strip-track" aria-live="off">
           {[0, 1, 2].map((setIndex) => (
             <div
