@@ -5,6 +5,7 @@
 }
 
 html {
+  min-height: var(--full);
   scroll-behavior: smooth;
 }
 
@@ -13,22 +14,30 @@ h1,
 h2,
 h3,
 p,
-figure {
-  margin: 0;
+figure,
+ul {
+  margin: var(--zero);
 }
 
 body {
-  min-height: 100vh;
+  min-height: var(--screen-min);
+  background: var(--cream);
+  color: var(--text);
+  font-family: var(--font-b);
   text-rendering: optimizeLegibility;
 }
 
 img,
 picture {
   display: block;
-  max-width: 100%;
+  max-width: var(--full);
 }
 
-button {
-  border: 0;
-  font: inherit;
+a {
+  color: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }

@@ -1,56 +1,112 @@
-html {
+html,
+body,
+main,
+.packages-section,
+.packages-section__inner,
+.packages-grid,
+.trust-bar,
+.trust-item {
   direction: rtl;
 }
 
-body {
-  direction: rtl;
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
+.packages-section {
+  min-height: var(--screen-min);
+  padding-block: var(--sp-xl);
+  background: var(--cream);
 }
 
-.skincare-section {
-  direction: rtl;
-  min-height: 100vh;
-  padding: var(--space-xl) var(--space-md);
-}
-
-.skincare-section__inner {
-  width: min(100%, calc(var(--space-xl) * 16));
+.packages-section__inner {
+  width: min(var(--full), var(--container-max));
   margin-inline: auto;
 }
 
-.skincare-section__header {
+.packages-section__header {
   display: grid;
-  align-items: center;
-  gap: var(--space-sm);
-  margin-block-end: var(--space-lg);
+  gap: var(--sp-sm);
+  padding-inline: var(--sp-md);
+  margin-block-end: var(--sp-md);
   text-align: center;
 }
 
-.skincare-section__eyebrow {
-  color: var(--color-accent);
-  font-size: calc(var(--space-sm) - var(--space-xs) / 4);
+.packages-section__kicker {
+  color: var(--rose);
+  font-family: var(--font-b);
+  font-size: var(--fs-kicker);
   font-weight: 500;
 }
 
-.skincare-section__title {
-  color: var(--color-heading);
-  font-family: var(--font-heading);
-  font-size: clamp(calc(var(--space-lg) - var(--space-xs)), calc(var(--space-xl) - var(--space-md)), var(--space-xl));
-  line-height: calc(var(--space-xs) / var(--space-xs));
+.packages-section__title {
+  color: var(--mauve);
+  font-family: var(--font-h);
+  font-size: var(--fs-section-title);
+  line-height: var(--line-heading);
 }
 
-.skincare-section__subtitle {
-  max-width: calc(var(--space-xl) * 9);
-  color: var(--color-muted);
-  font-size: calc(var(--space-sm) + var(--space-xs) / 4);
-  line-height: calc(var(--space-sm) / var(--space-xs));
+.packages-section__copy {
+  color: var(--muted);
+  font-family: var(--font-b);
+  font-size: var(--fs-section-copy);
+  line-height: var(--line-body);
 }
 
-.skincare-grid {
-  direction: rtl;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(var(--space-xl) * 4)), 1fr));
-  gap: var(--space-md);
+.pkg-swipe-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-swipe);
+  margin-bottom: var(--sp-sm);
+  color: var(--muted);
+  font-family: var(--font-b);
+  font-size: var(--fs-label);
+  animation: pulse var(--pulse-duration) ease infinite;
+}
+
+.packages-grid {
+  display: flex;
+  flex-direction: row;
+  gap: var(--sp-sm);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--zero) var(--sp-md) var(--sp-md);
+  scrollbar-width: none;
+}
+
+.packages-grid::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: var(--opacity-full);
+  }
+
+  50% {
+    opacity: var(--opacity-soft);
+  }
+}
+
+@media (min-width: 640px) {
+  .packages-section__header {
+    margin-block-end: var(--sp-lg);
+  }
+
+  .pkg-swipe-hint {
+    display: none;
+  }
+
+  .packages-grid {
+    display: grid;
+    grid-template-columns: var(--grid-two);
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+}
+
+@media (min-width: 960px) {
+  .packages-grid {
+    grid-template-columns: var(--grid-three);
+    gap: var(--sp-md);
+  }
 }

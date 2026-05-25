@@ -3,70 +3,161 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>مشاكل يومية، حلول واضحة | Nura Skin</title>
-    <link rel="stylesheet" href="styles/reset.css">
+    <title>باقات نورا سكين للعناية اليومية</title>
     <link rel="stylesheet" href="styles/tokens.css">
+    <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/components.css">
   </head>
   <body>
-    <main>
-      <section class="skincare-section" aria-labelledby="skincare-section-title">
-        <div class="skincare-section__inner">
-          <header class="skincare-section__header">
-            <p class="skincare-section__eyebrow">روتين بسيط كيخدم مع نهارك</p>
-            <h1 class="skincare-section__title" id="skincare-section-title">مشاكل يومية، حلول واضحة</h1>
-            <p class="skincare-section__subtitle">عناية تفهم بشرتك... وتمنحها ما تحتاجه كل يوم</p>
+    <main dir="rtl">
+      <section class="packages-section" aria-labelledby="packages-title" dir="rtl">
+        <div class="packages-section__inner" dir="rtl">
+          <header class="packages-section__header" dir="rtl">
+            <p class="packages-section__kicker">وفري أكثر ملي تختاري الروتين كامل</p>
+            <h1 class="packages-section__title" id="packages-title">باقات العناية اللي كتكمل بعضها</h1>
+            <p class="packages-section__copy">اختاري الباقة اللي مناسبة لنهارك، وشوفي الثقة والتوفير بوضوح قبل ما تضغطي على أضيفي للسلة.</p>
           </header>
 
-          <div class="skincare-grid" aria-label="حلول نورا سكين للعناية اليومية">
-            <article class="skincare-card">
-              <figure class="skincare-card__media">
-                <img class="skincare-card__image" src="assets/images/card-1.jpg" alt="سيروم محيط العين من نورا سكين لعناية ناعمة بالهالات والانتفاخات">
-                <span class="skincare-card__icon" aria-hidden="true">١</span>
+          <div class="pkg-swipe-hint" aria-hidden="true" dir="rtl">
+            <span>←</span>
+            <span>اسحبي لرؤية كل الباقات</span>
+            <span>→</span>
+          </div>
+
+          <div class="packages-grid" aria-label="باقات نورا سكين" dir="rtl">
+            <article class="pkg-card pkg-card--featured" dir="rtl">
+              <figure class="pkg-card__media">
+                <img class="pkg-card__image" src="assets/images/card-1.jpg" alt="مجموعة منتجات روتين نورا الكامل">
+                <span class="pkg-badge">الأعلى قيمة · الأوفر تكلفة</span>
+                <span class="pkg-time-label">روتين كامل · صباحاً ومساءً</span>
               </figure>
-              <div class="skincare-card__content">
-                <h2 class="skincare-card__title">نظرة باينة مرتاحة</h2>
-                <p class="skincare-card__body">إلى كان محيط عينيك كيبان عيان ولا منفوخ فالصباح، هاد الخطوة كتعاونك ترجعي الإشراقة بلا ما تثقلي البشرة الرقيقة.</p>
-                <button class="skincare-card__button" type="button">اكتشفي الحل ←</button>
+
+              <div class="pkg-card__body" dir="rtl">
+                <h2 class="pkg-title">روتين نورا الكامل</h2>
+                <p class="pkg-desc">روتين كامل يجمع بين التوازن، النضارة، التجديد الليلي، والحماية اليومية في باقة واحدة عالية القيمة.</p>
+
+                <ul class="pkg-tags" aria-label="مميزات روتين نورا الكامل" dir="rtl">
+                  <li class="pkg-tag">صباح + مساء في باقة</li>
+                  <li class="pkg-tag">6 منتجات</li>
+                  <li class="pkg-tag">توفير فعلي</li>
+                </ul>
+
+                <div class="pkg-price" aria-label="ثمن روتين نورا الكامل" dir="rtl">
+                  <div class="pkg-price__main" dir="rtl">
+                    <span class="pkg-price__amount">799</span>
+                    <span class="pkg-price__currency">درهم</span>
+                  </div>
+                  <div class="pkg-price__meta" dir="rtl">
+                    <span class="pkg-price__original">القيمة الكاملة: 1046 درهم</span>
+                    <span class="pkg-price__savings">وفري 247 درهم ✓</span>
+                  </div>
+                </div>
+
+                <div class="pkg-proof" dir="rtl">
+                  <span>⭐ 4.8 من 2,341 تقييم</span>
+                  <span>🚚 الدفع عند الاستلام</span>
+                  <span>👥 47 امرأة اشترتها هذا الأسبوع</span>
+                </div>
+
+                <a class="pkg-cta" href="/packs?bundle=nura-complete-ritual" data-product-id="nura-complete-ritual">✦ أضيفي الروتين الكامل للسلة</a>
               </div>
             </article>
 
-            <article class="skincare-card">
-              <figure class="skincare-card__media">
-                <img class="skincare-card__image" src="assets/images/card-2.jpg" alt="سيروم نياسيناميد من نورا سكين لتوازن اللمعان ومظهر المسام">
-                <span class="skincare-card__icon" aria-hidden="true">٢</span>
+            <article class="pkg-card" dir="rtl">
+              <figure class="pkg-card__media">
+                <img class="pkg-card__image" src="assets/images/card-2.jpg" alt="مجموعة منتجات روتين الصباح من نورا سكين">
+                <span class="pkg-badge">اختيار الصباح الذكي</span>
+                <span class="pkg-time-label">روتين صباحي · حماية ونضارة</span>
               </figure>
-              <div class="skincare-card__content">
-                <h2 class="skincare-card__title">بشرة متوازنة بلا لمعان زائد</h2>
-                <p class="skincare-card__body">نهارك طويل والجو كيتبدل، وبشرتك كتحتاج سيروم خفيف يساعدها تبقى مرتاحة، ناعمة، ومظهر المسام فيها أهدأ.</p>
-                <button class="skincare-card__button" type="button">اكتشفي الحل ←</button>
+
+              <div class="pkg-card__body" dir="rtl">
+                <h2 class="pkg-title">روتين الصباح</h2>
+                <p class="pkg-desc">بداية خفيفة كتجمع توازن البشرة، إشراقة محيط العين، وحماية يومية من الشمس باش تخرجي مرتاحة.</p>
+
+                <ul class="pkg-tags" aria-label="مميزات روتين الصباح" dir="rtl">
+                  <li class="pkg-tag">للنهار المغربي</li>
+                  <li class="pkg-tag">3 خطوات</li>
+                  <li class="pkg-tag">حماية + نضارة</li>
+                </ul>
+
+                <div class="pkg-price" aria-label="ثمن روتين الصباح" dir="rtl">
+                  <div class="pkg-price__main" dir="rtl">
+                    <span class="pkg-price__amount">599</span>
+                    <span class="pkg-price__currency">درهم</span>
+                  </div>
+                  <div class="pkg-price__meta" dir="rtl">
+                    <span class="pkg-price__original">القيمة الكاملة: 777 درهم</span>
+                    <span class="pkg-price__savings">وفري 178 درهم ✓</span>
+                  </div>
+                </div>
+
+                <div class="pkg-proof" dir="rtl">
+                  <span>⭐ 4.7 من 1,856 تقييم</span>
+                  <span>🚚 الدفع عند الاستلام</span>
+                  <span>👥 39 امرأة اشترتها هذا الأسبوع</span>
+                </div>
+
+                <a class="pkg-cta" href="/packs?bundle=morning-ritual" data-product-id="morning-ritual">✦ أضيفي روتين الصباح للسلة</a>
               </div>
             </article>
 
-            <article class="skincare-card">
-              <figure class="skincare-card__media">
-                <img class="skincare-card__image" src="assets/images/card-3.jpg" alt="كريم ليلي من نورا سكين لراحة البشرة ونعومة الصباح">
-                <span class="skincare-card__icon" aria-hidden="true">٣</span>
+            <article class="pkg-card" dir="rtl">
+              <figure class="pkg-card__media">
+                <img class="pkg-card__image" src="assets/images/card-3.jpg" alt="مجموعة منتجات روتين التجديد الليلي من نورا سكين">
+                <span class="pkg-badge">أنسب اختيار قبل النوم</span>
+                <span class="pkg-time-label">روتين ليلي · راحة وتجديد</span>
               </figure>
-              <div class="skincare-card__content">
-                <h2 class="skincare-card__title">نعومة كتفيقي عليها</h2>
-                <p class="skincare-card__body">فالليل، بشرتك كتلقى الوقت ديالها. كريم غني ومريح كيدعم الإحساس بالترطيب ويخلي ملمسها ألين مع روتينك المسائي.</p>
-                <button class="skincare-card__button" type="button">اكتشفي الحل ←</button>
-              </div>
-            </article>
 
-            <article class="skincare-card">
-              <figure class="skincare-card__media">
-                <img class="skincare-card__image" src="assets/images/card-4.jpg" alt="واقي الشمس اليومي من نورا سكين بحماية خفيفة ومناسبة للروتين الصباحي">
-                <span class="skincare-card__icon" aria-hidden="true">٤</span>
-              </figure>
-              <div class="skincare-card__content">
-                <h2 class="skincare-card__title">حماية صباحية ما كتقلقش</h2>
-                <p class="skincare-card__body">آخر خطوة قبل الخروج: حماية خفيفة، إحساس مريح، ولمسة ما كتخليش وجهك دهني. مناسبة للنهار المغربي والمكياج.</p>
-                <button class="skincare-card__button" type="button">اكتشفي الحل ←</button>
+              <div class="pkg-card__body" dir="rtl">
+                <h2 class="pkg-title">روتين التجديد الليلي</h2>
+                <p class="pkg-desc">خطوتين مركزتين للي باغية بشرتها ترتاح فالليل: كريم غني لمظهر أنعم وسيروم عين لنظرة أهدأ فالصباح.</p>
+
+                <ul class="pkg-tags" aria-label="مميزات روتين التجديد الليلي" dir="rtl">
+                  <li class="pkg-tag">قبل النوم</li>
+                  <li class="pkg-tag">2 خطوات</li>
+                  <li class="pkg-tag">راحة + نعومة</li>
+                </ul>
+
+                <div class="pkg-price" aria-label="ثمن روتين التجديد الليلي" dir="rtl">
+                  <div class="pkg-price__main" dir="rtl">
+                    <span class="pkg-price__amount">429</span>
+                    <span class="pkg-price__currency">درهم</span>
+                  </div>
+                  <div class="pkg-price__meta" dir="rtl">
+                    <span class="pkg-price__original">القيمة الكاملة: 518 درهم</span>
+                    <span class="pkg-price__savings">وفري 89 درهم ✓</span>
+                  </div>
+                </div>
+
+                <div class="pkg-proof" dir="rtl">
+                  <span>⭐ 4.8 من 1,204 تقييم</span>
+                  <span>🚚 الدفع عند الاستلام</span>
+                  <span>👥 28 امرأة اشترتها هذا الأسبوع</span>
+                </div>
+
+                <a class="pkg-cta" href="/packs?bundle=night-renewal-ritual" data-product-id="night-renewal-ritual">✦ أضيفي روتين الليل للسلة</a>
               </div>
             </article>
+          </div>
+
+          <div class="trust-bar" aria-label="مؤشرات الثقة في نورا سكين" dir="rtl">
+            <div class="trust-item" dir="rtl">
+              <span aria-hidden="true">🌿</span>
+              <span>صنع في المغرب</span>
+            </div>
+            <div class="trust-item" dir="rtl">
+              <span aria-hidden="true">☀️</span>
+              <span>حماية شمسية 50</span>
+            </div>
+            <div class="trust-item" dir="rtl">
+              <span aria-hidden="true">💧</span>
+              <span>ترطيب عميق</span>
+            </div>
+            <div class="trust-item" dir="rtl">
+              <span aria-hidden="true">✓</span>
+              <span>طبيعي 100%</span>
+            </div>
           </div>
         </div>
       </section>

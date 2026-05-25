@@ -1,17 +1,15 @@
-const cards = document.querySelectorAll(".skincare-card");
+const packageCards = document.querySelectorAll(".pkg-card");
 
-const observer = new IntersectionObserver(
+const cardRevealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
+        entry.target.setAttribute("data-visible", "true");
+        cardRevealObserver.unobserve(entry.target);
       }
     });
   },
-  {
-    threshold: 0.2,
-  }
+  { threshold: 0.2 }
 );
 
-cards.forEach((card) => observer.observe(card));
+packageCards.forEach((card) => cardRevealObserver.observe(card));

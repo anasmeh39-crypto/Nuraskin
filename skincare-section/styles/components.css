@@ -1,88 +1,231 @@
-.skincare-card {
-  direction: rtl;
-  display: grid;
-  grid-template-rows: auto 1fr;
+.pkg-card {
+  flex: 0 0 var(--mobile-card-width);
+  max-width: var(--mobile-card-max);
+  scroll-snap-align: start;
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--r-card);
   overflow: hidden;
-  min-height: calc(var(--space-xl) * 6);
-  border: var(--color-border) solid calc(var(--space-xs) / 8);
-  border-radius: var(--radius-card);
-  background: var(--color-surface);
-  transition: opacity var(--transition), transform var(--transition), border-color var(--transition);
-  opacity: 0;
-  transform: translateY(var(--space-md));
-}
-
-.skincare-card.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.skincare-card:hover,
-.skincare-card:focus-within {
-  border-color: var(--color-glass-border);
-  transform: translateY(calc(var(--space-xs) * -1));
-}
-
-.skincare-card__media {
+  background: var(--surface);
   position: relative;
-  aspect-ratio: 1 / 1;
-  background: var(--color-glass-bg);
 }
 
-.skincare-card__image {
-  width: 100%;
-  height: 100%;
+.pkg-card--featured {
+  border: var(--featured-border-width) solid var(--rose);
+  box-shadow: var(--card-shadow);
+}
+
+.pkg-card__media {
+  position: relative;
+  min-height: var(--media-min);
+  aspect-ratio: var(--img-ratio);
+  background: var(--rose-light);
+}
+
+.pkg-card__image {
+  width: var(--full);
+  height: var(--full);
   object-fit: cover;
 }
 
-.skincare-card__icon {
+.pkg-badge {
   position: absolute;
-  inset-block-start: var(--space-sm);
-  inset-inline-end: var(--space-sm);
+  top: var(--sp-sm);
+  right: var(--sp-sm);
+  z-index: 2;
+  padding: var(--pad-badge-block) var(--pad-badge-inline);
+  border-radius: var(--r-badge);
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  font-family: var(--font-b);
+  font-size: var(--fs-badge);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pkg-time-label {
+  position: absolute;
+  right: var(--sp-sm);
+  bottom: var(--sp-sm);
+  padding: var(--pad-badge-block) var(--pad-badge-inline);
+  border: var(--border-width) solid var(--glass-border);
+  border-radius: var(--r-badge);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--gap-swipe));
+  -webkit-backdrop-filter: blur(var(--gap-swipe));
+  color: var(--mauve);
+  font-family: var(--font-b);
+  font-size: var(--fs-label);
+}
+
+.pkg-card__body {
   display: grid;
-  place-items: center;
-  width: var(--space-lg);
-  height: var(--space-lg);
-  border: var(--color-glass-border) solid calc(var(--space-xs) / 8);
-  border-radius: var(--radius-icon);
-  background: var(--color-glass-bg);
-  color: var(--color-heading);
-  font-family: var(--font-heading);
+  gap: var(--sp-sm);
+  padding: var(--sp-md);
 }
 
-.skincare-card__content {
+.pkg-title {
+  color: var(--mauve);
+  font-family: var(--font-h);
+  font-size: var(--fs-title);
+  line-height: var(--line-heading);
+}
+
+.pkg-desc {
+  color: var(--text);
+  font-family: var(--font-b);
+  font-size: var(--fs-body);
+  line-height: var(--line-body);
+}
+
+.pkg-tags {
+  display: flex;
+  flex-direction: row;
+  gap: var(--sp-xs);
+  flex-wrap: wrap;
+  padding: var(--zero);
+  list-style: none;
+}
+
+.pkg-tag {
+  padding: var(--sp-xs) var(--sp-sm);
+  border-radius: var(--r-tag);
+  background: var(--rose-light);
+  color: var(--mauve);
+  font-family: var(--font-b);
+  font-size: var(--fs-label);
+  font-weight: 500;
+}
+
+.pkg-price {
+  margin: var(--sp-sm) var(--zero);
+  direction: rtl;
+}
+
+.pkg-price__main {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: var(--gap-price-main);
+  margin-bottom: var(--gap-price-main);
+}
+
+.pkg-price__amount {
+  color: var(--mauve);
+  font-family: var(--font-h);
+  font-size: clamp(var(--fs-price-min), var(--fs-price-fluid), var(--fs-price-max));
+  font-weight: 700;
+  line-height: var(--line-tight);
+}
+
+.pkg-price__currency {
+  color: var(--muted);
+  font-family: var(--font-b);
+  font-size: var(--fs-currency);
+}
+
+.pkg-price__meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--sp-sm);
+  flex-wrap: wrap;
+}
+
+.pkg-price__original {
+  color: var(--muted);
+  font-family: var(--font-b);
+  font-size: var(--fs-original);
+  text-decoration: line-through;
+}
+
+.pkg-price__savings {
+  padding: var(--pad-saving-block) var(--pad-saving-inline);
+  border-radius: var(--r-badge);
+  background: var(--savings-bg);
+  color: var(--savings-txt);
+  font-family: var(--font-b);
+  font-size: var(--fs-savings);
+  font-weight: 500;
+}
+
+.pkg-proof {
   display: grid;
-  align-content: start;
-  gap: var(--space-sm);
-  padding: var(--space-md);
+  gap: var(--sp-xs);
+  color: var(--muted);
+  font-family: var(--font-b);
+  font-size: var(--fs-original);
+  line-height: var(--line-body);
 }
 
-.skincare-card__title {
-  color: var(--color-heading);
-  font-family: var(--font-heading);
-  font-size: calc(var(--space-md) + var(--space-xs) / 2);
-  line-height: calc(var(--space-sm) / var(--space-xs));
-}
-
-.skincare-card__body {
-  color: var(--color-text);
-  font-size: calc(var(--space-sm) + var(--space-xs) / 8);
-  line-height: calc(var(--space-md) / var(--space-xs));
-}
-
-.skincare-card__button {
-  align-self: flex-start;
-  justify-self: start;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-icon);
-  background: var(--color-heading);
-  color: var(--color-surface);
+.pkg-cta {
+  display: block;
+  width: var(--full);
+  padding: var(--pad-cta-block) var(--sp-md);
+  margin-top: var(--sp-sm);
+  border: none;
+  border-radius: var(--r-btn);
+  background: var(--mauve);
+  color: var(--surface);
   cursor: pointer;
+  font-family: var(--font-b);
+  font-size: var(--fs-cta);
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
   transition: background var(--transition), transform var(--transition);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.skincare-card__button:hover,
-.skincare-card__button:focus-visible {
-  background: var(--color-accent);
-  transform: translateX(calc(var(--space-xs) * -1));
+.pkg-cta:hover {
+  background: var(--mauve-dark);
+}
+
+.pkg-cta:active {
+  transform: scale(var(--active-scale));
+}
+
+.trust-bar {
+  display: flex;
+  justify-content: center;
+  gap: clamp(var(--sp-sm), var(--gap-trust-fluid), calc(var(--sp-md) + var(--sp-lg) - var(--sp-xs)));
+  flex-wrap: wrap;
+  padding: var(--sp-md) var(--sp-lg);
+  border-top: var(--border-width) solid var(--border);
+  background: var(--trust-bg);
+  margin-top: var(--sp-lg);
+  color: var(--muted);
+  font-family: var(--font-b);
+  font-size: var(--fs-trust);
+}
+
+.trust-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-trust-item);
+}
+
+@media (max-width: 639px) {
+  .pkg-card--featured {
+    transform: none;
+  }
+
+  .pkg-cta {
+    min-height: var(--tap-target);
+    padding: var(--pad-cta-mobile) var(--sp-md);
+    font-size: var(--fs-cta-mobile);
+  }
+}
+
+@media (min-width: 640px) {
+  .pkg-card {
+    flex: unset;
+    max-width: unset;
+  }
+}
+
+@media (min-width: 960px) {
+  .pkg-card--featured {
+    transform: translateY(var(--featured-lift));
+  }
 }

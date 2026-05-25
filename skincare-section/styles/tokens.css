@@ -1,26 +1,96 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@700&family=Noto+Sans+Arabic:wght@400;500&display=swap');
 
 :root {
-  --color-bg: #F5F0EA;
-  --color-surface: #FEFCF9;
-  --color-heading: #5C2D3E;
-  --color-accent: #C4788A;
-  --color-text: #3B2428;
-  --color-muted: #8C6E73;
-  --color-border: rgba(92,45,62,0.12);
-  --color-glass-bg: rgba(254,252,249,0.72);
-  --color-glass-border: rgba(196,120,138,0.25);
+  --cream: #F5F0EA;
+  --mauve: #5C2D3E;
+  --rose: #C4788A;
+  --rose-light: #F2E0E5;
+  --surface: #FEFCF9;
+  --muted: #8C6E73;
+  --text: #3B2428;
+  --border: rgba(92,45,62,0.14);
+  --badge-bg: rgba(92,45,62,0.90);
+  --badge-text: #FEFCF9;
+  --savings-bg: #EAF3DE;
+  --savings-txt: #27500A;
+  --trust-bg: #F5F0EA;
 
-  --font-heading: 'Noto Naskh Arabic', serif;
-  --font-body: 'Noto Sans Arabic', sans-serif;
+  --font-h: 'Noto Naskh Arabic', serif;
+  --font-b: 'Noto Sans Arabic', sans-serif;
 
-  --space-xs: 8px;
-  --space-sm: 16px;
-  --space-md: 24px;
-  --space-lg: 40px;
-  --space-xl: 72px;
+  --r-card: 18px;
+  --r-btn: 50px;
+  --r-badge: 50px;
+  --r-tag: 50px;
+  --r-pill: 8px;
 
-  --radius-card: 20px;
-  --radius-icon: 12px;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --sp-xs: 6px;
+  --sp-sm: 12px;
+  --sp-md: 20px;
+  --sp-lg: 32px;
+  --sp-xl: 56px;
+
+  --transition: 0.25s ease;
+  --card-shadow: 0 2px 16px rgba(92,45,62,0.10);
+
+  --mauve-dark: #4A2230;
+  --glass-bg: rgba(254,252,249,0.82);
+  --glass-border: rgba(196,120,138,0.20);
+  --focus-ring: rgba(196,120,138,0.34);
+
+  --zero: 0;
+  --full: 100%;
+  --screen-min: 100vh;
+  --container-max: 1120px;
+  --mobile-card-width: 82vw;
+  --mobile-card-max: 320px;
+  --tablet-min: 640px;
+  --desktop-min: 960px;
+  --desktop-wide: 1280px;
+  --grid-col: 1fr;
+  --grid-two: repeat(2, 1fr);
+  --grid-three: repeat(3, 1fr);
+
+  --line-tight: 1;
+  --line-heading: 1.25;
+  --line-body: 1.9;
+  --border-width: 1px;
+  --featured-border-width: 2px;
+  --featured-lift: -8px;
+  --active-scale: 0.98;
+
+  --fs-kicker: 12px;
+  --fs-badge: 11px;
+  --fs-label: 12px;
+  --fs-title: 25px;
+  --fs-body: 14px;
+  --fs-cta: 15px;
+  --fs-cta-mobile: 16px;
+  --fs-currency: 16px;
+  --fs-original: 13px;
+  --fs-savings: 12px;
+  --fs-price-min: 32px;
+  --fs-price-fluid: 8vw;
+  --fs-price-max: 44px;
+  --fs-section-title: clamp(31px, 9vw, 48px);
+  --fs-section-copy: 15px;
+  --fs-trust: 13px;
+
+  --gap-price-main: 4px;
+  --gap-swipe: 8px;
+  --gap-trust-item: 6px;
+  --gap-trust-fluid: 4vw;
+  --pad-cta-block: 14px;
+  --pad-cta-mobile: 16px;
+  --pad-badge-block: 5px;
+  --pad-badge-inline: 12px;
+  --pad-saving-block: 3px;
+  --pad-saving-inline: 10px;
+  --tap-target: 52px;
+
+  --img-ratio: 4 / 3;
+  --media-min: 190px;
+  --opacity-full: 1;
+  --opacity-soft: 0.4;
+  --pulse-duration: 2s;
 }
