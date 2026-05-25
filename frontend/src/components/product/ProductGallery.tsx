@@ -10,6 +10,7 @@ interface GallerySlot {
   bg: string;
   accent?: string;
   image?: string;
+  fit?: "cover" | "contain";
 }
 
 const GALLERY_SLOTS: GallerySlot[] = [
@@ -27,6 +28,44 @@ const PRODUCT_FIRST_IMAGES: Record<string, string> = {
   "nura-spf-50": "/images/nura-spf-50-gallery-1.png",
 };
 
+const RETINOL_GALLERY_SLOTS: GallerySlot[] = [
+  {
+    label: "NURA SKIN",
+    sublabel: "صورة المنتج",
+    bg: "from-rose-50 to-pink-100",
+    image: "/images/nura-night-renewal-gallery-1.png",
+    fit: "cover",
+  },
+  {
+    label: "مثبت سريرياً",
+    sublabel: "إثبات سريري",
+    bg: "from-rose-50 to-pink-100",
+    image: "/images/nura-night-renewal-gallery-2.png",
+    fit: "contain",
+  },
+  {
+    label: "فوائد كريم الريتينول",
+    sublabel: "الفوائد",
+    bg: "from-rose-50 to-pink-100",
+    image: "/images/nura-night-renewal-gallery-3.png",
+    fit: "contain",
+  },
+  {
+    label: "تجربة العناية الليلية",
+    sublabel: "تجربة فاخرة",
+    bg: "from-amber-50 to-orange-50",
+    image: "/images/nura-night-renewal-gallery-4.png",
+    fit: "contain",
+  },
+  {
+    label: "ملمس كريم الريتينول",
+    sublabel: "طريقة الاستخدام",
+    bg: "from-rose-50 to-pink-100",
+    image: "/images/nura-night-renewal-gallery-5.png",
+    fit: "contain",
+  },
+];
+
 interface Props {
   productName: string;
   productSlug: string;
@@ -36,8 +75,10 @@ export function ProductGallery({ productName, productSlug }: Props) {
   const [active, setActive] = useState(0);
   const [mounted, setMounted] = useState(false);
   const gallerySlots = React.useMemo(
-    () =>
-      GALLERY_SLOTS.map((slot, index) =>
+    () => {
+      if (productSlug === "nura-night-renewal") return RETINOL_GALLERY_SLOTS;
+
+      return GALLERY_SLOTS.map((slot, index) =>
         index === 0 && PRODUCT_FIRST_IMAGES[productSlug]
           ? { ...slot, image: PRODUCT_FIRST_IMAGES[productSlug] }
           : productSlug === "nura-balance" && index === 1
@@ -49,7 +90,8 @@ export function ProductGallery({ productName, productSlug }: Props) {
           : productSlug === "nura-balance" && index === 4
           ? { ...slot, image: "/images/nura-balance-gallery-5.png" }
           : slot
-      ),
+      );
+    },
     [productSlug]
   );
   const displayIndex = mounted ? active : 0;
@@ -76,10 +118,14 @@ export function ProductGallery({ productName, productSlug }: Props) {
               <>
                 <img
                   src={activeSlot.image}
-                  alt={`${productName} - صورة المنتج الأولى`}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  alt={`${productName} - ${activeSlot.sublabel || activeSlot.label}`}
+                  className={`absolute inset-0 h-full w-full ${
+                    activeSlot.fit === "contain" ? "object-contain" : "object-cover"
+                  }`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#3D2C32]/15 via-transparent to-white/5" />
+                {activeSlot.fit !== "contain" && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#3D2C32]/15 via-transparent to-white/5" />
+                )}
               </>
             ) : (
               <>
@@ -145,7 +191,11 @@ export function ProductGallery({ productName, productSlug }: Props) {
             }`}
           >
             {slot.image ? (
-              <img src={slot.image} alt="" className="h-full w-full object-cover" />
+              <img
+                src={slot.image}
+                alt=""
+                className={`h-full w-full ${slot.fit === "contain" ? "object-contain" : "object-cover"}`}
+              />
             ) : (
               <div className={`w-full h-full bg-gradient-to-br ${slot.bg} flex items-center justify-center`}>
                 <Sparkles className="h-4 w-4 text-rose-deep/60" strokeWidth={1.4} />
