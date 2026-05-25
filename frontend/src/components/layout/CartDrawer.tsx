@@ -292,6 +292,14 @@ export function CartDrawer() {
                               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg>
                           </button>
+                          <button
+                            type="button"
+                            onClick={() => removeItem(item.cartKey || item.slug)}
+                            className="ms-1 rounded-full bg-white px-3 py-1.5 text-[11px] font-bold text-[#9B8A8A] ring-1 ring-border transition hover:bg-rose-blush hover:text-rose-deep"
+                            aria-label={`إزالة ${item.name_ar} من السلة`}
+                          >
+                            إزالة
+                          </button>
                         </div>
                       </div>
 
