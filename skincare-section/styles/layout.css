@@ -1,0 +1,56 @@
+html {
+  direction: rtl;
+}
+
+body {
+  direction: rtl;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+.skincare-section {
+  direction: rtl;
+  min-height: 100vh;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.skincare-section__inner {
+  width: min(100%, calc(var(--space-xl) * 16));
+  margin-inline: auto;
+}
+
+.skincare-section__header {
+  display: grid;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-block-end: var(--space-lg);
+  text-align: center;
+}
+
+.skincare-section__eyebrow {
+  color: var(--color-accent);
+  font-size: calc(var(--space-sm) - var(--space-xs) / 4);
+  font-weight: 500;
+}
+
+.skincare-section__title {
+  color: var(--color-heading);
+  font-family: var(--font-heading);
+  font-size: clamp(calc(var(--space-lg) - var(--space-xs)), calc(var(--space-xl) - var(--space-md)), var(--space-xl));
+  line-height: calc(var(--space-xs) / var(--space-xs));
+}
+
+.skincare-section__subtitle {
+  max-width: calc(var(--space-xl) * 9);
+  color: var(--color-muted);
+  font-size: calc(var(--space-sm) + var(--space-xs) / 4);
+  line-height: calc(var(--space-sm) / var(--space-xs));
+}
+
+.skincare-grid {
+  direction: rtl;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(var(--space-xl) * 4)), 1fr));
+  gap: var(--space-md);
+}
