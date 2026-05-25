@@ -1364,3 +1364,321 @@
   .bundles-heading { font-size: 1.5rem; }
   .bundles-header { margin-bottom: 32px; }
 }
+
+/* ─── Cart / Checkout / Order Flow — Product Images ─────────────────────── */
+
+.flow-img {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #FDFAF8;
+  border: 1px solid rgba(61, 44, 50, 0.08);
+}
+
+.flow-img-photo {
+  object-fit: cover;
+  object-position: center;
+}
+
+.flow-img-cart {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+}
+
+.flow-img-cart-sm {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+}
+
+.flow-img-checkout {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+}
+
+.flow-img-confirmation {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+}
+
+.flow-img-cross-sell {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px 12px 0 0;
+  border: none;
+}
+
+@media (max-width: 767px) {
+  .flow-img-cart {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* Cart line item row */
+.flow-cart-row {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(61, 44, 50, 0.06);
+  transition: background 200ms ease;
+}
+
+.flow-cart-row:hover {
+  background: rgba(253, 250, 248, 0.65);
+}
+
+.flow-cart-row:last-child {
+  border-bottom: none;
+}
+
+.flow-cart-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.flow-cart-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #3D2C32;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.flow-cart-variant {
+  font-size: 13px;
+  color: rgba(61, 44, 50, 0.60);
+  margin-top: 2px;
+}
+
+/* Upsell compact horizontal card */
+.flow-upsell-card {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  margin-bottom: 12px;
+  background: #FDFAF8;
+  border: 1px solid rgba(61, 44, 50, 0.08);
+  border-radius: 14px;
+}
+
+.flow-upsell-card:last-child {
+  margin-bottom: 0;
+}
+
+.flow-upsell-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.flow-upsell-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #3D2C32;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.flow-upsell-benefit {
+  font-size: 12px;
+  color: rgba(61, 44, 50, 0.58);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flow-upsell-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #8E5A68;
+  margin-top: 4px;
+}
+
+.flow-upsell-add {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(61, 44, 50, 0.75);
+  background: transparent;
+  color: #3D2C32;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-cairo), sans-serif;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+  white-space: nowrap;
+}
+
+.flow-upsell-add:hover:not(:disabled) {
+  background: #3D2C32;
+  color: #FFF9F6;
+  border-color: #3D2C32;
+}
+
+.flow-upsell-add:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.flow-upsell-add.is-added {
+  background: rgba(45, 106, 79, 0.10);
+  border-color: rgba(45, 106, 79, 0.28);
+  color: #1E5232;
+}
+
+/* Checkout order summary line */
+.flow-checkout-item {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 12px;
+}
+
+.flow-checkout-item-info {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  color: rgba(61, 44, 50, 0.72);
+  line-height: 1.4;
+}
+
+.flow-checkout-item-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #3D2C32;
+  text-align: end;
+  flex-shrink: 0;
+}
+
+/* Order confirmation line */
+.flow-order-item {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(61, 44, 50, 0.08);
+}
+
+.flow-order-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.flow-order-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Cross-sell horizontal scroll row */
+.flow-cross-sell-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+
+.flow-cross-sell-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.flow-cross-sell-scroll::-webkit-scrollbar-thumb {
+  background: rgba(61, 44, 50, 0.12);
+  border-radius: 2px;
+}
+
+.flow-cross-sell-card {
+  flex: 0 0 180px;
+  scroll-snap-align: start;
+  background: #FFFDFC;
+  border: 1px solid rgba(61, 44, 50, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.flow-cross-sell-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(61, 44, 50, 0.08);
+}
+
+@media (max-width: 767px) {
+  .flow-cross-sell-card {
+    flex: 0 0 140px;
+  }
+}
+
+.flow-cross-sell-body {
+  padding: 12px 14px 14px;
+}
+
+.flow-cross-sell-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #3D2C32;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.8em;
+}
+
+.flow-cross-sell-price {
+  font-size: 15px;
+  font-weight: 600;
+  color: #8E5A68;
+  margin-top: 6px;
+}
+
+.flow-section-heading {
+  font-size: 15px;
+  font-weight: 500;
+  color: #3D2C32;
+  margin-bottom: 16px;
+}
+
+.flow-cross-sell-section-heading {
+  font-size: 18px;
+  font-weight: 500;
+  color: #3D2C32;
+  margin-bottom: 24px;
+}
+
+/* Bundle group product sub-rows with images */
+.flow-bundle-product-row {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: rgba(61, 44, 50, 0.68);
+}
+
+.flow-bundle-product-row .flow-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.flow-bundle-product-row span {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.4;
+}

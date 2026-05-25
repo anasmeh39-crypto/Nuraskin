@@ -6,7 +6,7 @@ import Link from "next/link";
 import { CheckCircle2, MapPin, PhoneCall, PackageCheck, ReceiptText, Truck } from "lucide-react";
 import { PRODUCTS } from "@/config/products";
 import { BRAND_ASSETS } from "@/config/brand";
-import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
+import { FlowProductImage } from "@/components/ui/FlowProductImage";
 import { getOrder } from "@/lib/api";
 import { trackThankYouViewed } from "@/lib/tracking";
 import type { OrderDetail } from "@/types";
@@ -139,13 +139,18 @@ export function ThankYouContent() {
                     )}
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-0">
                     {order.items.map((item) => (
                       <div
                         key={`${item.product_slug}-${item.is_upsell}`}
-                        className="flex items-center justify-between gap-4 rounded-2xl border border-[#F0E4E7] bg-white p-4"
+                        className="flow-order-item"
                       >
-                        <div>
+                        <FlowProductImage
+                          slug={item.product_slug}
+                          alt={item.product_name}
+                          size="confirmation"
+                        />
+                        <div className="flow-order-item-info">
                           <div className="flex flex-wrap items-center gap-2">
                             <p className="font-bold leading-7 text-[#3A222C]">{item.product_name}</p>
                             {item.is_upsell && (
@@ -248,28 +253,26 @@ export function ThankYouContent() {
 
         {/* Soft recommendations */}
         <div>
-          <h2 className="text-xl font-bold text-[#3A222C] mb-4">
+          <h2 className="flow-cross-sell-section-heading">
             قد يعجبك أيضاً
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flow-cross-sell-scroll">
             {PRODUCTS.slice(0, 4).map((p) => (
               <Link
                 key={p.slug}
                 href={`/products/${p.slug}`}
-                className="block bg-white rounded-2xl border border-border p-4 hover:border-rose-soft transition-colors"
+                className="flow-cross-sell-card block"
               >
-                <div className="h-28 rounded-xl overflow-hidden mb-3">
-                  <PlaceholderImage label={p.name_ar} className="w-full h-full" />
+                <FlowProductImage
+                  src={p.image}
+                  slug={p.slug}
+                  alt={p.name_ar}
+                  size="cross-sell"
+                />
+                <div className="flow-cross-sell-body">
+                  <p className="flow-cross-sell-name">{p.name_ar}</p>
+                  <p className="flow-cross-sell-price">{p.formattedPrice}</p>
                 </div>
-                <p className="font-semibold text-[#3A222C] text-sm leading-snug">
-                  {p.name_ar}
-                </p>
-                <p className="text-rose-deep text-sm font-bold mt-1">
-                  {p.formattedPrice}
-                </p>
-                <p className="text-xs font-semibold text-gray-400 line-through">
-                  بدل {p.formattedCompareAtPrice}
-                </p>
               </Link>
             ))}
           </div>

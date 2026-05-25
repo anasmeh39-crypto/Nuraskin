@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/store/cart";
 import { BUNDLES, PRODUCTS_MAP } from "@/config/products";
 import { BRAND_ASSETS } from "@/config/brand";
+import { FlowProductImage } from "@/components/ui/FlowProductImage";
 import { generateEventId, trackInitiateCheckout, trackAddToCart } from "@/lib/tracking";
 
 export function CartDrawer() {
@@ -37,6 +39,9 @@ export function CartDrawer() {
   const hasPack = bundleGroups.length > 0;
   const soloCount = items.filter((item) => !item.bundleName).length;
   const recommendedPack = BUNDLES.find((bundle) => bundle.id === "nura-complete-ritual") ?? BUNDLES[0];
+  const [addedCrossSlugs, setAddedCrossSlugs] = useState<Set<string>>(new Set());
+
+  const soloItems = items.filter((item) => !item.bundleName);
 
   const handleCheckout = () => {
     trackInitiateCheckout(grandTotal, generateEventId());
@@ -67,6 +72,14 @@ export function CartDrawer() {
       p.price,
       generateEventId()
     );
+    setAddedCrossSlugs((prev) => new Set(prev).add(slug));
+    window.setTimeout(() => {
+      setAddedCrossSlugs((prev) => {
+        const next = new Set(prev);
+        next.delete(slug);
+        return next;
+      });
+    }, 2000);
   };
 
   const handleAddPack = (bundleId: string) => {
@@ -209,36 +222,45 @@ export function CartDrawer() {
                           </button>
                         </div>
                       </div>
-                      <div className="space-y-1.5 border-t border-border/70 pt-3">
+                      <div className="space-y-2 border-t border-border/70 pt-3">
                         {groupItems.map((item) => (
-                          <div key={item.cartKey || item.slug} className="flex items-center justify-between gap-3 text-xs text-[#6B5555]">
-                            <span>{item.name_ar} × {item.quantity}</span>
-                            <span>{item.price * item.quantity} درهم</span>
+                          <div key={item.cartKey || item.slug} className="flow-bundle-product-row">
+                            <FlowProductImage
+                              src={item.image}
+                              slug={item.slug}
+                              alt={item.name_ar}
+                              size="cart-sm"
+                            />
+                            <span className="flex-1 min-w-0">{item.name_ar} × {item.quantity}</span>
+                            <span className="shrink-0 font-semibold">{item.price * item.quantity} درهم</span>
                           </div>
                         ))}
                       </div>
                     </div>
                   ))}
 
-                  {items.filter((item) => !item.bundleName).map((item) => (
+                  {soloItems.map((item, index) => (
                     <motion.div
                       key={item.cartKey || item.slug}
                       layout
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      className="flex gap-4 bg-ivory rounded-2xl p-4"
+                      className="flow-cart-row rounded-2xl bg-ivory"
                     >
-                      {/* Image placeholder */}
-                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-rose-blush to-rose-light flex items-center justify-center shrink-0">
-                        <span className="h-7 w-7 rounded-full border border-rose-deep/35 bg-white/40" aria-hidden />
-                      </div>
+                      <FlowProductImage
+                        src={item.image}
+                        slug={item.slug}
+                        alt={item.name_ar}
+                        size="cart"
+                        priority={index < 3}
+                      />
 
-                      {/* Details */}
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-[#2C1810] text-sm leading-tight line-clamp-2">
-                          {item.name_ar}
-                        </p>
+                      <div className="flow-cart-details">
+                        <p className="flow-cart-name">{item.name_ar}</p>
+                        {item.bundleName && (
+                          <p className="flow-cart-variant">{item.bundleName}</p>
+                        )}
                         <p className="text-rose-deep font-bold text-sm mt-1">
                           {item.price} درهم
                         </p>
@@ -247,15 +269,13 @@ export function CartDrawer() {
                             بدل {item.compareAtPrice} درهم
                           </p>
                         )}
-                        {item.bundleName && (
-                          <p className="mt-1 text-[10px] font-bold text-gold">{item.bundleName}</p>
-                        )}
 
-                        {/* Qty */}
                         <div className="flex items-center gap-2 mt-2">
                           <button
+                            type="button"
                             onClick={() => updateQuantity(item.cartKey || item.slug, item.quantity - 1)}
                             className="w-7 h-7 rounded-full bg-white border border-border flex items-center justify-center hover:border-rose-soft transition-colors"
+                            aria-label="تقليل الكمية"
                           >
                             <svg className="w-3 h-3 text-[#2C1810]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M18 12H6" />
@@ -263,8 +283,10 @@ export function CartDrawer() {
                           </button>
                           <span className="text-sm font-bold text-[#2C1810] w-4 text-center">{item.quantity}</span>
                           <button
+                            type="button"
                             onClick={() => updateQuantity(item.cartKey || item.slug, item.quantity + 1)}
                             className="w-7 h-7 rounded-full bg-white border border-border flex items-center justify-center hover:border-rose-soft transition-colors"
+                            aria-label="زيادة الكمية"
                           >
                             <svg className="w-3 h-3 text-[#2C1810]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -273,10 +295,11 @@ export function CartDrawer() {
                         </div>
                       </div>
 
-                      {/* Delete */}
                       <button
+                        type="button"
                         onClick={() => removeItem(item.cartKey || item.slug)}
                         className="self-start w-6 h-6 rounded-full flex items-center justify-center text-[#9B8A8A] hover:text-rose-deep hover:bg-rose-blush transition-colors"
+                        aria-label={`إزالة ${item.name_ar}`}
                       >
                         <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -288,32 +311,48 @@ export function CartDrawer() {
                   {/* Cross-sells */}
                   {crossSells.length > 0 && (
                     <div className="pt-4">
-                      <p className="text-xs text-[#9B8A8A] font-semibold uppercase tracking-wider mb-3">
-                        أكملي روتينك
-                      </p>
-                      {crossSells.slice(0, 2).map((p) => (
-                        <div key={p.slug} className="flex gap-3 items-center p-3 bg-white border border-border rounded-2xl mb-2">
-                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-blush to-rose-light flex items-center justify-center shrink-0">
-                            <span className="h-5 w-5 rounded-full border border-rose-deep/35 bg-white/40" aria-hidden />
+                      <p className="flow-section-heading">أضيفي لطلبك</p>
+                      {crossSells.slice(0, 2).map((p) => {
+                        const isAdded = addedCrossSlugs.has(p.slug);
+                        return (
+                          <div key={p.slug} className="flow-upsell-card">
+                            <FlowProductImage
+                              src={p.image}
+                              slug={p.slug}
+                              alt={p.name_ar}
+                              size="cart-sm"
+                            />
+                            <div className="flow-upsell-info">
+                              <p className="flow-upsell-name">{p.name_ar}</p>
+                              <p className="flow-upsell-benefit">{p.tagline_ar}</p>
+                              <p className="flow-upsell-price">{p.price} درهم</p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleAddCross(p.slug)}
+                              disabled={isAdded}
+                              className={`flow-upsell-add${isAdded ? " is-added" : ""}`}
+                            >
+                              {isAdded ? "✓ تمت الإضافة" : "+ أضف للطلب"}
+                            </button>
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xs font-semibold text-[#2C1810] line-clamp-1">{p.name_ar}</p>
-                            <p className="text-xs text-rose-deep font-bold">{p.price} درهم</p>
-                            <p className="text-[10px] font-semibold text-[#9B8A8A] line-through">بدل {p.compareAtPrice} درهم</p>
-                          </div>
-                          <button
-                            onClick={() => handleAddCross(p.slug)}
-                            className="text-xs font-bold text-white bg-rose-deep px-3 py-1.5 rounded-full hover:opacity-90 active:scale-95 transition-all shrink-0"
-                          >
-                            أضيفي
-                          </button>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
 
                   {!hasPack && soloCount > 0 && recommendedPack && (
-                    <div className="rounded-2xl border border-gold/25 bg-white p-4 shadow-ivory-sm">
+                    <div className="rounded-2xl border border-gold/25 bg-white overflow-hidden shadow-ivory-sm">
+                      <div className="relative aspect-[16/9] w-full overflow-hidden">
+                        <Image
+                          src="/images/bundles/complete-routine.jpg"
+                          alt={recommendedPack.name_ar}
+                          fill
+                          sizes="400px"
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="p-4">
                       <p className="text-sm font-bold text-rose-deep">كمّلي روتينك مع باقة Nura Skin</p>
                       <p className="mt-1 text-xs leading-5 text-[#6B5555]">
                         {recommendedPack.name_ar} تجمع المنتجات الأساسية بسعر أوضح وقيمة أعلى.
@@ -331,6 +370,7 @@ export function CartDrawer() {
                       >
                         أضيفي الباقة للسلة
                       </button>
+                      </div>
                     </div>
                   )}
 

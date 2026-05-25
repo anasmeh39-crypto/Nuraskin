@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { PRODUCTS_MAP } from "@/config/products";
-import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
+import { FlowProductImage } from "@/components/ui/FlowProductImage";
 import { useCartStore } from "@/store/cart";
 import { generateEventId, trackAddToCart } from "@/lib/tracking";
 import { CartItem } from "@/types";
@@ -51,9 +51,13 @@ export function CrossSells({ currentSlug, slugs }: CrossSellsProps) {
               className="premium-card flex gap-4 rounded-[2rem] p-4 items-center"
             >
               <Link href={`/products/${p!.slug}`} className="shrink-0">
-                <div className="w-24 h-24 rounded-2xl overflow-hidden">
-                  <PlaceholderImage label={p!.name_ar} className="w-full h-full" />
-                </div>
+                <FlowProductImage
+                  src={p!.image}
+                  slug={p!.slug}
+                  alt={p!.name_ar}
+                  size="cart-sm"
+                  className="!h-24 !w-24 !rounded-2xl"
+                />
               </Link>
               <div className="flex-1 min-w-0">
                 <Link href={`/products/${p!.slug}`}>

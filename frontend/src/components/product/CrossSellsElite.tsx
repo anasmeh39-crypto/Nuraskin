@@ -7,7 +7,7 @@ import { PRODUCTS_MAP } from "@/config/products";
 import { useCartStore } from "@/store/cart";
 import { generateEventId, trackAddToCart } from "@/lib/tracking";
 import { StarRating } from "@/components/ui/StarRating";
-import { Sparkles } from "lucide-react";
+import { FlowProductImage } from "@/components/ui/FlowProductImage";
 
 interface Props { product: Product }
 
@@ -68,10 +68,13 @@ export function CrossSellsElite({ product }: Props) {
                 transition={{ delay: i * 0.1 }}
                 className="bg-ivory border border-border rounded-4xl p-6 flex gap-5 hover:shadow-rose-sm transition-all group"
               >
-                {/* Image placeholder */}
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-rose-blush to-rose-light flex items-center justify-center shrink-0">
-                  <Sparkles className="h-7 w-7 text-rose-deep/65" strokeWidth={1.35} />
-                </div>
+                <FlowProductImage
+                  src={p.image}
+                  slug={p.slug}
+                  alt={p.name_ar}
+                  size="cart-sm"
+                  className="!w-24 !h-24 !rounded-2xl"
+                />
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">

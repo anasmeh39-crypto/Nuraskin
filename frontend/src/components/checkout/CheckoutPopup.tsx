@@ -6,6 +6,7 @@ import Link from "next/link";
 import { MapPin, Phone, ShieldCheck, Truck } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { BRAND_ASSETS } from "@/config/brand";
+import { FlowProductImage } from "@/components/ui/FlowProductImage";
 import { PRODUCTS } from "@/config/products";
 import { createOrder } from "@/lib/api";
 import { generateEventId, trackLead } from "@/lib/tracking";
@@ -188,24 +189,39 @@ export function CheckoutPopup() {
             <div className="flex-1 overflow-y-auto">
               <div className="space-y-5 p-5 md:p-6">
                 {/* Order summary */}
-                <div className="space-y-2 rounded-[1.4rem] border border-rose-soft/20 bg-ivory/80 p-4 shadow-ivory-sm">
-                  <p className="text-xs font-bold text-[#9B8A8A] uppercase tracking-wider mb-3">ملخص طلبك</p>
-                  {items.map((item) => (
-                    <div key={item.cartKey || item.slug} className="flex justify-between text-sm">
-                      <span className="text-[#6B5555]">
-                        {item.name_ar} × {item.quantity}
-                        {item.bundleName && <span className="me-1 text-[10px] font-bold text-gold">({item.bundleName})</span>}
-                      </span>
-                      <span className="text-end">
-                        {item.compareAtPrice && item.compareAtPrice > item.price && (
-                          <span className="block text-[11px] font-semibold text-[#9B8A8A] line-through">
-                            بدل {item.compareAtPrice * item.quantity} درهم
+                <div className="space-y-3 rounded-[1.4rem] border border-rose-soft/20 bg-[#FDFAF8] p-5 shadow-ivory-sm">
+                  <p className="text-xs font-bold text-[#9B8A8A] uppercase tracking-wider mb-1">ملخص طلبك</p>
+                  <div className="space-y-3">
+                    {items.map((item, index) => (
+                      <div key={item.cartKey || item.slug} className="flow-checkout-item">
+                        <FlowProductImage
+                          src={item.image}
+                          slug={item.slug}
+                          alt={item.name_ar}
+                          size="checkout"
+                          priority={index < 3}
+                        />
+                        <div className="flow-checkout-item-info">
+                          <span>
+                            {item.name_ar} × {item.quantity}
+                            {item.bundleName && (
+                              <span className="block text-[11px] font-medium text-[#9B8A8A] mt-0.5">
+                                {item.bundleName}
+                              </span>
+                            )}
                           </span>
-                        )}
-                        <span className="font-semibold text-[#2C1810]">{item.price * item.quantity} درهم</span>
-                      </span>
-                    </div>
-                  ))}
+                        </div>
+                        <div className="flow-checkout-item-price">
+                          {item.compareAtPrice && item.compareAtPrice > item.price && (
+                            <span className="block text-[11px] font-semibold text-[#9B8A8A] line-through">
+                              بدل {item.compareAtPrice * item.quantity} درهم
+                            </span>
+                          )}
+                          <span>{item.price * item.quantity} درهم</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                   <div className="border-t border-border pt-2 flex justify-between text-sm text-[#9B8A8A]">
                     <span>التوصيل</span>
                     <span className={freeShipping ? "font-semibold text-nura-rose-deep" : ""}>

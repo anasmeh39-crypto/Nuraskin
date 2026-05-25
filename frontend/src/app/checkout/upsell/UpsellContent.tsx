@@ -3,9 +3,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { Check, Heart, Sparkles } from "lucide-react";
-import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
 import { PRODUCTS, PRODUCTS_MAP } from "@/config/products";
+import { resolveProductImage } from "@/lib/product-image";
 import { acceptUpsell } from "@/lib/api";
 import {
   generateEventId,
@@ -167,10 +168,14 @@ export function UpsellContent() {
                   className="group overflow-hidden rounded-[1.6rem] border border-[#ECDDE1] bg-white/86 shadow-[0_18px_50px_rgba(61,44,50,0.10)] backdrop-blur"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#F7EEF0] sm:aspect-[4/3]">
-                    <PlaceholderImage
-                      label={product.name_ar}
-                      aspectRatio="landscape"
-                      className="h-full w-full rounded-none transition duration-700 group-hover:scale-[1.035]"
+                    <Image
+                      src={resolveProductImage(product.image, product.slug)}
+                      alt={product.name_ar}
+                      fill
+                      sizes="(min-width:640px) 50vw, 92vw"
+                      className="object-cover transition duration-700 group-hover:scale-[1.035]"
+                      priority={index === 0}
+                      loading={index === 0 ? undefined : "lazy"}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#3D2C32]/30 via-transparent to-transparent" />
                     <div className="absolute right-3 top-3 rounded-full bg-white/86 px-3 py-1.5 text-[11px] font-extrabold text-[#8E5A68] shadow-[0_12px_28px_rgba(61,44,50,0.10)] backdrop-blur">
