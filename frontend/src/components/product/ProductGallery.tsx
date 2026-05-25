@@ -101,6 +101,10 @@ export function ProductGallery({ productName, productSlug }: Props) {
           ? { ...slot, image: "/images/nura-spf-50-gallery-2.png" }
           : productSlug === "nura-spf-50" && index === 2
           ? { ...slot, image: "/images/nura-spf-50-gallery-3.png" }
+          : productSlug === "nura-spf-50" && index === 3
+          ? { ...slot, image: "/images/nura-spf-50-gallery-4.png" }
+          : productSlug === "nura-spf-50" && index === 4
+          ? { ...slot, image: "/images/nura-spf-50-gallery-5.png", fit: "contain" }
           : slot
       );
     },
