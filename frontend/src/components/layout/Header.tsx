@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, ShoppingBag, X } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { BRAND_ASSETS } from "@/config/brand";
+import { ProductSearch } from "@/components/layout/ProductSearch";
 
 const NAV_LINKS = [
   { href: "/products", label: "المنتجات" },
@@ -98,6 +99,11 @@ export function Header() {
               </button>
             </div>
           </div>
+          <div className="border-t border-nura-border/45 py-2 md:border-t-0 md:pb-4 md:pt-0">
+            <div className="mx-auto w-full max-w-2xl">
+              <ProductSearch />
+            </div>
+          </div>
         </div>
       </header>
 
@@ -147,6 +153,9 @@ export function Header() {
               </div>
 
               <nav className="flex flex-1 flex-col gap-1 px-4 py-8" aria-label="روابط الموقع">
+                <div className="mb-4">
+                  <ProductSearch />
+                </div>
                 {NAV_LINKS.map((link, i) => (
                   <motion.div
                     key={link.href}
