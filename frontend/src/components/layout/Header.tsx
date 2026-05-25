@@ -88,6 +88,8 @@ export function Header() {
                 ))}
               </nav>
 
+              <ProductSearch />
+
               <button
                 type="button"
                 className="flex items-center justify-center rounded-full border border-nura-border/90 bg-white p-2.5 text-nura-plum shadow-ivory-sm transition-all hover:border-nura-champagne/45 hover:shadow-rose-sm md:hidden active:scale-[0.97]"
@@ -97,11 +99,6 @@ export function Header() {
               >
                 <Menu className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.35} />
               </button>
-            </div>
-          </div>
-          <div className="border-t border-nura-border/45 py-2 md:border-t-0 md:pb-4 md:pt-0">
-            <div className="mx-auto w-full max-w-2xl">
-              <ProductSearch />
             </div>
           </div>
         </div>
@@ -154,7 +151,7 @@ export function Header() {
 
               <nav className="flex flex-1 flex-col gap-1 px-4 py-8" aria-label="روابط الموقع">
                 <div className="mb-4">
-                  <ProductSearch />
+                  <ProductSearch variant="inline" />
                 </div>
                 {NAV_LINKS.map((link, i) => (
                   <motion.div
