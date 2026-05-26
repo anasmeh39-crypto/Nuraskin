@@ -1,51 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { Check, Moon, Sparkles, Star, Sun, Truck, Users } from "lucide-react";
+import { Check, Droplets, Leaf, Moon, ShieldCheck, Sparkles, Star, Sun, Truck, Users } from "lucide-react";
 import { BUNDLES, PRODUCTS_MAP } from "@/config/products";
-import { BenefitIconRow, addBundleToCart } from "@/components/packs/PackCard";
+import { PRODUCT_THUMBNAILS, REVIEW_COUNT, addBundleToCart } from "@/components/packs/PackCard";
 import { useCartStore } from "@/store/cart";
 import type { Bundle } from "@/types";
 
 /* ─── Bundle display metadata ─────────────────────────────────────────────── */
 
 const BUNDLE_DISPLAY = [
-  {
-    id: "morning-ritual",
-    description: "روتين صباحي للحماية والإشراقة.",
-    TimeIcon: Sun,
-    timeLabel: "مثالي للاستخدام الصباحي",
-    cta: "أضيفي روتين الصباح للسلة",
-    imageSrc: "/images/bundles/morning-routine.jpg",
-    imageAlt: "روتين الصباح من نورا سكين",
-    /* Photo overlay pill — one key promise */
-    imageBadge: "☀️ روتين الإشراقة الصباحية",
-    /* 3 compact reasons — why choose this pack */
-    reasons: [
-      "واقي SPF 50 مضمّن",
-      "إشراقة وتوازن يومي",
-      "وفّري 178 درهماً",
-    ],
-    featured: false,
-    priority: false,
-  },
-  {
-    id: "night-renewal-ritual",
-    description: "روتين ناعم للعناية الليلية.",
-    TimeIcon: Moon,
-    timeLabel: "مثالي للعناية الليلية",
-    cta: "أضيفي روتين الليل للسلة",
-    imageSrc: "/images/bundles/night-renewal.jpg",
-    imageAlt: "روتين التجديد الليلي من نورا سكين",
-    imageBadge: "🌙 بشرتكِ تتجدد وأنتِ نائمة",
-    reasons: [
-      "تجديد ليلي فعّال",
-      "ترطيب عميق للعينين",
-      "خطوتان — روتين مختصر",
-    ],
-    featured: false,
-    priority: false,
-  },
   {
     id: "nura-complete-ritual",
     description:
@@ -55,40 +19,53 @@ const BUNDLE_DISPLAY = [
     cta: "أضيفي الروتين الكامل للسلة",
     imageSrc: "/images/bundles/complete-routine.jpg",
     imageAlt: "روتين نورا الكامل من نورا سكين",
-    imageBadge: "⭐ الأعلى قيمة · الأوفر تكلفة",
+    imageBadge: "الأعلى قيمة · الأوفر تكلفة",
     reasons: [
       "وفّري 247 درهماً",
       "صباح + مساء في باقة",
-      "الأكثر مبيعاً هذا الموسم",
+      "4 منتجات",
     ],
     featured: true,
     priority: true,
+    weeklyBuyers: 47,
+  },
+  {
+    id: "morning-ritual",
+    description: "روتين صباحي للحماية والإشراقة.",
+    TimeIcon: Sun,
+    timeLabel: "روتين صباحي · حماية ونضارة",
+    cta: "أضيفي روتين الصباح للسلة",
+    imageSrc: "/images/bundles/morning-routine.jpg",
+    imageAlt: "روتين الصباح من نورا سكين",
+    imageBadge: "اختيار الصباح الذكي",
+    reasons: [
+      "حماية شمسية 50",
+      "إشراقة وتوازن يومي",
+      "وفّري 178 درهماً",
+    ],
+    featured: false,
+    priority: false,
+    weeklyBuyers: 39,
+  },
+  {
+    id: "night-renewal-ritual",
+    description: "روتين ناعم للعناية الليلية.",
+    TimeIcon: Moon,
+    timeLabel: "روتين ليلي · راحة وتجديد",
+    cta: "أضيفي روتين الليل للسلة",
+    imageSrc: "/images/bundles/night-renewal.jpg",
+    imageAlt: "روتين التجديد الليلي من نورا سكين",
+    imageBadge: "أنسب اختيار قبل النوم",
+    reasons: [
+      "تجديد ليلي فعّال",
+      "ترطيب عميق للعينين",
+      "خطوتان",
+    ],
+    featured: false,
+    priority: false,
+    weeklyBuyers: 28,
   },
 ] as const;
-
-/* ─── Sub-components ──────────────────────────────────────────────────────── */
-
-function BundleCheckIcon() {
-  return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 15 15"
-      fill="none"
-      aria-hidden="true"
-      className="bundle-check-icon"
-    >
-      <circle cx="7.5" cy="7.5" r="7" stroke="currentColor" strokeWidth="1" />
-      <path
-        d="M4.5 7.5L6.5 9.5L10.5 5.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 function SavingsPill({ amount }: { amount: number }) {
   return (
@@ -107,6 +84,37 @@ function SavingsPill({ amount }: { amount: number }) {
   );
 }
 
+function displayProductName(name: string, slug: string) {
+  if (slug === "nura-spf-50") {
+    return "واقي الشمس اليومي إس بي إف 50";
+  }
+
+  return name;
+}
+
+function BundleProductList({ products }: { products: Array<(typeof PRODUCTS_MAP)[string]> }) {
+  return (
+    <ul className="bundle-checklist" role="list">
+      {products.map((product) => (
+        <li key={product.slug} className="bundle-checklist-item" role="listitem">
+          <span className="bundle-checklist-text">
+            {displayProductName(product.name_ar, product.slug)}
+          </span>
+          <Image
+            src={PRODUCT_THUMBNAILS[product.slug] ?? PRODUCT_THUMBNAILS["nura-balance"]}
+            alt={`صورة ${displayProductName(product.name_ar, product.slug)}`}
+            width={28}
+            height={28}
+            className="bundle-checklist-thumb"
+            loading="lazy"
+          />
+          <Check className="bundle-check-icon" strokeWidth={2.1} aria-hidden="true" />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function BundleCard({
   bundle,
   display,
@@ -115,7 +123,7 @@ function BundleCard({
   display: (typeof BUNDLE_DISPLAY)[number];
 }) {
   const { addItem } = useCartStore();
-  const products = bundle.products.map((slug) => PRODUCTS_MAP[slug]).filter(Boolean);
+  const products = bundle.products.map((slug) => PRODUCTS_MAP[slug]).filter(Boolean) as Array<(typeof PRODUCTS_MAP)[string]>;
   const { TimeIcon, featured } = display;
 
   return (
@@ -124,13 +132,6 @@ function BundleCard({
       aria-label={bundle.name_ar}
     >
       {/* "أفضل قيمة" badge — only on highlighted card */}
-      {featured && (
-        <div className="bundle-best-badge" role="note">
-          أفضل قيمة
-        </div>
-      )}
-
-      {/* Hero image — full-width, flush with card top */}
       <div className="bundle-image-wrap">
         <Image
           src={display.imageSrc}
@@ -141,26 +142,21 @@ function BundleCard({
           priority={display.priority}
           loading={display.priority ? undefined : "lazy"}
         />
-        {/* Gradient that bleeds image into card background */}
         <div className="bundle-image-fade" aria-hidden="true" />
-        {/* Frosted-glass pill — one key promise floated over the photo */}
-        <div className="bundle-image-badge">{display.imageBadge}</div>
+        <div className="bundle-badge">{display.imageBadge}</div>
+        <div className="bundle-time-label">{display.timeLabel}</div>
       </div>
 
       <div className="bundle-content">
-        {/* 1. Time-of-use row */}
         <div className="bundle-time-row">
           <TimeIcon size={15} strokeWidth={1.5} aria-hidden="true" />
           <span>{display.timeLabel}</span>
         </div>
 
-        {/* 2. Bundle name */}
         <h3 className="bundle-name">{bundle.name_ar}</h3>
 
-        {/* 3. Description */}
         <p className="bundle-desc">{display.description}</p>
 
-        {/* 3b. Why this pack — 3 compact reason pills */}
         <div className="bundle-reason-pills" role="list" aria-label="مزايا الباقة">
           {display.reasons.map((reason) => (
             <span key={reason} className="bundle-reason-pill" role="listitem">
@@ -169,54 +165,39 @@ function BundleCard({
           ))}
         </div>
 
-        {/* 4. Product checklist — checkmark + text only, no thumbnails */}
-        <ul className="bundle-checklist" role="list">
-          {products.map((product) => (
-            <li key={product!.slug} className="bundle-checklist-item" role="listitem">
-              <BundleCheckIcon />
-              {/* flex:1 + min-width:0 prevents long Arabic names from collapsing */}
-              <span className="bundle-checklist-text">{product!.name_ar}</span>
-            </li>
-          ))}
-        </ul>
+        <BundleProductList products={products} />
 
-        {/* 5. Price block */}
         <div className="bundle-price-block">
-          <p className="bundle-price-original">
-            القيمة الكاملة:{" "}
-            <span className="bundle-price-strikethrough">{bundle.compareAtPrice} درهم</span>
-          </p>
-          <div className="bundle-price-row">
+          <div className="bundle-price-main-row">
             <p className="bundle-price-main" aria-label={`السعر ${bundle.price} درهم`}>
               <span className="bundle-price-number">{bundle.price}</span>
               <span className="bundle-price-currency">درهم</span>
             </p>
+          </div>
+          <div className="bundle-price-meta">
+            <span className="bundle-price-original">القيمة الكاملة: {bundle.compareAtPrice} درهم</span>
             <SavingsPill amount={bundle.saving} />
           </div>
         </div>
 
-        {/* 6. Social proof row */}
         <div className="bundle-social-proof">
           <span className="bundle-social-row">
             <Star size={12} strokeWidth={1.5} aria-hidden="true" />
-            4.8 من 2,341 تقييم
+            4.8 من {REVIEW_COUNT} تقييم
             <span className="bundle-social-sep" aria-hidden="true">·</span>
             <Truck size={12} strokeWidth={1.5} aria-hidden="true" />
             الدفع عند الاستلام
           </span>
-          {featured && (
-            <span className="bundle-social-urgency">
-              <Users size={12} strokeWidth={1.5} aria-hidden="true" />
-              اشترتها 47 امرأة هذا الأسبوع
-            </span>
-          )}
+          <span className="bundle-social-urgency">
+            <Users size={12} strokeWidth={1.5} aria-hidden="true" />
+            اشترتها {display.weeklyBuyers} امرأة هذا الأسبوع
+          </span>
         </div>
 
-        {/* 7. CTA button */}
         <button
           type="button"
           onClick={() => addBundleToCart(bundle, addItem)}
-          className={`bundle-cta ${featured ? "bundle-cta-primary" : "bundle-cta-outlined"}`}
+          className="bundle-cta"
           aria-label={display.cta}
         >
           <span aria-hidden="true">✦</span>
@@ -236,12 +217,17 @@ export function HomePacksSection() {
 
         {/* Section header */}
         <header className="bundles-header">
-          <p className="bundles-eyebrow" aria-hidden="true">NOS COFFRETS</p>
+          <p className="bundles-eyebrow" aria-hidden="true">باقات نورا سكين</p>
           <h2 id="bundles-heading" className="bundles-heading">اختاري الباقة التي تناسبك</h2>
           <p className="bundles-subline">ثلاث باقات مدروسة بعناية — وفّري حتى 247 درهم</p>
         </header>
 
-        {/* Three bundle cards */}
+        <div className="bundle-swipe-hint" aria-hidden="true">
+          <span>←</span>
+          <span>اسحبي لرؤية كل الباقات</span>
+          <span>→</span>
+        </div>
+
         <div className="bundles-grid" role="list" aria-label="باقات نورا سكين">
           {BUNDLE_DISPLAY.map((display) => {
             const bundle = BUNDLES.find((b) => b.id === display.id)!;
@@ -260,7 +246,24 @@ export function HomePacksSection() {
 
         {/* Brand benefit row */}
         <div className="bundles-benefit-row">
-          <BenefitIconRow />
+          <div className="bundle-trust-bar" aria-label="مؤشرات الثقة في باقات نورا سكين">
+            <span className="bundle-trust-item">
+              <Leaf size={16} strokeWidth={1.5} aria-hidden="true" />
+              صنع في المغرب
+            </span>
+            <span className="bundle-trust-item">
+              <ShieldCheck size={16} strokeWidth={1.5} aria-hidden="true" />
+              حماية شمسية 50
+            </span>
+            <span className="bundle-trust-item">
+              <Droplets size={16} strokeWidth={1.5} aria-hidden="true" />
+              ترطيب عميق
+            </span>
+            <span className="bundle-trust-item">
+              <Sparkles size={16} strokeWidth={1.5} aria-hidden="true" />
+              طبيعي 100%
+            </span>
+          </div>
         </div>
 
       </div>
