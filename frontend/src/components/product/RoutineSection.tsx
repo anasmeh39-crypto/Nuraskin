@@ -2,12 +2,8 @@
 
 import React from "react";
 import type { LucideIcon } from "lucide-react";
-import { Check, Droplets, Eye, Moon, Sparkles, Sun } from "lucide-react";
+import { Droplets, Eye, Moon, Sparkles, Sun } from "lucide-react";
 import { motion } from "framer-motion";
-import { PRODUCTS, BUNDLES, PRODUCTS_MAP } from "@/config/products";
-import { useCartStore } from "@/store/cart";
-import { generateEventId, trackAddToCart } from "@/lib/tracking";
-import { CartItem } from "@/types";
 
 interface Props {
   currentSlug: string;
@@ -77,47 +73,20 @@ const ROUTINE_STEPS: Record<string, RoutineStep[]> = {
   ],
 };
 
+const PRODUCT_PACK_IMAGES: Record<string, string> = {
+  "nura-balance": "/images/products/serum-niacinamide-pack.png",
+  "nura-eye-revive": "/images/products/eye-serum-pack.png",
+  "nura-night-renewal": "/images/products/retinol-cream-pack.png",
+  "nura-spf-50": "/images/products/sunscreen-spf50-pack.png",
+};
+
 export function RoutineSection({ currentSlug }: Props) {
-  const { addItem } = useCartStore();
-
-  const handleBundleAdd = (slugs: string[], bundlePrice: number, bundleName: string) => {
-    const unitPrice = Math.floor(bundlePrice / slugs.length);
-    const remainder = bundlePrice - unitPrice * slugs.length;
-
-    slugs.forEach((slug, index) => {
-      const p = PRODUCTS_MAP[slug];
-      if (p) {
-        const allocatedPrice = unitPrice + (index === 0 ? remainder : 0);
-        addItem({
-          slug: p.slug,
-          name_ar: p.name_ar,
-          price: allocatedPrice,
-          image: p.image,
-          compareAtPrice: p.price,
-          bundleName,
-          discountAmount: Math.max(p.price - allocatedPrice, 0),
-        });
-      }
-    });
-    const cartItems: CartItem[] = slugs.map((slug, index) => {
-      const p = PRODUCTS_MAP[slug];
-      return {
-        slug,
-        name_ar: p?.name_ar || slug,
-        price: unitPrice + (index === 0 ? remainder : 0),
-        image: "",
-        quantity: 1,
-        compareAtPrice: p?.price,
-        bundleName,
-        discountAmount: Math.max((p?.price ?? 0) - (unitPrice + (index === 0 ? remainder : 0)), 0),
-      };
-    });
-    const total = cartItems.reduce((s, i) => s + i.price, 0);
-    trackAddToCart(cartItems, total, generateEventId());
+  const scrollToRituals = () => {
+    document.getElementById("ritual-selector")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <section className="relative overflow-hidden bg-ivory py-20">
+    <section className="relative overflow-hidden bg-ivory py-20" dir="rtl">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-rose-soft/40 to-transparent" />
       <div className="pointer-events-none absolute -left-24 top-40 h-72 w-72 rounded-full bg-gold-light/25 blur-3xl" />
 
@@ -135,7 +104,14 @@ export function RoutineSection({ currentSlug }: Props) {
           </p>
         </motion.div>
 
-        <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="relative mb-8 grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 text-center md:block">
+            <p className="mb-2 text-[13px] italic text-[#8C6E73]">روتينك الكامل = صباح + ليل</p>
+            <svg className="mx-auto h-6 w-28 text-[#C4788A]" viewBox="0 0 120 24" fill="none" aria-hidden>
+              <path d="M10 12h100" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <path d="M18 5l-8 7 8 7M102 5l8 7-8 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
           {(["morning", "night"] as const).map((time) => (
             <motion.div
               key={time}
@@ -221,17 +197,34 @@ export function RoutineSection({ currentSlug }: Props) {
                               : "border-border/60 bg-white/60 opacity-75"
                         }`}
                       >
-                        <div className="flex flex-wrap items-center gap-2">
-                          <p className={`text-sm font-bold leading-snug ${isLinked ? "text-[#2C1810]" : "text-[#8A7878]"}`}>
-                            {step.label}
-                          </p>
-                          {isHere && (
-                            <span className="rounded-full bg-rose-deep px-2 py-0.5 text-[10px] font-bold text-white">
-                              خطوتك الحالية
-                            </span>
+                        <div className="flex items-start gap-3">
+                          {isLinked && (
+                            <img
+                              src={PRODUCT_PACK_IMAGES[step.slug]}
+                              alt={`صورة ${step.label} داخل الروتين`}
+                              className="h-[50px] w-[50px] shrink-0 object-contain bg-transparent"
+                              style={{ filter: "drop-shadow(0 4px 8px rgba(92,45,62,0.15))" }}
+                              loading="lazy"
+                            />
                           )}
+                          <div>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <p className={`text-sm font-bold leading-snug ${isLinked ? "text-[#2C1810]" : "text-[#8A7878]"}`}>
+                                {step.label}
+                              </p>
+                              {isHere && (
+                                <motion.span
+                                  animate={{ boxShadow: ["0 0 0 0 rgba(196,120,138,0.4)", "0 0 0 8px rgba(196,120,138,0)", "0 0 0 0 rgba(196,120,138,0.4)"] }}
+                                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                  className="current-step-badge rounded-full bg-rose-deep px-2 py-0.5 text-[10px] font-bold text-white"
+                                >
+                                  خطوتك الحالية
+                                </motion.span>
+                              )}
+                            </div>
+                            <p className="mt-1.5 text-xs leading-relaxed text-[#7A6560]">{step.desc}</p>
+                          </div>
                         </div>
-                        <p className="mt-1.5 text-xs leading-relaxed text-[#7A6560]">{step.desc}</p>
                       </div>
                     </div>
                   );
@@ -240,100 +233,17 @@ export function RoutineSection({ currentSlug }: Props) {
             </motion.div>
           ))}
         </div>
-
-        {/* Bundles */}
-        <div>
-          <div className="mb-10 text-center">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">عروض الطقم</p>
-            <h3 className="text-2xl font-bold text-[#2C1810] md:text-3xl">اكتملي روتينك — بقيمة أوضح</h3>
-            <p className="mx-auto mt-2 max-w-md text-sm text-[#6B5555]">
-              سعرة مقارنة بشراء القطع منفردة؛ مناسب إذا كنتِ تبنين نظاماً كاملاً.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {BUNDLES.map((bundle, idx) => {
-              const bundleProducts = bundle.products.map((s) => PRODUCTS_MAP[s]).filter(Boolean);
-              const isPopular = idx === 0;
-              const listTotal = bundle.products.reduce((sum, slug) => {
-                const p = PRODUCTS.find((x) => x.slug === slug);
-                return sum + (p?.price ?? 0);
-              }, 0);
-
-              return (
-                <motion.div
-                  key={bundle.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.08 }}
-                  className={`relative flex flex-col overflow-hidden rounded-[1.75rem] border p-6 transition-all hover:-translate-y-0.5 ${
-                    isPopular
-                      ? "border-gold/45 bg-gradient-to-b from-white via-rose-blush/25 to-gold-light/20 shadow-[0_22px_55px_rgba(139,74,90,0.12)] ring-2 ring-gold/25"
-                      : "border-border bg-white shadow-[0_14px_40px_rgba(58,34,44,0.05)] hover:border-rose-soft/50"
-                  }`}
-                >
-                  {bundle.tag && (
-                    <div
-                      className={`absolute -top-px start-6 rounded-b-xl px-4 py-1.5 text-[10px] font-bold tracking-wide text-white shadow-md ${
-                        isPopular ? "bg-gradient-to-l from-brand-deep to-rose-deep" : "bg-brand-deep"
-                      }`}
-                    >
-                      {bundle.tag}
-                    </div>
-                  )}
-
-                  <h4 className={`mb-5 mt-4 text-lg font-bold ${isPopular ? "text-brand-deep" : "text-[#2C1810]"}`}>
-                    {bundle.name_ar}
-                  </h4>
-
-                  <ul className="mb-6 flex-1 space-y-2.5">
-                    {bundleProducts.map((p) => (
-                      <li key={p!.slug} className="flex gap-2 text-sm text-[#5C4A4A]">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-gold" strokeWidth={2.2} aria-hidden />
-                        <span className="leading-snug">
-                          {p!.name_ar}
-                          {p!.slug === currentSlug && (
-                            <span className="me-2 rounded-md bg-rose-blush px-1.5 py-0.5 text-[10px] font-bold text-rose-deep">
-                              مختارة
-                            </span>
-                          )}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-auto border-t border-border/60 pt-5">
-                    <div className="mb-1 flex flex-wrap items-end gap-2">
-                      <span className="text-3xl font-black text-rose-deep">{bundle.price}</span>
-                      <span className="mb-1 text-sm font-semibold text-rose-mid">درهم</span>
-                      {bundle.saving > 0 && listTotal > bundle.price && (
-                        <div className="mt-3 w-full space-y-1 text-sm text-[#6B5555]">
-                          <p>القيمة الكاملة: <span className="line-through">{listTotal} درهم</span></p>
-                          <p>سعر الروتين: <span className="font-bold text-[#2C1810]">{bundle.price} درهم</span></p>
-                          <p className="inline-flex rounded-full bg-nura-champagne-light px-2 py-0.5 text-[11px] font-bold text-nura-plum">
-                            وفّري {bundle.saving} درهم
-                          </p>
-                        </div>
-                      )}
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => handleBundleAdd(bundle.products, bundle.price, bundle.name_ar)}
-                      className={`mt-4 w-full rounded-2xl py-3.5 text-sm font-bold transition-all active:scale-[0.99] ${
-                        isPopular
-                          ? "bg-brand-deep text-white shadow-lg shadow-brand-deep/20 hover:bg-brand-mid"
-                          : "border border-rose-soft/40 bg-ivory text-rose-deep hover:bg-rose-blush"
-                      }`}
-                    >
-                      أضيفي الطقم للسلة
-                    </button>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+        <div className="text-center">
+          <p className="mx-auto max-w-xl text-[13px] leading-7 text-[#8C6E73]">
+            المنتجات اللي مشوفتيهاش في روتينك الحالي؟ كتلقيهم في الروتين الكامل.
+          </p>
+          <button
+            type="button"
+            onClick={scrollToRituals}
+            className="mt-4 inline-flex min-h-[46px] items-center justify-center rounded-full border border-rose-soft/45 bg-white px-6 text-sm font-bold text-rose-deep transition hover:bg-rose-blush"
+          >
+            شوفي الروتين الكامل ←
+          </button>
         </div>
       </div>
     </section>

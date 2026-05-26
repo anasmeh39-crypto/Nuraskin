@@ -331,6 +331,9 @@ export function IngredientAuthority({ product }: Props) {
           <p className="text-xs text-[#9B8A8A]">
             جميع المكونات ضمن أطر صناعة مستحضرات التجميل المعتادة — استخدمي المنتج حسب التوجيهات وتجنبي ملامسة العين المباشرة.
           </p>
+          <p className="mx-auto mt-5 max-w-[600px] px-4 py-5 text-center text-sm leading-7 text-[#8C6E73]">
+            هاد التركيب الخفيف مصمم خصيصاً باش يشتغل مع باقي منتجات الروتين — دون تعارض أو ثقل.
+          </p>
         </motion.div>
       </div>
     </section>

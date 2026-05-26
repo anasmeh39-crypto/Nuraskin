@@ -3,7 +3,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Product } from "@/types";
-import { Droplets } from "lucide-react";
+
+const PRODUCT_PACK_IMAGES: Record<string, string> = {
+  "nura-balance": "/images/products/serum-niacinamide-pack.png",
+  "nura-eye-revive": "/images/products/eye-serum-pack.png",
+  "nura-night-renewal": "/images/products/retinol-cream-pack.png",
+  "nura-spf-50": "/images/products/sunscreen-spf50-pack.png",
+};
 
 const PROBLEM_COPY: Record<string, { headline: string; paragraphs: string[]; moment: string }> = {
   "nura-balance": {
@@ -48,9 +54,10 @@ interface Props { product: Product }
 
 export function ProblemSection({ product }: Props) {
   const copy = PROBLEM_COPY[product.slug] || PROBLEM_COPY["nura-balance"];
+  const productImage = PRODUCT_PACK_IMAGES[product.slug] ?? product.image;
 
   return (
-    <section className="py-20 bg-white overflow-hidden">
+    <section className="py-20 bg-white overflow-hidden" dir="rtl">
       <div className="container-narrow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
@@ -63,14 +70,16 @@ export function ProblemSection({ product }: Props) {
             className="order-2 md:order-1"
           >
             <div className="relative">
-              {/* Abstract skin texture placeholder */}
-              <div className="aspect-[4/5] rounded-4xl bg-gradient-to-br from-rose-blush to-rose-light flex items-center justify-center overflow-hidden">
-                <div className="text-center space-y-4 p-8">
-                  <div className="w-24 h-24 rounded-full bg-white/60 backdrop-blur-sm mx-auto flex items-center justify-center">
-                    <Droplets className="h-10 w-10 text-rose-deep/65" strokeWidth={1.25} />
-                  </div>
-                  <p className="text-rose-mid/60 text-xs">صورة البشرة</p>
-                </div>
+              <div className="aspect-[4/5] rounded-4xl bg-[radial-gradient(circle_at_50%_28%,rgba(255,255,255,0.96),rgba(242,224,229,0.72)_46%,rgba(245,240,234,0.95)_100%)] flex items-center justify-center overflow-visible border border-rose-soft/20 shadow-[0_24px_70px_rgba(92,45,62,0.10)]">
+                <motion.img
+                  src={productImage}
+                  alt={`صورة ${product.name_ar} من نورا سكين`}
+                  className="hero-product-img block h-auto w-[220px] object-contain bg-transparent"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  loading="lazy"
+                  style={{ filter: "drop-shadow(0 12px 32px rgba(92,45,62,0.22))" }}
+                />
               </div>
               {/* Floating quote card */}
               <motion.div
@@ -121,6 +130,9 @@ export function ProblemSection({ product }: Props) {
                   {para}
                 </motion.p>
               ))}
+              <p className="text-[15px] italic leading-relaxed text-[#8C6E73]">
+                "هاد المنتج يشتغل — وكيشتغل بقوة أكثر ضمن روتين متكامل."
+              </p>
             </div>
 
             {/* Emotional moment */}

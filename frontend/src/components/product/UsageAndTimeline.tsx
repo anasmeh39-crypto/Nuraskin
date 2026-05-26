@@ -33,7 +33,7 @@ function usageCopy(product: Product) {
   return [
     ["01", "بعد التنظيف", "ضعيه على بشرة نظيفة قبل المرطب أو كريم الحماية."],
     ["02", "قطرتان فقط", "وزعي كمية صغيرة على الوجه والرقبة بلطف."],
-    ["03", "روتين يومي", "استخدميه صباحًا أو مساءً حسب احتياج بشرتك."],
+    ["03", "روتين يومي", "روتين يومي — واللي كيخليه يشتغل أحسن هو الاتساق مع بقية الروتين."],
   ];
 }
 
@@ -41,7 +41,7 @@ export function UsageAndTimeline({ product }: Props) {
   const steps = usageCopy(product);
 
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-16 md:py-20" dir="rtl">
       <div className="container-wide">
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
@@ -70,10 +70,13 @@ export function UsageAndTimeline({ product }: Props) {
                 { icon: Droplets, title: "الأيام الأولى", text: "ملمس ألطف وإحساس أكثر راحة داخل الروتين." },
                 { icon: CalendarDays, title: "مع الانتظام", text: "مظهر البشرة يبدأ في الظهور أكثر توازنًا ونضارة حسب طبيعتها." },
                 { icon: Sparkles, title: "على المدى الطويل", text: "روتين ثابت يدعم مظهرًا صحيًا وأكثر صفاءً مع الاستخدام المستمر." },
+                { icon: Sparkles, title: "مع الروتين الكامل", text: "النتائج كتجي أسرع لما كل منتج كيدعم الآخر — الصباح يحمي، الليل يصلح.", featured: true },
               ].map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.title} className="flex gap-4 rounded-3xl border border-rose-soft/20 bg-rose-blush p-5">
+                  <div key={item.title} className={`flex gap-4 rounded-3xl border p-5 ${
+                    item.featured ? "border-[#C4788A] bg-[#FDF4F7]" : "border-rose-soft/20 bg-rose-blush"
+                  }`}>
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-rose-deep">
                       <Icon className="h-5 w-5" strokeWidth={1.5} />
                     </div>

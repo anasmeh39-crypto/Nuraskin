@@ -62,7 +62,7 @@ const tierStyles: Record<
   complete: {
     Icon: Crown,
     shell:
-      "scale-[1.01] border-[#C4788A] bg-[radial-gradient(circle_at_18%_0%,rgba(196,120,138,0.42)_0%,transparent_58%),linear-gradient(135deg,#3D1A25_0%,#5C2D3E_58%,#7B3F55_100%)] text-white shadow-[0_24px_70px_rgba(61,26,37,0.30)]",
+      "scale-[1.01] border-[#C4788A] bg-[radial-gradient(circle_at_18%_0%,rgba(196,120,138,0.42)_0%,transparent_58%),linear-gradient(135deg,#1E0F14_0%,#5C2D3E_58%,#7B3F55_100%)] text-white shadow-[0_24px_70px_rgba(30,15,20,0.34)]",
     icon: "bg-[#F2B8C6] text-[#3D1A25]",
     badge: "border-transparent bg-[linear-gradient(135deg,#BF953F,#FCF6BA,#B38728)] text-[#3D2A00]",
     note: "الأكثر توفيراً",
@@ -92,6 +92,13 @@ const productBenefitIcons: Record<string, { Icon: typeof Sparkles; label: string
   "nura-spf-50": { Icon: Shield, label: "حماية" },
 };
 
+const tierCtaText: Record<Offer["tier"], string> = {
+  single: "جربيه لوحدو",
+  duo: "ابدأي الروتين الأساسي",
+  trio: "اختاري طقس الصباح",
+  complete: "اختاري الطقس الكامل ✦",
+};
+
 function ProductMiniLineup({ offer, selected }: { offer: Offer; selected: boolean }) {
   const isComplete = offer.tier === "complete";
 
@@ -114,7 +121,7 @@ function ProductMiniLineup({ offer, selected }: { offer: Offer; selected: boolea
           const count = offer.products.length;
           const middle = (count - 1) / 2;
           const offset = (index - middle) * (count >= 3 ? 25 : 36);
-          const baseWidth = isComplete ? 76 : 66;
+              const baseWidth = isComplete ? 82 : 66;
           const heroBoost = index === Math.round(middle) ? 10 : 0;
           const width = baseWidth + heroBoost;
           const mobileWidth = Math.max(54, width - 12);
@@ -236,14 +243,14 @@ export function OfferSelector({ product, onOfferChange }: Props) {
   }
 
   return (
-    <section className="space-y-4" aria-label="اختيار عرض المنتج">
+    <section className="space-y-4" aria-label="اختيار طقس المنتج" dir="rtl">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-nura-plum text-white shadow-ivory-sm">
             <Sparkles className="h-4 w-4" strokeWidth={1.6} aria-hidden />
           </span>
           <div>
-            <p className="text-sm font-bold text-nura-plum">اختاري العرض الأنسب</p>
+            <p className="text-sm font-bold text-nura-plum">اختاري طقسك</p>
             <p className="text-[11px] text-nura-muted">كلما كمل الروتين، كلما بان التوفير والقيمة</p>
           </div>
         </div>
@@ -253,7 +260,7 @@ export function OfferSelector({ product, onOfferChange }: Props) {
         </span>
       </div>
 
-      <div className="grid gap-3">
+      <div className="flex snap-x gap-3 overflow-x-auto pb-2 [scrollbar-width:none] md:grid md:grid-cols-2 md:overflow-visible md:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden">
         {offers.map((offer) => {
           const isOn = selected === offer.id;
           const styles = tierStyles[offer.tier];
@@ -267,7 +274,7 @@ export function OfferSelector({ product, onOfferChange }: Props) {
               type="button"
               onClick={() => select(offer)}
               aria-pressed={isOn}
-              className={`group relative w-full overflow-visible rounded-[1.5rem] border p-[1px] text-right transition-all duration-300 ${
+              className={`group relative min-w-[85vw] snap-start overflow-visible rounded-[1.5rem] border p-[1px] text-right transition-all duration-300 md:min-w-0 ${
                 styles.shell
               } ${
                 isOn
@@ -309,7 +316,12 @@ export function OfferSelector({ product, onOfferChange }: Props) {
                             {offer.badge}
                           </span>
                           {offer.tier === "complete" && (
-                            <span className="rounded-full border border-nura-champagne/50 bg-nura-champagne-light px-2.5 py-1 text-[10px] font-bold text-nura-plum">
+                            <span className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[10px] font-bold text-white/80">
+                              روتين كامل
+                            </span>
+                          )}
+                          {offer.tier === "trio" && (
+                            <span className="rounded-full border border-nura-rose-deep/20 bg-nura-rose-deep px-2.5 py-1 text-[10px] font-bold text-white">
                               مختار تلقائياً
                             </span>
                           )}
@@ -369,7 +381,7 @@ export function OfferSelector({ product, onOfferChange }: Props) {
                         </span>
                         <span className={`rounded-full px-2.5 py-1 font-black ${
                           offer.tier === "complete"
-                            ? "bg-nura-plum text-white"
+                            ? "bg-[#EAF3DE] text-[#27500A]"
                             : "bg-nura-champagne-light text-nura-plum"
                         }`}>
                           وفر {offer.saving} درهم
@@ -390,6 +402,15 @@ export function OfferSelector({ product, onOfferChange }: Props) {
                       </span>
                     )}
                   </div>
+                </div>
+
+                <div className="mt-3">
+                  <span className="flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#5C2D3E] px-4 text-center text-base font-bold text-white shadow-[0_12px_28px_rgba(92,45,62,0.18)]">
+                    {tierCtaText[offer.tier]}
+                  </span>
+                  <p className={`mt-2 text-center text-[11px] ${isComplete ? "text-white/62" : "text-nura-muted"}`}>
+                    الدفع عند الاستلام · توصيل سريع
+                  </p>
                 </div>
               </div>
             </button>

@@ -9,6 +9,7 @@ const DEFAULT_STATS = [
   { value: "3–4", label: "أسابيع للنتيجة الأولى", sub: "مع الاستخدام المنتظم" },
   { value: "0", label: "مواد ضارة", sub: "بارابين، سيليكون، ألوان صناعية" },
   { value: "100%", label: "شفافية المكونات", sub: "نعلن عن كل ما في التركيبة" },
+  { value: "4", label: "منتجات مكملة", sub: "كل وحدة مصممة باش تشتغل مع الأخرى" },
 ];
 
 const SPF_STATS = [
@@ -16,6 +17,7 @@ const SPF_STATS = [
   { value: "UVA/UVB", label: "حماية واسعة", sub: "فلاتر متعددة الاتجاه" },
   { value: "10%", label: "ألوفيرا", sub: "تهدئة وترطيب" },
   { value: "0%", label: "ملمس دهني ثقيل", sub: "تركيبة خفيفة وسريعة الامتصاص" },
+  { value: "4", label: "منتجات مكملة", sub: "كل وحدة مصممة باش تشتغل مع الأخرى" },
 ];
 
 const FORMULATION_POINTS = [
@@ -46,7 +48,7 @@ export function ScienceSection({ product }: Props) {
   const stats = isSpf ? SPF_STATS : DEFAULT_STATS;
 
   return (
-    <section className="py-20 bg-[#1C1410] overflow-hidden">
+    <section className="py-20 bg-[#1E0F14] overflow-hidden" dir="rtl">
       <div className="container-wide">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -55,7 +57,7 @@ export function ScienceSection({ product }: Props) {
           className="text-center mb-14"
         >
           <p className="text-xs text-rose-soft font-semibold tracking-wider uppercase mb-3">فلسفة التركيبة</p>
-          <h2 className="section-heading text-white">العلم وراء كل قطرة</h2>
+          <h2 className="section-heading text-white">تركيبة صُممت للروتين — مو للاستخدام المنفرد</h2>
           <p className="text-white/60 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
             {isSpf
               ? "حماية يومية واضحة، مرطبات مريحة، ولمسة خفيفة تناسب الالتزام الصباحي."
@@ -64,7 +66,7 @@ export function ScienceSection({ product }: Props) {
         </motion.div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-14">
           {stats.map((stat, i) => (
             <motion.div
               key={i}
@@ -113,6 +115,14 @@ export function ScienceSection({ product }: Props) {
           className="text-center text-white/30 text-xs mt-10"
         >
           نورا سكين هي منتجات تجميلية — ليست أدوية. النتائج تختلف من شخص لآخر.
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mx-auto mt-4 max-w-2xl text-center text-[13px] leading-6 text-white/50"
+        >
+          كل منتج في النظام اختير بعناية باش يكمل الآخر — مو يكرر دوره.
         </motion.p>
       </div>
     </section>

@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PRODUCTS, getProductBySlug } from "@/config/products";
-import { ProductHeroElite } from "@/components/product/ProductHeroElite";
 import { ProblemSection } from "@/components/product/ProblemSection";
 import { BeforeAfterSlider } from "@/components/product/BeforeAfterSlider";
+import { RoutineEducationSection } from "@/components/product/RoutineEducationSection";
 import { IngredientAuthority } from "@/components/product/IngredientAuthority";
+import { EmotionalTransformationSection } from "@/components/product/EmotionalTransformationSection";
 import { ScienceSection } from "@/components/product/ScienceSection";
-import { SunscreenDetailsSection } from "@/components/product/SunscreenDetailsSection";
 import { UsageAndTimeline } from "@/components/product/UsageAndTimeline";
 import { RoutineSection } from "@/components/product/RoutineSection";
-import { ReviewsElite } from "@/components/product/ReviewsElite";
+import { RoutineReviewsSection } from "@/components/product/RoutineReviewsSection";
+import { RitualSelectorSection } from "@/components/product/RitualSelectorSection";
 import { TrustAuthoritySection } from "@/components/product/TrustAuthoritySection";
-import { FAQElite } from "@/components/product/FAQElite";
-import { CrossSellsElite } from "@/components/product/CrossSellsElite";
 import { StickyMobileCTAElite } from "@/components/product/StickyMobileCTAElite";
 
 interface Props {
@@ -77,43 +76,40 @@ export default async function ProductPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* 1. Hero — gallery + offer selector + CTA */}
-      <ProductHeroElite product={product} />
-
-      {/* 2. Emotional problem agitation */}
+      {/* 1. Hero — problem hook */}
       <ProblemSection product={product} />
 
-      {/* 3. Before / After perception slider */}
+      {/* 2. Before / After perception slider */}
       <BeforeAfterSlider productSlug={product.slug} />
+
+      {/* 3. Why routine beats one product */}
+      <RoutineEducationSection />
 
       {/* 4. Ingredient authority */}
       <IngredientAuthority product={product} />
 
-      {/* SPF-specific product details */}
-      {product.slug === "nura-spf-50" && <SunscreenDetailsSection />}
+      {/* 5. Emotional transformation */}
+      <EmotionalTransformationSection />
 
-      {/* 5. Science & clinical positioning */}
+      {/* 6. Science & philosophy */}
       <ScienceSection product={product} />
 
-      {/* 6. How to use + realistic timeline */}
-      <UsageAndTimeline product={product} />
-
-      {/* 7. Complete routine — AOV booster */}
+      {/* 7. Routine visualizer */}
       <RoutineSection currentSlug={product.slug} />
 
-      {/* 8. Social proof */}
-      <ReviewsElite product={product} />
+      {/* 8. How to use + realistic timeline */}
+      <UsageAndTimeline product={product} />
 
-      {/* 9. Trust & authority */}
+      {/* 9. Routine-focused social proof */}
+      <RoutineReviewsSection />
+
+      {/* 10. Ritual selector */}
+      <RitualSelectorSection product={product} />
+
+      {/* 11. Trust bar */}
       <TrustAuthoritySection />
 
-      {/* 10. FAQ — objection handling */}
-      <FAQElite product={product} />
-
-      {/* 11. Cross-sells */}
-      <CrossSellsElite product={product} />
-
-      {/* 12. Sticky mobile CTA */}
+      {/* Sticky mobile CTA */}
       <StickyMobileCTAElite product={product} />
     </>
   );
