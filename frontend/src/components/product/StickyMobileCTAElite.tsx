@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Product } from "@/types";
 import { BRAND_ASSETS } from "@/config/brand";
+import { getProductPageOffers, ProductPageOffer } from "@/config/products";
 import { useCartStore } from "@/store/cart";
 import { generateEventId, trackAddToCart } from "@/lib/tracking";
 
@@ -15,6 +16,10 @@ interface Props {
 export function StickyMobileCTAElite({ product }: Props) {
   const [visible, setVisible] = useState(false);
   const { addItem } = useCartStore();
+  const offers = React.useMemo(() => getProductPageOffers(product.slug), [product.slug]);
+  const defaultOffer = offers.find((offer) => offer.recommended) ?? offers[offers.length - 1] ?? offers[0];
+  const [selectedOfferId, setSelectedOfferId] = useState(defaultOffer?.id);
+  const selectedOffer = offers.find((offer) => offer.id === selectedOfferId) ?? defaultOffer;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,20 +29,56 @@ export function StickyMobileCTAElite({ product }: Props) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleAdd = () => {
-    addItem({
-      slug: product.slug,
-      name_ar: product.name_ar,
-      price: product.price,
-      image: product.image,
-      compareAtPrice: product.compareAtPrice,
-      discountAmount: product.compareAtPrice - product.price,
+  useEffect(() => {
+    setSelectedOfferId(defaultOffer?.id);
+  }, [defaultOffer?.id]);
+
+  useEffect(() => {
+    const handleOfferChange = (event: Event) => {
+      const detail = (event as CustomEvent<{ productSlug: string; offerId: string }>).detail;
+      if (detail?.productSlug === product.slug) {
+        setSelectedOfferId(detail.offerId);
+      }
+    };
+
+    window.addEventListener("nura-offer-change", handleOfferChange);
+    return () => window.removeEventListener("nura-offer-change", handleOfferChange);
+  }, [product.slug]);
+
+  const addOfferToCart = (offer: ProductPageOffer) => {
+    const unitPrice = Math.floor(offer.price / offer.products.length);
+    const remainder = offer.price - unitPrice * offer.products.length;
+
+    offer.products.forEach((p, index) => {
+      const allocatedPrice = unitPrice + (index === 0 ? remainder : 0);
+      const compareAtPrice = offer.products.length > 1 ? p.price : p.compareAtPrice;
+      addItem({
+        slug: p.slug,
+        name_ar: p.name_ar,
+        price: allocatedPrice,
+        image: p.image,
+        compareAtPrice,
+        bundleName: offer.bundleName,
+        discountAmount: Math.max(compareAtPrice - allocatedPrice, 0),
+      });
     });
+
     trackAddToCart(
-      [{ slug: product.slug, name_ar: product.name_ar, price: product.price, image: product.image, quantity: 1 }],
-      product.price,
+      offer.products.map((p, index) => ({
+        slug: p.slug,
+        name_ar: p.name_ar,
+        price: unitPrice + (index === 0 ? remainder : 0),
+        image: p.image,
+        quantity: 1,
+      })),
+      offer.price,
       generateEventId()
     );
+  };
+
+  const handleAdd = () => {
+    if (!selectedOffer) return;
+    addOfferToCart(selectedOffer);
   };
 
   return (
@@ -57,14 +98,16 @@ export function StickyMobileCTAElite({ product }: Props) {
               </Link>
               {/* Product info */}
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-bold text-[#2C1810] truncate">{product.name_ar}</p>
+                <p className="text-xs font-bold text-[#2C1810] truncate">{selectedOffer?.label ?? product.name_ar}</p>
                 <p className="text-[10px] text-[#9B8A8A]">الدفع عند الاستلام</p>
               </div>
 
               {/* Price */}
               <div className="text-center shrink-0">
-                <p className="text-[10px] font-semibold text-[#9B8A8A] line-through">بدل {product.compareAtPrice}</p>
-                <p className="font-bold text-rose-deep text-lg">{product.price}</p>
+                {selectedOffer?.originalPrice && (
+                  <p className="text-[10px] font-semibold text-[#9B8A8A] line-through">بدل {selectedOffer.originalPrice}</p>
+                )}
+                <p className="font-bold text-rose-deep text-lg">{selectedOffer?.price ?? product.price}</p>
                 <p className="text-[10px] text-rose-mid">درهم</p>
               </div>
 

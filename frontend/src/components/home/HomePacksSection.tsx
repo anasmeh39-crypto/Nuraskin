@@ -21,7 +21,7 @@ const BUNDLE_DISPLAY = [
     imageAlt: "روتين نورا الكامل من نورا سكين",
     imageBadge: "الأعلى قيمة · الأوفر تكلفة",
     reasons: [
-      "وفّري 247 درهماً",
+      "وفّري 397 درهماً",
       "صباح + مساء في باقة",
       "4 منتجات",
     ],
@@ -41,7 +41,7 @@ const BUNDLE_DISPLAY = [
     reasons: [
       "حماية شمسية 50",
       "إشراقة وتوازن يومي",
-      "وفّري 178 درهماً",
+      "وفّري 278 درهماً",
     ],
     featured: false,
     priority: false,
@@ -219,7 +219,7 @@ export function HomePacksSection() {
         <header className="bundles-header">
           <p className="bundles-eyebrow" aria-hidden="true">باقات نورا سكين</p>
           <h2 id="bundles-heading" className="bundles-heading">اختاري الباقة التي تناسبك</h2>
-          <p className="bundles-subline">ثلاث باقات مدروسة بعناية — وفّري حتى 247 درهم</p>
+          <p className="bundles-subline">ثلاث باقات مدروسة بعناية — وفّري حتى 397 درهم</p>
         </header>
 
         <div className="bundle-swipe-hint" aria-hidden="true">

@@ -225,7 +225,7 @@ export default function HomePage() {
                   القيمة الكاملة: <span className="line-through">{routineBundle.compareAtPrice} درهم</span>
                 </p>
                 <p className="text-2xl font-bold text-rose-deep">سعر الروتين: {routineBundle.price} درهم</p>
-                <p className="text-xs font-bold text-emerald-700">وفّري {routineBundle.saving} درهم</p>
+                <p className="text-xs font-bold text-nura-plum">وفّري {routineBundle.saving} درهم</p>
               </div>
               <Link href="/products" className="rounded-full bg-rose-deep px-6 py-3 text-center text-sm font-bold text-white shadow-rose-md transition hover:bg-[#774956]">
                 اكتشفي الروتين الكامل

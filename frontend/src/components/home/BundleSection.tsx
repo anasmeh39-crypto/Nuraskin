@@ -135,7 +135,7 @@ export function BundleSection() {
                       <p>سعر الروتين: <span className={isMain ? "font-bold text-white" : "font-bold text-brand-deep"}>{bundle.price} درهم</span></p>
                       <p
                         className={`inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-bold ${
-                          isMain ? "bg-white/15 text-gold-light" : "bg-emerald-50 text-emerald-800"
+                          isMain ? "bg-white/15 text-gold-light" : "bg-gold-light text-brand-deep"
                         }`}
                       >
                         وفّري {bundle.saving} درهم

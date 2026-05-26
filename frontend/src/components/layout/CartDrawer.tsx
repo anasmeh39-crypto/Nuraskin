@@ -32,10 +32,31 @@ export function CartDrawer() {
   const inCartSlugs = new Set(items.map((i) => i.slug));
   const crossSells = Object.values(PRODUCTS_MAP).filter((p) => !inCartSlugs.has(p.slug));
   const missingRoutineProducts = Object.values(PRODUCTS_MAP).filter((p) => !inCartSlugs.has(p.slug));
-  const bundleGroups = BUNDLES.map((bundle) => {
-    const groupItems = items.filter((item) => item.bundleName === bundle.name_ar);
-    return { bundle, items: groupItems };
-  }).filter((group) => group.items.length > 0);
+  const bundleMetaByName = new Map(BUNDLES.map((bundle) => [bundle.name_ar, bundle]));
+  const groupedBundleItems = items.reduce<Map<string, typeof items>>((groups, item) => {
+    if (!item.bundleName) return groups;
+    const group = groups.get(item.bundleName) ?? [];
+    group.push(item);
+    groups.set(item.bundleName, group);
+    return groups;
+  }, new Map());
+  const bundleGroups = Array.from(groupedBundleItems.entries()).map(([bundleName, groupItems]) => {
+    const configuredBundle = bundleMetaByName.get(bundleName);
+    const totalPrice = groupItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const compareAtPrice = groupItems.reduce(
+      (sum, item) => sum + (item.compareAtPrice ?? item.price) * item.quantity,
+      0
+    );
+
+    return {
+      id: configuredBundle?.id ?? bundleName,
+      name_ar: configuredBundle?.name_ar ?? bundleName,
+      compareAtPrice,
+      saving: Math.max(compareAtPrice - totalPrice, 0),
+      items: groupItems,
+      totalPrice,
+    };
+  });
   const hasPack = bundleGroups.length > 0;
   const soloCount = items.filter((item) => !item.bundleName).length;
   const recommendedPack = BUNDLES.find((bundle) => bundle.id === "nura-complete-ritual") ?? BUNDLES[0];
@@ -199,23 +220,23 @@ export function CartDrawer() {
               ) : (
                 <div className="p-5 space-y-3">
                   {/* Cart items */}
-                  {bundleGroups.map(({ bundle, items: groupItems }) => (
+                  {bundleGroups.map((bundle) => (
                     <div key={bundle.id} className="rounded-2xl border border-gold/25 bg-white p-4 shadow-ivory-sm">
                       <div className="mb-3 flex items-start justify-between gap-3">
                         <div>
                           <p className="text-sm font-bold text-rose-deep">{bundle.name_ar}</p>
                           <p className="mt-1 text-xs text-[#6B5555]">
-                            القيمة الكاملة: <span className="line-through">{bundle.compareAtPrice * (groupItems[0]?.quantity ?? 1)} درهم</span>
+                            القيمة الكاملة: <span className="line-through">{bundle.compareAtPrice} درهم</span>
                           </p>
-                          <p className="text-xs font-bold text-emerald-700">وفّري {bundle.saving * (groupItems[0]?.quantity ?? 1)} درهم</p>
+                          <p className="text-xs font-bold text-nura-plum">وفّري {bundle.saving} درهم</p>
                         </div>
                         <div className="text-end">
                           <p className="shrink-0 text-lg font-black text-[#2C1810]">
-                            {groupItems.reduce((sum, item) => sum + item.price * item.quantity, 0)} درهم
+                            {bundle.totalPrice} درهم
                           </p>
                           <button
                             type="button"
-                            onClick={() => groupItems.forEach((item) => removeItem(item.cartKey || item.slug))}
+                            onClick={() => bundle.items.forEach((item) => removeItem(item.cartKey || item.slug))}
                             className="mt-1 text-[11px] font-bold text-[#9B8A8A] transition hover:text-rose-deep"
                           >
                             إزالة الباقة
@@ -223,7 +244,7 @@ export function CartDrawer() {
                         </div>
                       </div>
                       <div className="space-y-2 border-t border-border/70 pt-3">
-                        {groupItems.map((item) => (
+                        {bundle.items.map((item) => (
                           <div key={item.cartKey || item.slug} className="flow-bundle-product-row">
                             <FlowProductImage
                               src={item.image}
@@ -368,7 +389,7 @@ export function CartDrawer() {
                       <div className="mt-3 flex items-end justify-between gap-3">
                         <div className="text-xs text-[#6B5555]">
                           <p>القيمة الكاملة: <span className="line-through">{recommendedPack.compareAtPrice} درهم</span></p>
-                          <p className="font-bold text-emerald-700">وفّري {recommendedPack.saving} درهم</p>
+                          <p className="font-bold text-nura-plum">وفّري {recommendedPack.saving} درهم</p>
                         </div>
                         <p className="text-lg font-black text-[#2C1810]">{recommendedPack.price} درهم</p>
                       </div>

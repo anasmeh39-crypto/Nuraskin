@@ -309,30 +309,256 @@ export const BUNDLES: Bundle[] = [
     id: "morning-ritual",
     name_ar: "روتين الصباح",
     products: ["nura-balance", "nura-eye-revive", "nura-spf-50"],
-    price: 599,
+    price: 499,
     compareAtPrice: 777,
-    saving: 178,
-    tag: "الأكثر اختيارًا للصباح",
+    saving: 278,
+    tag: "أفضل توازن",
   },
   {
     id: "night-renewal-ritual",
     name_ar: "روتين التجديد الليلي",
     products: ["nura-night-renewal", "nura-eye-revive"],
-    price: 429,
+    price: 379,
     compareAtPrice: 518,
-    saving: 89,
-    tag: "مثالي للعناية الليلية",
+    saving: 139,
+    tag: "روتين أساسي",
   },
   {
     id: "nura-complete-ritual",
     name_ar: "روتين نورا الكامل",
     products: ["nura-balance", "nura-night-renewal", "nura-eye-revive", "nura-spf-50"],
-    price: 799,
+    price: 649,
     compareAtPrice: 1046,
-    saving: 247,
+    saving: 397,
     tag: "أفضل قيمة",
   },
 ];
+
+type ProductPageOfferTier = "single" | "duo" | "trio" | "complete";
+
+interface ProductPageOfferRule {
+  id: string;
+  tier: ProductPageOfferTier;
+  label: string;
+  sublabel: string;
+  products: string[];
+  price: number;
+  badge: string;
+  bundleName?: string;
+}
+
+export interface ProductPageOffer {
+  id: string;
+  tier: ProductPageOfferTier;
+  label: string;
+  sublabel: string;
+  products: Product[];
+  price: number;
+  originalPrice?: number;
+  saving?: number;
+  badge: string;
+  perUnit: number;
+  bundleName?: string;
+  recommended: boolean;
+}
+
+const COMPLETE_ROUTINE_PRODUCTS = [
+  "nura-balance",
+  "nura-night-renewal",
+  "nura-eye-revive",
+  "nura-spf-50",
+];
+
+const PRODUCT_PAGE_OFFER_RULES: Record<string, ProductPageOfferRule[]> = {
+  "nura-balance": [
+    {
+      id: "nura-balance-single",
+      tier: "single",
+      label: "سيروم النياسيناميد",
+      sublabel: "اختيار فردي لتجربة المنتج",
+      products: ["nura-balance"],
+      price: 249,
+      badge: "منتج فردي",
+    },
+    {
+      id: "nura-balance-retinol-duo",
+      tier: "duo",
+      label: "روتين أساسي",
+      sublabel: "نياسيناميد + ريتينول",
+      products: ["nura-balance", "nura-night-renewal"],
+      price: 379,
+      badge: "روتين أساسي",
+      bundleName: "روتين النياسيناميد والريتينول",
+    },
+    {
+      id: "nura-balance-retinol-eye-trio",
+      tier: "trio",
+      label: "روتين التوازن والنضارة",
+      sublabel: "نياسيناميد + ريتينول + مضاد الهالات",
+      products: ["nura-balance", "nura-night-renewal", "nura-eye-revive"],
+      price: 499,
+      badge: "الأكثر طلباً",
+      bundleName: "روتين التوازن والنضارة",
+    },
+    {
+      id: "nura-complete-ritual",
+      tier: "complete",
+      label: "روتين نورا الكامل",
+      sublabel: "نياسيناميد + ريتينول + مضاد الهالات + SPF50",
+      products: COMPLETE_ROUTINE_PRODUCTS,
+      price: 649,
+      badge: "أفضل قيمة",
+      bundleName: "روتين نورا الكامل",
+    },
+  ],
+  "nura-eye-revive": [
+    {
+      id: "nura-eye-revive-single",
+      tier: "single",
+      label: "سيروم مضاد الهالات",
+      sublabel: "اختيار فردي لمحيط العين",
+      products: ["nura-eye-revive"],
+      price: 249,
+      badge: "منتج فردي",
+    },
+    {
+      id: "nura-eye-retinol-duo",
+      tier: "duo",
+      label: "روتين أساسي",
+      sublabel: "مضاد الهالات + ريتينول",
+      products: ["nura-eye-revive", "nura-night-renewal"],
+      price: 379,
+      badge: "روتين أساسي",
+      bundleName: "روتين العين والتجديد الليلي",
+    },
+    {
+      id: "nura-eye-balance-spf-trio",
+      tier: "trio",
+      label: "روتين الإشراقة اليومية",
+      sublabel: "مضاد الهالات + نياسيناميد + SPF50",
+      products: ["nura-eye-revive", "nura-balance", "nura-spf-50"],
+      price: 499,
+      badge: "أفضل توازن",
+      bundleName: "روتين الإشراقة اليومية",
+    },
+    {
+      id: "nura-complete-ritual",
+      tier: "complete",
+      label: "روتين نورا الكامل",
+      sublabel: "مضاد الهالات + نياسيناميد + ريتينول + SPF50",
+      products: ["nura-eye-revive", "nura-balance", "nura-night-renewal", "nura-spf-50"],
+      price: 649,
+      badge: "أفضل قيمة",
+      bundleName: "روتين نورا الكامل",
+    },
+  ],
+  "nura-night-renewal": [
+    {
+      id: "nura-night-renewal-single",
+      tier: "single",
+      label: "كريم الريتينول الليلي",
+      sublabel: "اختيار فردي للتجديد الليلي",
+      products: ["nura-night-renewal"],
+      price: 269,
+      badge: "منتج فردي",
+    },
+    {
+      id: "nura-retinol-eye-duo",
+      tier: "duo",
+      label: "روتين أساسي",
+      sublabel: "ريتينول + مضاد الهالات",
+      products: ["nura-night-renewal", "nura-eye-revive"],
+      price: 379,
+      badge: "روتين أساسي",
+      bundleName: "روتين التجديد الليلي",
+    },
+    {
+      id: "nura-retinol-balance-spf-trio",
+      tier: "trio",
+      label: "روتين التجديد والحماية",
+      sublabel: "ريتينول + نياسيناميد + SPF50",
+      products: ["nura-night-renewal", "nura-balance", "nura-spf-50"],
+      price: 499,
+      badge: "الأكثر طلباً",
+      bundleName: "روتين التجديد والحماية",
+    },
+    {
+      id: "nura-complete-ritual",
+      tier: "complete",
+      label: "روتين نورا الكامل",
+      sublabel: "ريتينول + نياسيناميد + مضاد الهالات + SPF50",
+      products: ["nura-night-renewal", "nura-balance", "nura-eye-revive", "nura-spf-50"],
+      price: 649,
+      badge: "أفضل قيمة",
+      bundleName: "روتين نورا الكامل",
+    },
+  ],
+  "nura-spf-50": [
+    {
+      id: "nura-spf-50-single",
+      tier: "single",
+      label: "واقي الشمس SPF50",
+      sublabel: "اختيار فردي للحماية اليومية",
+      products: ["nura-spf-50"],
+      price: 279,
+      badge: "منتج فردي",
+    },
+    {
+      id: "nura-retinol-balance-spf-trio",
+      tier: "trio",
+      label: "روتين الحماية والإشراقة",
+      sublabel: "ريتينول + نياسيناميد + SPF50",
+      products: ["nura-night-renewal", "nura-balance", "nura-spf-50"],
+      price: 499,
+      badge: "الأكثر طلباً",
+      bundleName: "روتين الحماية والإشراقة",
+    },
+    {
+      id: "nura-complete-ritual",
+      tier: "complete",
+      label: "روتين نورا الكامل",
+      sublabel: "ريتينول + نياسيناميد + مضاد الهالات + SPF50",
+      products: ["nura-night-renewal", "nura-balance", "nura-eye-revive", "nura-spf-50"],
+      price: 649,
+      badge: "أفضل قيمة",
+      bundleName: "روتين نورا الكامل",
+    },
+  ],
+};
+
+function sumProductPrices(slugs: string[]): number {
+  return slugs.reduce((total, slug) => total + (PRODUCTS_MAP[slug]?.price ?? 0), 0);
+}
+
+export function getProductPageOffers(productSlug: string): ProductPageOffer[] {
+  const product = PRODUCTS_MAP[productSlug];
+  const rules = PRODUCT_PAGE_OFFER_RULES[productSlug];
+
+  if (!product || !rules) {
+    return [];
+  }
+
+  return rules.map((rule) => {
+    const products = rule.products.map((slug) => PRODUCTS_MAP[slug]).filter(Boolean);
+    const originalPrice = rule.tier === "single" ? undefined : sumProductPrices(rule.products);
+    const saving = originalPrice ? Math.max(originalPrice - rule.price, 0) : undefined;
+
+    return {
+      id: rule.id,
+      tier: rule.tier,
+      label: rule.label,
+      sublabel: rule.sublabel,
+      products,
+      price: rule.price,
+      originalPrice,
+      saving,
+      badge: rule.badge,
+      perUnit: Math.round(rule.price / products.length),
+      bundleName: rule.bundleName,
+      recommended: rule.tier === "complete",
+    };
+  });
+}
 
 export const SHIPPING_THRESHOLD = 0;
 export const SHIPPING_COST = 0;

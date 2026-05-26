@@ -145,7 +145,7 @@ export function ProductHeroElite({ product }: Props) {
               {original && (
                 <>
                   <span className="text-[#9B8A8A] line-through text-lg mb-0.5">{original} درهم</span>
-                  <span className="mb-1 text-green-700 text-xs font-bold bg-green-50 px-2 py-0.5 rounded-full">
+                  <span className="mb-1 rounded-full bg-nura-champagne-light px-2 py-0.5 text-xs font-bold text-nura-plum">
                     -{saving} درهم
                   </span>
                 </>
@@ -158,7 +158,7 @@ export function ProductHeroElite({ product }: Props) {
               onClick={handleAddToCart}
               className={`w-full h-16 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition-all duration-300 shadow-rose-md ${
                 added
-                  ? "bg-green-600 text-white"
+                  ? "bg-nura-plum text-white"
                   : adding
                   ? "bg-rose-soft text-white cursor-wait"
                   : "bg-rose-deep text-white hover:opacity-90"

@@ -311,7 +311,7 @@ export function RoutineSection({ currentSlug }: Props) {
                         <div className="mt-3 w-full space-y-1 text-sm text-[#6B5555]">
                           <p>القيمة الكاملة: <span className="line-through">{listTotal} درهم</span></p>
                           <p>سعر الروتين: <span className="font-bold text-[#2C1810]">{bundle.price} درهم</span></p>
-                          <p className="inline-flex rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-800">
+                          <p className="inline-flex rounded-full bg-nura-champagne-light px-2 py-0.5 text-[11px] font-bold text-nura-plum">
                             وفّري {bundle.saving} درهم
                           </p>
                         </div>
