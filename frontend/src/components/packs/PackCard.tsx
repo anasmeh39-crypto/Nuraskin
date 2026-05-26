@@ -131,7 +131,7 @@ export function ProductLineup({
 
   return (
     <div
-      className={`relative my-1 flex min-h-[116px] items-end justify-center overflow-hidden rounded-[1.65rem] border ${
+      className={`relative my-1 flex min-h-[116px] items-end justify-center overflow-visible rounded-[1.65rem] border ${
         featured
           ? "border-white/14 bg-white/10"
           : "border-[#6F5046]/10 bg-gradient-to-br from-[#FFF9F6] via-white to-[#F5E8EC]"
@@ -152,14 +152,13 @@ export function ProductLineup({
           const scale = featured && index === 1 ? 1.08 : 1;
 
           return (
-            <Image
+            <img
               key={product.slug}
               src={PRODUCT_THUMBNAILS[product.slug] ?? PRODUCT_THUMBNAILS["nura-balance"]}
               alt={`صورة ${product.name_ar}`}
-              width={142}
-              height={142}
-              className="absolute bottom-0 h-[98px] w-auto object-contain drop-shadow-[0_18px_20px_rgba(61,44,50,0.20)]"
+              className="absolute bottom-0 block h-auto min-h-[80px] min-w-[70px] object-contain bg-transparent drop-shadow-[0_18px_20px_rgba(61,44,50,0.20)]"
               style={{
+                width: `${featured ? 92 : 82}px`,
                 transform: `translateX(${offset}px) scale(${scale})`,
                 zIndex: index + 1,
               }}
@@ -216,7 +215,7 @@ export function PackCard({ bundle, cta, positioning, featured = false }: PackCar
 
   return (
     <article
-      className={`group relative overflow-hidden rounded-[2rem] border transition-all duration-300 hover:-translate-y-1 ${
+      className={`group relative overflow-visible rounded-[2rem] border transition-all duration-300 hover:-translate-y-1 ${
         featured
           ? "border-gold/40 bg-gradient-to-br from-[#3D2C32] via-[#46313A] to-[#7B5260] text-white shadow-[0_28px_80px_rgba(61,44,50,0.28)]"
           : "border-rose-soft/25 bg-white text-[#3A222C] shadow-rose-sm"

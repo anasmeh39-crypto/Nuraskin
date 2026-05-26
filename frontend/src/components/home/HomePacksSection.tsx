@@ -126,7 +126,7 @@ function BundleProductLineup({
 
   return (
     <div
-      className={`relative mb-5 min-h-[104px] overflow-hidden rounded-[22px] border ${
+      className={`relative mb-5 min-h-[104px] overflow-visible rounded-[22px] border ${
         featured
           ? "border-[#B58B6E]/30 bg-[radial-gradient(circle_at_50%_18%,rgba(237,228,215,0.98),transparent_58%),linear-gradient(135deg,#FFF9F6_0%,#FFFFFF_45%,#F5E8EC_100%)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.58)]"
           : "border-[#B58B6E]/20 bg-[radial-gradient(circle_at_50%_20%,rgba(237,228,215,0.82),transparent_54%),linear-gradient(135deg,#FFF9F6_0%,#FFFFFF_48%,#F5E8EC_100%)]"
@@ -141,14 +141,13 @@ function BundleProductLineup({
           const offset = (index - (count - 1) / 2) * (compact ? 26 : 38);
 
           return (
-            <Image
+            <img
               key={product.slug}
               src={PRODUCT_THUMBNAILS[product.slug] ?? PRODUCT_THUMBNAILS["nura-balance"]}
               alt={`صورة ${displayProductName(product.name_ar, product.slug)}`}
-              width={132}
-              height={132}
-              className="absolute bottom-0 h-[88px] w-auto object-contain drop-shadow-[0_15px_16px_rgba(61,44,50,0.18)] sm:h-24"
+              className="absolute bottom-0 block h-auto min-h-[80px] min-w-[64px] object-contain bg-transparent drop-shadow-[0_15px_16px_rgba(61,44,50,0.18)]"
               style={{
+                width: featured ? "88px" : "78px",
                 transform: `translateX(${offset}px)`,
                 zIndex: index + 1,
               }}
@@ -175,6 +174,7 @@ function BundleCard({
   return (
     <article
       className={`bundle-card${featured ? " bundle-card-featured" : ""}`}
+      style={{ overflow: "visible" }}
       aria-label={bundle.name_ar}
     >
       {/* "أفضل قيمة" badge — only on highlighted card */}
