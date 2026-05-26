@@ -89,7 +89,8 @@ class Settings(BaseSettings):
     TIKTOK_PIXEL_ID: str = ""
     TIKTOK_ACCESS_TOKEN: str = ""
 
-    # Google Sheets
+    # Google Sheets — Apps Script webhook (preferred) or legacy service account
+    GOOGLE_SHEETS_WEBHOOK_URL: str = ""
     GOOGLE_SERVICE_ACCOUNT_JSON: str = ""
     GOOGLE_SHEET_ID: str = ""
 
