@@ -18,10 +18,10 @@ interface PackCardProps {
 export const REVIEW_COUNT = "2,341";
 
 export const PRODUCT_THUMBNAILS: Record<string, string> = {
-  "nura-balance": "/images/products/serum-niacinamide.jpg",
-  "nura-night-renewal": "/images/products/night-cream.jpg",
-  "nura-eye-revive": "/images/products/eye-serum.jpg",
-  "nura-spf-50": "/images/products/sunscreen-spf50.jpg",
+  "nura-balance": "/images/products/serum-niacinamide-pack.png",
+  "nura-night-renewal": "/images/products/retinol-cream-pack.png",
+  "nura-eye-revive": "/images/products/eye-serum-pack.png",
+  "nura-spf-50": "/images/products/sunscreen-spf50-pack.png",
 };
 
 export const BUNDLE_HERO_IMAGES: Record<string, { src: string; alt: string }> = {
@@ -120,6 +120,58 @@ export function ProductChecklist({ products, dark = false }: { products: Array<(
   );
 }
 
+export function ProductLineup({
+  products,
+  featured = false,
+}: {
+  products: Array<(typeof PRODUCTS_MAP)[string]>;
+  featured?: boolean;
+}) {
+  const compact = products.length >= 3;
+
+  return (
+    <div
+      className={`relative my-1 flex min-h-[116px] items-end justify-center overflow-hidden rounded-[1.65rem] border ${
+        featured
+          ? "border-white/14 bg-white/10"
+          : "border-[#6F5046]/10 bg-gradient-to-br from-[#FFF9F6] via-white to-[#F5E8EC]"
+      }`}
+      aria-label="صور المنتجات داخل الباقة"
+    >
+      <div
+        className={`absolute left-1/2 top-7 h-16 w-44 -translate-x-1/2 rounded-full blur-3xl ${
+          featured ? "bg-gold-light/25" : "bg-[#EDE4D7]/85"
+        }`}
+        aria-hidden="true"
+      />
+      <div className={`absolute inset-x-10 bottom-5 h-3 rounded-full blur-md ${featured ? "bg-black/20" : "bg-[#3D2C32]/10"}`} aria-hidden="true" />
+      <div className="relative flex h-[104px] items-end justify-center">
+        {products.map((product, index) => {
+          const count = products.length;
+          const offset = (index - (count - 1) / 2) * (compact ? 27 : 40);
+          const scale = featured && index === 1 ? 1.08 : 1;
+
+          return (
+            <Image
+              key={product.slug}
+              src={PRODUCT_THUMBNAILS[product.slug] ?? PRODUCT_THUMBNAILS["nura-balance"]}
+              alt={`صورة ${product.name_ar}`}
+              width={142}
+              height={142}
+              className="absolute bottom-0 h-[98px] w-auto object-contain drop-shadow-[0_18px_20px_rgba(61,44,50,0.20)]"
+              style={{
+                transform: `translateX(${offset}px) scale(${scale})`,
+                zIndex: index + 1,
+              }}
+              loading="lazy"
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export function addBundleToCart(bundle: Bundle, addItem: (item: Omit<CartItem, "quantity">) => void) {
   const unitPrice = Math.floor(bundle.price / bundle.products.length);
   const remainder = bundle.price - unitPrice * bundle.products.length;
@@ -187,6 +239,8 @@ export function PackCard({ bundle, cta, positioning, featured = false }: PackCar
             </p>
           )}
         </div>
+
+        <ProductLineup products={products} featured={featured} />
 
         <ProductChecklist products={products} dark={featured} />
 
