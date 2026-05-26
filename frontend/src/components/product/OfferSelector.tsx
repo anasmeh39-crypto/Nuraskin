@@ -104,9 +104,9 @@ function ProductMiniLineup({ offer, selected }: { offer: Offer; selected: boolea
 
   return (
     <div
-      className={`bundle-card__img-zone relative mx-auto flex h-[104px] min-h-[104px] w-full min-w-[120px] shrink-0 items-end justify-center rounded-[1.15rem] border px-3 pt-3 min-[430px]:mx-0 min-[430px]:h-[140px] min-[430px]:w-[132px] ${
+      className={`bundle-card__img-zone relative mx-auto flex h-[116px] min-h-[116px] w-full shrink-0 items-end justify-center overflow-visible rounded-[1.15rem] border px-3 pt-3 sm:h-[128px] ${
         tierStyles[offer.tier].stage
-      } ${isComplete ? "min-[430px]:h-[154px] min-[430px]:w-[146px]" : ""}`}
+      } ${isComplete ? "sm:h-[140px]" : ""}`}
       aria-label={`صور المنتجات داخل ${offer.label}`}
     >
       <div
@@ -120,11 +120,10 @@ function ProductMiniLineup({ offer, selected }: { offer: Offer; selected: boolea
         {offer.products.map((p, index) => {
           const count = offer.products.length;
           const middle = (count - 1) / 2;
-          const offset = (index - middle) * (count >= 3 ? 25 : 36);
-              const baseWidth = isComplete ? 82 : 66;
+          const offset = (index - middle) * (count >= 3 ? 30 : 42);
+          const baseHeight = isComplete ? 116 : 96;
           const heroBoost = index === Math.round(middle) ? 10 : 0;
-          const width = baseWidth + heroBoost;
-          const mobileWidth = Math.max(54, width - 12);
+          const height = baseHeight + heroBoost;
           const rotate = count === 1 ? 0 : (index - middle) * 5;
           const lift = selected ? -6 : index === Math.round(middle) ? -4 : 0;
 
@@ -133,15 +132,16 @@ function ProductMiniLineup({ offer, selected }: { offer: Offer; selected: boolea
               key={p.slug}
               src={productPackImages[p.slug] ?? p.image}
               alt={`صورة ${p.name_ar} داخل العرض`}
-              className={`absolute bottom-0 block h-auto min-h-[80px] min-w-[54px] object-contain bg-transparent transition-transform duration-300 ${
+              className={`absolute bottom-0 block object-contain bg-transparent transition-transform duration-300 ${
                 isComplete
                   ? "drop-shadow-[0_8px_20px_rgba(196,120,138,0.45)] brightness-[1.05]"
                   : "drop-shadow-[0_6px_16px_rgba(92,45,62,0.18)]"
               } ${offer.tier === "single" ? "opacity-90" : ""}`}
               style={{
-                left: `calc(50% - ${mobileWidth / 2}px + ${offset * 0.82}px)`,
-                width: `${mobileWidth}px`,
-                transform: `translateY(${lift}px) rotate(${rotate}deg)`,
+                left: `calc(50% + ${offset}px)`,
+                height: `${height}px`,
+                width: "auto",
+                transform: `translateX(-50%) translateY(${lift}px) rotate(${rotate}deg)`,
                 zIndex: index === Math.round(middle) ? count + 2 : count + index,
               }}
               loading="lazy"
@@ -209,9 +209,10 @@ function RoutineFlow({ dark = false }: { dark?: boolean }) {
 interface Props {
   product: Product;
   onOfferChange: (offer: Offer) => void;
+  layout?: "auto" | "ritual";
 }
 
-export function OfferSelector({ product, onOfferChange }: Props) {
+export function OfferSelector({ product, onOfferChange, layout = "auto" }: Props) {
   const offers = useMemo(() => getProductPageOffers(product.slug), [product.slug]);
   const defaultOffer = offers.find((offer) => offer.recommended) ?? offers[offers.length - 1] ?? offers[0];
   const [selected, setSelected] = useState(defaultOffer?.id);
@@ -260,7 +261,13 @@ export function OfferSelector({ product, onOfferChange }: Props) {
         </span>
       </div>
 
-      <div className="flex snap-x gap-3 overflow-x-auto pb-2 [scrollbar-width:none] md:grid md:grid-cols-2 md:overflow-visible md:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden">
+      <div
+        className={`flex snap-x items-start gap-3 overflow-x-auto pb-2 [scrollbar-width:none] sm:grid sm:overflow-visible sm:pb-0 [&::-webkit-scrollbar]:hidden ${
+          layout === "ritual"
+            ? "lg:grid-cols-2"
+            : "sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))]"
+        }`}
+      >
         {offers.map((offer) => {
           const isOn = selected === offer.id;
           const styles = tierStyles[offer.tier];
@@ -274,7 +281,7 @@ export function OfferSelector({ product, onOfferChange }: Props) {
               type="button"
               onClick={() => select(offer)}
               aria-pressed={isOn}
-              className={`group relative min-w-[85vw] snap-start overflow-visible rounded-[1.5rem] border p-[1px] text-right transition-all duration-300 md:min-w-0 ${
+              className={`group relative flex min-w-[85vw] snap-start overflow-visible rounded-[1.5rem] border p-[1px] text-right transition-all duration-300 sm:min-w-0 ${
                 styles.shell
               } ${
                 isOn
@@ -292,10 +299,10 @@ export function OfferSelector({ product, onOfferChange }: Props) {
                 </>
               )}
 
-              <div className={`relative rounded-[1.42rem] p-3 backdrop-blur-sm md:p-4 ${
+              <div className={`relative flex h-full w-full flex-col rounded-[1.42rem] p-3 backdrop-blur-sm md:p-4 ${
                 isComplete ? "bg-transparent pt-7 text-white" : "bg-white/74"
               }`}>
-                <div className="grid gap-3 min-[430px]:grid-cols-[126px_1fr] min-[430px]:items-start">
+                <div className="grid flex-1 gap-3">
                   <ProductMiniLineup offer={offer} selected={isOn} />
 
                   <div className="min-w-0 flex-1">
@@ -371,7 +378,7 @@ export function OfferSelector({ product, onOfferChange }: Props) {
                 }`}>
                   <div className="space-y-1">
                     <p className={`flex items-baseline gap-1 ${isComplete ? "text-white" : "text-nura-plum"}`}>
-                      <span className="font-serif text-[36px] font-black leading-none md:text-[42px]">{offer.price}</span>
+                      <span className="font-serif text-[30px] font-black leading-none md:text-[34px]">{offer.price}</span>
                       <span className={`text-sm font-bold ${isComplete ? "text-white/70" : "text-nura-muted"}`}>درهم</span>
                     </p>
                     {offer.originalPrice && offer.saving ? (
@@ -405,7 +412,7 @@ export function OfferSelector({ product, onOfferChange }: Props) {
                 </div>
 
                 <div className="mt-3">
-                  <span className="flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#5C2D3E] px-4 text-center text-base font-bold text-white shadow-[0_12px_28px_rgba(92,45,62,0.18)]">
+                  <span className="flex min-h-[52px] w-full items-center justify-center rounded-[18px] bg-[#5C2D3E] px-4 text-center text-sm font-bold leading-snug text-white shadow-[0_12px_28px_rgba(92,45,62,0.18)] md:text-[15px]">
                     {tierCtaText[offer.tier]}
                   </span>
                   <p className={`mt-2 text-center text-[11px] ${isComplete ? "text-white/62" : "text-nura-muted"}`}>

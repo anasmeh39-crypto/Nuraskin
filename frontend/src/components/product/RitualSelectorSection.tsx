@@ -72,7 +72,7 @@ export function RitualSelectorSection({ product }: Props) {
           <p className="mt-3 text-sm leading-7 text-[#8C6E73]">كلما كملتي الروتين، كلما بان التوفير والقيمة</p>
         </motion.div>
 
-        <OfferSelector product={product} onOfferChange={setSelectedOffer} />
+        <OfferSelector product={product} onOfferChange={setSelectedOffer} layout="ritual" />
 
         <div className="mx-auto mt-8 max-w-2xl rounded-[24px] border border-[#5C2D3E]/12 bg-[#F5F0EA] p-5 text-center shadow-[0_16px_45px_rgba(92,45,62,0.08)]">
           <div className="mb-4 flex flex-wrap items-end justify-center gap-2">
