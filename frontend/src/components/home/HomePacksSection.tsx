@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { Check, Droplets, Leaf, Moon, ShieldCheck, Sparkles, Star, Sun, Truck, Users } from "lucide-react";
 import { BUNDLES, PRODUCTS_MAP } from "@/config/products";
 import { PRODUCT_THUMBNAILS, REVIEW_COUNT, addBundleToCart } from "@/components/packs/PackCard";
@@ -17,8 +18,6 @@ const BUNDLE_DISPLAY = [
     TimeIcon: Sparkles,
     timeLabel: "روتين كامل · صباحاً ومساءً",
     cta: "أضيفي الروتين الكامل للسلة",
-    imageSrc: "/images/bundles/complete-routine.jpg",
-    imageAlt: "روتين نورا الكامل من نورا سكين",
     imageBadge: "الأعلى قيمة · الأوفر تكلفة",
     reasons: [
       "وفّري 397 درهماً",
@@ -35,8 +34,6 @@ const BUNDLE_DISPLAY = [
     TimeIcon: Sun,
     timeLabel: "روتين صباحي · حماية ونضارة",
     cta: "أضيفي روتين الصباح للسلة",
-    imageSrc: "/images/bundles/morning-routine.jpg",
-    imageAlt: "روتين الصباح من نورا سكين",
     imageBadge: "اختيار الصباح الذكي",
     reasons: [
       "حماية شمسية 50",
@@ -53,8 +50,6 @@ const BUNDLE_DISPLAY = [
     TimeIcon: Moon,
     timeLabel: "روتين ليلي · راحة وتجديد",
     cta: "أضيفي روتين الليل للسلة",
-    imageSrc: "/images/bundles/night-renewal.jpg",
-    imageAlt: "روتين التجديد الليلي من نورا سكين",
     imageBadge: "أنسب اختيار قبل النوم",
     reasons: [
       "تجديد ليلي فعّال",
@@ -92,6 +87,20 @@ function displayProductName(name: string, slug: string) {
   return name;
 }
 
+const PRODUCT_STACK_IMAGES: Record<string, string> = {
+  "nura-balance": "/images/products/product-niacinamide.png",
+  "nura-night-renewal": "/images/products/product-retinol.png",
+  "nura-eye-revive": "/images/products/product-anti-cernes.png",
+  "nura-spf-50": "/images/products/product-sunscreen.png",
+};
+
+const PRODUCT_STACK_ROTATIONS: Record<number, string[]> = {
+  1: ["-3deg"],
+  2: ["-8deg", "2deg"],
+  3: ["-10deg", "0deg", "8deg"],
+  4: ["-12deg", "-4deg", "2deg", "10deg"],
+};
+
 function BundleProductList({ products }: { products: Array<(typeof PRODUCTS_MAP)[string]> }) {
   return (
     <ul className="bundle-checklist" role="list">
@@ -115,47 +124,28 @@ function BundleProductList({ products }: { products: Array<(typeof PRODUCTS_MAP)
   );
 }
 
-function BundleProductLineup({
+function BundleProductStack({
   products,
   featured,
 }: {
   products: Array<(typeof PRODUCTS_MAP)[string]>;
   featured: boolean;
 }) {
-  const compact = products.length >= 3;
-
   return (
     <div
-      className={`relative mb-5 min-h-[104px] overflow-visible rounded-[22px] border ${
-        featured
-          ? "border-[#B58B6E]/30 bg-[radial-gradient(circle_at_50%_18%,rgba(237,228,215,0.98),transparent_58%),linear-gradient(135deg,#FFF9F6_0%,#FFFFFF_45%,#F5E8EC_100%)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.58)]"
-          : "border-[#B58B6E]/20 bg-[radial-gradient(circle_at_50%_20%,rgba(237,228,215,0.82),transparent_54%),linear-gradient(135deg,#FFF9F6_0%,#FFFFFF_48%,#F5E8EC_100%)]"
-      } sm:min-h-[112px]`}
+      className={`product-stack tier-${products.length}${featured ? " product-stack-featured" : ""}`}
       aria-label="صور المنتجات داخل الباقة"
     >
-      <div className="absolute left-1/2 top-6 h-16 w-44 -translate-x-1/2 rounded-full bg-[#EDE4D7]/80 blur-3xl" aria-hidden="true" />
-      <div className="absolute inset-x-9 bottom-4 h-3 rounded-full bg-[#3D2C32]/10 blur-md" aria-hidden="true" />
-      <div className="relative flex h-24 items-end justify-center sm:h-[104px]">
-        {products.map((product, index) => {
-          const count = products.length;
-          const offset = (index - (count - 1) / 2) * (compact ? 26 : 38);
-
-          return (
-            <img
-              key={product.slug}
-              src={PRODUCT_THUMBNAILS[product.slug] ?? PRODUCT_THUMBNAILS["nura-balance"]}
-              alt={`صورة ${displayProductName(product.name_ar, product.slug)}`}
-              className="absolute bottom-0 block h-auto min-h-[80px] min-w-[64px] object-contain bg-transparent drop-shadow-[0_15px_16px_rgba(61,44,50,0.18)]"
-              style={{
-                width: featured ? "88px" : "78px",
-                transform: `translateX(${offset}px)`,
-                zIndex: index + 1,
-              }}
-              loading="lazy"
-            />
-          );
-        })}
-      </div>
+      <div className="product-stack-shadow" aria-hidden="true" />
+      {products.map((product, index) => (
+        <img
+          key={product.slug}
+          src={PRODUCT_STACK_IMAGES[product.slug] ?? PRODUCT_STACK_IMAGES["nura-balance"]}
+          alt={`صورة ${displayProductName(product.name_ar, product.slug)}`}
+          style={{ "--rot": PRODUCT_STACK_ROTATIONS[products.length]?.[index] ?? "0deg" } as CSSProperties}
+          loading={index === 0 ? "eager" : "lazy"}
+        />
+      ))}
     </div>
   );
 }
@@ -179,16 +169,7 @@ function BundleCard({
     >
       {/* "أفضل قيمة" badge — only on highlighted card */}
       <div className="bundle-image-wrap">
-        <Image
-          src={display.imageSrc}
-          alt={display.imageAlt}
-          fill
-          sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-          className="bundle-image-photo"
-          priority={display.priority}
-          loading={display.priority ? undefined : "lazy"}
-        />
-        <div className="bundle-image-fade" aria-hidden="true" />
+        <BundleProductStack products={products} featured={featured} />
         <div className="bundle-badge">{display.imageBadge}</div>
         <div className="bundle-time-label">{display.timeLabel}</div>
       </div>
@@ -210,8 +191,6 @@ function BundleCard({
             </span>
           ))}
         </div>
-
-        <BundleProductLineup products={products} featured={featured} />
 
         <BundleProductList products={products} />
 
