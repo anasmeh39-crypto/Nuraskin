@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PRODUCTS, getProductBySlug } from "@/config/products";
+import { ProductHeroElite } from "@/components/product/ProductHeroElite";
 import { ProblemSection } from "@/components/product/ProblemSection";
 import { BeforeAfterSlider } from "@/components/product/BeforeAfterSlider";
 import { RoutineEducationSection } from "@/components/product/RoutineEducationSection";
@@ -76,37 +77,40 @@ export default async function ProductPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* 1. Hero — problem hook */}
+      {/* 1. Hero — restored product gallery + product identity */}
+      <ProductHeroElite product={product} />
+
+      {/* 2. Problem hook */}
       <ProblemSection product={product} />
 
-      {/* 2. Before / After perception slider */}
+      {/* 3. Before / After perception slider */}
       <BeforeAfterSlider productSlug={product.slug} />
 
-      {/* 3. Why routine beats one product */}
+      {/* 4. Why routine beats one product */}
       <RoutineEducationSection />
 
-      {/* 4. Ingredient authority */}
+      {/* 5. Ingredient authority */}
       <IngredientAuthority product={product} />
 
-      {/* 5. Emotional transformation */}
+      {/* 6. Emotional transformation */}
       <EmotionalTransformationSection />
 
-      {/* 6. Science & philosophy */}
+      {/* 7. Science & philosophy */}
       <ScienceSection product={product} />
 
-      {/* 7. Routine visualizer */}
+      {/* 8. Routine visualizer */}
       <RoutineSection currentSlug={product.slug} />
 
-      {/* 8. How to use + realistic timeline */}
+      {/* 9. How to use + realistic timeline */}
       <UsageAndTimeline product={product} />
 
-      {/* 9. Routine-focused social proof */}
+      {/* 10. Routine-focused social proof */}
       <RoutineReviewsSection />
 
-      {/* 10. Ritual selector */}
+      {/* 11. Ritual selector */}
       <RitualSelectorSection product={product} />
 
-      {/* 11. Trust bar */}
+      {/* 12. Trust bar */}
       <TrustAuthoritySection />
 
       {/* Sticky mobile CTA */}

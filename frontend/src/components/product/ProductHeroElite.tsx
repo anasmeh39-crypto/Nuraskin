@@ -71,7 +71,7 @@ export function ProductHeroElite({ product }: Props) {
   const saving = selectedOffer?.saving;
 
   return (
-    <section className="bg-ivory pt-8 pb-0 md:pt-12">
+    <section className="bg-ivory pt-8 pb-0 md:pt-12" dir="rtl">
       <div className="container-wide">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
