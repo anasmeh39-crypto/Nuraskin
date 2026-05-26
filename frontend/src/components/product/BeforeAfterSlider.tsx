@@ -17,18 +17,20 @@ export function BeforeAfterSlider({ productSlug }: Props) {
   const [sliderX, setSliderX] = useState(48);
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
+  const hasBalanceImages = productSlug === "nura-balance";
 
   const updateSlider = useCallback((clientX: number) => {
     const container = containerRef.current;
     if (!container) return;
     const rect = container.getBoundingClientRect();
-    const pct = Math.min(90, Math.max(10, ((clientX - rect.left) / rect.width) * 100));
+    const pct = Math.min(92, Math.max(8, ((clientX - rect.left) / rect.width) * 100));
     setSliderX(pct);
   }, []);
 
   const handleMouseDown = () => { isDragging.current = true; };
   const handleMouseMove = (e: React.MouseEvent) => { if (isDragging.current) updateSlider(e.clientX); };
   const handleMouseUp = () => { isDragging.current = false; };
+  const handleClick = (e: React.MouseEvent) => updateSlider(e.clientX);
   const handleTouchMove = (e: React.TouchEvent) => { updateSlider(e.touches[0].clientX); };
 
   const timelines = TIMELINE_LABELS[productSlug] || TIMELINE_LABELS["nura-balance"];
@@ -45,87 +47,105 @@ export function BeforeAfterSlider({ productSlug }: Props) {
           <p className="text-xs text-rose-mid font-semibold tracking-wider uppercase mb-3">التحول</p>
           <h2 className="section-heading text-[#2C1810]">الفارق اللي تحسيه</h2>
           <p className="text-[#6B5555] mt-3 max-w-md mx-auto text-sm leading-relaxed">
-            النتائج تختلف من شخص لآخر، وهذا التصور يوضح مظهر البشرة قبل الروتين ومع الاستعمال المنتظم دون ادعاءات مبالغ فيها.
+            هاد الروتين كيحسن مظهر البشرة بشكل واضح مع الاستعمال المنتظم، والنتائج كتختلف حسب نوع البشرة والانتظام.
           </p>
         </motion.div>
 
-        <div className="max-w-lg mx-auto">
+        <div className="max-w-3xl mx-auto">
           {/* Slider */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             ref={containerRef}
-            className="relative rounded-4xl overflow-hidden aspect-square cursor-col-resize select-none shadow-rose-lg"
+            className="relative overflow-hidden rounded-[2rem] border border-rose-soft/25 bg-white p-2 shadow-rose-lg cursor-col-resize select-none touch-none"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
+            onClick={handleClick}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleMouseUp}
           >
-            {/* After (right) */}
-            <div className="absolute inset-0 bg-gradient-to-br from-rose-100 to-pink-50 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-20 h-20 rounded-full bg-white/70 mx-auto flex items-center justify-center mb-3">
-                  <span className="font-display text-rose-mid text-2xl italic">بعد</span>
-                </div>
-                <p className="text-rose-deep font-bold text-sm">إشراقة ونعومة</p>
-                <p className="text-rose-mid text-xs mt-1">بشرة أكثر توازناً</p>
-                <div className="flex gap-1 justify-center mt-3">
-                  {[1,2,3,4,5].map(s => <div key={s} className="w-1.5 h-1.5 rounded-full bg-rose-soft" />)}
-                </div>
-              </div>
-            </div>
-
-            {/* Before (left) — clipped */}
-            <div
-              className="absolute inset-0 overflow-hidden"
-              style={{ clipPath: `inset(0 ${100 - sliderX}% 0 0)` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-20 h-20 rounded-full bg-white/70 mx-auto flex items-center justify-center mb-3">
-                    <span className="font-arabic text-gray-500 text-sm font-semibold">قبل</span>
+            <div className="relative overflow-hidden rounded-[1.6rem] bg-ivory aspect-[4/5] sm:aspect-square">
+              {/* After (right) */}
+              <div className="absolute inset-0 bg-gradient-to-br from-rose-100 to-pink-50 flex items-center justify-center">
+                {hasBalanceImages ? (
+                  <img
+                    src="/images/nura-balance-after.png"
+                    alt="مظهر البشرة بعد استعمال روتين النياسيناميد من نورا سكين"
+                    className="h-full w-full object-contain sm:object-cover"
+                    draggable={false}
+                  />
+                ) : (
+                  <div className="text-center">
+                    <div className="w-20 h-20 rounded-full bg-white/70 mx-auto flex items-center justify-center mb-3">
+                      <span className="font-display text-rose-mid text-2xl italic">بعد</span>
+                    </div>
+                    <p className="text-rose-deep font-bold text-sm">إشراقة ونعومة</p>
+                    <p className="text-rose-mid text-xs mt-1">بشرة أكثر توازناً</p>
+                    <div className="flex gap-1 justify-center mt-3">
+                      {[1,2,3,4,5].map(s => <div key={s} className="w-1.5 h-1.5 rounded-full bg-rose-soft" />)}
+                    </div>
                   </div>
-                  <p className="text-gray-600 font-semibold text-sm">لمعان — مسام — تعب</p>
-                  <p className="text-gray-400 text-xs mt-1">قبل نورا سكين</p>
+                )}
+              </div>
+
+              {/* Before (left) — clipped */}
+              <div
+                className="absolute inset-0 overflow-hidden will-change-[clip-path]"
+                style={{ clipPath: `inset(0 ${100 - sliderX}% 0 0)` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-stone-100 to-stone-200 flex items-center justify-center">
+                  {hasBalanceImages ? (
+                    <img
+                      src="/images/nura-balance-before.png"
+                      alt="مظهر البشرة قبل استعمال روتين النياسيناميد من نورا سكين"
+                      className="h-full w-full object-contain sm:object-cover"
+                      draggable={false}
+                    />
+                  ) : (
+                    <div className="text-center">
+                      <div className="w-20 h-20 rounded-full bg-white/70 mx-auto flex items-center justify-center mb-3">
+                        <span className="font-arabic text-gray-500 text-sm font-semibold">قبل</span>
+                      </div>
+                      <p className="text-gray-600 font-semibold text-sm">لمعان — مسام — تعب</p>
+                      <p className="text-gray-400 text-xs mt-1">قبل نورا سكين</p>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
 
-            {/* Slider line */}
-            <div
-              className="absolute inset-y-0 w-0.5 bg-white/80 shadow-lg"
-              style={{ left: `${sliderX}%` }}
-            >
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-rose-md flex items-center justify-center">
-                <div className="flex gap-0.5">
-                  <div className="flex flex-col gap-0.5">
-                    <svg className="w-3 h-3 text-rose-deep" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              {/* Slider line */}
+              <div
+                className="absolute inset-y-0 w-px bg-white/95 shadow-[0_0_24px_rgba(61,44,50,0.18)]"
+                style={{ left: `${sliderX}%` }}
+              >
+                <div className="absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 bg-white/90 shadow-rose-md backdrop-blur-md transition-transform duration-200 hover:scale-105">
+                  <div className="flex items-center gap-1 text-rose-deep">
+                    <svg className="w-3.5 h-3.5 flip-ltr" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
-                  </div>
-                  <div>
-                    <svg className="w-3 h-3 text-rose-deep" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <span className="h-5 w-px bg-rose-soft" aria-hidden />
+                    <svg className="w-3.5 h-3.5 flip-ltr" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Labels */}
-            <div className="absolute top-4 start-4 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full">
-              <span className="text-xs font-bold text-gray-600">قبل</span>
-            </div>
-            <div className="absolute top-4 end-4 bg-rose-deep/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
-              <span className="text-xs font-bold text-white">بعد</span>
-            </div>
+              {/* Labels */}
+              <div className="absolute top-4 start-4 bg-white/85 backdrop-blur-md px-3 py-1.5 rounded-full shadow-ivory-sm">
+                <span className="text-xs font-bold text-[#6B5555]">قبل</span>
+              </div>
+              <div className="absolute top-4 end-4 bg-rose-deep/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-rose-sm">
+                <span className="text-xs font-bold text-white">بعد</span>
+              </div>
 
-            {/* Hint */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/40 backdrop-blur-sm text-white text-[10px] px-3 py-1 rounded-full">
-              اسحبي لترى الفارق
+              {/* Hint */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/82 backdrop-blur-md text-[#6B5555] text-[10px] font-semibold px-3 py-1 rounded-full shadow-ivory-sm">
+                اسحبي باش تشوفي الفرق
+              </div>
             </div>
           </motion.div>
 
