@@ -16,9 +16,11 @@ const BUNDLE_DISPLAY = [
     description:
       "روتين كامل يجمع بين التوازن، النضارة، التجديد الليلي، والحماية اليومية في باقة واحدة عالية القيمة.",
     TimeIcon: Sparkles,
-    timeLabel: "روتين كامل · صباحاً ومساءً",
+    timeLabel: "صباحاً ومساءً",
     cta: "أضيفي الروتين الكامل للسلة",
     imageBadge: "الأعلى قيمة · الأوفر تكلفة",
+    heroImageSrc: "/images/bundles/nura-complete-premium-routine.png",
+    heroImageAlt: "روتين نورا الكامل للعناية الصباحية والليلية من نورا سكين",
     reasons: [
       "وفّري 397 درهماً",
       "صباح + مساء في باقة",
@@ -160,6 +162,8 @@ function BundleCard({
   const { addItem } = useCartStore();
   const products = bundle.products.map((slug) => PRODUCTS_MAP[slug]).filter(Boolean) as Array<(typeof PRODUCTS_MAP)[string]>;
   const { TimeIcon, featured } = display;
+  const heroImageSrc = "heroImageSrc" in display ? display.heroImageSrc : null;
+  const heroImageAlt = "heroImageAlt" in display ? display.heroImageAlt : "";
 
   return (
     <article
@@ -169,7 +173,20 @@ function BundleCard({
     >
       {/* "أفضل قيمة" badge — only on highlighted card */}
       <div className="bundle-image-wrap">
-        <BundleProductStack products={products} featured={featured} />
+        {heroImageSrc ? (
+          <div className="bundle-complete-hero">
+            <Image
+              src={heroImageSrc}
+              alt={heroImageAlt}
+              fill
+              sizes="(min-width: 1024px) 34vw, (min-width: 640px) 50vw, 82vw"
+              className="bundle-complete-hero-img"
+              priority={display.priority}
+            />
+          </div>
+        ) : (
+          <BundleProductStack products={products} featured={featured} />
+        )}
         <div className="bundle-badge">{display.imageBadge}</div>
         <div className="bundle-time-label">{display.timeLabel}</div>
       </div>
