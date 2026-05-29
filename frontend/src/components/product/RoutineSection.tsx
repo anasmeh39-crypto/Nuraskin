@@ -86,7 +86,7 @@ export function RoutineSection({ currentSlug }: Props) {
             {/* Desktop: wide landscape */}
             <div className="relative aspect-[16/7] hidden sm:block">
               <Image
-                src="/images/routine-complete-family.jpg"
+                src="/images/routine-complete-family.png"
                 alt="روتين نورا الكامل — 4 منتجات"
                 fill
                 sizes="(min-width: 1024px) 80vw, 100vw"
@@ -103,7 +103,7 @@ export function RoutineSection({ currentSlug }: Props) {
             {/* Mobile: 4:3 crop */}
             <div className="relative aspect-[4/3] sm:hidden">
               <Image
-                src="/images/routine-complete-family.jpg"
+                src="/images/routine-complete-family.png"
                 alt="روتين نورا الكامل — 4 منتجات"
                 fill
                 sizes="100vw"

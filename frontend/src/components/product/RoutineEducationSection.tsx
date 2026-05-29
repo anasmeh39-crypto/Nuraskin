@@ -146,7 +146,7 @@ export function RoutineEducationSection() {
             {/* Landscape on desktop, taller crop on mobile */}
             <div className="relative aspect-[16/7] hidden sm:block">
               <Image
-                src="/images/routine-complete-family.jpg"
+                src="/images/routine-complete-family.png"
                 alt="روتين نورا الكامل — 4 منتجات"
                 fill
                 sizes="(min-width: 1024px) 80vw, 100vw"
@@ -163,7 +163,7 @@ export function RoutineEducationSection() {
             {/* Mobile: square-ish crop */}
             <div className="relative aspect-[4/3] sm:hidden">
               <Image
-                src="/images/routine-complete-family.jpg"
+                src="/images/routine-complete-family.png"
                 alt="روتين نورا الكامل — 4 منتجات"
                 fill
                 sizes="100vw"
