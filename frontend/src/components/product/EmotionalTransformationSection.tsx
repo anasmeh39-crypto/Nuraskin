@@ -1,56 +1,123 @@
 "use client";
 
-import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
-const MOMENTS = [
+const CARDS = [
   {
-    icon: "🌙",
-    title: "قبل النوم",
-    text: "تحسي براحة وأنتي داخلة للنوم — عارفة أنك خدمتي على بشرتك. مو توتر، مو ندم. غير طقس هادئ قبل الراحة.",
+    image: "/images/moroccan-model-card-2.png",
+    kicker: "الصباح",
+    title: "كتبداي نهارك مرتاحة",
+    copy: "كتفيقي وما كتحتاجيش تخبي بشرتك.\nأول حاجة كتشوفيها فالمراية هي بشرة مرتاحة ومتوازنة.",
+    gradient: "from-[#2C1408]/90 via-[#2C1408]/50 to-transparent",
+    kickerColor: "text-amber-300",
   },
   {
-    icon: "☀️",
-    title: "فاشيا في الصباح",
-    text: "تلمسي وجهك وتحسي بملمس أنعم. البشرة أكثر توازناً — حتى قبل ما تشوفي نفسك في المرآة.",
+    image: "/images/emotion-confidence-day.png",
+    kicker: "النهار",
+    title: "الثقة كتولي طبيعية",
+    copy: "ما كتبقايش تفكري واش البشرة باهتة ولا مرهقة.\nكتعيشي نهارك عادي... والبشرة كتدير خدمتها بوحدها.",
+    gradient: "from-[#1A0810]/90 via-[#1A0810]/50 to-transparent",
+    kickerColor: "text-rose-300",
   },
   {
-    icon: "✨",
-    title: "وأنتي خارجة",
-    text: "تخرجي بدون ما تفكري كثير في ماكياج. مو لأن بشرتك كاملة — لأنك بدأتي تثقي فيها.",
+    image: "/images/emotion-evening-peace.png",
+    kicker: "المساء",
+    title: "كتسالي نهارك بنفس الإحساس",
+    copy: "ماشي إحساس مؤقت.\nروتين منظم كيخليك تحسي براسك مرتاحة من الصباح حتى للمساء.",
+    gradient: "from-[#0E0818]/90 via-[#0E0818]/50 to-transparent",
+    kickerColor: "text-purple-300",
   },
-];
+] as const;
 
 export function EmotionalTransformationSection() {
   return (
-    <section className="bg-[#F5F0EA] py-20" dir="rtl">
+    <section className="overflow-hidden bg-[#0C0608] py-16 md:py-20" dir="rtl">
       <div className="container-wide">
+
+        {/* ── HEADER ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mx-auto mb-12 max-w-2xl text-center"
+          className="mb-12 text-center"
         >
-          <p className="luxury-kicker mx-auto mb-3 w-fit">تخيلي</p>
-          <h2 className="section-heading text-[#5C2D3E]">كيف تحسي بجلدتك بعد روتين ثابت</h2>
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-[#C4788A]/80">
+            تخيلي
+          </p>
+          <h2 className="text-3xl font-black leading-tight text-white md:text-4xl">
+            تخيلي الإحساس ملي بشرتك
+            <br />
+            <span className="text-[#C4788A]">تولّي جزء من ثقتك</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-white/38">
+            ماشي غير روتين — إحساس كيبقى معاك طول النهار.
+          </p>
         </motion.div>
 
-        <div className="grid gap-5 md:grid-cols-3">
-          {MOMENTS.map((item, index) => (
+        {/* ── CARDS ── */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+          {CARDS.map((card, i) => (
             <motion.article
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
+              key={card.title}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.08 }}
-              className="rounded-[20px] border border-[#5C2D3E]/12 bg-[#FEFCF9] p-7 text-right shadow-[0_16px_45px_rgba(92,45,62,0.06)]"
+              transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative overflow-hidden rounded-[1.6rem]"
+              style={{ aspectRatio: "3 / 4.2" }}
             >
-              <div className="mb-5 text-center text-5xl text-[#C4788A]" aria-hidden>{item.icon}</div>
-              <h3 className="text-lg font-medium text-[#5C2D3E]">{item.title}</h3>
-              <p className="mt-3 text-sm leading-[1.9] text-[#8C6E73]">{item.text}</p>
+              {/* Photography */}
+              <Image
+                src={card.image}
+                alt={card.title}
+                fill
+                sizes="(min-width: 640px) 33vw, 100vw"
+                className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                loading="lazy"
+              />
+
+              {/* Bottom gradient overlay */}
+              <div
+                className={`pointer-events-none absolute inset-0 bg-gradient-to-t ${card.gradient}`}
+              />
+
+              {/* Top vignette — very subtle */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent" />
+
+              {/* Text block */}
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                {/* Kicker */}
+                <span
+                  className={`text-[10px] font-black uppercase tracking-[0.22em] ${card.kickerColor}`}
+                >
+                  {card.kicker}
+                </span>
+
+                {/* Title */}
+                <h3 className="mt-2 text-[1.2rem] font-black leading-tight text-white sm:text-[1.15rem]">
+                  {card.title}
+                </h3>
+
+                {/* Copy */}
+                <p className="mt-2.5 whitespace-pre-line text-[12px] leading-[1.7] text-white/65">
+                  {card.copy}
+                </p>
+              </div>
             </motion.article>
           ))}
         </div>
+
+        {/* ── BOTTOM QUOTE ── */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mt-12 text-center text-sm italic leading-relaxed text-white/25"
+        >
+          "الفرق الحقيقي ماشي فالمراية — الفرق فكيفاش كتحسي براسك."
+        </motion.p>
       </div>
     </section>
   );
