@@ -1,84 +1,53 @@
 "use client";
 
-import React from "react";
-import type { LucideIcon } from "lucide-react";
-import { Droplets, Eye, Moon, Sparkles, Sun } from "lucide-react";
 import { motion } from "framer-motion";
+import { Moon, Sun } from "lucide-react";
 
 interface Props {
   currentSlug: string;
 }
 
-type RoutineStep = {
-  time: string;
-  label: string;
-  desc: string;
-  slug: string;
-  Icon: LucideIcon;
-};
-
-const ROUTINE_STEPS: Record<string, RoutineStep[]> = {
-  morning: [
-    {
-      time: "01",
-      label: "المنظّف اللطيف",
-      desc: "نظّفي البشرة بلطف لتجهيزها تماماً لاستقبال الخطوات التالية.",
-      slug: "",
-      Icon: Droplets,
-    },
-    {
-      time: "02",
-      label: "سيروم توازن وإشراقة البشرة بالنياسيناميد",
-      desc: "قطرتان إلى الوجه بعد التنظيف — وزّعي بلطف على كامل الوجه.",
-      slug: "nura-balance",
-      Icon: Sparkles,
-    },
-    {
-      time: "03",
-      label: "سيروم نضارة محيط العين",
-      desc: "كمية صغيرة حول محيط العين — بدون فرك؛ استخدمي الطرف الدائري للإصبع.",
-      slug: "nura-eye-revive",
-      Icon: Eye,
-    },
-    {
-      time: "04",
-      label: "واقي الشمس اليومي SPF 50",
-      desc: "يوضع صباحًا كآخر خطوة في روتين العناية بالبشرة، قبل الخروج أو قبل المكياج.",
-      slug: "nura-spf-50",
-      Icon: Sun,
-    },
-  ],
-  night: [
-    {
-      time: "01",
-      label: "التنظيف المزدوج",
-      desc: "أزيلي المكياج والشوائب خطوة بخطوة — البشرة النظيفة تستقبل المنتجات أفضل.",
-      slug: "",
-      Icon: Droplets,
-    },
-    {
-      time: "02",
-      label: "سيروم نضارة محيط العين",
-      desc: "كمية صغيرة حول محيط العين — برفق ودون فرك.",
-      slug: "nura-eye-revive",
-      Icon: Eye,
-    },
-    {
-      time: "03",
-      label: "كريم التجديد الليلي للبشرة",
-      desc: "طبقة أخيرة على الوجه والرقبة — استخدميه بعد السيروم إن وُجد.",
-      slug: "nura-night-renewal",
-      Icon: Moon,
-    },
-  ],
-};
-
-const PRODUCT_PACK_IMAGES: Record<string, string> = {
-  "nura-balance": "/images/products/serum-niacinamide-pack.png",
-  "nura-eye-revive": "/images/products/eye-serum-pack.png",
+const THUMBNAILS: Record<string, string> = {
+  "nura-balance":      "/images/products/serum-niacinamide-pack.png",
+  "nura-eye-revive":  "/images/products/eye-serum-pack.png",
   "nura-night-renewal": "/images/products/retinol-cream-pack.png",
-  "nura-spf-50": "/images/products/sunscreen-spf50-pack.png",
+  "nura-spf-50":       "/images/products/sunscreen-spf50-pack.png",
 };
+
+const SHORT_NAME: Record<string, string> = {
+  "nura-balance":      "النياسيناميد",
+  "nura-eye-revive":  "سيروم العين",
+  "nura-night-renewal": "كريم الريتينول",
+  "nura-spf-50":       "واقي الشمس",
+};
+
+const FAMILY = ["nura-balance", "nura-eye-revive", "nura-spf-50", "nura-night-renewal"] as const;
+
+const MORNING = [
+  { slug: "nura-balance",  step: "01", desc: "قطرتان على وجهك بعد التنظيف — توازن وإشراقة", pump: false },
+  { slug: "nura-spf-50",   step: "02", desc: "آخر خطوة قبل الخروج أو المكياج — حماية يومية",   pump: true  },
+] as const;
+
+const NIGHT = [
+  { slug: "nura-eye-revive",   step: "01", desc: "كمية صغيرة حول العين برفق — نضارة محيط العين", pump: false },
+  { slug: "nura-night-renewal", step: "02", desc: "طبقة خفيفة على الوجه والرقبة — تجديد ليلي",   pump: true  },
+] as const;
+
+function Arrow({ dark }: { dark?: boolean }) {
+  return (
+    <div className="flex justify-center py-2">
+      <div className="flex flex-col items-center">
+        <div className={`h-4 w-px ${dark ? "bg-white/20" : "bg-amber-200"}`} />
+        <svg
+          width="10" height="7" viewBox="0 0 10 7" fill="none"
+          className={dark ? "text-white/25" : "text-amber-300"}
+        >
+          <path d="M5 7L0 0h10z" fill="currentColor" />
+        </svg>
+      </div>
+    </div>
+  );
+}
 
 export function RoutineSection({ currentSlug }: Props) {
   const scrollToRituals = () => {
@@ -86,161 +55,230 @@ export function RoutineSection({ currentSlug }: Props) {
   };
 
   return (
-    <section className="relative overflow-hidden bg-ivory py-20" dir="rtl">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-rose-soft/40 to-transparent" />
-      <div className="pointer-events-none absolute -left-24 top-40 h-72 w-72 rounded-full bg-gold-light/25 blur-3xl" />
+    <section className="relative overflow-hidden bg-[#FDFAF6] py-12 md:py-18" dir="rtl">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-rose-soft/35 to-transparent" />
 
       <div className="container-wide relative">
+
+        {/* ── SECTION HEADER ── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-14 text-center"
+          className="mb-8 text-center"
         >
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-rose-mid">روتين متكامل</p>
-          <h2 className="section-heading text-[#2C1810]">أكملي روتينك — صباحاً وليلاً</h2>
-          <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#6B5555]">
-            المنتجات مكمّلة لبعضها؛ الترتيب الصحيح والانتظام يعزّزان مظهر البشرة دون مبالغة.
+          <p className="luxury-kicker mx-auto mb-3 w-fit">روتين متكامل</p>
+          <h2 className="section-heading text-[#2C1810]">4 منتجات — نظام عناية واحد</h2>
+          <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-[#8C6E73]">
+            كل منتج عنده دوره — مع بعض كيكملوا روتين كامل صباحاً وليلاً.
           </p>
         </motion.div>
 
-        <div className="relative mb-8 grid grid-cols-1 gap-8 md:grid-cols-2">
-          <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 text-center md:block">
-            <p className="mb-2 text-[13px] italic text-[#8C6E73]">روتينك الكامل = صباح + ليل</p>
-            <svg className="mx-auto h-6 w-28 text-[#C4788A]" viewBox="0 0 120 24" fill="none" aria-hidden>
-              <path d="M10 12h100" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              <path d="M18 5l-8 7 8 7M102 5l8 7-8 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+        {/* ── BUNDLE FAMILY STRIP ── */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="mb-8 mx-auto w-fit"
+        >
+          <div className="flex items-end gap-1 rounded-2xl border border-[#E8D6CC] bg-white px-5 pt-4 pb-3 shadow-[0_10px_32px_rgba(92,45,62,0.07)] sm:gap-3 sm:px-7">
+            <p className="ml-3 self-center text-[11px] font-bold text-[#9B8A8A] whitespace-nowrap">
+              روتين نورا الكامل
+            </p>
+            {FAMILY.map((slug, i) => (
+              <div key={slug} className="flex items-end gap-1 sm:gap-3">
+                <div className="flex flex-col items-center gap-1">
+                  <img
+                    src={THUMBNAILS[slug]}
+                    alt={SHORT_NAME[slug]}
+                    loading="lazy"
+                    className="object-contain"
+                    style={{
+                      height: "52px",
+                      width: slug === "nura-spf-50" || slug === "nura-night-renewal" ? "40px" : "36px",
+                      filter: "drop-shadow(0 4px 8px rgba(92,45,62,0.16))",
+                      opacity: slug === currentSlug ? 1 : 0.7,
+                      transform: slug === currentSlug ? "scale(1.12)" : "scale(1)",
+                      transition: "all .2s",
+                    }}
+                  />
+                  <span className="text-[9px] font-semibold text-[#9B8A8A] text-center max-w-[48px] leading-tight">
+                    {SHORT_NAME[slug]}
+                  </span>
+                </div>
+                {i < FAMILY.length - 1 && (
+                  <span className="mb-6 text-sm font-bold text-[#D4BC9B]">+</span>
+                )}
+              </div>
+            ))}
           </div>
-          {(["morning", "night"] as const).map((time) => (
-            <motion.div
-              key={time}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: time === "morning" ? 0 : 0.08 }}
-              className={`relative rounded-[1.75rem] border bg-white p-6 shadow-[0_18px_50px_rgba(58,34,44,0.06)] md:p-8 ${
-                time === "morning"
-                  ? "border-amber-100/80 ring-1 ring-amber-50"
-                  : "border-rose-soft/35 ring-1 ring-rose-blush/40"
-              }`}
-            >
-              <div className="mb-8 flex items-center gap-4">
-                <div
-                  className={`flex h-12 w-12 items-center justify-center rounded-2xl shadow-inner ${
-                    time === "morning"
-                      ? "bg-gradient-to-br from-amber-50 to-white text-amber-700"
-                      : "bg-gradient-to-br from-rose-blush to-white text-rose-deep"
-                  }`}
-                >
-                  {time === "morning" ? (
-                    <Sun className="h-6 w-6" strokeWidth={1.35} aria-hidden />
-                  ) : (
-                    <Moon className="h-6 w-6" strokeWidth={1.35} aria-hidden />
-                  )}
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-[#2C1810]">
-                    {time === "morning" ? "روتين الصباح" : "روتين الليل"}
-                  </h3>
-                  <p className="text-xs text-[#9B8A8A]">
-                    {time === "morning" ? "حماية، إشراقة، استعداد للنهار" : "تنظيف عميق، تجديد، راحة قبل النوم"}
-                  </p>
-                </div>
+          <p className="mt-2 text-center text-[10px] font-semibold text-[#C4B0A8]">
+            4 منتجات متكاملة • صباحاً ومساءً
+          </p>
+        </motion.div>
+
+        {/* ── TWO ROUTINE CARDS ── */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+          {/* ☀️ MORNING */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative overflow-hidden rounded-[1.6rem] border border-amber-100 bg-gradient-to-br from-[#FFFCF5] via-[#FFF8EE] to-[#FFF2DC] p-5 shadow-[0_16px_48px_rgba(200,140,60,0.08)]"
+          >
+            {/* Sun glow blobs */}
+            <div className="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-amber-200/45 blur-2xl" />
+            <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-12 w-48 rounded-full bg-amber-100/70 blur-xl" />
+
+            {/* Header */}
+            <div className="relative mb-5 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100 shadow-sm">
+                <Sun className="h-5 w-5 text-amber-600" strokeWidth={1.4} />
               </div>
+              <div>
+                <h3 className="text-base font-black text-[#4A2E00]">روتين الصباح</h3>
+                <p className="text-[11px] text-amber-700/65">حماية، إشراقة، استعداد للنهار</p>
+              </div>
+              <span className="mr-auto rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-bold text-amber-700">
+                ☀️ صباحاً
+              </span>
+            </div>
 
-              <div className="relative space-y-0 ps-1">
-                {ROUTINE_STEPS[time].map((step, i) => {
-                  const StepIcon = step.Icon;
-                  const isHere = step.slug === currentSlug;
-                  const isLinked = Boolean(step.slug);
-                  const isLast = i === ROUTINE_STEPS[time].length - 1;
-
-                  return (
-                    <div key={step.time} className="relative flex gap-4 pb-8 last:pb-0">
-                      {!isLast && (
-                        <span
-                          className={`absolute end-[1.15rem] top-12 bottom-0 w-px ${
-                            isLinked ? "bg-rose-soft/50" : "bg-border/90"
-                          }`}
-                          aria-hidden
-                        />
-                      )}
-
-                      <div className="relative z-[1] flex shrink-0 flex-col items-center gap-1">
-                        <div
-                          className={`flex h-11 w-11 items-center justify-center rounded-2xl border shadow-sm transition-colors ${
-                            isHere
-                              ? "border-rose-deep bg-rose-deep text-white"
-                              : isLinked
-                                ? "border-rose-soft/50 bg-rose-blush/70 text-rose-deep"
-                                : "border-border bg-white text-[#9B8A8A]"
-                          }`}
-                        >
-                          <StepIcon className="h-5 w-5" strokeWidth={1.35} aria-hidden />
-                        </div>
-                        <span
-                          className={`text-[10px] font-black tabular-nums ${
-                            isHere ? "text-rose-deep" : "text-[#9B8A8A]"
-                          }`}
-                        >
-                          {step.time}
+            {/* Steps */}
+            <div className="relative space-y-0">
+              {MORNING.map((step, i) => {
+                const isHere = step.slug === currentSlug;
+                return (
+                  <div key={step.slug}>
+                    <div className={`flex items-center gap-3 rounded-xl border p-3.5 transition-all ${
+                      isHere
+                        ? "border-amber-300 bg-white shadow-[0_6px_20px_rgba(200,140,60,0.14)]"
+                        : "border-amber-100/70 bg-white/60"
+                    }`}>
+                      {/* Step badge */}
+                      <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-[11px] font-black ${
+                        isHere ? "bg-amber-500 text-white" : "bg-amber-100 text-amber-700"
+                      }`}>
+                        {step.step}
+                      </span>
+                      {/* Product image */}
+                      <img
+                        src={THUMBNAILS[step.slug]}
+                        alt={SHORT_NAME[step.slug]}
+                        loading="lazy"
+                        className="shrink-0 object-contain"
+                        style={{
+                          height: "56px",
+                          width: step.pump ? "44px" : "38px",
+                          filter: "drop-shadow(0 4px 10px rgba(92,45,62,0.15))",
+                        }}
+                      />
+                      {/* Text */}
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-bold leading-tight text-[#4A2E00]">
+                          {SHORT_NAME[step.slug]}
+                        </p>
+                        <p className="mt-0.5 text-[11px] leading-4 text-[#9B7060]">{step.desc}</p>
+                      </div>
+                      {isHere && (
+                        <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-[9px] font-bold text-amber-700">
+                          أنتِ هنا
                         </span>
-                      </div>
-
-                      <div
-                        className={`min-w-0 flex-1 rounded-2xl border px-4 py-3 transition-colors ${
-                          isHere
-                            ? "border-rose-deep/35 bg-gradient-to-br from-rose-blush to-white"
-                            : isLinked
-                              ? "border-transparent bg-ivory/90"
-                              : "border-border/60 bg-white/60 opacity-75"
-                        }`}
-                      >
-                        <div className="flex items-start gap-3">
-                          {isLinked && (
-                            <img
-                              src={PRODUCT_PACK_IMAGES[step.slug]}
-                              alt={`صورة ${step.label} داخل الروتين`}
-                              className="h-[50px] w-[50px] shrink-0 object-contain bg-transparent"
-                              style={{ filter: "drop-shadow(0 4px 8px rgba(92,45,62,0.15))" }}
-                              loading="lazy"
-                            />
-                          )}
-                          <div>
-                            <div className="flex flex-wrap items-center gap-2">
-                              <p className={`text-sm font-bold leading-snug ${isLinked ? "text-[#2C1810]" : "text-[#8A7878]"}`}>
-                                {step.label}
-                              </p>
-                              {isHere && (
-                                <motion.span
-                                  animate={{ boxShadow: ["0 0 0 0 rgba(196,120,138,0.4)", "0 0 0 8px rgba(196,120,138,0)", "0 0 0 0 rgba(196,120,138,0.4)"] }}
-                                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                                  className="current-step-badge rounded-full bg-rose-deep px-2 py-0.5 text-[10px] font-bold text-white"
-                                >
-                                  خطوتك الحالية
-                                </motion.span>
-                              )}
-                            </div>
-                            <p className="mt-1.5 text-xs leading-relaxed text-[#7A6560]">{step.desc}</p>
-                          </div>
-                        </div>
-                      </div>
+                      )}
                     </div>
-                  );
-                })}
+                    {i < MORNING.length - 1 && <Arrow />}
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* 🌙 NIGHT */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.07 }}
+            className="relative overflow-hidden rounded-[1.6rem] bg-gradient-to-br from-[#170810] via-[#1E0E18] to-[#2D1525] p-5 shadow-[0_24px_65px_rgba(20,8,16,0.30)]"
+          >
+            {/* Moon glow blobs */}
+            <div className="pointer-events-none absolute -top-12 left-1/3 h-36 w-36 rounded-full bg-[#C4788A]/18 blur-3xl" />
+            <div className="pointer-events-none absolute bottom-0 right-0 h-24 w-24 rounded-full bg-[#7B3F55]/20 blur-2xl" />
+
+            {/* Header */}
+            <div className="relative mb-5 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10">
+                <Moon className="h-5 w-5 text-[#F2D8E0]" strokeWidth={1.4} />
               </div>
-            </motion.div>
-          ))}
+              <div>
+                <h3 className="text-base font-black text-white">روتين الليل</h3>
+                <p className="text-[11px] text-white/45">تجديد، راحة، إصلاح قبل النوم</p>
+              </div>
+              <span className="mr-auto rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-bold text-white/60">
+                🌙 مساءً
+              </span>
+            </div>
+
+            {/* Steps */}
+            <div className="relative space-y-0">
+              {NIGHT.map((step, i) => {
+                const isHere = step.slug === currentSlug;
+                return (
+                  <div key={step.slug}>
+                    <div className={`flex items-center gap-3 rounded-xl border p-3.5 transition-all ${
+                      isHere
+                        ? "border-[#C4788A]/45 bg-white/12 shadow-[0_6px_20px_rgba(196,120,138,0.18)]"
+                        : "border-white/8 bg-white/6"
+                    }`}>
+                      {/* Step badge */}
+                      <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-[11px] font-black ${
+                        isHere ? "bg-[#C4788A] text-white" : "bg-white/12 text-white/60"
+                      }`}>
+                        {step.step}
+                      </span>
+                      {/* Product image */}
+                      <img
+                        src={THUMBNAILS[step.slug]}
+                        alt={SHORT_NAME[step.slug]}
+                        loading="lazy"
+                        className="shrink-0 object-contain"
+                        style={{
+                          height: "56px",
+                          width: step.pump ? "44px" : "38px",
+                          filter: "drop-shadow(0 4px 12px rgba(196,120,138,0.28)) brightness(1.08)",
+                        }}
+                      />
+                      {/* Text */}
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-bold leading-tight text-white/90">
+                          {SHORT_NAME[step.slug]}
+                        </p>
+                        <p className="mt-0.5 text-[11px] leading-4 text-white/42">{step.desc}</p>
+                      </div>
+                      {isHere && (
+                        <span className="shrink-0 rounded-full bg-[#C4788A]/20 px-2 py-0.5 text-[9px] font-bold text-[#F2B8C6]">
+                          أنتِ هنا
+                        </span>
+                      )}
+                    </div>
+                    {i < NIGHT.length - 1 && <Arrow dark />}
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
         </div>
-        <div className="text-center">
-          <p className="mx-auto max-w-xl text-[13px] leading-7 text-[#8C6E73]">
-            المنتجات اللي مشوفتيهاش في روتينك الحالي؟ كتلقيهم في الروتين الكامل.
+
+        {/* ── BOTTOM CTA ── */}
+        <div className="mt-8 text-center">
+          <p className="mx-auto max-w-md text-[13px] leading-7 text-[#8C6E73]">
+            المنتجات اللي ما عندكيش فالروتين ديالك؟ شوفيهم فالروتين الكامل وفري بزاف.
           </p>
           <button
             type="button"
             onClick={scrollToRituals}
-            className="mt-4 inline-flex min-h-[46px] items-center justify-center rounded-full border border-rose-soft/45 bg-white px-6 text-sm font-bold text-rose-deep transition hover:bg-rose-blush"
+            className="mt-4 inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-rose-soft/45 bg-white px-7 text-sm font-bold text-rose-deep transition hover:bg-rose-blush active:scale-[0.98]"
           >
             شوفي الروتين الكامل ←
           </button>
