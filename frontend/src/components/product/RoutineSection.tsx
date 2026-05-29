@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 
@@ -74,47 +75,48 @@ export function RoutineSection({ currentSlug }: Props) {
           </p>
         </motion.div>
 
-        {/* ── BUNDLE FAMILY STRIP ── */}
+        {/* ── COMPLETE ROUTINE PHOTO ── */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="mb-8 mx-auto w-fit"
+          className="mb-8"
         >
-          <div className="flex items-end gap-1 rounded-2xl border border-[#E8D6CC] bg-white px-5 pt-4 pb-3 shadow-[0_10px_32px_rgba(92,45,62,0.07)] sm:gap-3 sm:px-7">
-            <p className="ml-3 self-center text-[11px] font-bold text-[#9B8A8A] whitespace-nowrap">
-              روتين نورا الكامل
-            </p>
-            {FAMILY.map((slug, i) => (
-              <div key={slug} className="flex items-end gap-1 sm:gap-3">
-                <div className="flex flex-col items-center gap-1">
-                  <img
-                    src={THUMBNAILS[slug]}
-                    alt={SHORT_NAME[slug]}
-                    loading="lazy"
-                    className="object-contain"
-                    style={{
-                      height: "52px",
-                      width: slug === "nura-spf-50" || slug === "nura-night-renewal" ? "40px" : "36px",
-                      filter: "drop-shadow(0 4px 8px rgba(92,45,62,0.16))",
-                      opacity: slug === currentSlug ? 1 : 0.7,
-                      transform: slug === currentSlug ? "scale(1.12)" : "scale(1)",
-                      transition: "all .2s",
-                    }}
-                  />
-                  <span className="text-[9px] font-semibold text-[#9B8A8A] text-center max-w-[48px] leading-tight">
-                    {SHORT_NAME[slug]}
-                  </span>
-                </div>
-                {i < FAMILY.length - 1 && (
-                  <span className="mb-6 text-sm font-bold text-[#D4BC9B]">+</span>
-                )}
+          <div className="relative w-full overflow-hidden rounded-3xl shadow-[0_20px_60px_rgba(92,45,62,0.14)]">
+            {/* Desktop: wide landscape */}
+            <div className="relative aspect-[16/7] hidden sm:block">
+              <Image
+                src="/images/routine-complete-family.jpg"
+                alt="روتين نورا الكامل — 4 منتجات"
+                fill
+                sizes="(min-width: 1024px) 80vw, 100vw"
+                className="object-cover object-center"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-l from-[#1A0810]/55 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#1A0810]/20 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-6 text-right">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">روتين نورا الكامل</p>
+                <p className="mt-1 text-base font-black text-white">4 منتجات متكاملة — صباحاً ومساءً</p>
               </div>
-            ))}
+            </div>
+            {/* Mobile: 4:3 crop */}
+            <div className="relative aspect-[4/3] sm:hidden">
+              <Image
+                src="/images/routine-complete-family.jpg"
+                alt="روتين نورا الكامل — 4 منتجات"
+                fill
+                sizes="100vw"
+                className="object-cover object-center"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1A0810]/65 via-transparent to-transparent" />
+              <div className="absolute bottom-4 inset-x-4 text-right">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">روتين نورا الكامل</p>
+                <p className="mt-1 text-sm font-black text-white">4 منتجات متكاملة — صباحاً ومساءً</p>
+              </div>
+            </div>
           </div>
-          <p className="mt-2 text-center text-[10px] font-semibold text-[#C4B0A8]">
-            4 منتجات متكاملة • صباحاً ومساءً
-          </p>
         </motion.div>
 
         {/* ── TWO ROUTINE CARDS ── */}

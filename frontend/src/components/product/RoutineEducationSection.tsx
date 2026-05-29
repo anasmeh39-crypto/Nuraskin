@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 
@@ -133,42 +134,49 @@ export function RoutineEducationSection() {
           </p>
         </motion.div>
 
-        {/* ── FAMILY STRIP ── */}
+        {/* ── COMPLETE ROUTINE PHOTO ── */}
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.05 }}
-          className="mb-8 flex flex-col items-center"
+          className="mb-8"
         >
-          <div className="inline-flex items-end gap-2 rounded-2xl border border-[#E8D6CC] bg-white px-5 pt-4 pb-3 shadow-[0_10px_32px_rgba(92,45,62,0.06)] sm:gap-4 sm:px-8">
-            {FAMILY.map((p, i) => (
-              <div key={p.slug} className="flex items-end gap-2 sm:gap-4">
-                <div className="flex flex-col items-center gap-1.5">
-                  <img
-                    src={THUMBNAILS[p.slug]}
-                    alt={p.label}
-                    loading="lazy"
-                    className="object-contain"
-                    style={{
-                      height: p.pump ? "60px" : "52px",
-                      width: p.pump ? "44px" : "36px",
-                      filter: "drop-shadow(0 5px 10px rgba(92,45,62,0.18))",
-                    }}
-                  />
-                  <span className="text-[9px] font-semibold text-[#B0958A] text-center max-w-[44px] leading-tight">
-                    {p.label}
-                  </span>
-                </div>
-                {i < FAMILY.length - 1 && (
-                  <span className="mb-7 text-base font-bold text-[#D4BC9B]">+</span>
-                )}
+          <div className="relative w-full overflow-hidden rounded-3xl shadow-[0_20px_60px_rgba(92,45,62,0.14)]">
+            {/* Landscape on desktop, taller crop on mobile */}
+            <div className="relative aspect-[16/7] hidden sm:block">
+              <Image
+                src="/images/routine-complete-family.jpg"
+                alt="روتين نورا الكامل — 4 منتجات"
+                fill
+                sizes="(min-width: 1024px) 80vw, 100vw"
+                className="object-cover object-center"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-l from-[#1A0810]/55 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#1A0810]/20 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-6 text-right">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">روتين نورا الكامل</p>
+                <p className="mt-1 text-base font-black text-white">4 منتجات متكاملة — صباحاً ومساءً</p>
               </div>
-            ))}
+            </div>
+            {/* Mobile: square-ish crop */}
+            <div className="relative aspect-[4/3] sm:hidden">
+              <Image
+                src="/images/routine-complete-family.jpg"
+                alt="روتين نورا الكامل — 4 منتجات"
+                fill
+                sizes="100vw"
+                className="object-cover object-center"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1A0810]/65 via-transparent to-transparent" />
+              <div className="absolute bottom-4 inset-x-4 text-right">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">روتين نورا الكامل</p>
+                <p className="mt-1 text-sm font-black text-white">4 منتجات متكاملة — صباحاً ومساءً</p>
+              </div>
+            </div>
           </div>
-          <p className="mt-2.5 text-[10px] font-semibold tracking-wide text-[#C4B0A8] uppercase">
-            روتين نورا الكامل — 4 منتجات متكاملة
-          </p>
         </motion.div>
 
         {/* ── TWO ROUTINE CARDS ── */}
