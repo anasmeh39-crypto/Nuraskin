@@ -51,9 +51,10 @@ export default function PacksPage() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-[1.15fr_0.9fr_0.9fr]">
-            {ORDERED_PACKS.map((bundle, index) => {
-              if (!bundle) return null;
+          <div className="mt-12 space-y-6">
+            {/* Featured pack — full-width horizontal split */}
+            {ORDERED_PACKS[0] && (() => {
+              const bundle = ORDERED_PACKS[0]!;
               const copy = PACK_COPY[bundle.id];
               return (
                 <PackCard
@@ -61,10 +62,26 @@ export default function PacksPage() {
                   bundle={bundle}
                   cta={copy.cta}
                   positioning={copy.positioning}
-                  featured={index === 0}
+                  featured
                 />
               );
-            })}
+            })()}
+
+            {/* Secondary packs — 2-column grid */}
+            <div className="grid gap-6 md:grid-cols-2">
+              {ORDERED_PACKS.slice(1).map((bundle) => {
+                if (!bundle) return null;
+                const copy = PACK_COPY[bundle.id];
+                return (
+                  <PackCard
+                    key={bundle.id}
+                    bundle={bundle}
+                    cta={copy.cta}
+                    positioning={copy.positioning}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
