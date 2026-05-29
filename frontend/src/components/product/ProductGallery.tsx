@@ -66,16 +66,106 @@ const RETINOL_GALLERY_SLOTS: GallerySlot[] = [
   },
 ];
 
+// Shared complete-tier slots (same 4 products, same images across all product pages)
+const COMPLETE_TIER_SLOTS: GallerySlot[] = [
+  { label: "طقس نورا الكامل", sublabel: "٤ منتجات — صباح + ليل", bg: "from-rose-50 to-pink-100", image: "/images/bundles/full-routine-hero.jpg", fit: "cover" },
+  { label: "الطقس الكامل", sublabel: "روتين متكامل", bg: "from-amber-50 to-orange-50", image: "/images/bundles/nura-complete-premium-routine.png", fit: "contain" },
+  { label: "لايف ستايل", sublabel: "طقس العناية الكامل", bg: "from-rose-50 to-pink-100", image: "/images/bundles/complete-routine.jpg", fit: "cover" },
+  { label: "سيروم النياسيناميد", sublabel: "إشراقة وتوازن", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
+  { label: "كريم الريتينول", sublabel: "تجديد ليلي", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
+];
+
+// Bundle gallery slots — keyed by productSlug, then by offerTier
+const BUNDLE_GALLERIES: Record<string, Record<string, GallerySlot[]>> = {
+  "nura-balance": {
+    duo: [
+      { label: "روتين أساسي", sublabel: "نياسيناميد + ريتينول", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal-hero.jpg", fit: "cover" },
+      { label: "سيروم النياسيناميد", sublabel: "إشراقة نهارية", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
+      { label: "كريم الريتينول الليلي", sublabel: "تجديد ليلي", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
+    ],
+    trio: [
+      { label: "طقس الصباح الكامل", sublabel: "٣ منتجات — روتين صباحي", bg: "from-rose-50 to-pink-100", image: "/images/bundles/morning-routine-hero.jpg", fit: "cover" },
+      { label: "لايف ستايل", sublabel: "روتين الصباح", bg: "from-amber-50 to-orange-50", image: "/images/bundles/morning-routine.jpg", fit: "cover" },
+      { label: "سيروم النياسيناميد", sublabel: "إشراقة وتوازن", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
+      { label: "سيروم محيط العين", sublabel: "مضاد الهالات", bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png", fit: "contain" },
+      { label: "واقي الشمس SPF50", sublabel: "حماية يومية", bg: "from-amber-50 to-yellow-50", image: "/images/products/sunscreen-spf50-pack.png", fit: "contain" },
+    ],
+    complete: COMPLETE_TIER_SLOTS,
+  },
+
+  "nura-eye-revive": {
+    // duo: eye serum + retinol night cream
+    duo: [
+      { label: "روتين التجديد الليلي", sublabel: "محيط العين + كريم ليلي", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal-hero.jpg", fit: "cover" },
+      { label: "سيروم محيط العين", sublabel: "إشراقة النظرة", bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png", fit: "contain" },
+      { label: "كريم الريتينول الليلي", sublabel: "تجديد ليلي عميق", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
+    ],
+    // trio: eye serum + niacinamide + spf
+    trio: [
+      { label: "طقس الإشراقة اليومية", sublabel: "٣ منتجات — روتين صباحي", bg: "from-rose-50 to-pink-100", image: "/images/bundles/morning-routine-hero.jpg", fit: "cover" },
+      { label: "لايف ستايل", sublabel: "روتين الصباح", bg: "from-amber-50 to-orange-50", image: "/images/bundles/morning-routine.jpg", fit: "cover" },
+      { label: "سيروم محيط العين", sublabel: "إشراقة النظرة", bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png", fit: "contain" },
+      { label: "سيروم النياسيناميد", sublabel: "إشراقة وتوازن", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
+      { label: "واقي الشمس SPF50", sublabel: "حماية يومية", bg: "from-amber-50 to-yellow-50", image: "/images/products/sunscreen-spf50-pack.png", fit: "contain" },
+    ],
+    complete: COMPLETE_TIER_SLOTS,
+  },
+
+  "nura-night-renewal": {
+    // duo: retinol + eye serum
+    duo: [
+      { label: "روتين التجديد الليلي", sublabel: "كريم ليلي + عناية عيون", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal-hero.jpg", fit: "cover" },
+      { label: "كريم الريتينول الليلي", sublabel: "تجديد ليلي عميق", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
+      { label: "سيروم محيط العين", sublabel: "إشراقة النظرة", bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png", fit: "contain" },
+    ],
+    // trio: retinol + niacinamide + spf
+    trio: [
+      { label: "طقس التجديد والحماية", sublabel: "٣ منتجات — ليل + نهار", bg: "from-rose-50 to-pink-100", image: "/images/bundles/morning-routine-hero.jpg", fit: "cover" },
+      { label: "لايف ستايل", sublabel: "روتين متكامل", bg: "from-amber-50 to-orange-50", image: "/images/bundles/morning-routine.jpg", fit: "cover" },
+      { label: "كريم الريتينول الليلي", sublabel: "تجديد ليلي", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
+      { label: "سيروم النياسيناميد", sublabel: "إشراقة نهارية", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
+      { label: "واقي الشمس SPF50", sublabel: "حماية يومية", bg: "from-amber-50 to-yellow-50", image: "/images/products/sunscreen-spf50-pack.png", fit: "contain" },
+    ],
+    complete: COMPLETE_TIER_SLOTS,
+  },
+
+  "nura-spf-50": {
+    // no duo tier for spf-50 (see products config)
+    // trio: retinol + niacinamide + spf
+    trio: [
+      { label: "طقس الحماية والإشراقة", sublabel: "٣ منتجات — حماية + تجديد", bg: "from-rose-50 to-pink-100", image: "/images/bundles/morning-routine-hero.jpg", fit: "cover" },
+      { label: "لايف ستايل", sublabel: "روتين الحماية", bg: "from-amber-50 to-orange-50", image: "/images/bundles/morning-routine.jpg", fit: "cover" },
+      { label: "واقي الشمس SPF50", sublabel: "حماية يومية", bg: "from-amber-50 to-yellow-50", image: "/images/products/sunscreen-spf50-pack.png", fit: "contain" },
+      { label: "سيروم النياسيناميد", sublabel: "إشراقة وتوازن", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
+      { label: "كريم الريتينول", sublabel: "تجديد ليلي", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
+    ],
+    complete: COMPLETE_TIER_SLOTS,
+  },
+};
+
 interface Props {
   productName: string;
   productSlug: string;
+  offerTier?: string;
 }
 
-export function ProductGallery({ productName, productSlug }: Props) {
+export function ProductGallery({ productName, productSlug, offerTier }: Props) {
   const [active, setActive] = useState(0);
   const [mounted, setMounted] = useState(false);
+
+  // Reset to first slide whenever offer tier changes
+  useEffect(() => {
+    setActive(0);
+  }, [offerTier]);
+
   const gallerySlots = React.useMemo(
     () => {
+      // Switch to bundle gallery when a non-single offer tier is selected
+      if (offerTier && offerTier !== "single") {
+        const bundleSlots = BUNDLE_GALLERIES[productSlug]?.[offerTier];
+        if (bundleSlots) return bundleSlots;
+      }
+
       if (productSlug === "nura-night-renewal") return RETINOL_GALLERY_SLOTS;
 
       return GALLERY_SLOTS.map((slot, index) =>
@@ -108,7 +198,7 @@ export function ProductGallery({ productName, productSlug }: Props) {
           : slot
       );
     },
-    [productSlug]
+    [productSlug, offerTier]
   );
   const displayIndex = mounted ? active : 0;
   const activeSlot = gallerySlots[displayIndex];

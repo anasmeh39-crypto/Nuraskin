@@ -82,7 +82,7 @@ export function ProductHeroElite({ product }: Props) {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
             className="lg:sticky lg:top-24"
           >
-            <ProductGallery productName={product.name_ar} productSlug={product.slug} />
+            <ProductGallery productName={product.name_ar} productSlug={product.slug} offerTier={selectedOffer?.tier} />
           </motion.div>
 
           {/* ── Right: Details ── */}
@@ -169,7 +169,7 @@ export function ProductHeroElite({ product }: Props) {
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
-                  أضيف للسلة
+                  تمت الإضافة للسلة
                 </>
               ) : adding ? (
                 <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
@@ -178,7 +178,7 @@ export function ProductHeroElite({ product }: Props) {
                 </svg>
               ) : (
                 <>
-                  أضيفي للسلة — {price} درهم
+                  احصلي على طقسك — {price} درهم
                   <svg className="w-5 h-5 flip-ltr" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>

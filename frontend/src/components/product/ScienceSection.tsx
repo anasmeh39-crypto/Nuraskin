@@ -5,8 +5,24 @@ import { motion } from "framer-motion";
 import { Product } from "@/types";
 
 const DEFAULT_STATS = [
-  { value: "10%", label: "تركيز الناياسيناميد", sub: "الحد الأمثل الموثق" },
+  { value: "10%", label: "تركيز النياسيناميد", sub: "الحد الأمثل الموثق" },
   { value: "3–4", label: "أسابيع للنتيجة الأولى", sub: "مع الاستخدام المنتظم" },
+  { value: "0", label: "مواد ضارة", sub: "بارابين، سيليكون، ألوان صناعية" },
+  { value: "100%", label: "شفافية المكونات", sub: "نعلن عن كل ما في التركيبة" },
+  { value: "4", label: "منتجات مكملة", sub: "كل وحدة مصممة باش تشتغل مع الأخرى" },
+];
+
+const EYE_STATS = [
+  { value: "5%", label: "نياسيناميد محيط العين", sub: "نسبة لطيفة لمنطقة حساسة" },
+  { value: "1–2", label: "أسابيع للنتيجة الأولى", sub: "مع الاستخدام المنتظم" },
+  { value: "0", label: "مواد ضارة", sub: "بارابين، سيليكون، ألوان صناعية" },
+  { value: "100%", label: "شفافية المكونات", sub: "نعلن عن كل ما في التركيبة" },
+  { value: "4", label: "منتجات مكملة", sub: "كل وحدة مصممة باش تشتغل مع الأخرى" },
+];
+
+const NIGHT_STATS = [
+  { value: "باكوتشيول", label: "مكوّن التجديد الليلي", sub: "بديل نباتي لطيف ومدروس" },
+  { value: "2–3", label: "أسابيع للنتيجة الأولى", sub: "مع الاستخدام المنتظم" },
   { value: "0", label: "مواد ضارة", sub: "بارابين، سيليكون، ألوان صناعية" },
   { value: "100%", label: "شفافية المكونات", sub: "نعلن عن كل ما في التركيبة" },
   { value: "4", label: "منتجات مكملة", sub: "كل وحدة مصممة باش تشتغل مع الأخرى" },
@@ -45,7 +61,9 @@ interface Props {
 
 export function ScienceSection({ product }: Props) {
   const isSpf = product?.slug === "nura-spf-50";
-  const stats = isSpf ? SPF_STATS : DEFAULT_STATS;
+  const isEye = product?.slug === "nura-eye-revive";
+  const isNight = product?.slug === "nura-night-renewal";
+  const stats = isSpf ? SPF_STATS : isEye ? EYE_STATS : isNight ? NIGHT_STATS : DEFAULT_STATS;
 
   return (
     <section className="py-20 bg-[#1E0F14] overflow-hidden" dir="rtl">

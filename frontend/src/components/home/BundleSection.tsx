@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
+import Image from "next/image";
 import { Check, Eye, Moon, ShieldCheck, SunMedium } from "lucide-react";
 import { BUNDLES, PRODUCTS_MAP, PRODUCTS } from "@/config/products";
 import { useCartStore } from "@/store/cart";
-import { Button } from "@/components/ui/Button";
 import { generateEventId, trackAddToCart } from "@/lib/tracking";
 import { CartItem } from "@/types";
+import { BUNDLE_HERO_IMAGES } from "@/components/packs/PackCard";
 
 export function BundleSection() {
   const { addItem } = useCartStore();
@@ -90,16 +90,43 @@ export function BundleSection() {
               return sum + (p?.price ?? 0);
             }, 0);
 
+            const hero = BUNDLE_HERO_IMAGES[bundle.id];
+
             return (
               <div
                 key={bundle.id}
-                className={`rounded-[1.65rem] p-7 relative overflow-hidden transition-all duration-300 hover:-translate-y-0.5 ${
+                className={`rounded-[1.65rem] relative overflow-hidden transition-all duration-300 hover:-translate-y-0.5 ${
                   isMain
                     ? "border-2 border-gold/40 bg-gradient-to-b from-brand-deep via-brand-deep to-[#2e2429] shadow-[0_24px_60px_rgba(58,34,44,0.35)]"
                     : "premium-card border border-border shadow-[0_12px_36px_rgba(58,34,44,0.06)]"
                 }`}
               >
-                {bundle.tag && (
+                {/* Hero image */}
+                {hero && (
+                  <div className="relative h-52 overflow-hidden">
+                    <Image
+                      src={hero.src}
+                      alt={hero.alt}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, 100vw"
+                      className="object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                    {bundle.tag && (
+                      <div
+                        className={`absolute top-3 start-3 rounded-full px-3 py-1.5 text-[10px] font-bold tracking-wide text-white shadow-lg ${
+                          isMain ? "bg-gradient-to-l from-gold to-[#C9A84C]" : "bg-brand-mid"
+                        }`}
+                      >
+                        {bundle.tag}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <div className="p-7">
+                {!hero && bundle.tag && (
                   <div
                     className={`absolute -top-px start-6 rounded-b-xl px-4 py-1.5 text-[10px] font-bold tracking-wide text-white shadow-lg ${
                       isMain ? "bg-gradient-to-l from-gold to-[#C9A84C]" : "bg-brand-mid"
@@ -154,6 +181,7 @@ export function BundleSection() {
                 >
                   اطلبي هذه المجموعة
                 </button>
+                </div>
               </div>
             );
           })}

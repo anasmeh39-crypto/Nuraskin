@@ -17,7 +17,16 @@ export function BeforeAfterSlider({ productSlug }: Props) {
   const [sliderX, setSliderX] = useState(48);
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
-  const hasBalanceImages = productSlug === "nura-balance";
+  const BEFORE_IMAGES: Record<string, string> = {
+    "nura-balance":     "/images/nura-balance-before.png",
+    "nura-eye-revive":  "/images/nura-eye-revive-before.png",
+  };
+  const AFTER_IMAGES: Record<string, string> = {
+    "nura-balance":     "/images/nura-balance-after.png",
+    "nura-eye-revive":  "/images/nura-eye-revive-after.png",
+  };
+  const beforeImageSrc = BEFORE_IMAGES[productSlug];
+  const afterImageSrc = AFTER_IMAGES[productSlug];
 
   const updateSlider = useCallback((clientX: number) => {
     const container = containerRef.current;
@@ -34,6 +43,21 @@ export function BeforeAfterSlider({ productSlug }: Props) {
   const handleTouchMove = (e: React.TouchEvent) => { updateSlider(e.touches[0].clientX); };
 
   const timelines = TIMELINE_LABELS[productSlug] || TIMELINE_LABELS["nura-balance"];
+
+  const BEFORE_LABELS: Record<string, string> = {
+    "nura-balance":      "لمعان — مسام — تعب",
+    "nura-eye-revive":  "هالات — انتفاخ — إرهاق",
+    "nura-night-renewal": "بشرة باهتة — جفاف — تعب",
+    "nura-spf-50":      "بدون حماية — تعرض للشمس",
+  };
+  const AFTER_LABELS: Record<string, { title: string; sub: string }> = {
+    "nura-balance":       { title: "إشراقة ونعومة", sub: "بشرة أكثر توازناً" },
+    "nura-eye-revive":   { title: "نظرة أكثر انتعاشاً", sub: "محيط عين أكثر هدوءاً وإشراقاً" },
+    "nura-night-renewal": { title: "نعومة ونضارة", sub: "بشرة أكثر راحة وتجدداً" },
+    "nura-spf-50":        { title: "حماية كاملة", sub: "مطمئنة طول النهار" },
+  };
+  const beforeLabel = BEFORE_LABELS[productSlug] ?? BEFORE_LABELS["nura-balance"];
+  const afterLabel = AFTER_LABELS[productSlug] ?? AFTER_LABELS["nura-balance"];
 
   return (
     <section className="py-20 bg-ivory overflow-hidden">
@@ -70,10 +94,10 @@ export function BeforeAfterSlider({ productSlug }: Props) {
             <div className="relative overflow-hidden rounded-[1.6rem] bg-ivory aspect-[4/5] sm:aspect-square">
               {/* After (right) */}
               <div className="absolute inset-0 bg-gradient-to-br from-rose-100 to-pink-50 flex items-center justify-center">
-                {hasBalanceImages ? (
+                {afterImageSrc ? (
                   <img
-                    src="/images/nura-balance-after.png"
-                    alt="مظهر البشرة بعد استعمال روتين النياسيناميد من نورا سكين"
+                    src={afterImageSrc}
+                    alt={`مظهر البشرة بعد استعمال ${productSlug} من نورا سكين`}
                     className="h-full w-full object-contain sm:object-cover"
                     draggable={false}
                   />
@@ -82,8 +106,8 @@ export function BeforeAfterSlider({ productSlug }: Props) {
                     <div className="w-20 h-20 rounded-full bg-white/70 mx-auto flex items-center justify-center mb-3">
                       <span className="font-display text-rose-mid text-2xl italic">بعد</span>
                     </div>
-                    <p className="text-rose-deep font-bold text-sm">إشراقة ونعومة</p>
-                    <p className="text-rose-mid text-xs mt-1">بشرة أكثر توازناً</p>
+                    <p className="text-rose-deep font-bold text-sm">{afterLabel.title}</p>
+                    <p className="text-rose-mid text-xs mt-1">{afterLabel.sub}</p>
                     <div className="flex gap-1 justify-center mt-3">
                       {[1,2,3,4,5].map(s => <div key={s} className="w-1.5 h-1.5 rounded-full bg-rose-soft" />)}
                     </div>
@@ -97,10 +121,10 @@ export function BeforeAfterSlider({ productSlug }: Props) {
                 style={{ clipPath: `inset(0 ${100 - sliderX}% 0 0)` }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-stone-100 to-stone-200 flex items-center justify-center">
-                  {hasBalanceImages ? (
+                  {beforeImageSrc ? (
                     <img
-                      src="/images/nura-balance-before.png"
-                      alt="مظهر البشرة قبل استعمال روتين النياسيناميد من نورا سكين"
+                      src={beforeImageSrc}
+                      alt={`مظهر البشرة قبل استعمال ${productSlug} من نورا سكين`}
                       className="h-full w-full object-contain sm:object-cover"
                       draggable={false}
                     />
@@ -109,7 +133,7 @@ export function BeforeAfterSlider({ productSlug }: Props) {
                       <div className="w-20 h-20 rounded-full bg-white/70 mx-auto flex items-center justify-center mb-3">
                         <span className="font-arabic text-gray-500 text-sm font-semibold">قبل</span>
                       </div>
-                      <p className="text-gray-600 font-semibold text-sm">لمعان — مسام — تعب</p>
+                      <p className="text-gray-600 font-semibold text-sm">{beforeLabel}</p>
                       <p className="text-gray-400 text-xs mt-1">قبل نورا سكين</p>
                     </div>
                   )}

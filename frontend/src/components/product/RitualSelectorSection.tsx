@@ -68,11 +68,11 @@ export function RitualSelectorSection({ product }: Props) {
           className="mx-auto mb-10 max-w-2xl text-center"
         >
           <p className="luxury-kicker mx-auto mb-3 w-fit">اختاري طقسك</p>
-          <h2 className="section-heading text-[#5C2D3E]">اختاري العرض الأنسب</h2>
-          <p className="mt-3 text-sm leading-7 text-[#8C6E73]">كلما كملتي الروتين، كلما بان التوفير والقيمة</p>
+          <h2 className="section-heading text-[#5C2D3E]">روتين مصمم لبشرتك</h2>
+          <p className="mt-3 text-sm leading-7 text-[#8C6E73]">كلما اكتمل الروتين، نتائج أسرع وتوفير أكبر — الدفع عند الاستلام</p>
         </motion.div>
 
-        <OfferSelector product={product} onOfferChange={setSelectedOffer} layout="ritual" />
+        <OfferSelector product={product} onOfferChange={setSelectedOffer} />
 
         <div className="mx-auto mt-8 max-w-2xl rounded-[24px] border border-[#5C2D3E]/12 bg-[#F5F0EA] p-5 text-center shadow-[0_16px_45px_rgba(92,45,62,0.08)]">
           <div className="mb-4 flex flex-wrap items-end justify-center gap-2">
@@ -90,9 +90,9 @@ export function RitualSelectorSection({ product }: Props) {
             onClick={handleAddToCart}
             className="flex min-h-[56px] w-full items-center justify-center rounded-full bg-[#5C2D3E] px-6 text-base font-bold text-white shadow-[0_14px_32px_rgba(92,45,62,0.22)] transition hover:bg-[#4A2230]"
           >
-            {added ? "تضاف للسلة" : adding ? "جاري الإضافة..." : `أضيفي للسلة — ${price} درهم`}
+            {added ? "✓ تمت الإضافة للسلة" : adding ? "جاري الإضافة..." : `احجزي طقسك الآن — ${price} درهم`}
           </motion.button>
-          <p className="mt-3 text-xs font-medium text-[#8C6E73]">الدفع عند الاستلام · توصيل سريع · تأكيد قبل الإرسال</p>
+          <p className="mt-3 text-xs font-medium text-[#8C6E73]">الدفع عند الاستلام · توصيل مجاني · تأكيد قبل الإرسال</p>
         </div>
       </div>
     </section>

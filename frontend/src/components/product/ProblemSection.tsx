@@ -31,13 +31,13 @@ const PROBLEM_COPY: Record<string, { headline: string; paragraphs: string[]; mom
     moment: "لحظة تستيقظين فيها وتشعرين أن بشرتك تبدو أكثر راحة ونعومة.",
   },
   "nura-eye-revive": {
-    headline: "عيونك تحكي قبل ما تتكلمي",
+    headline: "واش عندك هاد المشكل؟",
     paragraphs: [
-      "محيط العين منطقة دقيقة، وأي مظهر للتعب أو الانتفاخ قد يؤثر على نضارة الوجه بالكامل.",
-      "الإخفاء بالمكياج ليس دائمًا كافيًا، لأن هذه المنطقة تحتاج إلى عناية خفيفة ومركزة.",
-      "سيروم نضارة محيط العين صُمم بملمس لطيف يدعم مظهر الانتعاش حول العين مع الاستخدام المنتظم.",
+      "ستريس وقلة النعاس باينين تحت عينيك ومخلينك تباني كبر من عمرك؟",
+      "الكونسيلر كيبان ناشف ومكيغطيش مزيان حيت محيط العين جاف؟",
+      "جربتي بزاف دالبرودويات اللي وعدوك يحيدو الهالات، وما بانتش النتيجة؟",
     ],
-    moment: "لحظة تنظرين إلى عينيك وتلاحظين مظهرًا أكثر هدوءًا وانتعاشًا.",
+    moment: "نيورا سكين صاوبات هاد السيروم باش يعاونك ترجعي النظرة المرتاحة والضو لوجهك، بتركيبة فعالة وبدون إدعاءات زائفة.",
   },
   "nura-spf-50": {
     headline: "حين تحتاجين حماية قوية دون ثقل أو لمعان",
@@ -69,35 +69,64 @@ export function ProblemSection({ product }: Props) {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="order-2 md:order-1"
           >
-            <div className="relative">
-              <div className="aspect-[4/5] rounded-4xl bg-[radial-gradient(circle_at_50%_28%,rgba(255,255,255,0.96),rgba(242,224,229,0.72)_46%,rgba(245,240,234,0.95)_100%)] flex items-center justify-center overflow-visible border border-rose-soft/20 shadow-[0_24px_70px_rgba(92,45,62,0.10)]">
-                <motion.img
-                  src={productImage}
-                  alt={`صورة ${product.name_ar} من نورا سكين`}
-                  className="hero-product-img block h-auto w-[220px] object-contain bg-transparent"
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  loading="lazy"
-                  style={{ filter: "drop-shadow(0 12px 32px rgba(92,45,62,0.22))" }}
-                />
-              </div>
-              {/* Floating quote card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="absolute -bottom-5 -end-5 bg-white rounded-2xl shadow-ivory-md p-4 max-w-[180px]"
-              >
-                <div className="flex gap-0.5 mb-1.5">
-                  {[1,2,3,4,5].map(s => <div key={s} className="w-2.5 h-2.5 rounded-sm bg-rose-soft" />)}
+            {product.slug === "nura-eye-revive" ? (
+              <div className="relative">
+                <div className="overflow-hidden rounded-3xl shadow-[0_24px_70px_rgba(92,45,62,0.18)] border border-rose-soft/20">
+                  <img
+                    src="/images/eye-concern-visual.png"
+                    alt="علامات التعب حول العين — هالات داكنة، انتفاخ، خطوط دقيقة"
+                    className="w-full h-auto block object-cover"
+                    loading="lazy"
+                  />
                 </div>
-                <p className="text-[11px] text-[#6B5555] leading-snug">
-                  "منتج لطيف يناسب روتيني اليومي"
-                </p>
-                <p className="text-[10px] text-[#9B8A8A] mt-1 font-semibold">مريم، الدار البيضاء</p>
-              </motion.div>
-            </div>
+                {/* Floating review card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                  className="absolute -bottom-5 -end-5 bg-white rounded-2xl shadow-ivory-md p-4 max-w-[190px]"
+                >
+                  <div className="flex gap-0.5 mb-1.5">
+                    {[1,2,3,4,5].map(s => <div key={s} className="w-2.5 h-2.5 rounded-sm bg-rose-soft" />)}
+                  </div>
+                  <p className="text-[11px] text-[#6B5555] leading-snug">
+                    "خفت الهالات بشكل ملحوظ وبدت نظرتي أكثر حيوية"
+                  </p>
+                  <p className="text-[10px] text-[#9B8A8A] mt-1 font-semibold">أسماء، الرباط</p>
+                </motion.div>
+              </div>
+            ) : (
+              <div className="relative">
+                <div className="aspect-[4/5] rounded-4xl bg-[radial-gradient(circle_at_50%_28%,rgba(255,255,255,0.96),rgba(242,224,229,0.72)_46%,rgba(245,240,234,0.95)_100%)] flex items-center justify-center overflow-visible border border-rose-soft/20 shadow-[0_24px_70px_rgba(92,45,62,0.10)]">
+                  <motion.img
+                    src={productImage}
+                    alt={`صورة ${product.name_ar} من نورا سكين`}
+                    className="hero-product-img block h-auto w-[220px] object-contain bg-transparent"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    loading="lazy"
+                    style={{ filter: "drop-shadow(0 12px 32px rgba(92,45,62,0.22))" }}
+                  />
+                </div>
+                {/* Floating quote card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                  className="absolute -bottom-5 -end-5 bg-white rounded-2xl shadow-ivory-md p-4 max-w-[180px]"
+                >
+                  <div className="flex gap-0.5 mb-1.5">
+                    {[1,2,3,4,5].map(s => <div key={s} className="w-2.5 h-2.5 rounded-sm bg-rose-soft" />)}
+                  </div>
+                  <p className="text-[11px] text-[#6B5555] leading-snug">
+                    "منتج لطيف يناسب روتيني اليومي"
+                  </p>
+                  <p className="text-[10px] text-[#9B8A8A] mt-1 font-semibold">مريم، الدار البيضاء</p>
+                </motion.div>
+              </div>
+            )}
           </motion.div>
 
           {/* Text */}
