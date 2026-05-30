@@ -76,8 +76,9 @@ export function EmotionalTransformationSection() {
                 alt={card.title}
                 fill
                 sizes="(min-width: 640px) 33vw, 100vw"
-                className={`object-cover ${card.objectPosition} transition-transform duration-700 ease-out group-hover:scale-[1.04]`}
+                className={`object-cover ${card.objectPosition} transition-transform duration-500 ease-out sm:group-hover:scale-[1.03]`}
                 loading="lazy"
+                quality={80}
               />
 
               {/* Bottom gradient overlay */}

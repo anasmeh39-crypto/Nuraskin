@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Check, Crown, Moon, Sparkles, Sun, Truck } from "lucide-react";
 import { getProductPageOffers, ProductPageOffer } from "@/config/products";
 import { Product } from "@/types";
@@ -84,6 +84,7 @@ function OfferImage({
         sizes={featured ? "(min-width: 1024px) 45vw, 100vw" : "(min-width: 640px) 33vw, 100vw"}
         className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]"
         loading="lazy"
+        quality={80}
       />
       {/* Bottom fade into card content */}
       {!featured && (
@@ -122,8 +123,7 @@ function RoutineCard({
     <motion.button
       type="button"
       onClick={onSelect}
-      whileHover={{ y: -3, transition: { duration: 0.2 } }}
-      whileTap={{ scale: 0.985 }}
+      whileTap={{ scale: 0.97 }}
       aria-pressed={isSelected}
       className={`group relative flex w-full flex-col overflow-hidden rounded-[1.35rem] bg-white text-right transition-all duration-300 ${
         isSelected
@@ -136,20 +136,12 @@ function RoutineCard({
         <OfferImage offer={offer} />
 
         {/* Top-left: selected badge */}
-        <AnimatePresence>
-          {isSelected && (
-            <motion.span
-              key="selected"
-              initial={{ scale: 0.7, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.7, opacity: 0 }}
-              className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-[#8E5A68] px-2.5 py-1 text-[10px] font-black text-white"
-            >
-              <Check className="h-2.5 w-2.5" strokeWidth={2.5} />
-              محدد
-            </motion.span>
-          )}
-        </AnimatePresence>
+        {isSelected && (
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-[#8E5A68] px-2.5 py-1 text-[10px] font-black text-white">
+            <Check className="h-2.5 w-2.5" strokeWidth={2.5} />
+            محدد
+          </span>
+        )}
 
         {/* Top-right: savings */}
         {savings > 0 && (
@@ -249,8 +241,7 @@ function FeaturedCard({
     <motion.button
       type="button"
       onClick={onSelect}
-      whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      whileTap={{ scale: 0.99 }}
+      whileTap={{ scale: 0.98 }}
       aria-pressed={isSelected}
       className={`group relative w-full overflow-hidden rounded-[1.65rem] text-right transition-all duration-300 ${
         isSelected

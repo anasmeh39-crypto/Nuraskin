@@ -129,9 +129,8 @@ export function RoutineSection({ currentSlug }: Props) {
             viewport={{ once: true }}
             className="relative overflow-hidden rounded-[1.6rem] border border-amber-100 bg-gradient-to-br from-[#FFFCF5] via-[#FFF8EE] to-[#FFF2DC] p-5 shadow-[0_16px_48px_rgba(200,140,60,0.08)]"
           >
-            {/* Sun glow blobs */}
-            <div className="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-amber-200/45 blur-2xl" />
-            <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-12 w-48 rounded-full bg-amber-100/70 blur-xl" />
+            {/* Sun glow — desktop only */}
+            <div className="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-amber-200/45 blur-2xl hidden sm:block" />
 
             {/* Header */}
             <div className="relative mb-5 flex items-center gap-3">
@@ -204,9 +203,8 @@ export function RoutineSection({ currentSlug }: Props) {
             transition={{ delay: 0.07 }}
             className="relative overflow-hidden rounded-[1.6rem] bg-gradient-to-br from-[#170810] via-[#1E0E18] to-[#2D1525] p-5 shadow-[0_24px_65px_rgba(20,8,16,0.30)]"
           >
-            {/* Moon glow blobs */}
-            <div className="pointer-events-none absolute -top-12 left-1/3 h-36 w-36 rounded-full bg-[#C4788A]/18 blur-3xl" />
-            <div className="pointer-events-none absolute bottom-0 right-0 h-24 w-24 rounded-full bg-[#7B3F55]/20 blur-2xl" />
+            {/* Moon glow — desktop only */}
+            <div className="pointer-events-none absolute -top-12 left-1/3 h-36 w-36 rounded-full bg-[#C4788A]/18 blur-3xl hidden sm:block" />
 
             {/* Header */}
             <div className="relative mb-5 flex items-center gap-3">

@@ -151,7 +151,8 @@ export function RoutineEducationSection() {
                 fill
                 sizes="(min-width: 1024px) 80vw, 100vw"
                 className="object-cover object-center"
-                priority
+                loading="lazy"
+                quality={80}
               />
               <div className="absolute inset-0 bg-gradient-to-l from-[#1A0810]/55 via-transparent to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-[#1A0810]/20 via-transparent to-transparent" />
@@ -168,7 +169,8 @@ export function RoutineEducationSection() {
                 fill
                 sizes="100vw"
                 className="object-cover object-center"
-                priority
+                loading="lazy"
+                quality={80}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1A0810]/65 via-transparent to-transparent" />
               <div className="absolute bottom-4 inset-x-4 text-right">
@@ -189,9 +191,9 @@ export function RoutineEducationSection() {
             viewport={{ once: true }}
             className="relative overflow-hidden rounded-[1.75rem] border border-amber-100 bg-gradient-to-br from-[#FFFCF4] via-[#FFF8EC] to-[#FFF0D6] p-5 shadow-[0_16px_48px_rgba(200,140,60,0.09)]"
           >
-            {/* Glow */}
-            <div className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full bg-amber-200/50 blur-2xl" />
-            <div className="pointer-events-none absolute -bottom-8 left-0 h-28 w-28 rounded-full bg-amber-100/60 blur-2xl" />
+            {/* Glow — desktop only (GPU compositing too costly on mobile) */}
+            <div className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full bg-amber-200/50 blur-2xl hidden sm:block" />
+            <div className="pointer-events-none absolute -bottom-8 left-0 h-28 w-28 rounded-full bg-amber-100/60 blur-2xl hidden sm:block" />
 
             {/* Header */}
             <div className="relative mb-5 flex items-center gap-3">
@@ -231,9 +233,9 @@ export function RoutineEducationSection() {
             transition={{ delay: 0.08 }}
             className="relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#160A10] via-[#1E0D18] to-[#2D1525] p-5 shadow-[0_24px_65px_rgba(16,6,14,0.35)]"
           >
-            {/* Glow */}
-            <div className="pointer-events-none absolute -top-14 left-1/3 h-40 w-40 rounded-full bg-[#C4788A]/18 blur-3xl" />
-            <div className="pointer-events-none absolute bottom-0 -right-8 h-28 w-28 rounded-full bg-[#7B3F55]/20 blur-2xl" />
+            {/* Glow — desktop only */}
+            <div className="pointer-events-none absolute -top-14 left-1/3 h-40 w-40 rounded-full bg-[#C4788A]/18 blur-3xl hidden sm:block" />
+            <div className="pointer-events-none absolute bottom-0 -right-8 h-28 w-28 rounded-full bg-[#7B3F55]/20 blur-2xl hidden sm:block" />
 
             {/* Header */}
             <div className="relative mb-5 flex items-center gap-3">
