@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Crown, Moon, Sparkles, Sun, Truck } from "lucide-react";
 import { getProductPageOffers, ProductPageOffer } from "@/config/products";
@@ -23,6 +24,19 @@ const SHORT: Record<string, string> = {
 };
 
 const IS_PUMP = new Set(["nura-spf-50", "nura-night-renewal"]);
+
+function getOfferImage(offer: Offer): string {
+  const slugs = offer.products.map(p => p.slug);
+  if (offer.tier === "complete" || slugs.length >= 4) {
+    return "/images/bundles/full-routine-hero.jpg";
+  }
+  const hasNight  = slugs.includes("nura-night-renewal");
+  const hasMorning = slugs.includes("nura-balance") || slugs.includes("nura-spf-50");
+  if (hasNight && !hasMorning) return "/images/bundles/night-renewal-hero.jpg";
+  if (hasMorning)              return "/images/bundles/morning-routine-hero.jpg";
+  // single eye serum or fallback
+  return "/images/bundles/night-renewal-hero.jpg";
+}
 
 function getTimingTags(slugs: string[]) {
   const morning = slugs.some(s => s === "nura-balance" || s === "nura-spf-50");
@@ -51,77 +65,37 @@ function getBenefit(offer: Offer) {
   return "روتين متكامل صباحاً ومساءً";
 }
 
-// ─── Product stage ─────────────────────────────────────────────────────────
+// ─── Lifestyle photo card image ────────────────────────────────────────────
 
-function ProductStage({ slugs, dark }: { slugs: string[]; dark?: boolean }) {
-  const count = slugs.length;
-
-  const itemH = (slug: string) => {
-    const pump = IS_PUMP.has(slug);
-    if (count === 1) return pump ? 136 : 122;
-    if (count === 2) return pump ? 116 : 104;
-    if (count === 3) return pump ? 108 : 96;
-    return pump ? 100 : 88;
-  };
-  const itemW = (slug: string) => {
-    const pump = IS_PUMP.has(slug);
-    if (count === 1) return pump ? 58 : 50;
-    if (count === 2) return pump ? 52 : 44;
-    return pump ? 46 : 40;
-  };
-
+function OfferImage({
+  offer,
+  featured = false,
+}: {
+  offer: Offer;
+  featured?: boolean;
+}) {
+  const src = getOfferImage(offer);
   return (
-    <div
-      className={`relative flex items-end justify-center overflow-hidden ${
-        dark
-          ? "bg-gradient-to-br from-[#2D1525] via-[#1E0F14] to-[#130A0E]"
-          : "bg-gradient-to-br from-[#FFF9F4] via-white to-[#F9F0E8]"
-      }`}
-      style={{ height: 178 }}
-    >
-      {/* Radial glow under products */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: dark
-            ? "radial-gradient(ellipse 80% 55% at 50% 115%, rgba(196,120,138,0.28) 0%, transparent 70%)"
-            : "radial-gradient(ellipse 80% 55% at 50% 115%, rgba(212,188,155,0.55) 0%, transparent 70%)",
-        }}
+    <div className={`relative w-full overflow-hidden ${featured ? "h-56 lg:h-full lg:min-h-[260px]" : "h-48"}`}>
+      <Image
+        src={src}
+        alt={offer.label}
+        fill
+        sizes={featured ? "(min-width: 1024px) 45vw, 100vw" : "(min-width: 640px) 33vw, 100vw"}
+        className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]"
+        loading="lazy"
       />
-
-      {/* Shadow beneath products */}
-      <div
-        className={`absolute rounded-full blur-lg ${dark ? "bg-black/40" : "bg-[#3D2C32]/14"}`}
-        style={{ bottom: 14, left: "50%", transform: "translateX(-50%)", width: "70%", height: 14 }}
-      />
-
-      {/* Products */}
-      <div className="relative flex items-end justify-center gap-2.5 pb-4">
-        {slugs.map((slug, i) => {
-          const isCenterOfThree = count === 3 && i === 1;
-          return (
-            <motion.img
-              key={slug}
-              src={PACK_IMAGES[slug]}
-              alt={SHORT[slug]}
-              initial={{ y: 12, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.07, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              draggable={false}
-              className="select-none object-contain"
-              style={{
-                height: itemH(slug),
-                width: itemW(slug),
-                transform: isCenterOfThree ? "scale(1.07) translateY(-5px)" : "none",
-                filter: dark
-                  ? "drop-shadow(0 10px 20px rgba(196,120,138,0.32)) brightness(1.06)"
-                  : "drop-shadow(0 10px 22px rgba(92,45,62,0.22))",
-              }}
-            />
-          );
-        })}
-      </div>
+      {/* Bottom fade into card content */}
+      {!featured && (
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent" style={{ top: "55%" }} />
+      )}
+      {/* Featured: gradient toward content side */}
+      {featured && (
+        <>
+          <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-l from-[#1E0F14]/80 via-[#1E0F14]/20 to-transparent lg:block" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1E0F14]/85 via-[#1E0F14]/15 to-transparent lg:hidden" />
+        </>
+      )}
     </div>
   );
 }
@@ -157,9 +131,9 @@ function RoutineCard({
           : "border border-[#EBE0E4] shadow-[0_8px_26px_rgba(61,44,50,0.06)] hover:shadow-[0_16px_40px_rgba(61,44,50,0.10)] hover:border-[#D4BC9B]/60"
       }`}
     >
-      {/* ── Product stage ── */}
+      {/* ── Lifestyle photo ── */}
       <div className="relative overflow-hidden rounded-t-[1.35rem]">
-        <ProductStage slugs={slugs} />
+        <OfferImage offer={offer} />
 
         {/* Top-left: selected badge */}
         <AnimatePresence>
@@ -302,10 +276,10 @@ function FeaturedCard({
         {/* ── Layout: stacked on mobile, side-by-side on desktop ── */}
         <div className="flex flex-col lg:flex-row">
 
-          {/* Product stage */}
-          <div className="relative lg:w-[42%] lg:min-h-[260px]">
-            <div className="relative mx-4 mt-4 overflow-hidden rounded-2xl lg:mx-5 lg:my-5 lg:h-full">
-              <ProductStage slugs={slugs} dark />
+          {/* Lifestyle photo */}
+          <div className="relative lg:w-[44%] lg:min-h-[260px]">
+            <div className="relative overflow-hidden rounded-t-[1.65rem] lg:rounded-r-none lg:rounded-l-[1.65rem] lg:h-full">
+              <OfferImage offer={offer} featured />
             </div>
           </div>
 
