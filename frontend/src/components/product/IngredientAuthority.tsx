@@ -259,14 +259,24 @@ function IngVisualBg({ visual, accentHex }: { visual: VisualKind; accentHex: str
   );
 }
 
-// ─── Per-product showcase image overrides ────────────────────────────────────
-// When a product has a premium editorial photo use it instead of the pack shot.
+// ─── Per-ingredient macro images ─────────────────────────────────────────────
+// Keyed by nameEn substring. Takes priority over the product-level showcase.
 
-const SHOWCASE_IMAGES: Record<string, { src: string; rounded: boolean }> = {
-  "nura-eye-revive": {
-    src: "/images/nura-eye-revive-showcase.png",
-    rounded: true,   // landscape editorial → render as rounded card, not floating bottle
-  },
+const INGREDIENT_IMAGES: Array<{ match: string; src: string }> = [
+  { match: "Caffeine",    src: "/images/ingredients/ingredient-caffeine.png"    },
+  { match: "Niacinamide", src: "/images/ingredients/ingredient-niacinamide.png" },
+  { match: "Hyaluronic",  src: "/images/ingredients/ingredient-hyaluronic.png"  },
+];
+
+function ingredientImage(nameEn: string): string | null {
+  return INGREDIENT_IMAGES.find((r) => nameEn.includes(r.match))?.src ?? null;
+}
+
+// ─── Per-product fallback showcase image ─────────────────────────────────────
+// Used when no per-ingredient macro is defined.
+
+const PRODUCT_SHOWCASE: Record<string, string> = {
+  "nura-eye-revive": "/images/nura-eye-revive-showcase.png",
 };
 
 // ─── Stagger animation variants ───────────────────────────────────────────────
@@ -627,10 +637,13 @@ export function IngredientAuthority({ product }: Props) {
                   <div className="mb-5 h-px bg-gradient-to-r from-transparent via-black/6 to-transparent" />
 
                   {/* ── BOTTOM: product chip + image ── */}
+                  {/* ── Image area: per-ingredient macro → product showcase → bottle ── */}
                   {(() => {
-                    const showcase = SHOWCASE_IMAGES[product.slug];
-                    if (showcase?.rounded) {
-                      // Editorial landscape photo — render as full-width rounded card
+                    const macroSrc = ingredientImage(ing.name_en);
+                    const fallbackSrc = PRODUCT_SHOWCASE[product.slug];
+                    const imageSrc = macroSrc ?? fallbackSrc;
+
+                    if (imageSrc) {
                       return (
                         <motion.div
                           initial={{ opacity: 0, y: 8 }}
@@ -638,27 +651,23 @@ export function IngredientAuthority({ product }: Props) {
                           transition={stagger(4)}
                         >
                           {/* Product chip */}
-                          <div className="mb-3 flex items-center justify-between">
+                          <div className="mb-3">
                             <div
-                              className="rounded-xl border border-white/70 bg-white/60 px-4 py-2.5 backdrop-blur-sm"
+                              className="inline-flex items-center gap-2 rounded-xl border border-white/70 bg-white/60 px-4 py-2.5 backdrop-blur-sm"
                               style={{ boxShadow: "0 2px 12px rgba(44,24,16,0.05)" }}
                             >
+                              <div className="h-1.5 w-1.5 rounded-full" style={{ background: detail.accentHex }} />
                               <p className="font-sans text-[9px] font-black uppercase tracking-[0.2em] text-[#A89898]">
                                 موجود في
                               </p>
-                              <p className="mt-0.5 text-xs font-bold leading-snug text-[#2C1810]">
-                                {product.name_ar}
-                              </p>
-                              <div className="mt-1 flex items-center gap-1.5">
-                                <div className="h-1.5 w-1.5 rounded-full" style={{ background: detail.accentHex }} />
-                                <span className="font-sans text-[10px] text-[#A89898]">{product.volume}</span>
-                                <span className="font-sans text-[10px] text-[#C8BEB5]">·</span>
-                                <span className="font-sans text-[10px] text-[#A89898]">{product.format}</span>
-                              </div>
+                              <span className="font-sans text-[10px] text-[#C8BEB5]">·</span>
+                              <p className="text-xs font-bold text-[#2C1810]">{product.name_ar}</p>
+                              <span className="font-sans text-[10px] text-[#C8BEB5]">·</span>
+                              <span className="font-sans text-[10px] text-[#A89898]">{product.volume}</span>
                             </div>
                           </div>
 
-                          {/* Premium editorial image card */}
+                          {/* Macro ingredient image — crossfades with AnimatePresence above */}
                           <motion.div
                             whileHover={{ scale: 1.015 }}
                             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] as const }}
@@ -669,29 +678,32 @@ export function IngredientAuthority({ product }: Props) {
                               border: "1px solid rgba(255,255,255,0.55)",
                             }}
                           >
-                            {/* Subtle inner shimmer */}
                             <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent" />
-
                             <img
-                              src={showcase.src}
-                              alt={product.name_ar}
+                              src={imageSrc}
+                              alt={ing.name_ar}
                               className="block h-44 w-full object-cover"
                               draggable={false}
                             />
-
-                            {/* Bottom gradient overlay for premium feel */}
                             <div
-                              className="pointer-events-none absolute inset-x-0 bottom-0 h-16"
-                              style={{
-                                background: `linear-gradient(to top, ${detail.bgEnd}CC, transparent)`,
-                              }}
+                              className="pointer-events-none absolute inset-x-0 bottom-0 h-20"
+                              style={{ background: `linear-gradient(to top, ${detail.bgEnd}DD, transparent)` }}
                             />
+                            {/* Ingredient name label over image */}
+                            <div className="absolute bottom-3 right-3 z-10">
+                              <span
+                                className="rounded-full px-2.5 py-1 font-sans text-[10px] font-bold text-white backdrop-blur-md"
+                                style={{ background: `${detail.accentHex}CC` }}
+                              >
+                                {ing.name_ar}
+                              </span>
+                            </div>
                           </motion.div>
                         </motion.div>
                       );
                     }
 
-                    // Default: floating pack-shot bottle
+                    // Fallback: floating pack-shot bottle
                     return (
                       <motion.div
                         initial={{ opacity: 0, y: 8 }}
@@ -703,12 +715,8 @@ export function IngredientAuthority({ product }: Props) {
                           className="rounded-xl border border-white/70 bg-white/60 px-4 py-3 backdrop-blur-sm"
                           style={{ boxShadow: "0 2px 12px rgba(44,24,16,0.05)" }}
                         >
-                          <p className="font-sans text-[9px] font-black uppercase tracking-[0.2em] text-[#A89898]">
-                            موجود في
-                          </p>
-                          <p className="mt-0.5 text-xs font-bold leading-snug text-[#2C1810]">
-                            {product.name_ar}
-                          </p>
+                          <p className="font-sans text-[9px] font-black uppercase tracking-[0.2em] text-[#A89898]">موجود في</p>
+                          <p className="mt-0.5 text-xs font-bold leading-snug text-[#2C1810]">{product.name_ar}</p>
                           <div className="mt-1.5 flex items-center gap-1.5">
                             <div className="h-1.5 w-1.5 rounded-full" style={{ background: detail.accentHex }} />
                             <span className="font-sans text-[10px] text-[#A89898]">{product.volume}</span>
@@ -716,12 +724,8 @@ export function IngredientAuthority({ product }: Props) {
                             <span className="font-sans text-[10px] text-[#A89898]">{product.format}</span>
                           </div>
                         </div>
-
                         <div className="relative shrink-0">
-                          <div
-                            className="absolute inset-0 -m-4 rounded-full blur-2xl"
-                            style={{ background: detail.accentHex, opacity: 0.12 }}
-                          />
+                          <div className="absolute inset-0 -m-4 rounded-full blur-2xl" style={{ background: detail.accentHex, opacity: 0.12 }} />
                           <motion.div
                             animate={{ y: [0, -7, 0] }}
                             transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
