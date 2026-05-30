@@ -23,7 +23,7 @@ export function HeroSection() {
           <div className="hero-image-frame">
             <Image
               src="/images/nura-hero-lifestyle.png"
-              alt="روتين نورا سكين الكامل للعناية بالبشرة"
+              alt="روتين نورا سكين الكامل للعناية بالبشرة — مجموعة نورا سكين في مراكش"
               fill
               priority
               sizes="(min-width: 1024px) 60vw, 92vw"
