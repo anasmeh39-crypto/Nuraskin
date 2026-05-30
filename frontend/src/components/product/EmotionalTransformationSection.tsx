@@ -35,7 +35,7 @@ const CARDS = [
 
 export function EmotionalTransformationSection() {
   return (
-    <section className="overflow-hidden bg-[#0C0608] py-16 md:py-20" dir="rtl">
+    <section className="overflow-hidden bg-[#0C0608] py-12 md:py-20" dir="rtl">
       <div className="container-wide">
 
         {/* ── HEADER ── */}
@@ -43,7 +43,7 @@ export function EmotionalTransformationSection() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12 text-center"
+          className="mb-8 sm:mb-12 text-center"
         >
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-[#C4788A]/80">
             تخيلي
@@ -58,8 +58,8 @@ export function EmotionalTransformationSection() {
           </p>
         </motion.div>
 
-        {/* ── CARDS ── */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+        {/* ── CARDS — horizontal filmstrip on mobile, grid on sm+ ── */}
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0 sm:gap-4">
           {CARDS.map((card, i) => (
             <motion.article
               key={card.title}
@@ -67,7 +67,7 @@ export function EmotionalTransformationSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative overflow-hidden rounded-[1.6rem]"
+              className="group relative min-w-[82vw] shrink-0 snap-start overflow-hidden rounded-[1.6rem] sm:min-w-0"
               style={{ aspectRatio: "3 / 4.2" }}
             >
               {/* Photography */}
@@ -90,20 +90,13 @@ export function EmotionalTransformationSection() {
 
               {/* Text block */}
               <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                {/* Kicker */}
-                <span
-                  className={`text-[10px] font-black uppercase tracking-[0.22em] ${card.kickerColor}`}
-                >
+                <span className={`text-[10px] font-black uppercase tracking-[0.22em] ${card.kickerColor}`}>
                   {card.kicker}
                 </span>
-
-                {/* Title */}
-                <h3 className="mt-2 text-[1.2rem] font-black leading-tight text-white sm:text-[1.15rem]">
+                <h3 className="mt-2 text-[1.25rem] font-black leading-tight text-white">
                   {card.title}
                 </h3>
-
-                {/* Copy */}
-                <p className="mt-2.5 whitespace-pre-line text-[12px] leading-[1.7] text-white/65">
+                <p className="mt-2 whitespace-pre-line text-[12px] leading-[1.7] text-white/65">
                   {card.copy}
                 </p>
               </div>

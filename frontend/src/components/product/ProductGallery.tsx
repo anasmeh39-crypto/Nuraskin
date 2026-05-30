@@ -208,9 +208,9 @@ export function ProductGallery({ productName, productSlug, offerTier }: Props) {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2 sm:gap-4">
       {/* Main image */}
-      <div className="relative rounded-4xl overflow-hidden aspect-square bg-rose-blush">
+      <div className="relative rounded-none sm:rounded-4xl overflow-hidden aspect-square bg-rose-blush">
         <AnimatePresence mode="wait">
           <motion.div
             key={displayIndex}
@@ -285,7 +285,7 @@ export function ProductGallery({ productName, productSlug, offerTier }: Props) {
       </div>
 
       {/* Thumbnails */}
-      <div className="grid grid-cols-5 gap-2">
+      <div className="grid grid-cols-5 gap-1.5 px-4 sm:px-0 sm:gap-2">
         {gallerySlots.map((slot, i) => (
           <button
             key={i}
@@ -312,7 +312,7 @@ export function ProductGallery({ productName, productSlug, offerTier }: Props) {
       </div>
 
       {/* Premium badge strip */}
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 flex-wrap px-4 sm:px-0">
         <span className="inline-flex items-center gap-1 rounded-full border border-rose-soft/35 bg-rose-blush/80 px-2.5 py-1 text-[10px] font-semibold text-rose-deep">
           <Sparkles className="h-3 w-3 shrink-0 text-gold" strokeWidth={1.5} aria-hidden />
           تركيبة مدروسة

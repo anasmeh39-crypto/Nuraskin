@@ -71,16 +71,16 @@ export function ProductHeroElite({ product }: Props) {
   const saving = selectedOffer?.saving;
 
   return (
-    <section className="bg-ivory pt-8 pb-0 md:pt-12" dir="rtl">
+    <section className="bg-ivory pt-6 pb-0 md:pt-12" dir="rtl">
       <div className="container-wide">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start">
 
-          {/* ── Left: Gallery ── */}
+          {/* ── Gallery — full bleed on mobile ── */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-            className="lg:sticky lg:top-24"
+            className="lg:sticky lg:top-24 -mx-4 sm:mx-0"
           >
             <ProductGallery productName={product.name_ar} productSlug={product.slug} offerTier={selectedOffer?.tier} />
           </motion.div>
@@ -90,7 +90,7 @@ export function ProductHeroElite({ product }: Props) {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay: 0.1 }}
-            className="space-y-6 pb-10"
+            className="space-y-5 pb-10 sm:space-y-6"
           >
             {/* Brand + badge */}
             <div className="flex items-center gap-3 flex-wrap">

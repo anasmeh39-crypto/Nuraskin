@@ -160,8 +160,8 @@ export function RoutineEducationSection() {
                 <p className="mt-1 text-base font-black text-white">4 منتجات متكاملة — صباحاً ومساءً</p>
               </div>
             </div>
-            {/* Mobile: square-ish crop */}
-            <div className="relative aspect-[4/3] sm:hidden">
+            {/* Mobile: taller crop for more visual impact */}
+            <div className="relative aspect-[3/2] sm:hidden">
               <Image
                 src="/images/routine-complete-family.png"
                 alt="روتين نورا الكامل — 4 منتجات"

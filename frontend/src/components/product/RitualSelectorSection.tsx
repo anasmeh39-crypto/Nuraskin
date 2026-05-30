@@ -59,13 +59,13 @@ export function RitualSelectorSection({ product }: Props) {
   const saving = selectedOffer?.saving;
 
   return (
-    <section id="ritual-selector" className="bg-[#FEFCF9] py-20 scroll-mt-24" dir="rtl">
+    <section id="ritual-selector" className="bg-[#FEFCF9] py-12 sm:py-20 scroll-mt-20" dir="rtl">
       <div className="container-wide">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mx-auto mb-10 max-w-2xl text-center"
+          className="mx-auto mb-8 sm:mb-10 max-w-2xl text-center"
         >
           <p className="luxury-kicker mx-auto mb-3 w-fit">اختاري طقسك</p>
           <h2 className="section-heading text-[#5C2D3E]">روتين مصمم لبشرتك</h2>

@@ -57,17 +57,17 @@ export function ProblemSection({ product }: Props) {
   const productImage = PRODUCT_PACK_IMAGES[product.slug] ?? product.image;
 
   return (
-    <section className="py-20 bg-white overflow-hidden" dir="rtl">
+    <section className="py-12 sm:py-20 bg-white overflow-hidden" dir="rtl">
       <div className="container-narrow">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
 
-          {/* Visual */}
+          {/* Visual — leads on mobile for image dominance */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="order-2 md:order-1"
+            className="order-1 md:order-1"
           >
             {product.slug === "nura-eye-revive" ? (
               <div className="relative">
@@ -135,7 +135,7 @@ export function ProblemSection({ product }: Props) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="order-1 md:order-2 space-y-6"
+            className="order-2 md:order-2 space-y-5 sm:space-y-6"
           >
             <div>
               <p className="text-xs text-rose-mid font-semibold tracking-wider uppercase mb-3">
