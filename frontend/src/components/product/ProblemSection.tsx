@@ -2,49 +2,122 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { AlertCircle, CheckCircle2, Droplets, Leaf, RefreshCw, Shield, Sparkles, Sun, XCircle } from "lucide-react";
 import { Product } from "@/types";
 
-const PRODUCT_PACK_IMAGES: Record<string, string> = {
-  "nura-balance": "/images/products/serum-niacinamide-pack.png",
-  "nura-eye-revive": "/images/products/eye-serum-pack.png",
-  "nura-night-renewal": "/images/products/retinol-cream-pack.png",
-  "nura-spf-50": "/images/products/sunscreen-spf50-pack.png",
+// Real editorial/concern photos — shown instead of pack shots
+const PROBLEM_IMAGES: Record<string, string> = {
+  "nura-balance":    "/images/problem-niacinamide-skin.png",
+  "nura-eye-revive": "/images/eye-concern-visual.png",
 };
 
-const PROBLEM_COPY: Record<string, { headline: string; paragraphs: string[]; moment: string }> = {
+// Fallback pack shots for products without an editorial image
+const PRODUCT_PACK_IMAGES: Record<string, string> = {
+  "nura-night-renewal": "/images/products/retinol-cream-pack.png",
+  "nura-spf-50":        "/images/products/sunscreen-spf50-pack.png",
+};
+
+// Per-paragraph icons with accent colors
+type ParagraphItem = { icon: React.ElementType; text: string; accent: string; bg: string };
+
+const PROBLEM_COPY: Record<string, {
+  headline: string;
+  items: ParagraphItem[];
+  moment: string;
+}> = {
   "nura-balance": {
     headline: "عندما يبدو اللمعان واضحًا أكثر مما تريدين",
-    paragraphs: [
-      "عندما تبدو البشرة لامعة أو غير متوازنة، يصبح الروتين اليومي أكثر صعوبة وتشعرين أنك تحاولين إخفاء المشكلة بدل العناية بها.",
-      "الكثير من المنتجات تعطي إحساسًا قويًا في البداية، ثم تترك البشرة إما جافة أو لامعة من جديد.",
-      "سيروم توازن وإشراقة البشرة بالنياسيناميد صُمم كخطوة يومية لطيفة تدعم مظهر التوازن والصفاء دون قسوة.",
+    items: [
+      {
+        icon: Droplets,
+        text: "عندما تبدو البشرة لامعة أو غير متوازنة، يصبح الروتين اليومي أكثر صعوبة وتشعرين أنك تحاولين إخفاء المشكلة بدل العناية بها.",
+        accent: "#B8617A",
+        bg: "#FEF0F3",
+      },
+      {
+        icon: RefreshCw,
+        text: "الكثير من المنتجات تعطي إحساسًا قويًا في البداية، ثم تترك البشرة إما جافة أو لامعة من جديد.",
+        accent: "#C49A5A",
+        bg: "#FFF8E8",
+      },
+      {
+        icon: Sparkles,
+        text: "سيروم توازن وإشراقة البشرة بالنياسيناميد صُمم كخطوة يومية لطيفة تدعم مظهر التوازن والصفاء دون قسوة.",
+        accent: "#5A9A5A",
+        bg: "#EDFAE8",
+      },
     ],
     moment: "لحظة تنظرين فيها إلى المرآة قبل الخروج وتشعرين براحة أكبر مع مظهر بشرتك.",
   },
   "nura-night-renewal": {
     headline: "لما تنامي تعبانة وتستيقظي تعبانة",
-    paragraphs: [
-      "الليل هو الوقت الذي تحتاج فيه البشرة إلى الراحة والترطيب، خصوصًا بعد يوم طويل من التعب والعوامل الخارجية.",
-      "عندما تستيقظين على بشرة باهتة أو أقل نعومة، يكون الروتين الليلي بحاجة إلى خطوة أكثر عناية.",
-      "كريم التجديد الليلي للبشرة صُمم كخطوة ليلية فاخرة تدعم مظهر النعومة والنضارة مع الاستخدام المنتظم.",
+    items: [
+      {
+        icon: AlertCircle,
+        text: "الليل هو الوقت الذي تحتاج فيه البشرة إلى الراحة والترطيب، خصوصًا بعد يوم طويل من التعب والعوامل الخارجية.",
+        accent: "#B8617A",
+        bg: "#FEF0F3",
+      },
+      {
+        icon: RefreshCw,
+        text: "عندما تستيقظين على بشرة باهتة أو أقل نعومة، يكون الروتين الليلي بحاجة إلى خطوة أكثر عناية.",
+        accent: "#C49A5A",
+        bg: "#FFF8E8",
+      },
+      {
+        icon: Leaf,
+        text: "كريم التجديد الليلي للبشرة صُمم كخطوة ليلية فاخرة تدعم مظهر النعومة والنضارة مع الاستخدام المنتظم.",
+        accent: "#5A9A5A",
+        bg: "#EDFAE8",
+      },
     ],
     moment: "لحظة تستيقظين فيها وتشعرين أن بشرتك تبدو أكثر راحة ونعومة.",
   },
   "nura-eye-revive": {
     headline: "واش عندك هاد المشكل؟",
-    paragraphs: [
-      "ستريس وقلة النعاس باينين تحت عينيك ومخلينك تباني كبر من عمرك؟",
-      "الكونسيلر كيبان ناشف ومكيغطيش مزيان حيت محيط العين جاف؟",
-      "جربتي بزاف دالبرودويات اللي وعدوك يحيدو الهالات، وما بانتش النتيجة؟",
+    items: [
+      {
+        icon: XCircle,
+        text: "ستريس وقلة النعاس باينين تحت عينيك ومخلينك تباني كبر من عمرك؟",
+        accent: "#B8617A",
+        bg: "#FEF0F3",
+      },
+      {
+        icon: AlertCircle,
+        text: "الكونسيلر كيبان ناشف ومكيغطيش مزيان حيت محيط العين جاف؟",
+        accent: "#C49A5A",
+        bg: "#FFF8E8",
+      },
+      {
+        icon: CheckCircle2,
+        text: "نيورا سكين صاوبات هاد السيروم باش يعاونك ترجعي النظرة المرتاحة، بتركيبة فعالة وبدون إدعاءات زائفة.",
+        accent: "#5A9A5A",
+        bg: "#EDFAE8",
+      },
     ],
-    moment: "نيورا سكين صاوبات هاد السيروم باش يعاونك ترجعي النظرة المرتاحة والضو لوجهك، بتركيبة فعالة وبدون إدعاءات زائفة.",
+    moment: "نظرة أكثر انتعاشاً وحيوية — كيفاش كنتي كتشوفي راسك فالمراية.",
   },
   "nura-spf-50": {
     headline: "حين تحتاجين حماية قوية دون ثقل أو لمعان",
-    paragraphs: [
-      "الكثير من الواقيات الشمسية تشعرك باللزوجة أو تترك طبقة دهنية تجعل الاستخدام اليومي صعبًا.",
-      "التعرض المتكرر للشمس قد يساهم في مظهر البقع الداكنة والجفاف والاحمرار، خصوصًا للبشرة الحساسة أو الجافة.",
-      "واقي الشمس اليومي SPF 50 صُمم ليجمع بين الحماية والترطيب والراحة، بتركيبة خفيفة تمتص بسرعة وتكمل روتين الصباح.",
+    items: [
+      {
+        icon: Sun,
+        text: "الكثير من الواقيات الشمسية تشعرك باللزوجة أو تترك طبقة دهنية تجعل الاستخدام اليومي صعبًا.",
+        accent: "#D4A830",
+        bg: "#FFFBE8",
+      },
+      {
+        icon: AlertCircle,
+        text: "التعرض المتكرر للشمس قد يساهم في مظهر البقع الداكنة والجفاف والاحمرار، خصوصًا للبشرة الحساسة أو الجافة.",
+        accent: "#B8617A",
+        bg: "#FEF0F3",
+      },
+      {
+        icon: Shield,
+        text: "واقي الشمس اليومي SPF 50 صُمم ليجمع بين الحماية والترطيب والراحة، بتركيبة خفيفة تمتص بسرعة وتكمل روتين الصباح.",
+        accent: "#5A9A5A",
+        bg: "#EDFAE8",
+      },
     ],
     moment: "لحظة تخرجين فيها صباحًا وأنتِ مطمئنة أن روتينك اكتمل بخطوة الحماية.",
   },
@@ -53,124 +126,155 @@ const PROBLEM_COPY: Record<string, { headline: string; paragraphs: string[]; mom
 interface Props { product: Product }
 
 export function ProblemSection({ product }: Props) {
-  const copy = PROBLEM_COPY[product.slug] || PROBLEM_COPY["nura-balance"];
-  const productImage = PRODUCT_PACK_IMAGES[product.slug] ?? product.image;
+  const copy = PROBLEM_COPY[product.slug] ?? PROBLEM_COPY["nura-balance"];
+  const editorialImage = PROBLEM_IMAGES[product.slug];
+  const packImage = PRODUCT_PACK_IMAGES[product.slug] ?? product.image;
 
   return (
     <section className="py-12 sm:py-20 bg-white overflow-hidden" dir="rtl">
       <div className="container-narrow">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
 
-          {/* Visual — leads on mobile for image dominance */}
+          {/* ── Visual — leads on mobile ── */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="order-1 md:order-1"
+            className="order-1"
           >
-            {product.slug === "nura-eye-revive" ? (
+            {editorialImage ? (
+              /* Editorial / concern photo */
               <div className="relative">
-                <div className="overflow-hidden rounded-3xl shadow-[0_24px_70px_rgba(92,45,62,0.18)] border border-rose-soft/20">
+                <div className="overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] shadow-[0_28px_72px_rgba(92,45,62,0.16)] border border-rose-soft/15">
                   <img
-                    src="/images/eye-concern-visual.png"
-                    alt="علامات التعب حول العين — هالات داكنة، انتفاخ، خطوط دقيقة"
-                    className="w-full h-auto block object-cover"
+                    src={editorialImage}
+                    alt={copy.headline}
+                    className="w-full h-auto block object-cover aspect-[4/5] sm:aspect-[3/4]"
+                    style={{ objectPosition: "center top" }}
                     loading="lazy"
                   />
+                  {/* Subtle bottom gradient */}
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#2C1810]/20 to-transparent pointer-events-none" />
                 </div>
+
                 {/* Floating review card */}
                 <motion.div
                   initial={{ opacity: 0, y: 20, scale: 0.9 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                  className="absolute -bottom-5 -end-5 bg-white rounded-2xl shadow-ivory-md p-4 max-w-[190px]"
+                  transition={{ delay: 0.35, duration: 0.45 }}
+                  className="absolute -bottom-4 -end-3 sm:-bottom-5 sm:-end-5 bg-white rounded-2xl shadow-[0_12px_32px_rgba(44,24,16,0.12)] p-3.5 sm:p-4 max-w-[165px] sm:max-w-[185px] border border-rose-soft/15"
                 >
                   <div className="flex gap-0.5 mb-1.5">
-                    {[1,2,3,4,5].map(s => <div key={s} className="w-2.5 h-2.5 rounded-sm bg-rose-soft" />)}
+                    {[1,2,3,4,5].map(s => (
+                      <svg key={s} className="w-2.5 h-2.5 text-[#E8A838]" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
                   </div>
                   <p className="text-[11px] text-[#6B5555] leading-snug">
-                    "خفت الهالات بشكل ملحوظ وبدت نظرتي أكثر حيوية"
+                    &ldquo;{product.slug === "nura-balance"
+                      ? "بشرتي ولات رطبة وموحدة — خفيف وكيشربو دغيا"
+                      : "خفت الهالات بشكل ملحوظ وبدت نظرتي أكثر حيوية"}&rdquo;
                   </p>
-                  <p className="text-[10px] text-[#9B8A8A] mt-1 font-semibold">أسماء، الرباط</p>
+                  <p className="text-[10px] text-[#9B8A8A] mt-1.5 font-bold">
+                    {product.slug === "nura-balance" ? "مريم، الدار البيضاء" : "أسماء، الرباط"}
+                  </p>
                 </motion.div>
               </div>
             ) : (
+              /* Floating product pack-shot for other products */
               <div className="relative">
-                <div className="aspect-[4/5] rounded-4xl bg-[radial-gradient(circle_at_50%_28%,rgba(255,255,255,0.96),rgba(242,224,229,0.72)_46%,rgba(245,240,234,0.95)_100%)] flex items-center justify-center overflow-visible border border-rose-soft/20 shadow-[0_24px_70px_rgba(92,45,62,0.10)]">
+                <div className="aspect-[4/5] rounded-[2.5rem] bg-[radial-gradient(circle_at_50%_28%,rgba(255,255,255,0.96),rgba(242,224,229,0.72)_46%,rgba(245,240,234,0.95)_100%)] flex items-center justify-center overflow-visible border border-rose-soft/20 shadow-[0_24px_70px_rgba(92,45,62,0.10)]">
                   <motion.img
-                    src={productImage}
+                    src={packImage}
                     alt={`صورة ${product.name_ar} من نورا سكين`}
-                    className="hero-product-img block h-auto w-[220px] object-contain bg-transparent"
+                    className="block h-auto w-[200px] sm:w-[220px] object-contain"
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     loading="lazy"
                     style={{ filter: "drop-shadow(0 12px 32px rgba(92,45,62,0.22))" }}
                   />
                 </div>
-                {/* Floating quote card */}
                 <motion.div
                   initial={{ opacity: 0, y: 20, scale: 0.9 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3, duration: 0.5 }}
-                  className="absolute -bottom-5 -end-5 bg-white rounded-2xl shadow-ivory-md p-4 max-w-[180px]"
+                  className="absolute -bottom-4 -end-3 sm:-bottom-5 sm:-end-5 bg-white rounded-2xl shadow-[0_12px_32px_rgba(44,24,16,0.12)] p-3.5 sm:p-4 max-w-[170px] border border-rose-soft/15"
                 >
                   <div className="flex gap-0.5 mb-1.5">
-                    {[1,2,3,4,5].map(s => <div key={s} className="w-2.5 h-2.5 rounded-sm bg-rose-soft" />)}
+                    {[1,2,3,4,5].map(s => (
+                      <svg key={s} className="w-2.5 h-2.5 text-[#E8A838]" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
                   </div>
-                  <p className="text-[11px] text-[#6B5555] leading-snug">
-                    "منتج لطيف يناسب روتيني اليومي"
-                  </p>
-                  <p className="text-[10px] text-[#9B8A8A] mt-1 font-semibold">مريم، الدار البيضاء</p>
+                  <p className="text-[11px] text-[#6B5555] leading-snug">&ldquo;منتج لطيف يناسب روتيني اليومي&rdquo;</p>
+                  <p className="text-[10px] text-[#9B8A8A] mt-1.5 font-bold">مريم، الدار البيضاء</p>
                 </motion.div>
               </div>
             )}
           </motion.div>
 
-          {/* Text */}
+          {/* ── Text ── */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="order-2 md:order-2 space-y-5 sm:space-y-6"
+            className="order-2 space-y-5 sm:space-y-6"
           >
+            {/* Kicker + headline */}
             <div>
-              <p className="text-xs text-rose-mid font-semibold tracking-wider uppercase mb-3">
-                نفهمك
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#2C1810] leading-tight">
+              <p className="text-xs text-rose-mid font-semibold tracking-wider uppercase mb-3">نفهمك</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#2C1810] leading-tight">
                 {copy.headline}
               </h2>
             </div>
 
-            <div className="space-y-4">
-              {copy.paragraphs.map((para, i) => (
-                <motion.p
+            {/* Icon paragraphs */}
+            <div className="space-y-3">
+              {copy.items.map(({ icon: Icon, text, accent, bg }, i) => (
+                <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 + i * 0.1 }}
-                  className="text-[#6B5555] leading-relaxed text-base"
+                  className="flex items-start gap-3.5 rounded-2xl border border-transparent p-3.5 sm:p-4 transition-colors"
+                  style={{ background: bg, borderColor: accent + "22" }}
                 >
-                  {para}
-                </motion.p>
+                  {/* Icon container */}
+                  <div
+                    className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl shadow-sm mt-0.5"
+                    style={{ background: accent + "18", border: `1px solid ${accent}30` }}
+                  >
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: accent }} strokeWidth={1.6} aria-hidden />
+                  </div>
+                  {/* Text */}
+                  <p className="text-[13px] sm:text-sm leading-relaxed text-[#6B5555] flex-1">
+                    {text}
+                  </p>
+                </motion.div>
               ))}
-              <p className="text-[15px] italic leading-relaxed text-[#8C6E73]">
-                "هاد المنتج يشتغل — وكيشتغل بقوة أكثر ضمن روتين متكامل."
-              </p>
             </div>
 
             {/* Emotional moment */}
-            <div className="bg-rose-blush border-r-4 border-rose-soft pr-4 py-3 rounded-r-xl rounded-l-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="border-r-[3px] border-rose-soft bg-rose-blush/60 pr-4 py-3 rounded-r-xl rounded-l-2xl"
+            >
               <p className="text-rose-deep font-semibold text-sm italic leading-relaxed">
-                "{copy.moment}"
+                &ldquo;{copy.moment}&rdquo;
               </p>
-            </div>
+            </motion.div>
           </motion.div>
+
         </div>
       </div>
     </section>
