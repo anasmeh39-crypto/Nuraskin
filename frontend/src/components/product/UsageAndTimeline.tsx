@@ -5,6 +5,15 @@ interface Props {
   product: Product;
 }
 
+// Per-product, per-step visual images (optional — minimal thumbnails)
+const STEP_IMAGES: Record<string, (string | null)[]> = {
+  "nura-eye-revive": [
+    "/images/usage/eye-revive-step-1.png",
+    "/images/usage/eye-revive-step-2.png",
+    "/images/usage/eye-revive-step-3.png",
+  ],
+};
+
 function usageCopy(product: Product) {
   if (product.slug === "nura-eye-revive") {
     return [
@@ -39,26 +48,43 @@ function usageCopy(product: Product) {
 
 export function UsageAndTimeline({ product }: Props) {
   const steps = usageCopy(product);
+  const stepImages = STEP_IMAGES[product.slug] ?? [];
 
   return (
-    <section className="bg-white py-16 md:py-20" dir="rtl">
+    <section className="bg-white py-14 md:py-20" dir="rtl">
       <div className="container-wide">
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
             <p className="luxury-kicker mb-3">طريقة الاستخدام</p>
             <h2 className="section-heading text-[#3A222C]">ثلاث خطوات بسيطة داخل روتينك</h2>
             <div className="mt-8 space-y-3">
-              {steps.map(([number, title, text]) => (
-                <div key={number} className="flex gap-4 rounded-3xl border border-rose-soft/20 bg-ivory p-5">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-rose-light text-sm font-bold text-rose-deep">
-                    {number}
-                  </span>
-                  <div>
-                    <h3 className="font-bold text-[#3A222C]">{title}</h3>
-                    <p className="mt-1 text-sm leading-7 text-[#6B5555]">{text}</p>
+              {steps.map(([number, title, text], i) => {
+                const img = stepImages[i];
+                return (
+                  <div key={number} className="flex items-center gap-4 rounded-3xl border border-rose-soft/20 bg-ivory p-4 sm:p-5">
+                    {/* Step number */}
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-rose-light text-sm font-bold text-rose-deep">
+                      {number}
+                    </span>
+                    {/* Text */}
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-bold text-[#3A222C]">{title}</h3>
+                      <p className="mt-1 text-sm leading-[1.65] text-[#6B5555]">{text}</p>
+                    </div>
+                    {/* Minimal step image — only when provided */}
+                    {img && (
+                      <div className="h-16 w-20 shrink-0 overflow-hidden rounded-2xl border border-rose-soft/20 shadow-[0_4px_14px_rgba(139,74,90,0.10)]">
+                        <img
+                          src={img}
+                          alt={title}
+                          className="h-full w-full object-cover object-center"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
