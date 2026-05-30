@@ -16,172 +16,282 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { Product } from "@/types";
 
-type VisualTone = "hydration" | "gold" | "cream" | "green" | "shield" | "coffee" | "molecule" | "mineral" | "rose";
+// ─── Types ───────────────────────────────────────────────────────────────────
 
-interface IngredientVisualSpec {
-  tone: VisualTone;
-  title: string;
-  detail: string;
-  highlight: string;
+type VisualKind = "rings" | "drops" | "leaf" | "crystal" | "shield" | "glow";
+
+interface IngDetail {
+  role: string;
+  benefit: string;
+  cardBg: string;   // Tailwind gradient classes for the card
+  accentHex: string;
+  visual: VisualKind;
 }
 
-const INGREDIENT_ICON: Record<string, LucideIcon> = {
+// ─── Icon resolver ────────────────────────────────────────────────────────────
+
+const ICON_MAP: Record<string, LucideIcon> = {
   "Niacinamide 10%": Sparkles,
   "Niacinamide 5%": Sparkles,
+  "Niacinamide 4%": Sparkles,
   "Zinc PCA": Shield,
   "Hyaluronic Acid": Droplets,
+  "Hyaluronic Acid 0.5%": Droplets,
   Bakuchiol: Leaf,
   "Shea Butter": MoonStar,
   Squalane: Droplets,
   Peptides: BadgeCheck,
-  Caffeine: Zap,
+  "Caffeine 5%": Zap,
+  "Caffeine": Zap,
   "Vitamin K2": ScanEye,
+  "Vitamin E 1%": Sparkles,
 };
 
-function iconForIngredient(nameEn: string): LucideIcon {
-  const direct = INGREDIENT_ICON[nameEn];
-  if (direct) return direct;
-  if (nameEn.includes("Niacinamide")) return Sparkles;
-  if (nameEn.includes("Zinc")) return Shield;
-  if (nameEn.includes("Hyaluronic")) return Droplets;
-  if (nameEn.includes("Bakuchiol")) return Leaf;
-  if (nameEn.includes("Shea")) return MoonStar;
-  if (nameEn.includes("Squalane")) return Droplets;
-  if (nameEn.includes("Peptide")) return BadgeCheck;
-  if (nameEn.includes("Caffeine")) return Zap;
-  if (nameEn.includes("Vitamin K")) return ScanEye;
+function iconFor(nameEn: string): LucideIcon {
+  if (ICON_MAP[nameEn]) return ICON_MAP[nameEn];
+  const matchers: Array<[string, LucideIcon]> = [
+    ["Niacinamide", Sparkles], ["Zinc", Shield], ["Hyaluronic", Droplets],
+    ["Bakuchiol", Leaf], ["Shea", MoonStar], ["Squalane", Droplets],
+    ["Peptide", BadgeCheck], ["Caffeine", Zap], ["Vitamin K", ScanEye],
+    ["Panthenol", BadgeCheck], ["Aloe", Leaf], ["Vitamin", Sparkles],
+    ["Tinosorb", Shield], ["Uvinul", Shield],
+  ];
+  for (const [k, v] of matchers) if (nameEn.includes(k)) return v;
   return FlaskConical;
 }
 
-function ingredientVisualFor(nameEn: string): IngredientVisualSpec {
-  if (nameEn.includes("Tinosorb") || nameEn.includes("Uvinul") || nameEn.includes("Mexoryl") || nameEn.includes("SPF")) {
-    return {
-      tone: "shield",
-      title: "UV Shield",
-      detail: "broad spectrum",
-      highlight: "from-[#F5E8C8]/85 via-white/35 to-[#D8A86D]/30",
-    };
-  }
-  if (nameEn.includes("Caffeine")) {
-    return {
-      tone: "coffee",
-      title: "Caffeine Extract",
-      detail: "energizing eye care",
-      highlight: "from-[#B98258]/55 via-[#F7DFCA]/30 to-white/30",
-    };
-  }
-  if (nameEn.includes("Peptide")) {
-    return {
-      tone: "molecule",
-      title: "Peptide Matrix",
-      detail: "skin support",
-      highlight: "from-[#E7D6F4]/55 via-white/35 to-[#C8A7D8]/25",
-    };
-  }
-  if (nameEn.includes("Shea") || nameEn.includes("Panthenol")) {
-    return {
-      tone: "cream",
-      title: "Cream Comfort",
-      detail: "barrier care",
-      highlight: "from-[#F6E8D9]/80 via-white/30 to-[#E0B98F]/25",
-    };
-  }
-  if (nameEn.includes("Aloe")) {
-    return {
-      tone: "green",
-      title: "Aloe Gel",
-      detail: "calming hydration",
-      highlight: "from-[#DDEEDB]/65 via-white/35 to-[#BFD8B8]/30",
-    };
-  }
-  if (nameEn.includes("Hyaluronic") || nameEn.includes("Squalane")) {
-    return {
-      tone: "hydration",
-      title: "Moisture Veil",
-      detail: "soft hydration",
-      highlight: "from-[#DDEAF4]/65 via-white/35 to-[#F7DECF]/30",
-    };
-  }
-  if (nameEn.includes("Vitamin")) {
-    return {
-      tone: "gold",
-      title: "Vitamin Glow",
-      detail: "antioxidant care",
-      highlight: "from-[#F7E3AE]/70 via-white/35 to-[#D7A86D]/30",
-    };
-  }
-  if (nameEn.includes("Zinc")) {
-    return {
-      tone: "mineral",
-      title: "Mineral Balance",
-      detail: "clarifying support",
-      highlight: "from-[#E6E2D8]/70 via-white/35 to-[#BFAE9A]/30",
-    };
-  }
-  if (nameEn.includes("Bakuchiol") || nameEn.includes("Retinol")) {
-    return {
-      tone: "gold",
-      title: "Night Renewal",
-      detail: "soft glow",
-      highlight: "from-[#F2D8A8]/70 via-white/30 to-[#D89776]/28",
-    };
-  }
+function extractPercent(nameEn: string): string | null {
+  const m = nameEn.match(/(\d+(?:\.\d+)?%)/);
+  return m ? m[1] : null;
+}
+
+// ─── Per-ingredient detail data ───────────────────────────────────────────────
+
+function getDetail(nameEn: string): IngDetail {
+  if (nameEn.includes("Caffeine")) return {
+    role: "مكوّن منشط لمحيط العين",
+    benefit: "كيعاون ينقص من مظهر الانتفاخ (البوفينيس) وآثار العيا",
+    cardBg: "from-[#FFF4E8]/90 via-[#FDF0DC]/70 to-[#F5D9B0]/30",
+    accentHex: "#A07040",
+    visual: "rings",
+  };
+  if (nameEn.includes("Niacinamide")) return {
+    role: "موحّد لون البشرة وموازن اللمعان",
+    benefit: "كيوحد مظهر لون البشرة وكينقص من اللمعان الزايد",
+    cardBg: "from-[#FDEEF1]/90 via-white/70 to-[#FBE4E8]/40",
+    accentHex: "#B8617A",
+    visual: "glow",
+  };
+  if (nameEn.includes("Hyaluronic")) return {
+    role: "مرطب عميق بدون ملمس دهني",
+    benefit: "كيرطب البشرة من العمق بلا ما يخلي أي إحساس ثقيل",
+    cardBg: "from-[#DFF0FA]/85 via-white/65 to-[#EAF6FF]/50",
+    accentHex: "#4A90C4",
+    visual: "drops",
+  };
+  if (nameEn.includes("Bakuchiol")) return {
+    role: "مكوّن التجديد الليلي النباتي",
+    benefit: "كيعاون يدعم مظهر التجدد والنعومة بالليل بطريقة لطيفة",
+    cardBg: "from-[#F5E8C8]/80 via-white/60 to-[#FAF0E0]/50",
+    accentHex: "#C49A5A",
+    visual: "leaf",
+  };
+  if (nameEn.includes("Shea")) return {
+    role: "مغذي ومرطب من الأعماق",
+    benefit: "كيرطب البشرة ويدعم حاجزها الطبيعي طول الليل",
+    cardBg: "from-[#F8EAD8]/85 via-white/60 to-[#F0DECA]/40",
+    accentHex: "#C4944A",
+    visual: "crystal",
+  };
+  if (nameEn.includes("Squalane")) return {
+    role: "زيت نباتي خفيف للترطيب اليومي",
+    benefit: "كيرطب بلا انسداد المسام — مناسب لكل أنواع البشرة",
+    cardBg: "from-[#DFF0FA]/80 via-white/60 to-[#E8F4FF]/45",
+    accentHex: "#6BA8C9",
+    visual: "drops",
+  };
+  if (nameEn.includes("Peptide")) return {
+    role: "داعم لمظهر تماسك البشرة",
+    benefit: "كيعاون على مظهر نعومة وحيوية البشرة مع الاستعمال المنتظم",
+    cardBg: "from-[#EDE0F8]/75 via-white/60 to-[#F5EEFF]/45",
+    accentHex: "#9B72B8",
+    visual: "crystal",
+  };
+  if (nameEn.includes("Zinc")) return {
+    role: "معدن موازن للإفرازات الدهنية",
+    benefit: "كيوازن الزهم وكيحسن مظهر المسام الواسعة",
+    cardBg: "from-[#ECEAE0]/80 via-white/65 to-[#E4E0D4]/35",
+    accentHex: "#8A7A6A",
+    visual: "shield",
+  };
+  if (nameEn.includes("Tinosorb") || nameEn.includes("Uvinul")) return {
+    role: "فلتر شمسي واسع الطيف UVA/UVB",
+    benefit: "كيعاون يحمي البشرة من الأشعة الضارة طول النهار",
+    cardBg: "from-[#FFF8E0]/90 via-white/65 to-[#F8EAB0]/30",
+    accentHex: "#D4A830",
+    visual: "shield",
+  };
+  if (nameEn.includes("Aloe")) return {
+    role: "مكوّن مهدئ ومرطب طبيعي",
+    benefit: "كيهدي البشرة ويعطيها إحساس راحة بعد التعرض للشمس",
+    cardBg: "from-[#DDEEDB]/80 via-white/60 to-[#D0E8CE]/40",
+    accentHex: "#5A9A5A",
+    visual: "leaf",
+  };
+  if (nameEn.includes("Panthenol")) return {
+    role: "بروفيتامين B5 مهدئ وداعم للحاجز",
+    benefit: "كيهدي البشرة ويقوي حاجزها الواقي الطبيعي",
+    cardBg: "from-[#F6E8D9]/80 via-white/60 to-[#EDD8C0]/35",
+    accentHex: "#C4A07A",
+    visual: "crystal",
+  };
+  if (nameEn.includes("Vitamin E")) return {
+    role: "مضاد أكسدة طبيعي",
+    benefit: "كيعاون يحمي البشرة من تأثير العوامل الخارجية اليومية",
+    cardBg: "from-[#FDF0C0]/75 via-white/60 to-[#F8E880]/25",
+    accentHex: "#C4A040",
+    visual: "glow",
+  };
+  if (nameEn.includes("Vitamin K")) return {
+    role: "داعم لمظهر منطقة محيط العين",
+    benefit: "كيعاون يوحد لون البشرة الرقيقة حول العين",
+    cardBg: "from-[#FDF0C0]/65 via-white/55 to-[#EAD870]/20",
+    accentHex: "#8A6A30",
+    visual: "glow",
+  };
   return {
-    tone: "rose",
-    title: "Active Blend",
-    detail: "balanced formula",
-    highlight: "from-rose-blush/75 via-white/35 to-gold-light/30",
+    role: "مكوّن فعّال في التركيبة",
+    benefit: "كيشتغل مع باقي المكونات لنتيجة أفضل",
+    cardBg: "from-rose-blush/70 via-white/60 to-gold-light/25",
+    accentHex: "#B8617A",
+    visual: "glow",
   };
 }
 
-function IngredientVisual({ spec }: { spec: IngredientVisualSpec }) {
-  const isMolecule = spec.tone === "molecule" || spec.tone === "shield";
-  const isCream = spec.tone === "cream" || spec.tone === "gold";
+// ─── Abstract ingredient visuals (CSS-only) ───────────────────────────────────
 
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      <div className={`absolute -left-10 -top-12 h-72 w-72 rounded-full bg-gradient-to-br ${spec.highlight} blur-2xl`} />
-      <div className="absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-rose-blush/40 blur-3xl" />
-      <div className="absolute left-6 top-8 h-44 w-44 rounded-full border border-white/55 bg-white/20 shadow-[inset_0_1px_18px_rgba(255,255,255,0.65),0_22px_60px_rgba(139,74,90,0.08)] backdrop-blur-[2px]" />
-      <div className="absolute left-14 top-16 h-16 w-16 rounded-full bg-white/55 shadow-[inset_0_1px_12px_rgba(255,255,255,0.9),0_16px_35px_rgba(139,74,90,0.08)]" />
-
-      {isCream ? (
-        <>
-          <div className="absolute -left-4 bottom-14 h-20 w-60 rotate-[-9deg] rounded-[999px] bg-gradient-to-r from-white/85 via-[#F1D7C4]/65 to-white/35 shadow-[inset_0_2px_16px_rgba(255,255,255,0.75),0_22px_50px_rgba(168,112,83,0.12)]" />
-          <div className="absolute left-28 bottom-24 h-8 w-24 rotate-[8deg] rounded-[999px] bg-white/55 blur-[1px]" />
-        </>
-      ) : (
-        <>
-          <div className="absolute left-12 bottom-16 h-24 w-24 rounded-full bg-white/50 shadow-[inset_0_2px_16px_rgba(255,255,255,0.8),0_20px_40px_rgba(139,74,90,0.08)]" />
-          <div className="absolute left-32 bottom-24 h-9 w-9 rounded-full bg-white/45 shadow-[inset_0_1px_10px_rgba(255,255,255,0.85)]" />
-        </>
-      )}
-
-      {isMolecule && (
-        <div className="absolute left-16 top-24 h-32 w-36 opacity-45">
-          <span className="absolute left-0 top-12 h-px w-32 rotate-12 bg-rose-deep/20" />
-          <span className="absolute left-8 top-4 h-px w-28 rotate-[58deg] bg-rose-deep/16" />
-          <span className="absolute left-16 top-20 h-px w-24 -rotate-[38deg] bg-rose-deep/18" />
-          {[0, 1, 2, 3].map((i) => (
-            <span
-              key={i}
-              className="absolute h-4 w-4 rounded-full border border-rose-deep/18 bg-white/60 shadow-sm"
-              style={{
-                left: `${[0, 42, 86, 118][i]}px`,
-                top: `${[46, 2, 70, 30][i]}px`,
-              }}
-            />
+function IngVisualBg({ visual, accentHex }: { visual: VisualKind; accentHex: string }) {
+  if (visual === "rings") {
+    return (
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        {[160, 220, 290, 360].map((s, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: s, height: s,
+              left: -s / 2.5, bottom: -s / 2.5,
+              border: `1.5px solid ${accentHex}`,
+              opacity: Math.max(0, 0.09 - i * 0.018),
+            }}
+          />
+        ))}
+        <div className="absolute top-5 right-5 flex gap-2">
+          {[1, 0.55, 0.3].map((op, i) => (
+            <div key={i} className="h-1.5 w-1.5 rounded-full" style={{ background: accentHex, opacity: op * 0.28 }} />
           ))}
         </div>
-      )}
-
-      <div className="absolute left-8 bottom-8 hidden rounded-2xl border border-white/60 bg-white/45 px-4 py-3 text-left shadow-[0_18px_45px_rgba(139,74,90,0.08)] backdrop-blur-md sm:block">
-        <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-rose-mid/70">{spec.title}</p>
-        <p className="mt-1 font-sans text-[11px] text-[#6B5555]/65">{spec.detail}</p>
       </div>
+    );
+  }
+  if (visual === "drops") {
+    return (
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        {[
+          { w: 88, h: 108, left: "8%", top: "5%", op: 0.10 },
+          { w: 52, h: 64,  left: "54%", top: "14%", op: 0.07 },
+          { w: 32, h: 40,  left: "72%", top: "4%", op: 0.05 },
+        ].map((d, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              width: d.w, height: d.h,
+              left: d.left, top: d.top,
+              background: `radial-gradient(circle at 35% 30%, white, ${accentHex})`,
+              opacity: d.op,
+              borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+  if (visual === "leaf") {
+    return (
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        {[
+          { s: 120, left: "4%", top: "-12%", rotate: 30, op: 0.09 },
+          { s: 72,  left: "58%", top: "12%", rotate: -22, op: 0.06 },
+        ].map((l, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              width: l.s, height: l.s,
+              left: l.left, top: l.top,
+              background: accentHex,
+              opacity: l.op,
+              borderRadius: "30% 70% 70% 30% / 30% 30% 70% 70%",
+              transform: `rotate(${l.rotate}deg)`,
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+  if (visual === "crystal") {
+    return (
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        {[
+          { w: 88, h: 88, left: "6%", top: "5%", rotate: 15, op: 0.08 },
+          { w: 54, h: 54, left: "60%", top: "10%", rotate: -12, op: 0.06 },
+          { w: 32, h: 32, left: "76%", top: "2%", rotate: 28, op: 0.05 },
+        ].map((c, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              width: c.w, height: c.h,
+              left: c.left, top: c.top,
+              background: `linear-gradient(135deg, white, ${accentHex})`,
+              opacity: c.op,
+              clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
+              transform: `rotate(${c.rotate}deg)`,
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+  if (visual === "shield") {
+    return (
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <svg className="absolute left-[4%] top-[4%] h-[90px] w-[80px]" viewBox="0 0 80 90" style={{ opacity: 0.07 }}>
+          <path d="M40 0L0 18v31c0 22 17 40 40 45 23-5 40-23 40-45V18L40 0z" fill={accentHex} />
+        </svg>
+        <svg className="absolute right-[8%] top-[8%] h-[52px] w-[46px]" viewBox="0 0 80 90" style={{ opacity: 0.04 }}>
+          <path d="M40 0L0 18v31c0 22 17 40 40 45 23-5 40-23 40-45V18L40 0z" fill={accentHex} />
+        </svg>
+      </div>
+    );
+  }
+  // glow
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+      <div
+        className="absolute -left-10 -top-10 h-52 w-52 rounded-full blur-3xl"
+        style={{ background: accentHex, opacity: 0.08 }}
+      />
+      <div
+        className="absolute right-4 top-4 h-28 w-28 rounded-full blur-2xl"
+        style={{ background: accentHex, opacity: 0.05 }}
+      />
     </div>
   );
 }
+
+// ─── Main component ───────────────────────────────────────────────────────────
 
 interface Props {
   product: Product;
@@ -190,151 +300,262 @@ interface Props {
 export function IngredientAuthority({ product }: Props) {
   const [active, setActive] = useState(0);
   const ing = product.ingredients[active];
-  const ActiveIcon = iconForIngredient(ing.name_en);
-  const visualSpec = ingredientVisualFor(ing.name_en);
+  const Icon = iconFor(ing.name_en);
+  const detail = getDetail(ing.name_en);
+  const percent = extractPercent(ing.name_en);
 
   return (
-    <section className="relative overflow-hidden bg-white py-20">
-      <div className="pointer-events-none absolute -right-24 top-32 h-80 w-80 rounded-full bg-rose-blush/35 blur-3xl" />
+    <section className="relative overflow-hidden bg-[#FDFAF7] py-20" dir="rtl">
+      {/* Ambient background glows */}
+      <div className="pointer-events-none absolute -right-32 top-16 h-96 w-96 rounded-full bg-rose-blush/20 blur-3xl" />
+      <div className="pointer-events-none absolute -left-20 bottom-20 h-64 w-64 rounded-full bg-gold-light/20 blur-3xl" />
 
       <div className="container-wide relative">
+
+        {/* ── Header ── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-14 text-center"
+          className="mb-12 text-center"
         >
-          <div className="mx-auto mb-5 flex flex-wrap items-center justify-center gap-3 md:gap-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-rose-soft/40 bg-rose-blush/60 px-3 py-1.5 text-[11px] font-semibold text-rose-deep shadow-sm">
-              <FlaskConical className="h-3.5 w-3.5 text-gold" strokeWidth={1.5} aria-hidden />
+          <div className="mx-auto mb-4 flex flex-wrap items-center justify-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-rose-soft/40 bg-rose-blush/60 px-3 py-1 text-[11px] font-semibold text-rose-deep">
+              <FlaskConical className="h-3 w-3 text-gold" strokeWidth={1.5} aria-hidden />
               تركيبة مدروسة
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold-light/70 px-3 py-1.5 text-[11px] font-semibold text-brand-deep">
-              <Sparkles className="h-3.5 w-3.5 text-gold" strokeWidth={1.5} aria-hidden />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold-light/60 px-3 py-1 text-[11px] font-semibold text-brand-deep">
+              <Sparkles className="h-3 w-3 text-gold" strokeWidth={1.5} aria-hidden />
               شفافية في المكوّنات
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-3 py-1.5 text-[11px] font-semibold text-[#6B5555] shadow-sm">
-              <BadgeCheck className="h-3.5 w-3.5 text-gold" strokeWidth={1.5} aria-hidden />
-              مناسبة للاستخدام اليومي
-            </span>
           </div>
-
           <h2 className="section-heading text-[#2C1810]">ما الذي تحتويه التركيبة — ولماذا</h2>
-          <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#6B5555]">
-            كل مكوّن اختير بعناية، ونقدمه بوضوح لأن معرفة ما تضعينه على بشرتك جزء من الثقة — دون مبالغة أو ادعاءات طبّية.
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-[#6B5555]">
+            كل مكوّن اختير بعناية — نشرحه بوضوح لأن بشرتك تستحق الشفافية الكاملة.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2">
-          <div className="space-y-3">
+        {/* ── Grid ── */}
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:items-start">
+
+          {/* LEFT — Ingredient selectors */}
+          <div className="space-y-2.5">
             {product.ingredients.map((ingredient, i) => {
-              const RowIcon = iconForIngredient(ingredient.name_en);
-              const on = active === i;
+              const RowIcon = iconFor(ingredient.name_en);
+              const isOn = active === i;
+              const pct = extractPercent(ingredient.name_en);
+              const d = getDetail(ingredient.name_en);
+
               return (
                 <motion.button
                   key={i}
                   type="button"
                   onClick={() => setActive(i)}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.06 }}
-                  className={`group relative flex w-full items-center gap-4 overflow-hidden rounded-[1.25rem] border p-5 text-right transition-all duration-200 ${
-                    on
-                      ? "border-rose-soft/80 bg-gradient-to-br from-rose-blush via-white to-gold-light/35 shadow-[0_18px_34px_rgba(139,74,90,0.11)]"
-                      : "border-border bg-white shadow-[0_10px_25px_rgba(44,24,16,0.03)] hover:border-rose-soft/50 hover:bg-ivory hover:shadow-[0_16px_32px_rgba(139,74,90,0.07)]"
+                  transition={{ delay: i * 0.055 }}
+                  className={`group relative w-full overflow-hidden rounded-2xl border text-right transition-all duration-200 ${
+                    isOn
+                      ? "border-rose-soft/60 shadow-[0_8px_28px_rgba(139,74,90,0.11)]"
+                      : "border-[#EDE8E3] bg-white shadow-[0_2px_8px_rgba(44,24,16,0.04)] hover:border-rose-soft/35 hover:shadow-[0_6px_20px_rgba(139,74,90,0.07)]"
                   }`}
                 >
-                  <span className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-l from-transparent via-white/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div
-                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ring-1 transition-all ${
-                      on
-                        ? "bg-white text-rose-deep shadow-[inset_0_1px_10px_rgba(255,255,255,0.85),0_10px_22px_rgba(139,74,90,0.12)] ring-rose-soft/25"
-                        : "bg-gradient-to-br from-ivory to-white text-[#9B8A8A] ring-border/70 group-hover:text-rose-deep"
-                    }`}
-                  >
-                    <RowIcon className="h-5 w-5" strokeWidth={1.4} aria-hidden />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className={`text-base font-bold transition-colors ${on ? "text-rose-deep" : "text-[#2C1810]"}`}>
-                        {ingredient.name_ar}
-                      </span>
-                      <span className="font-sans text-xs text-[#9B8A8A]">{ingredient.name_en}</span>
+                  {/* Active gradient fill */}
+                  {isOn && (
+                    <div className={`absolute inset-0 bg-gradient-to-br ${d.cardBg}`} />
+                  )}
+
+                  {/* Shimmer top */}
+                  {isOn && (
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent" />
+                  )}
+
+                  <div className="relative flex items-center gap-4 p-4">
+                    {/* Icon badge */}
+                    <div
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-all duration-200 ${
+                        isOn
+                          ? "bg-white shadow-[0_4px_14px_rgba(139,74,90,0.13)] ring-1 ring-white/60"
+                          : "bg-[#F5F2EE] group-hover:bg-white group-hover:shadow-sm"
+                      }`}
+                    >
+                      <RowIcon
+                        className={`h-5 w-5 transition-colors ${
+                          isOn ? "text-rose-deep" : "text-[#9B8A8A] group-hover:text-rose-mid"
+                        }`}
+                        strokeWidth={1.4}
+                        aria-hidden
+                      />
                     </div>
-                    <p className="mt-0.5 truncate text-xs text-[#9B8A8A]">{ingredient.description_ar}</p>
+
+                    {/* Text content */}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-bold text-[#2C1810]">{ingredient.name_ar}</span>
+                        {pct && (
+                          <span
+                            className={`rounded-full px-2 py-0.5 font-sans text-[10px] font-bold transition-all ${
+                              isOn ? "bg-rose-deep text-white" : "bg-[#EDE8E3] text-[#9B8A8A]"
+                            }`}
+                          >
+                            {pct}
+                          </span>
+                        )}
+                      </div>
+                      <p
+                        className={`mt-0.5 text-xs leading-relaxed transition-all ${
+                          isOn ? "text-[#6B5555]" : "truncate text-[#B0A098]"
+                        }`}
+                      >
+                        {ingredient.description_ar}
+                      </p>
+                    </div>
+
+                    {/* Active accent bar */}
+                    <div
+                      className={`h-full w-[3px] shrink-0 self-stretch rounded-full transition-all ${
+                        isOn ? "bg-gradient-to-b from-rose-deep to-gold opacity-100" : "bg-[#EDE8E3] opacity-0"
+                      }`}
+                    />
                   </div>
-                  <div className={`h-8 w-1 shrink-0 rounded-full transition-all ${on ? "bg-gradient-to-b from-rose-deep to-gold" : "bg-border"}`} />
                 </motion.button>
               );
             })}
           </div>
 
-          <div className="lg:sticky lg:top-28">
+          {/* RIGHT — Active ingredient detail card */}
+          <div className="lg:sticky lg:top-24">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] as const }}
-                className="relative overflow-hidden rounded-[1.75rem] border border-rose-soft/25 bg-gradient-to-br from-rose-blush via-white to-gold-light/25 p-8 shadow-[0_24px_60px_rgba(139,74,90,0.1)]"
+                initial={{ opacity: 0, y: 14, scale: 0.985 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -14, scale: 0.985 }}
+                transition={{ duration: 0.30, ease: [0.16, 1, 0.3, 1] as const }}
+                className={`relative overflow-hidden rounded-[1.75rem] border border-white/60 bg-gradient-to-br ${detail.cardBg} shadow-[0_28px_64px_rgba(139,74,90,0.11)]`}
               >
-                <IngredientVisual spec={visualSpec} />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-white/88 via-white/62 to-white/16" aria-hidden />
-                <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-l from-transparent via-white/90 to-transparent" aria-hidden />
+                {/* Ingredient abstract visual */}
+                <IngVisualBg visual={detail.visual} accentHex={detail.accentHex} />
 
-                <div className="relative mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-white/88 shadow-[inset_0_1px_10px_rgba(255,255,255,0.85),0_18px_38px_rgba(139,74,90,0.12)] ring-1 ring-rose-soft/20 backdrop-blur-md">
-                  <ActiveIcon className="h-9 w-9 text-rose-deep" strokeWidth={1.35} aria-hidden />
-                </div>
+                {/* Glass shimmer lines */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/85 to-transparent" aria-hidden />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-px bg-gradient-to-b from-white/50 via-transparent to-transparent" aria-hidden />
 
-                <div className="relative mb-2">
-                  <h3 className="text-2xl font-bold text-rose-deep">{ing.name_ar}</h3>
-                  <p className="mt-0.5 font-sans text-sm font-medium text-rose-mid">{ing.name_en}</p>
-                </div>
+                <div className="relative p-7">
 
-                <p className="relative mt-4 text-base leading-relaxed text-[#6B5555]">{ing.description_ar}</p>
+                  {/* Icon + Name + % */}
+                  <div className="mb-5 flex items-start gap-4">
+                    <div
+                      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/90 shadow-[0_8px_24px_rgba(44,24,16,0.10)] ring-1 ring-white/70"
+                    >
+                      <Icon
+                        className="h-7 w-7"
+                        style={{ color: detail.accentHex }}
+                        strokeWidth={1.35}
+                        aria-hidden
+                      />
+                    </div>
+                    <div className="flex-1 pt-0.5">
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        <h3 className="text-[1.25rem] font-bold leading-snug text-[#2C1810]">
+                          {ing.name_ar}
+                        </h3>
+                        {percent && (
+                          <span
+                            className="rounded-full px-2.5 py-0.5 font-sans text-xs font-bold shadow-sm"
+                            style={{ background: detail.accentHex, color: "white" }}
+                          >
+                            {percent}
+                          </span>
+                        )}
+                      </div>
+                      <p className="mt-0.5 font-sans text-xs font-medium text-[#9B8A8A]">
+                        {ing.name_en}
+                      </p>
+                    </div>
+                  </div>
 
-                <div className="relative mt-6 rounded-2xl border border-white/80 bg-white/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_14px_35px_rgba(139,74,90,0.06)] backdrop-blur-md">
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-rose-mid">ماذا يفعل بالضبط؟</p>
-                  <p className="text-sm leading-relaxed text-[#6B5555]">
-                    {ing.name_en.includes("Niacinamide") &&
-                      "يعمل على مستوى الخلايا لتنظيم إنتاج الميلانين والزهم — فيساعد على توحيد مظهر البشرة وتلطيف اللمعان."}
-                    {ing.name_en.includes("Bakuchiol") &&
-                      "مستخلص نباتي معروف في العناية الليلية، يدعم مظهر التجدد والنعومة بطريقة لطيفة."}
-                    {ing.name_en.includes("Caffeine") &&
-                      "مكوّن شائع في عناية محيط العين، يساعد على منح المنطقة مظهرًا أكثر انتعاشًا."}
-                    {ing.name_en.includes("Hyaluronic") &&
-                      "يجذب الرطوبة ويحبسها في أعلى طبقات الجلد — ترطيب عميق دون ملمس دهني ثقيل."}
-                    {ing.name_en.includes("Peptides") &&
-                      "سلاسل أحماض أمينية صغيرة تشارك في دعم مظهر تماسك البشرة ونعومتها."}
-                    {ing.name_en.includes("Squalane") &&
-                      "زيت نباتي خفيف يشبه الزيوت الطبيعية للبشرة — يرطب دون انسداد المسام."}
-                    {ing.name_en.includes("Shea") &&
-                      "غني بالأحماض الدهنية والفيتامينات — يغذي البشرة ويساعد على دعم الحاجز الرطوبي."}
-                    {ing.name_en.includes("Zinc") &&
-                      "معدن يساعد على موازنة إفراز الزهم وتضييق مظهر المسام — حليف البشرة الدهنية."}
-                    {ing.name_en.includes("Vitamin K") &&
-                      "يساهم في دعم مظهر المنطقة الرقيقة تحت العين ضمن روتين عناية لطيف."}
-                    {!["Niacinamide", "Bakuchiol", "Caffeine", "Hyaluronic", "Peptides", "Squalane", "Shea", "Zinc", "Vitamin K"].some(
-                      (k) => ing.name_en.includes(k)
-                    ) &&
-                      "مكوّن مختار بعناية لتكملة الفعالية العامة للتركيبة — يعمل بتناسق مع باقي المكونات."}
+                  {/* Divider */}
+                  <div className="mb-5 h-px bg-gradient-to-r from-transparent via-white/75 to-transparent" />
+
+                  {/* Role + Benefit boxes */}
+                  <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <div className="rounded-xl border border-white/65 bg-white/55 p-3.5 backdrop-blur-sm">
+                      <p
+                        className="mb-1.5 font-sans text-[9px] font-bold uppercase tracking-[0.2em]"
+                        style={{ color: detail.accentHex }}
+                      >
+                        الدور
+                      </p>
+                      <p className="text-sm font-semibold leading-snug text-[#2C1810]">
+                        {detail.role}
+                      </p>
+                    </div>
+                    <div className="rounded-xl border border-white/65 bg-white/55 p-3.5 backdrop-blur-sm">
+                      <p
+                        className="mb-1.5 font-sans text-[9px] font-bold uppercase tracking-[0.2em]"
+                        style={{ color: detail.accentHex }}
+                      >
+                        الفائدة
+                      </p>
+                      <p className="text-sm leading-snug text-[#4A3838]">
+                        {detail.benefit}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Description (full Darija text from product config) */}
+                  <p className="mb-6 text-sm leading-relaxed text-[#6B5555]">
+                    {ing.description_ar}
                   </p>
+
+                  {/* Bottom row: product association + bottle image */}
+                  <div className="flex items-end justify-between gap-3">
+                    <div className="rounded-xl border border-white/70 bg-white/55 px-3.5 py-2.5 backdrop-blur-sm">
+                      <p className="font-sans text-[9px] font-bold uppercase tracking-[0.15em] text-[#9B8A8A]">
+                        موجود في
+                      </p>
+                      <p className="mt-0.5 text-xs font-bold text-[#2C1810] leading-snug">
+                        {product.name_ar}
+                      </p>
+                      <div className="mt-1 flex items-center gap-1">
+                        <div className="h-1 w-1 rounded-full" style={{ background: detail.accentHex }} />
+                        <p className="font-sans text-[10px] text-[#9B8A8A]">{product.volume}</p>
+                      </div>
+                    </div>
+
+                    {/* Product bottle — small, elegant */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1, duration: 0.35 }}
+                      className="shrink-0"
+                    >
+                      <img
+                        src={product.image}
+                        alt={product.name_ar}
+                        className="h-28 w-auto object-contain"
+                        style={{ filter: `drop-shadow(0 10px 22px rgba(139,74,90,0.18))` }}
+                        draggable={false}
+                      />
+                    </motion.div>
+                  </div>
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
 
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mt-12 text-center">
-          <p className="text-xs text-[#9B8A8A]">
-            جميع المكونات ضمن أطر صناعة مستحضرات التجميل المعتادة — استخدمي المنتج حسب التوجيهات وتجنبي ملامسة العين المباشرة.
-          </p>
-          <p className="mx-auto mt-5 max-w-[600px] px-4 py-5 text-center text-sm leading-7 text-[#8C6E73]">
-            هاد التركيب الخفيف مصمم خصيصاً باش يشتغل مع باقي منتجات الروتين — دون تعارض أو ثقل.
-          </p>
-        </motion.div>
+        {/* Footer */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-10 text-center text-[10px] text-[#B0A098]"
+        >
+          جميع المكونات ضمن أطر صناعة مستحضرات التجميل — استخدمي المنتج حسب التوجيهات وتجنبي ملامسة العين المباشرة.
+        </motion.p>
       </div>
     </section>
   );

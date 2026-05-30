@@ -59,14 +59,16 @@ export function BeforeAfterSlider({ productSlug }: Props) {
   const beforeLabel = BEFORE_LABELS[productSlug] ?? BEFORE_LABELS["nura-balance"];
   const afterLabel = AFTER_LABELS[productSlug] ?? AFTER_LABELS["nura-balance"];
 
+  const handleTouchStart = (e: React.TouchEvent) => { updateSlider(e.touches[0].clientX); };
+
   return (
-    <section className="py-20 bg-ivory overflow-hidden">
+    <section className="py-10 sm:py-20 bg-ivory overflow-hidden">
       <div className="container-narrow">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-7 sm:mb-12"
         >
           <p className="text-xs text-rose-mid font-semibold tracking-wider uppercase mb-3">التحول</p>
           <h2 className="section-heading text-[#2C1810]">الفارق اللي تحسيه</h2>
@@ -75,30 +77,31 @@ export function BeforeAfterSlider({ productSlug }: Props) {
           </p>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-xl sm:max-w-3xl mx-auto">
           {/* Slider */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             ref={containerRef}
-            className="relative overflow-hidden rounded-[2rem] border border-rose-soft/25 bg-white p-2 shadow-rose-lg cursor-col-resize select-none touch-none"
+            className="relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-rose-soft/25 bg-white p-1.5 sm:p-2 shadow-rose-lg cursor-col-resize select-none touch-none"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
             onClick={handleClick}
+            onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleMouseUp}
           >
-            <div className="relative overflow-hidden rounded-[1.6rem] bg-ivory aspect-[4/5] sm:aspect-square">
+            <div className="relative overflow-hidden rounded-[1.15rem] sm:rounded-[1.6rem] bg-ivory aspect-square">
               {/* After (right) */}
               <div className="absolute inset-0 bg-gradient-to-br from-rose-100 to-pink-50 flex items-center justify-center">
                 {afterImageSrc ? (
                   <img
                     src={afterImageSrc}
                     alt={`مظهر البشرة بعد استعمال ${productSlug} من نورا سكين`}
-                    className="h-full w-full object-contain sm:object-cover"
+                    className="h-full w-full object-cover"
                     draggable={false}
                   />
                 ) : (
@@ -125,7 +128,7 @@ export function BeforeAfterSlider({ productSlug }: Props) {
                     <img
                       src={beforeImageSrc}
                       alt={`مظهر البشرة قبل استعمال ${productSlug} من نورا سكين`}
-                      className="h-full w-full object-contain sm:object-cover"
+                      className="h-full w-full object-cover"
                       draggable={false}
                     />
                   ) : (
@@ -174,7 +177,7 @@ export function BeforeAfterSlider({ productSlug }: Props) {
           </motion.div>
 
           {/* Timeline */}
-          <div className="mt-8 flex items-center">
+          <div className="mt-5 sm:mt-8 flex items-center">
             {timelines.map((label, i) => (
               <React.Fragment key={i}>
                 <div className="text-center flex-1">

@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 
 const CARDS = [
   {
-    image: "/images/moroccan-model-card-2.png",
+    image: "/images/nura-morning-products-hero.png",
+    objectPosition: "object-center",
     kicker: "الصباح",
     title: "كتبداي نهارك مرتاحة",
     copy: "كتفيقي وما كتحتاجيش تخبي بشرتك.\nأول حاجة كتشوفيها فالمراية هي بشرة مرتاحة ومتوازنة.",
@@ -14,6 +15,7 @@ const CARDS = [
   },
   {
     image: "/images/emotion-confidence-day.png",
+    objectPosition: "object-top",
     kicker: "النهار",
     title: "الثقة كتولي طبيعية",
     copy: "ما كتبقايش تفكري واش البشرة باهتة ولا مرهقة.\nكتعيشي نهارك عادي... والبشرة كتدير خدمتها بوحدها.",
@@ -22,13 +24,14 @@ const CARDS = [
   },
   {
     image: "/images/emotion-evening-peace.png",
+    objectPosition: "object-top",
     kicker: "المساء",
     title: "كتسالي نهارك بنفس الإحساس",
     copy: "ماشي إحساس مؤقت.\nروتين منظم كيخليك تحسي براسك مرتاحة من الصباح حتى للمساء.",
     gradient: "from-[#0E0818]/90 via-[#0E0818]/50 to-transparent",
     kickerColor: "text-purple-300",
   },
-] as const;
+];
 
 export function EmotionalTransformationSection() {
   return (
@@ -73,7 +76,7 @@ export function EmotionalTransformationSection() {
                 alt={card.title}
                 fill
                 sizes="(min-width: 640px) 33vw, 100vw"
-                className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                className={`object-cover ${card.objectPosition} transition-transform duration-700 ease-out group-hover:scale-[1.04]`}
                 loading="lazy"
               />
 

@@ -98,8 +98,8 @@ export default async function ProductPage({ params }: Props) {
       {/* 7. Science & philosophy */}
       <ScienceSection product={product} />
 
-      {/* 8. Routine visualizer */}
-      <RoutineSection currentSlug={product.slug} />
+      {/* 8. Routine visualizer — hidden on eye-revive (duplicated by RoutineEducationSection) */}
+      {product.slug !== "nura-eye-revive" && <RoutineSection currentSlug={product.slug} />}
 
       {/* 9. How to use + realistic timeline */}
       <UsageAndTimeline product={product} />
