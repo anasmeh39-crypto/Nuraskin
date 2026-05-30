@@ -27,15 +27,40 @@ export const PRODUCT_THUMBNAILS: Record<string, string> = {
 export const BUNDLE_HERO_IMAGES: Record<string, { src: string; alt: string }> = {
   "morning-ritual": {
     src: "/images/bundles/morning-routine-hero.jpg",
-    alt: "روتين الصباح من نوراسكين",
+    alt: "روتين الصباح من نورا سكين",
   },
   "night-renewal-ritual": {
     src: "/images/bundles/night-renewal-hero.jpg",
-    alt: "روتين التجديد الليلي من نوراسكين",
+    alt: "روتين التجديد الليلي من نورا سكين",
   },
   "nura-complete-ritual": {
     src: "/images/bundles/full-routine-hero.jpg",
-    alt: "روتين نورا الكامل من نوراسكين",
+    alt: "روتين نورا الكامل من نورا سكين",
+  },
+  // Product-page offer tiers — same heroes reused by slug
+  "nura-eye-balance-spf-trio": {
+    src: "/images/bundles/morning-routine-hero.jpg",
+    alt: "طقس الإشراقة اليومية من نورا سكين",
+  },
+  "nura-retinol-balance-spf-trio": {
+    src: "/images/bundles/morning-routine-hero.jpg",
+    alt: "طقس التجديد والحماية من نورا سكين",
+  },
+  "nura-balance-retinol-eye-trio": {
+    src: "/images/bundles/morning-routine-hero.jpg",
+    alt: "طقس الصباح الكامل من نورا سكين",
+  },
+  "nura-eye-retinol-duo": {
+    src: "/images/bundles/night-renewal-hero.jpg",
+    alt: "روتين التجديد الليلي من نورا سكين",
+  },
+  "nura-balance-retinol-duo": {
+    src: "/images/bundles/night-renewal-hero.jpg",
+    alt: "روتين النياسيناميد والريتينول من نورا سكين",
+  },
+  "nura-retinol-eye-duo": {
+    src: "/images/bundles/night-renewal-hero.jpg",
+    alt: "روتين التجديد الليلي من نورا سكين",
   },
 };
 

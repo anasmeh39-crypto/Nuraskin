@@ -59,7 +59,10 @@
       radial-gradient(ellipse 90% 60% at 0% 100%, rgba(237, 228, 215, 0.35), transparent 48%);
     color: var(--color-text-primary);
     -webkit-font-smoothing: antialiased;
-    scroll-behavior: smooth;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Removed global scroll-behavior:smooth — handled per-element to avoid
+       fighting with programmatic scroll-to-top on page navigation */
   }
 
   body {
@@ -72,7 +75,7 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-cairo), sans-serif;
     font-weight: 700;
-    line-height: 1.25;
+    line-height: 1.3;
     color: var(--color-text-primary);
   }
 
@@ -80,6 +83,28 @@
 
   input, textarea, select, button {
     font-family: var(--font-cairo), sans-serif;
+  }
+
+  /* ── Arabic typography — prevent ugly mid-word breaks on mobile ────────
+     word-break: keep-all treats Arabic script as CJK, preventing splits
+     inside a word. overflow-wrap handles the edge case of very long words.
+     hyphens: none prevents browser auto-hyphenation in Arabic.          */
+  [dir="rtl"] p,
+  [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4,
+  [dir="rtl"] h5, [dir="rtl"] h6,
+  [dir="rtl"] span, [dir="rtl"] li, [dir="rtl"] a,
+  [dir="rtl"] label, [dir="rtl"] button {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+
+  /* ── Mobile touch targets — minimum 44px per Apple HIG ── */
+  @media (max-width: 640px) {
+    button, a[role="button"], [role="tab"] {
+      min-height: 44px;
+    }
   }
 }
 

@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/layout/CartDrawer";
 import { CheckoutPopup } from "@/components/checkout/CheckoutPopup";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { BRAND_ASSETS } from "@/config/brand";
 
 const cairo = Cairo({
@@ -63,6 +64,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="bg-nura-bg font-arabic antialiased text-nura-plum">
+        <ScrollToTop />
         <Header />
         <main>{children}</main>
         <Footer />

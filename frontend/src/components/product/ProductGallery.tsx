@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Droplets, ShieldCheck, Sparkles } from "lucide-react";
 
@@ -147,11 +147,39 @@ interface Props {
   productName: string;
   productSlug: string;
   offerTier?: string;
+  offerLabel?: string;
 }
 
-export function ProductGallery({ productName, productSlug, offerTier }: Props) {
+export function ProductGallery({ productName, productSlug, offerTier, offerLabel }: Props) {
   const [active, setActive] = useState(0);
   const [mounted, setMounted] = useState(false);
+
+  // ── Touch swipe ───────────────────────────────────────────────────────────
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  // Ref keeps slot count in sync without needing gallerySlots in callback deps
+  const slotCount = useRef(1);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const dx = touchStartX.current - e.changedTouches[0].clientX;
+    const dy = touchStartY.current - e.changedTouches[0].clientY;
+    // Only trigger when horizontal swipe clearly dominates vertical scroll
+    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+    const len = slotCount.current;
+    if (dx > 0) {
+      setActive((a) => (a + 1) % len);
+    } else {
+      setActive((a) => (a === 0 ? len - 1 : a - 1));
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+  }, []);
 
   // Reset to first slide whenever offer tier changes
   useEffect(() => {
@@ -200,8 +228,18 @@ export function ProductGallery({ productName, productSlug, offerTier }: Props) {
     },
     [productSlug, offerTier]
   );
+  // Keep the ref in sync so touch handlers always see the current count
+  slotCount.current = gallerySlots.length;
+
   const displayIndex = mounted ? active : 0;
   const activeSlot = gallerySlots[displayIndex];
+
+  const thumbColsClass =
+    gallerySlots.length <= 3 ? "grid-cols-3" :
+    gallerySlots.length === 4 ? "grid-cols-4" :
+    "grid-cols-5";
+
+  const showBundleBadge = !!offerLabel && !!offerTier && offerTier !== "single";
 
   useEffect(() => {
     setMounted(true);
@@ -209,8 +247,13 @@ export function ProductGallery({ productName, productSlug, offerTier }: Props) {
 
   return (
     <div className="flex flex-col gap-2 sm:gap-4">
-      {/* Main image */}
-      <div className="relative rounded-none sm:rounded-4xl overflow-hidden aspect-square bg-rose-blush">
+      {/* Main image — swipeable on touch devices */}
+      <div
+        className="relative rounded-none sm:rounded-4xl overflow-hidden aspect-square bg-rose-blush"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        style={{ touchAction: "pan-y" }}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={displayIndex}
