@@ -173,7 +173,7 @@ export function RoutineSection({ currentSlug }: Props) {
                             src={THUMBNAILS[step.slug]}
                             alt={SHORT_NAME[step.slug]}
                             loading="lazy"
-                            className="h-full w-full object-cover"
+                            className="h-full w-full object-contain"
                           />
                         </div>
                         <div className="min-w-0 flex-1">
@@ -257,7 +257,7 @@ export function RoutineSection({ currentSlug }: Props) {
                             src={THUMBNAILS[step.slug]}
                             alt={SHORT_NAME[step.slug]}
                             loading="lazy"
-                            className="h-full w-full object-cover"
+                            className="h-full w-full object-contain"
                           />
                         </div>
                         <div className="min-w-0 flex-1">

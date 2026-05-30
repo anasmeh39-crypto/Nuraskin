@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Check, Crown, Moon, Sparkles, Sun, Truck } from "lucide-react";
 import { getProductPageOffers, ProductPageOffer } from "@/config/products";
@@ -9,21 +8,12 @@ import { Product } from "@/types";
 
 type Offer = ProductPageOffer;
 
-const PACK_IMAGES: Record<string, string> = {
-  "nura-balance":       "/images/products/serum-niacinamide-pack.png",
-  "nura-eye-revive":   "/images/products/eye-serum-pack.png",
-  "nura-night-renewal": "/images/products/retinol-cream-pack.png",
-  "nura-spf-50":        "/images/products/sunscreen-spf50-pack.png",
-};
-
 const SHORT: Record<string, string> = {
   "nura-balance":       "النياسيناميد",
   "nura-eye-revive":   "سيروم العين",
   "nura-night-renewal": "كريم الريتينول",
   "nura-spf-50":        "واقي الشمس",
 };
-
-const IS_PUMP = new Set(["nura-spf-50", "nura-night-renewal"]);
 
 function getOfferImage(offer: Offer): string {
   const slugs = offer.products.map(p => p.slug);
@@ -77,14 +67,11 @@ function OfferImage({
   const src = getOfferImage(offer);
   return (
     <div className={`relative w-full overflow-hidden ${featured ? "h-56 lg:h-full lg:min-h-[260px]" : "h-48"}`}>
-      <Image
+      <img
         src={src}
         alt={offer.label}
-        fill
-        sizes={featured ? "(min-width: 1024px) 45vw, 100vw" : "(min-width: 640px) 33vw, 100vw"}
-        className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]"
         loading="lazy"
-        quality={80}
+        className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]"
       />
       {/* Bottom fade into card content */}
       {!featured && (
@@ -231,7 +218,6 @@ function FeaturedCard({
   isSelected: boolean;
   onSelect: () => void;
 }) {
-  const slugs   = offer.products.map(p => p.slug);
   const benefit = getBenefit(offer);
   const savings = offer.saving && offer.originalPrice
     ? Math.round((offer.saving / offer.originalPrice) * 100)

@@ -69,10 +69,10 @@ const RETINOL_GALLERY_SLOTS: GallerySlot[] = [
 // Shared complete-tier slots (same 4 products, same images across all product pages)
 const COMPLETE_TIER_SLOTS: GallerySlot[] = [
   { label: "طقس نورا الكامل", sublabel: "٤ منتجات — صباح + ليل", bg: "from-rose-50 to-pink-100", image: "/images/bundles/full-routine-hero.jpg", fit: "cover" },
-  { label: "الطقس الكامل", sublabel: "روتين متكامل", bg: "from-amber-50 to-orange-50", image: "/images/bundles/nura-complete-premium-routine.png", fit: "contain" },
-  { label: "لايف ستايل", sublabel: "طقس العناية الكامل", bg: "from-rose-50 to-pink-100", image: "/images/bundles/complete-routine.jpg", fit: "cover" },
-  { label: "سيروم النياسيناميد", sublabel: "إشراقة وتوازن", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
-  { label: "كريم الريتينول", sublabel: "تجديد ليلي", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
+  { label: "الطقس الكامل", sublabel: "طقس العناية الكامل", bg: "from-rose-50 to-pink-100", image: "/images/nura-complete-bathroom-editorial.jpg", fit: "cover" },
+  { label: "لايف ستايل", sublabel: "روتين متكامل", bg: "from-amber-50 to-orange-50", image: "/images/bundles/complete-routine.jpg", fit: "cover" },
+  { label: "روتين نورا الكامل", sublabel: "٤ منتجات معاً", bg: "from-rose-50 to-pink-100", image: "/images/routine-complete-family.png", fit: "contain" },
+  { label: "تنظيم وحماية", sublabel: "نياسيناميد + ريتينول", bg: "from-amber-50 to-orange-50", image: "/images/bundles/nura-complete-premium-routine.png", fit: "contain" },
 ];
 
 // Bundle gallery slots — keyed by productSlug, then by offerTier
@@ -80,6 +80,7 @@ const BUNDLE_GALLERIES: Record<string, Record<string, GallerySlot[]>> = {
   "nura-balance": {
     duo: [
       { label: "روتين أساسي", sublabel: "نياسيناميد + ريتينول", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal-hero.jpg", fit: "cover" },
+      { label: "روتين الليل", sublabel: "طقس العناية الليلية", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal.jpg", fit: "cover" },
       { label: "سيروم النياسيناميد", sublabel: "إشراقة نهارية", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
       { label: "كريم الريتينول الليلي", sublabel: "تجديد ليلي", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
     ],
@@ -97,6 +98,7 @@ const BUNDLE_GALLERIES: Record<string, Record<string, GallerySlot[]>> = {
     // duo: eye serum + retinol night cream
     duo: [
       { label: "روتين التجديد الليلي", sublabel: "محيط العين + كريم ليلي", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal-hero.jpg", fit: "cover" },
+      { label: "روتين الليل", sublabel: "طقس العناية الليلية", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal.jpg", fit: "cover" },
       { label: "سيروم محيط العين", sublabel: "إشراقة النظرة", bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png", fit: "contain" },
       { label: "كريم الريتينول الليلي", sublabel: "تجديد ليلي عميق", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
     ],
@@ -115,6 +117,7 @@ const BUNDLE_GALLERIES: Record<string, Record<string, GallerySlot[]>> = {
     // duo: retinol + eye serum
     duo: [
       { label: "روتين التجديد الليلي", sublabel: "كريم ليلي + عناية عيون", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal-hero.jpg", fit: "cover" },
+      { label: "روتين الليل", sublabel: "طقس العناية الليلية", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal.jpg", fit: "cover" },
       { label: "كريم الريتينول الليلي", sublabel: "تجديد ليلي عميق", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
       { label: "سيروم محيط العين", sublabel: "إشراقة النظرة", bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png", fit: "contain" },
     ],
