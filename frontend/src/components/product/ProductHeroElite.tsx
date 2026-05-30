@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { PackageCheck, RotateCcw, ShieldCheck, Truck } from "lucide-react";
 import { Product } from "@/types";
@@ -82,7 +82,7 @@ export function ProductHeroElite({ product }: Props) {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
             className="lg:sticky lg:top-24 -mx-4 sm:mx-0"
           >
-            <ProductGallery productName={product.name_ar} productSlug={product.slug} offerTier={selectedOffer?.tier} />
+            <ProductGallery productName={product.name_ar} productSlug={product.slug} offerTier={selectedOffer?.tier} offerLabel={selectedOffer?.label} />
           </motion.div>
 
           {/* ── Right: Details ── */}

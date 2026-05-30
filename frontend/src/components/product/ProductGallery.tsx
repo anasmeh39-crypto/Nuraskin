@@ -254,9 +254,27 @@ export function ProductGallery({ productName, productSlug, offerTier, offerLabel
         onTouchEnd={handleTouchEnd}
         style={{ touchAction: "pan-y" }}
       >
+        {/* Bundle context badge — fades in when a non-single tier is selected */}
+        <AnimatePresence>
+          {showBundleBadge && (
+            <motion.div
+              key={`badge-${offerTier}`}
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.25 }}
+              className="absolute top-4 inset-x-0 z-20 flex justify-center pointer-events-none"
+            >
+              <span className="rounded-full bg-white/92 backdrop-blur-md px-4 py-1.5 text-[11px] font-bold text-rose-deep shadow-rose-sm">
+                {offerLabel}
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <AnimatePresence mode="wait">
           <motion.div
-            key={displayIndex}
+            key={`${offerTier ?? "single"}-${displayIndex}`}
             initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.97 }}
@@ -328,7 +346,7 @@ export function ProductGallery({ productName, productSlug, offerTier, offerLabel
       </div>
 
       {/* Thumbnails */}
-      <div className="grid grid-cols-5 gap-1.5 px-4 sm:px-0 sm:gap-2">
+      <div className={`grid ${thumbColsClass} gap-1.5 px-4 sm:px-0 sm:gap-2`}>
         {gallerySlots.map((slot, i) => (
           <button
             key={i}

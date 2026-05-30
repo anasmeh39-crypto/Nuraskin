@@ -71,9 +71,10 @@ export function BeforeAfterSlider({ productSlug }: Props) {
           className="text-center mb-7 sm:mb-12"
         >
           <p className="text-xs text-rose-mid font-semibold tracking-wider uppercase mb-3">التحول</p>
-          <h2 className="section-heading text-[#2C1810]">الفارق اللي تحسيه</h2>
+          <h2 className="section-heading text-[#2C1810]">الفرق اللي غادي تلاحظيه</h2>
           <p className="text-[#6B5555] mt-3 max-w-md mx-auto text-sm leading-relaxed">
             هاد الروتين كيحسن مظهر البشرة بشكل واضح مع الاستعمال المنتظم، والنتائج كتختلف حسب نوع البشرة والانتظام.
+            العناية بالبشرة كتبغي الخاطر والانتظام. هاد الروتين كيساعد يحسن مظهر بشرتك درجة بدرجة، والنتيجة كتبان على حسب طبيعة بشرتك وكيفاش كتجاوب مع العناية.
           </p>
         </motion.div>
 
