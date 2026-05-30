@@ -20,14 +20,26 @@ import { PRODUCTS, BUNDLES } from "@/config/products";
 import { ProductCard } from "@/components/ui/ProductCard";
 
 export const metadata: Metadata = {
-  title: "نورا سكين | عناية متكاملة لبشرة أكثر توازنًا",
+  title: "روتين متكامل لبشرة أكثر توازناً وإشراقاً | Nura Skin",
   description:
-    "منتجات عناية بشرة مختارة بعناية لروتين يومي واضح. سيروم النياسيناميد، كريم التجديد الليلي، سيروم محيط العين، وواقي الشمس اليومي SPF 50. الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.",
+    "Formules de luxe pour l'équilibre de votre peau. Découvrez nos sérums et crèmes haute performance. Livraison gratuite & paiement à la livraison partout au Maroc.",
+  keywords: [
+    "nura skin maroc", "skincare maroc", "routine beauté maroc",
+    "sérum visage", "crème de nuit", "SPF 50 maroc",
+    "روتين عناية بشرة", "نورا سكين المغرب", "الدفع عند الاستلام",
+  ],
   openGraph: {
-    title: "نورا سكين | NURA SKIN",
-    description: "عناية بشرة مدروسة بروتين بسيط وناعم",
+    title: "روتين متكامل لبشرة أكثر توازناً وإشراقاً | Nura Skin",
+    description: "Formules de luxe pour l'équilibre de votre peau. Livraison COD gratuite au Maroc.",
     url: "https://nuraskin.cc",
-    images: [{ url: "/og-home.jpg", width: 1200, height: 630 }],
+    type: "website",
+    images: [{ url: "/og-home.jpg", width: 1200, height: 630, alt: "Nura Skin — Routine Complète" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "روتين متكامل لبشرة أكثر توازناً | Nura Skin",
+    description: "Formules de luxe. Livraison COD gratuite au Maroc.",
+    images: ["/og-home.jpg"],
   },
   alternates: { canonical: "https://nuraskin.cc" },
 };

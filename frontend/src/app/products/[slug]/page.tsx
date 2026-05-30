@@ -23,22 +23,76 @@ export async function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
 }
 
+// ── Per-product SEO overrides ─────────────────────────────────────────────
+// French + Arabic bilingual metadata targets both fr-MA and ar-MA search intent
+const PRODUCT_SEO: Record<string, { title: string; description: string; keywords: string[] }> = {
+  "nura-balance": {
+    title: "Sérum Équilibre & Éclat — Niacinamide 10% | Nura Skin",
+    description:
+      "Régulez le sébum et illuminez votre teint avec notre sérum premium à la Niacinamide 10%. Pores resserrés, teint unifié. Paiement à la livraison, livraison gratuite au Maroc.",
+    keywords: [
+      "sérum niacinamide maroc", "niacinamide 10%", "soin pores", "سيروم نياسيناميد",
+      "توازن البشرة", "مسام واسعة", "لمعان البشرة", "nura skin",
+    ],
+  },
+  "nura-eye-revive": {
+    title: "Sérum Anti-Cernes & Anti-Poches — Caféine 5% | Nura Skin",
+    description:
+      "Réduisez les cernes et les poches grâce à notre sérum contour des yeux à la Caféine 5%, Niacinamide et Acide Hyaluronique. Regard reposé dès les premières semaines.",
+    keywords: [
+      "sérum anti cernes maroc", "soin contour des yeux", "caféine 5%",
+      "سيروم محيط العين", "هالات سوداء", "انتفاخ العين", "nura skin",
+    ],
+  },
+  "nura-night-renewal": {
+    title: "Crème de Nuit Rénovatrice — Bakuchiol & Peptides | Nura Skin",
+    description:
+      "Réveillez-vous avec une peau plus douce et lumineuse grâce à notre crème de nuit au Bakuchiol végétal et Peptides. Hydratation profonde sans obstruction des pores.",
+    keywords: [
+      "crème de nuit maroc", "bakuchiol", "peptides", "anti-âge naturel",
+      "كريم الليل", "تجديد البشرة ليلاً", "باكوتشيول", "nura skin",
+    ],
+  },
+  "nura-spf-50": {
+    title: "Crème Solaire SPF 50 Légère — UVA/UVB Sans Résidu Blanc | Nura Skin",
+    description:
+      "Protégez votre peau des UVA/UVB avec notre écran solaire léger sans effet blanc ni texture grasse. Idéal sous le maquillage. Livraison COD gratuite au Maroc.",
+    keywords: [
+      "écran solaire maroc", "SPF 50 sans résidu blanc", "protection solaire légère",
+      "واقي شمس SPF 50", "no white cast", "كريم حماية الشمس", "nura skin",
+    ],
+  },
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) return {};
 
+  const seo = PRODUCT_SEO[slug];
+  const title       = seo?.title       ?? `${product.name_ar} | Nura Skin`;
+  const description = seo?.description ?? product.metaDescription;
+  const ogImage     = `/images/${slug}-gallery-1.png`;
+  const pageUrl     = `https://nuraskin.cc/products/${slug}`;
+
   return {
-    title: `${product.name_ar} | نورا سكين`,
-    description: product.metaDescription,
+    title,
+    description,
+    keywords: seo?.keywords,
     openGraph: {
-      title: product.name_ar,
-      description: product.metaDescription,
-      url: `https://nuraskin.cc/products/${product.slug}`,
+      title,
+      description,
+      url: pageUrl,
+      type: "website",
+      images: [{ url: ogImage, width: 1200, height: 1200, alt: title }],
     },
-    alternates: {
-      canonical: `https://nuraskin.cc/products/${product.slug}`,
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
     },
+    alternates: { canonical: pageUrl },
   };
 }
 

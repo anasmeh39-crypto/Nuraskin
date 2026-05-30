@@ -25,19 +25,33 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://nuraskin.cc"),
   title: {
-    default: "نورا سكين | عناية متكاملة لبشرة أكثر توازنًا",
-    template: "%s | نورا سكين",
+    default: "Nura Skin | Premium Skincare",
+    template: "%s | Nura Skin",
   },
   description:
-    "منتجات عناية بشرة مختارة بعناية لروتين يومي واضح. سيروم توازن وإشراقة البشرة بالنياسيناميد، كريم التجديد الليلي، سيروم نضارة محيط العين، وواقي الشمس اليومي SPF 50. الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.",
-  keywords: ["عناية بشرة", "نورا سكين", "ناياسيناميد", "هالات", "مسام", "واقي الشمس"],
+    "Découvrez Nura Skin. Des formules haut de gamme et épurées pour une peau éclatante et parfaitement équilibrée. Profitez de la livraison à domicile avec paiement à la livraison (COD).",
+  keywords: [
+    "عناية بشرة المغرب", "نورا سكين", "نياسيناميد", "سيروم محيط العين",
+    "واقي شمس SPF50", "كريم ليلي", "Nura Skin", "skincare maroc",
+    "sérum niacinamide", "anti cernes", "crème de nuit", "ecran solaire maroc",
+    "paiement à la livraison", "COD maroc",
+  ],
   openGraph: {
     siteName: "NURA SKIN — نورا سكين",
     locale: "ar_MA",
     type: "website",
+    images: [{ url: "/og-home.jpg", width: 1200, height: 630, alt: "Nura Skin — Premium Skincare Morocco" }],
   },
-  twitter: { card: "summary_large_image" },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    site: "@nuraskin",
+    creator: "@nuraskin",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
   icons: {
     icon: [
       { url: BRAND_ASSETS.favicon, type: "image/png", sizes: "64x64" },
