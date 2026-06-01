@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Droplets, ShieldCheck, Sparkles } from "lucide-react";
 
@@ -8,139 +9,128 @@ interface GallerySlot {
   label: string;
   sublabel?: string;
   bg: string;
-  accent?: string;
   image?: string;
   fit?: "cover" | "contain";
 }
 
-const GALLERY_SLOTS: GallerySlot[] = [
-  { label: "NURA SKIN", sublabel: "صورة المنتج", bg: "from-rose-50 to-pink-100" },
-  { label: "الملمس", sublabel: "قوام خفيف", bg: "from-amber-50 to-orange-50" },
-  { label: "المكونات", sublabel: "ناياسيناميد", bg: "from-green-50 to-emerald-50" },
-  { label: "الاستخدام", sublabel: "أسلوب الحياة", bg: "from-purple-50 to-pink-50" },
-  { label: "النتيجة", sublabel: "إشراقة البشرة", bg: "from-yellow-50 to-pink-50" },
-];
+// ─── Single-product galleries — 8 slots each ──────────────────────────────
+// nura-balance and nura-eye-revive: 4 product images + 4 routine/pack images
+// nura-night-renewal and nura-spf-50: 5 real images + 3 "coming soon" placeholders
+const SINGLE_PRODUCT_GALLERIES: Record<string, GallerySlot[]> = {
+  "nura-balance": [
+    { label: "1", sublabel: "سيروم النياسيناميد",      bg: "from-rose-50 to-pink-100",    image: "/images/nura-balance-gallery-1.png",            fit: "cover"   },
+    { label: "2", sublabel: "ملمس خفيف",               bg: "from-amber-50 to-orange-50",  image: "/images/nura-balance-gallery-2.png",            fit: "contain" },
+    { label: "3", sublabel: "مكونات نقية",              bg: "from-green-50 to-emerald-50", image: "/images/nura-balance-gallery-3.png",            fit: "contain" },
+    { label: "4", sublabel: "طريقة الاستخدام",         bg: "from-purple-50 to-pink-50",   image: "/images/nura-balance-gallery-4.png",            fit: "contain" },
+    { label: "5", sublabel: "إشراقة البشرة",           bg: "from-yellow-50 to-pink-50",   image: "/images/nura-balance-gallery-5.png",            fit: "cover"   },
+    { label: "6", sublabel: "عبوة النياسيناميد",       bg: "from-rose-50 to-pink-100",    image: "/images/products/product-niacinamide.png",      fit: "contain" },
+    { label: "7", sublabel: "منتجات الصباح",           bg: "from-amber-50 to-orange-50",  image: "/images/nura-morning-products-hero.png",        fit: "cover"   },
+    { label: "8", sublabel: "طقس العناية",             bg: "from-rose-50 to-pink-100",    image: "/images/products/serum-niacinamide-pack.png",   fit: "contain" },
+  ],
 
-const PRODUCT_FIRST_IMAGES: Record<string, string> = {
-  "nura-balance": "/images/nura-balance-gallery-1.png",
-  "nura-night-renewal": "/images/nura-night-renewal-gallery-1.png",
-  "nura-eye-revive": "/images/nura-eye-revive-gallery-1.png",
-  "nura-spf-50": "/images/nura-spf-50-gallery-1.png",
+  "nura-eye-revive": [
+    { label: "1", sublabel: "سيروم محيط العين",        bg: "from-rose-50 to-pink-100",    image: "/images/nura-eye-revive-gallery-1.png",         fit: "cover"   },
+    { label: "2", sublabel: "ملمس ناعم",               bg: "from-amber-50 to-orange-50",  image: "/images/nura-eye-revive-gallery-2.png",         fit: "cover"   },
+    { label: "3", sublabel: "مكونات فعالة",            bg: "from-green-50 to-emerald-50", image: "/images/nura-eye-revive-gallery-3.png",         fit: "contain" },
+    { label: "4", sublabel: "نتيجة واضحة",             bg: "from-yellow-50 to-pink-50",   image: "/images/nura-eye-revive-gallery-5.png",         fit: "cover"   },
+    { label: "5", sublabel: "طريقة الاستخدام",         bg: "from-purple-50 to-pink-50",   image: "/images/nura-eye-revive-gallery-4.png",         fit: "cover"   },
+    { label: "6", sublabel: "عرض المنتج",              bg: "from-rose-50 to-pink-100",    image: "/images/nura-eye-revive-showcase.png",          fit: "cover"   },
+    { label: "7", sublabel: "عبوة سيروم العين",        bg: "from-green-50 to-emerald-50", image: "/images/products/product-anti-cernes.png",      fit: "contain" },
+    { label: "8", sublabel: "طقس العناية",             bg: "from-rose-50 to-pink-100",    image: "/images/products/eye-serum-pack.png",           fit: "contain" },
+  ],
+
+  "nura-night-renewal": [
+    { label: "1", sublabel: "كريم الريتينول",          bg: "from-rose-50 to-pink-100",    image: "/images/nura-night-renewal-gallery-1.png",      fit: "cover"   },
+    { label: "2", sublabel: "إثبات سريري",             bg: "from-rose-50 to-pink-100",    image: "/images/nura-night-renewal-gallery-2.png",      fit: "contain" },
+    { label: "3", sublabel: "الفوائد",                 bg: "from-rose-50 to-pink-100",    image: "/images/nura-night-renewal-gallery-3.png",      fit: "contain" },
+    { label: "4", sublabel: "تجربة فاخرة",             bg: "from-amber-50 to-orange-50",  image: "/images/nura-night-renewal-gallery-4.png",      fit: "contain" },
+    { label: "5", sublabel: "طريقة الاستخدام",         bg: "from-rose-50 to-pink-100",    image: "/images/nura-night-renewal-gallery-5.png",      fit: "contain" },
+    { label: "6", sublabel: "صورة قريباً",             bg: "from-rose-50 to-pink-50"                                                                              },
+    { label: "7", sublabel: "صورة قريباً",             bg: "from-amber-50 to-orange-50"                                                                           },
+    { label: "8", sublabel: "صورة قريباً",             bg: "from-rose-100 to-pink-100"                                                                            },
+  ],
+
+  "nura-spf-50": [
+    { label: "1", sublabel: "واقي الشمس SPF50",        bg: "from-rose-50 to-pink-100",    image: "/images/nura-spf-50-gallery-1.png",             fit: "cover"   },
+    { label: "2", sublabel: "ملمس خفيف",               bg: "from-amber-50 to-orange-50",  image: "/images/nura-spf-50-gallery-2.png",             fit: "contain" },
+    { label: "3", sublabel: "حماية يومية",             bg: "from-green-50 to-emerald-50", image: "/images/nura-spf-50-gallery-3.png",             fit: "contain" },
+    { label: "4", sublabel: "طريقة الاستخدام",         bg: "from-purple-50 to-pink-50",   image: "/images/nura-spf-50-gallery-4.png",             fit: "contain" },
+    { label: "5", sublabel: "إشراقة محمية",            bg: "from-yellow-50 to-pink-50",   image: "/images/nura-spf-50-gallery-5.png",             fit: "contain" },
+    { label: "6", sublabel: "صورة قريباً",             bg: "from-amber-50 to-yellow-50"                                                                           },
+    { label: "7", sublabel: "صورة قريباً",             bg: "from-rose-50 to-pink-50"                                                                              },
+    { label: "8", sublabel: "صورة قريباً",             bg: "from-amber-50 to-orange-50"                                                                           },
+  ],
 };
 
-const RETINOL_GALLERY_SLOTS: GallerySlot[] = [
-  {
-    label: "NURA SKIN",
-    sublabel: "صورة المنتج",
-    bg: "from-rose-50 to-pink-100",
-    image: "/images/nura-night-renewal-gallery-1.png",
-    fit: "cover",
-  },
-  {
-    label: "مثبت سريرياً",
-    sublabel: "إثبات سريري",
-    bg: "from-rose-50 to-pink-100",
-    image: "/images/nura-night-renewal-gallery-2.png",
-    fit: "contain",
-  },
-  {
-    label: "فوائد كريم الريتينول",
-    sublabel: "الفوائد",
-    bg: "from-rose-50 to-pink-100",
-    image: "/images/nura-night-renewal-gallery-3.png",
-    fit: "contain",
-  },
-  {
-    label: "تجربة العناية الليلية",
-    sublabel: "تجربة فاخرة",
-    bg: "from-amber-50 to-orange-50",
-    image: "/images/nura-night-renewal-gallery-4.png",
-    fit: "contain",
-  },
-  {
-    label: "ملمس كريم الريتينول",
-    sublabel: "طريقة الاستخدام",
-    bg: "from-rose-50 to-pink-100",
-    image: "/images/nura-night-renewal-gallery-5.png",
-    fit: "contain",
-  },
-];
-
-// Shared complete-tier slots (same 4 products, same images across all product pages)
+// ─── Shared complete-tier slots ────────────────────────────────────────────
 const COMPLETE_TIER_SLOTS: GallerySlot[] = [
-  { label: "طقس نورا الكامل", sublabel: "٤ منتجات — صباح + ليل", bg: "from-rose-50 to-pink-100", image: "/images/bundles/full-routine-hero.jpg", fit: "cover" },
-  { label: "الطقس الكامل", sublabel: "طقس العناية الكامل", bg: "from-rose-50 to-pink-100", image: "/images/nura-complete-bathroom-editorial.jpg", fit: "cover" },
-  { label: "لايف ستايل", sublabel: "روتين متكامل", bg: "from-amber-50 to-orange-50", image: "/images/bundles/complete-routine.jpg", fit: "cover" },
-  { label: "روتين نورا الكامل", sublabel: "٤ منتجات معاً", bg: "from-rose-50 to-pink-100", image: "/images/routine-complete-family.png", fit: "contain" },
-  { label: "تنظيم وحماية", sublabel: "نياسيناميد + ريتينول", bg: "from-amber-50 to-orange-50", image: "/images/bundles/nura-complete-premium-routine.png", fit: "contain" },
+  { label: "1", sublabel: "٤ منتجات — صباح + ليل",    bg: "from-rose-50 to-pink-100",    image: "/images/bundles/full-routine-hero.jpg",             fit: "cover"   },
+  { label: "2", sublabel: "طقس العناية الكامل",       bg: "from-rose-50 to-pink-100",    image: "/images/nura-complete-bathroom-editorial.jpg",      fit: "cover"   },
+  { label: "3", sublabel: "روتين متكامل",             bg: "from-amber-50 to-orange-50",  image: "/images/bundles/complete-routine.jpg",              fit: "cover"   },
+  { label: "4", sublabel: "٤ منتجات معاً",            bg: "from-rose-50 to-pink-100",    image: "/images/routine-complete-family.png",               fit: "contain" },
+  { label: "5", sublabel: "نياسيناميد + ريتينول",     bg: "from-amber-50 to-orange-50",  image: "/images/bundles/nura-complete-premium-routine.png", fit: "contain" },
 ];
 
-// Bundle gallery slots — keyed by productSlug, then by offerTier
+// ─── Bundle galleries — keyed by productSlug → offerTier ──────────────────
 const BUNDLE_GALLERIES: Record<string, Record<string, GallerySlot[]>> = {
   "nura-balance": {
     duo: [
-      { label: "روتين أساسي", sublabel: "نياسيناميد + ريتينول", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal-hero.jpg", fit: "cover" },
-      { label: "روتين الليل", sublabel: "طقس العناية الليلية", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal.jpg", fit: "cover" },
-      { label: "سيروم النياسيناميد", sublabel: "إشراقة نهارية", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
-      { label: "كريم الريتينول الليلي", sublabel: "تجديد ليلي", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
+      { label: "1", sublabel: "نياسيناميد + ريتينول",  bg: "from-rose-50 to-pink-100",    image: "/images/bundles/night-renewal-hero.jpg",         fit: "cover"   },
+      { label: "2", sublabel: "طقس العناية الليلية",   bg: "from-rose-50 to-pink-100",    image: "/images/bundles/night-renewal.jpg",              fit: "cover"   },
+      { label: "3", sublabel: "إشراقة نهارية",         bg: "from-rose-50 to-pink-100",    image: "/images/products/serum-niacinamide-pack.png",   fit: "contain" },
+      { label: "4", sublabel: "تجديد ليلي",            bg: "from-amber-50 to-orange-50",  image: "/images/products/retinol-cream-pack.png",       fit: "contain" },
     ],
     trio: [
-      { label: "طقس الصباح الكامل", sublabel: "٣ منتجات — روتين صباحي", bg: "from-rose-50 to-pink-100", image: "/images/bundles/morning-routine-hero.jpg", fit: "cover" },
-      { label: "لايف ستايل", sublabel: "روتين الصباح", bg: "from-amber-50 to-orange-50", image: "/images/bundles/morning-routine.jpg", fit: "cover" },
-      { label: "سيروم النياسيناميد", sublabel: "إشراقة وتوازن", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
-      { label: "سيروم محيط العين", sublabel: "مضاد الهالات", bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png", fit: "contain" },
-      { label: "واقي الشمس SPF50", sublabel: "حماية يومية", bg: "from-amber-50 to-yellow-50", image: "/images/products/sunscreen-spf50-pack.png", fit: "contain" },
+      { label: "1", sublabel: "٣ منتجات — روتين صباحي", bg: "from-rose-50 to-pink-100",  image: "/images/bundles/morning-routine-hero.jpg",       fit: "cover"   },
+      { label: "2", sublabel: "روتين الصباح",          bg: "from-amber-50 to-orange-50",  image: "/images/bundles/morning-routine.jpg",            fit: "cover"   },
+      { label: "3", sublabel: "إشراقة وتوازن",         bg: "from-rose-50 to-pink-100",    image: "/images/products/serum-niacinamide-pack.png",   fit: "contain" },
+      { label: "4", sublabel: "مضاد الهالات",          bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png",           fit: "contain" },
+      { label: "5", sublabel: "حماية يومية",           bg: "from-amber-50 to-yellow-50",  image: "/images/products/sunscreen-spf50-pack.png",     fit: "contain" },
     ],
     complete: COMPLETE_TIER_SLOTS,
   },
 
   "nura-eye-revive": {
-    // duo: eye serum + retinol night cream
     duo: [
-      { label: "روتين التجديد الليلي", sublabel: "محيط العين + كريم ليلي", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal-hero.jpg", fit: "cover" },
-      { label: "روتين الليل", sublabel: "طقس العناية الليلية", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal.jpg", fit: "cover" },
-      { label: "سيروم محيط العين", sublabel: "إشراقة النظرة", bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png", fit: "contain" },
-      { label: "كريم الريتينول الليلي", sublabel: "تجديد ليلي عميق", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
+      { label: "1", sublabel: "محيط العين + كريم ليلي", bg: "from-rose-50 to-pink-100",  image: "/images/bundles/night-renewal-hero.jpg",         fit: "cover"   },
+      { label: "2", sublabel: "طقس العناية الليلية",   bg: "from-rose-50 to-pink-100",    image: "/images/bundles/night-renewal.jpg",              fit: "cover"   },
+      { label: "3", sublabel: "إشراقة النظرة",         bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png",           fit: "contain" },
+      { label: "4", sublabel: "تجديد ليلي عميق",       bg: "from-amber-50 to-orange-50",  image: "/images/products/retinol-cream-pack.png",       fit: "contain" },
     ],
-    // trio: eye serum + niacinamide + spf
     trio: [
-      { label: "طقس الإشراقة اليومية", sublabel: "٣ منتجات — روتين صباحي", bg: "from-rose-50 to-pink-100", image: "/images/bundles/morning-routine-hero.jpg", fit: "cover" },
-      { label: "لايف ستايل", sublabel: "روتين الصباح", bg: "from-amber-50 to-orange-50", image: "/images/bundles/morning-routine.jpg", fit: "cover" },
-      { label: "سيروم محيط العين", sublabel: "إشراقة النظرة", bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png", fit: "contain" },
-      { label: "سيروم النياسيناميد", sublabel: "إشراقة وتوازن", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
-      { label: "واقي الشمس SPF50", sublabel: "حماية يومية", bg: "from-amber-50 to-yellow-50", image: "/images/products/sunscreen-spf50-pack.png", fit: "contain" },
+      { label: "1", sublabel: "٣ منتجات — روتين صباحي", bg: "from-rose-50 to-pink-100",  image: "/images/bundles/morning-routine-hero.jpg",       fit: "cover"   },
+      { label: "2", sublabel: "روتين الصباح",          bg: "from-amber-50 to-orange-50",  image: "/images/bundles/morning-routine.jpg",            fit: "cover"   },
+      { label: "3", sublabel: "إشراقة النظرة",         bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png",           fit: "contain" },
+      { label: "4", sublabel: "إشراقة وتوازن",         bg: "from-rose-50 to-pink-100",    image: "/images/products/serum-niacinamide-pack.png",   fit: "contain" },
+      { label: "5", sublabel: "حماية يومية",           bg: "from-amber-50 to-yellow-50",  image: "/images/products/sunscreen-spf50-pack.png",     fit: "contain" },
     ],
     complete: COMPLETE_TIER_SLOTS,
   },
 
   "nura-night-renewal": {
-    // duo: retinol + eye serum
     duo: [
-      { label: "روتين التجديد الليلي", sublabel: "كريم ليلي + عناية عيون", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal-hero.jpg", fit: "cover" },
-      { label: "روتين الليل", sublabel: "طقس العناية الليلية", bg: "from-rose-50 to-pink-100", image: "/images/bundles/night-renewal.jpg", fit: "cover" },
-      { label: "كريم الريتينول الليلي", sublabel: "تجديد ليلي عميق", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
-      { label: "سيروم محيط العين", sublabel: "إشراقة النظرة", bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png", fit: "contain" },
+      { label: "1", sublabel: "كريم ليلي + عناية عيون", bg: "from-rose-50 to-pink-100",  image: "/images/bundles/night-renewal-hero.jpg",         fit: "cover"   },
+      { label: "2", sublabel: "طقس العناية الليلية",   bg: "from-rose-50 to-pink-100",    image: "/images/bundles/night-renewal.jpg",              fit: "cover"   },
+      { label: "3", sublabel: "تجديد ليلي عميق",       bg: "from-amber-50 to-orange-50",  image: "/images/products/retinol-cream-pack.png",       fit: "contain" },
+      { label: "4", sublabel: "إشراقة النظرة",         bg: "from-green-50 to-emerald-50", image: "/images/products/eye-serum-pack.png",           fit: "contain" },
     ],
-    // trio: retinol + niacinamide + spf
     trio: [
-      { label: "طقس التجديد والحماية", sublabel: "٣ منتجات — ليل + نهار", bg: "from-rose-50 to-pink-100", image: "/images/bundles/morning-routine-hero.jpg", fit: "cover" },
-      { label: "لايف ستايل", sublabel: "روتين متكامل", bg: "from-amber-50 to-orange-50", image: "/images/bundles/morning-routine.jpg", fit: "cover" },
-      { label: "كريم الريتينول الليلي", sublabel: "تجديد ليلي", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
-      { label: "سيروم النياسيناميد", sublabel: "إشراقة نهارية", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
-      { label: "واقي الشمس SPF50", sublabel: "حماية يومية", bg: "from-amber-50 to-yellow-50", image: "/images/products/sunscreen-spf50-pack.png", fit: "contain" },
+      { label: "1", sublabel: "٣ منتجات — ليل + نهار", bg: "from-rose-50 to-pink-100",   image: "/images/bundles/morning-routine-hero.jpg",       fit: "cover"   },
+      { label: "2", sublabel: "روتين متكامل",          bg: "from-amber-50 to-orange-50",  image: "/images/bundles/morning-routine.jpg",            fit: "cover"   },
+      { label: "3", sublabel: "تجديد ليلي",            bg: "from-amber-50 to-orange-50",  image: "/images/products/retinol-cream-pack.png",       fit: "contain" },
+      { label: "4", sublabel: "إشراقة نهارية",         bg: "from-rose-50 to-pink-100",    image: "/images/products/serum-niacinamide-pack.png",   fit: "contain" },
+      { label: "5", sublabel: "حماية يومية",           bg: "from-amber-50 to-yellow-50",  image: "/images/products/sunscreen-spf50-pack.png",     fit: "contain" },
     ],
     complete: COMPLETE_TIER_SLOTS,
   },
 
   "nura-spf-50": {
-    // no duo tier for spf-50 (see products config)
-    // trio: retinol + niacinamide + spf
     trio: [
-      { label: "طقس الحماية والإشراقة", sublabel: "٣ منتجات — حماية + تجديد", bg: "from-rose-50 to-pink-100", image: "/images/bundles/morning-routine-hero.jpg", fit: "cover" },
-      { label: "لايف ستايل", sublabel: "روتين الحماية", bg: "from-amber-50 to-orange-50", image: "/images/bundles/morning-routine.jpg", fit: "cover" },
-      { label: "واقي الشمس SPF50", sublabel: "حماية يومية", bg: "from-amber-50 to-yellow-50", image: "/images/products/sunscreen-spf50-pack.png", fit: "contain" },
-      { label: "سيروم النياسيناميد", sublabel: "إشراقة وتوازن", bg: "from-rose-50 to-pink-100", image: "/images/products/serum-niacinamide-pack.png", fit: "contain" },
-      { label: "كريم الريتينول", sublabel: "تجديد ليلي", bg: "from-amber-50 to-orange-50", image: "/images/products/retinol-cream-pack.png", fit: "contain" },
+      { label: "1", sublabel: "٣ منتجات — حماية + تجديد", bg: "from-rose-50 to-pink-100", image: "/images/bundles/morning-routine-hero.jpg",     fit: "cover"   },
+      { label: "2", sublabel: "روتين الحماية",         bg: "from-amber-50 to-orange-50",  image: "/images/bundles/morning-routine.jpg",            fit: "cover"   },
+      { label: "3", sublabel: "حماية يومية",           bg: "from-amber-50 to-yellow-50",  image: "/images/products/sunscreen-spf50-pack.png",     fit: "contain" },
+      { label: "4", sublabel: "إشراقة وتوازن",         bg: "from-rose-50 to-pink-100",    image: "/images/products/serum-niacinamide-pack.png",   fit: "contain" },
+      { label: "5", sublabel: "تجديد ليلي",            bg: "from-amber-50 to-orange-50",  image: "/images/products/retinol-cream-pack.png",       fit: "contain" },
     ],
     complete: COMPLETE_TIER_SLOTS,
   },
@@ -157,10 +147,8 @@ export function ProductGallery({ productName, productSlug, offerTier, offerLabel
   const [active, setActive] = useState(0);
   const [mounted, setMounted] = useState(false);
 
-  // ── Touch swipe ───────────────────────────────────────────────────────────
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
-  // Ref keeps slot count in sync without needing gallerySlots in callback deps
   const slotCount = useRef(1);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -172,92 +160,48 @@ export function ProductGallery({ productName, productSlug, offerTier, offerLabel
     if (touchStartX.current === null || touchStartY.current === null) return;
     const dx = touchStartX.current - e.changedTouches[0].clientX;
     const dy = touchStartY.current - e.changedTouches[0].clientY;
-    // Only trigger when horizontal swipe clearly dominates vertical scroll
     if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
     const len = slotCount.current;
-    if (dx > 0) {
-      setActive((a) => (a + 1) % len);
-    } else {
-      setActive((a) => (a === 0 ? len - 1 : a - 1));
-    }
+    setActive((a) => dx > 0 ? (a + 1) % len : (a === 0 ? len - 1 : a - 1));
     touchStartX.current = null;
     touchStartY.current = null;
   }, []);
 
-  // Reset to first slide whenever offer tier changes
-  useEffect(() => {
-    setActive(0);
-  }, [offerTier]);
+  useEffect(() => { setActive(0); }, [offerTier]);
+  useEffect(() => { setMounted(true); }, []);
 
-  const gallerySlots = React.useMemo(
-    () => {
-      // Switch to bundle gallery when a non-single offer tier is selected
-      if (offerTier && offerTier !== "single") {
-        const bundleSlots = BUNDLE_GALLERIES[productSlug]?.[offerTier];
-        if (bundleSlots) return bundleSlots;
-      }
+  const gallerySlots = React.useMemo(() => {
+    if (offerTier && offerTier !== "single") {
+      const bundleSlots = BUNDLE_GALLERIES[productSlug]?.[offerTier];
+      if (bundleSlots) return bundleSlots;
+    }
+    return SINGLE_PRODUCT_GALLERIES[productSlug] ?? [];
+  }, [productSlug, offerTier]);
 
-      if (productSlug === "nura-night-renewal") return RETINOL_GALLERY_SLOTS;
-
-      return GALLERY_SLOTS.map((slot, index) =>
-        index === 0 && PRODUCT_FIRST_IMAGES[productSlug]
-          ? { ...slot, image: PRODUCT_FIRST_IMAGES[productSlug] }
-          : productSlug === "nura-balance" && index === 1
-          ? { ...slot, image: "/images/nura-balance-gallery-2.png" }
-          : productSlug === "nura-balance" && index === 2
-          ? { ...slot, image: "/images/nura-balance-gallery-3.png" }
-          : productSlug === "nura-balance" && index === 3
-          ? { ...slot, image: "/images/nura-balance-gallery-4.png" }
-          : productSlug === "nura-balance" && index === 4
-          ? { ...slot, image: "/images/nura-balance-gallery-5.png" }
-          : productSlug === "nura-eye-revive" && index === 1
-          ? { ...slot, image: "/images/nura-eye-revive-gallery-2.png" }
-          : productSlug === "nura-eye-revive" && index === 2
-          ? { ...slot, image: "/images/nura-eye-revive-gallery-3.png", fit: "contain" }
-          : productSlug === "nura-eye-revive" && index === 3
-          ? { ...slot, image: "/images/nura-eye-revive-gallery-5.png" }
-          : productSlug === "nura-eye-revive" && index === 4
-          ? { ...slot, image: "/images/nura-eye-revive-gallery-4.png" }
-          : productSlug === "nura-spf-50" && index === 1
-          ? { ...slot, image: "/images/nura-spf-50-gallery-2.png" }
-          : productSlug === "nura-spf-50" && index === 2
-          ? { ...slot, image: "/images/nura-spf-50-gallery-3.png" }
-          : productSlug === "nura-spf-50" && index === 3
-          ? { ...slot, image: "/images/nura-spf-50-gallery-4.png" }
-          : productSlug === "nura-spf-50" && index === 4
-          ? { ...slot, image: "/images/nura-spf-50-gallery-5.png", fit: "contain" }
-          : slot
-      );
-    },
-    [productSlug, offerTier]
-  );
-  // Keep the ref in sync so touch handlers always see the current count
   slotCount.current = gallerySlots.length;
 
   const displayIndex = mounted ? active : 0;
-  const activeSlot = gallerySlots[displayIndex];
+  const activeSlot = gallerySlots[displayIndex] ?? gallerySlots[0];
 
-  const thumbColsClass =
+  // Thumbnails: scrollable strip for 8 slots, fixed grid for ≤5
+  const isScrollableThumbs = gallerySlots.length > 5;
+  const thumbGridClass =
     gallerySlots.length <= 3 ? "grid-cols-3" :
     gallerySlots.length === 4 ? "grid-cols-4" :
     "grid-cols-5";
 
   const showBundleBadge = !!offerLabel && !!offerTier && offerTier !== "single";
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <div className="flex flex-col gap-2 sm:gap-4">
-      {/* Main image — swipeable on touch devices */}
+      {/* ── Main image ──────────────────────────────────────────────────────── */}
       <div
         className="relative rounded-none sm:rounded-4xl overflow-hidden aspect-square bg-rose-blush"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         style={{ touchAction: "pan-y" }}
       >
-        {/* Bundle context badge — fades in when a non-single tier is selected */}
+        {/* Bundle context badge */}
         <AnimatePresence>
           {showBundleBadge && (
             <motion.div
@@ -282,20 +226,26 @@ export function ProductGallery({ productName, productSlug, offerTier, offerLabel
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.97 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }}
-            className={`absolute inset-0 ${activeSlot.image ? "" : `bg-gradient-to-br ${activeSlot.bg}`} flex flex-col items-center justify-center gap-4`}
+            className={`absolute inset-0 flex flex-col items-center justify-center gap-4 ${
+              activeSlot?.image ? "" : `bg-gradient-to-br ${activeSlot?.bg}`
+            }`}
           >
-            {activeSlot.image ? (
+            {activeSlot?.image ? (
               <>
-                <img
+                <Image
                   src={activeSlot.image}
-                  alt={`${productName} - ${activeSlot.sublabel || activeSlot.label}`}
-                  className={`absolute inset-0 h-full w-full ${
-                    activeSlot.fit === "contain" ? "object-contain" : "object-cover"
-                  }`}
+                  alt={`${productName} — ${activeSlot.sublabel ?? activeSlot.label}`}
+                  fill
+                  quality={75}
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className={activeSlot.fit === "contain" ? "object-contain" : "object-cover"}
                 />
                 {activeSlot.fit !== "contain" && (
                   <div className="absolute inset-0 bg-gradient-to-t from-[#3D2C32]/15 via-transparent to-white/5" />
                 )}
+                <div className="absolute bottom-5 start-5 rounded-full border border-white/45 bg-white/72 px-3 py-1 text-xs font-semibold text-rose-deep shadow-ivory-sm backdrop-blur-md">
+                  {activeSlot.sublabel}
+                </div>
               </>
             ) : (
               <>
@@ -306,19 +256,14 @@ export function ProductGallery({ productName, productSlug, offerTier, offerLabel
                 </div>
                 <div className="text-center">
                   <p className="text-rose-deep font-semibold text-sm">{productName}</p>
-                  <p className="text-rose-mid/70 text-xs mt-0.5">{activeSlot.sublabel}</p>
+                  <p className="text-rose-mid/70 text-xs mt-0.5">{activeSlot?.sublabel}</p>
                 </div>
               </>
-            )}
-            {activeSlot.image && (
-              <div className="absolute bottom-5 start-5 rounded-full border border-white/45 bg-white/72 px-3 py-1 text-xs font-semibold text-rose-deep shadow-ivory-sm backdrop-blur-md">
-                {activeSlot.sublabel}
-              </div>
             )}
           </motion.div>
         </AnimatePresence>
 
-        {/* Gallery nav arrows */}
+        {/* Nav arrows */}
         <button
           onClick={() => setActive((a) => (a === 0 ? gallerySlots.length - 1 : a - 1))}
           className="absolute top-1/2 start-3 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-ivory-sm hover:bg-white transition-colors"
@@ -342,29 +287,43 @@ export function ProductGallery({ productName, productSlug, offerTier, offerLabel
             <button
               key={i}
               onClick={() => setActive(i)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${i === displayIndex ? "bg-rose-deep w-6" : "bg-rose-soft/60 w-1.5"}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === displayIndex ? "bg-rose-deep w-6" : "bg-rose-soft/60 w-1.5"
+              }`}
             />
           ))}
         </div>
       </div>
 
-      {/* Thumbnails */}
-      <div className={`grid ${thumbColsClass} gap-1.5 px-4 sm:px-0 sm:gap-2`}>
+      {/* ── Thumbnails ─────────────────────────────────────────────────────── */}
+      <div
+        className={
+          isScrollableThumbs
+            ? "flex gap-1.5 px-4 sm:px-0 overflow-x-auto pb-0.5"
+            : `grid ${thumbGridClass} gap-1.5 px-4 sm:px-0 sm:gap-2`
+        }
+        style={isScrollableThumbs ? { scrollbarWidth: "none" } : undefined}
+      >
         {gallerySlots.map((slot, i) => (
           <button
             key={i}
             onClick={() => setActive(i)}
-            className={`relative rounded-2xl overflow-hidden aspect-square transition-all duration-200 ${
+            className={`relative overflow-hidden rounded-2xl transition-all duration-200 flex-shrink-0 ${
+              isScrollableThumbs ? "w-16 h-16" : "aspect-square"
+            } ${
               i === displayIndex
                 ? "ring-2 ring-rose-deep ring-offset-1"
                 : "ring-1 ring-border hover:ring-rose-soft"
             }`}
           >
             {slot.image ? (
-              <img
+              <Image
                 src={slot.image}
                 alt=""
-                className={`h-full w-full ${slot.fit === "contain" ? "object-contain" : "object-cover"}`}
+                fill
+                quality={60}
+                sizes="64px"
+                className={slot.fit === "contain" ? "object-contain" : "object-cover"}
               />
             ) : (
               <div className={`w-full h-full bg-gradient-to-br ${slot.bg} flex items-center justify-center`}>
@@ -375,7 +334,7 @@ export function ProductGallery({ productName, productSlug, offerTier, offerLabel
         ))}
       </div>
 
-      {/* Premium badge strip */}
+      {/* ── Premium badge strip ─────────────────────────────────────────────── */}
       <div className="flex gap-2 flex-wrap px-4 sm:px-0">
         <span className="inline-flex items-center gap-1 rounded-full border border-rose-soft/35 bg-rose-blush/80 px-2.5 py-1 text-[10px] font-semibold text-rose-deep">
           <Sparkles className="h-3 w-3 shrink-0 text-gold" strokeWidth={1.5} aria-hidden />
