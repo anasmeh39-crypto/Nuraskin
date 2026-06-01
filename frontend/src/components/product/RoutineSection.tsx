@@ -9,10 +9,10 @@ interface Props {
 }
 
 const THUMBNAILS: Record<string, string> = {
-  "nura-balance":       "/images/nura-balance-gallery-1.png",
-  "nura-eye-revive":   "/images/nura-eye-revive-gallery-1.png",
-  "nura-night-renewal": "/images/nura-night-renewal-gallery-1.png",
-  "nura-spf-50":        "/images/nura-spf-50-gallery-1.png",
+  "nura-balance":       "/images/products/serum-niacinamide-pack.png",
+  "nura-eye-revive":   "/images/products/eye-serum-pack.png",
+  "nura-night-renewal": "/images/products/retinol-cream-pack.png",
+  "nura-spf-50":        "/images/products/sunscreen-spf50-pack.png",
 };
 
 const SHORT_NAME: Record<string, string> = {
@@ -84,7 +84,6 @@ export function RoutineSection({ currentSlug }: Props) {
                 fill
                 sizes="(min-width: 1024px) 80vw, 100vw"
                 className="object-cover object-center"
-                loading="lazy"
                 quality={80}
               />
               <div className="absolute inset-0 bg-gradient-to-l from-[#1A0810]/55 via-transparent to-transparent" />
@@ -94,14 +93,13 @@ export function RoutineSection({ currentSlug }: Props) {
                 <p className="mt-1 text-base font-black text-white">4 منتجات متكاملة — صباحاً ومساءً</p>
               </div>
             </div>
-            <div className="relative aspect-[3/2] sm:hidden">
+            <div className="relative h-56 sm:hidden">
               <Image
                 src="/images/routine-complete-family.png"
                 alt="روتين نورا الكامل — 4 منتجات"
                 fill
                 sizes="100vw"
                 className="object-cover object-center"
-                loading="lazy"
                 quality={80}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1A0810]/65 via-transparent to-transparent" />
@@ -131,7 +129,6 @@ export function RoutineSection({ currentSlug }: Props) {
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover object-center transition-transform duration-700 hover:scale-[1.03]"
-                loading="lazy"
                 quality={85}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#3D2000]/80 via-[#3D2000]/20 to-transparent" />
@@ -172,7 +169,6 @@ export function RoutineSection({ currentSlug }: Props) {
                           <img
                             src={THUMBNAILS[step.slug]}
                             alt={SHORT_NAME[step.slug]}
-                            loading="lazy"
                             className="h-full w-full object-contain"
                           />
                         </div>
@@ -215,7 +211,6 @@ export function RoutineSection({ currentSlug }: Props) {
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover object-center transition-transform duration-700 hover:scale-[1.03]"
-                loading="lazy"
                 quality={85}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#160A10]/90 via-[#160A10]/30 to-transparent" />
@@ -256,7 +251,6 @@ export function RoutineSection({ currentSlug }: Props) {
                           <img
                             src={THUMBNAILS[step.slug]}
                             alt={SHORT_NAME[step.slug]}
-                            loading="lazy"
                             className="h-full w-full object-contain"
                           />
                         </div>
