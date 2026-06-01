@@ -47,6 +47,10 @@ const P = {
   EYE_S1: "/images/usage/eye-revive-step-1.png",
   EYE_S2: "/images/usage/eye-revive-step-2.png",
   EYE_S3: "/images/usage/eye-revive-step-3.png",
+  EYE_MODEL: "/images/nura-eye-revive-lifestyle-model.png",
+  EYE_CLIN:  "/images/nura-eye-revive-clinical-65.png",
+  EYE_INGR:  "/images/nura-eye-revive-ingredients.png",
+  EYE_NIGHT: "/images/nura-eye-revive-lifestyle-night.png",
 
   RET1: "/images/nura-night-renewal-gallery-1.png",
   RET2: "/images/nura-night-renewal-gallery-2.png",
@@ -103,14 +107,14 @@ const SINGLE_GALLERIES: Record<string, GallerySlot[]> = {
   ],
 
   "nura-eye-revive": [
-    img(P.EYE1,     "سيروم محيط العين — واجهة أمامية", "cover",   "from-rose-50 to-pink-100"),
-    img(P.EYE2,     "زاوية المنتج — تركيبة فاخرة",     "cover",   "from-amber-50 to-rose-50"),
-    img(P.EYE3,     "مكونات فعالة — كافيين وببتيدات", "contain", "from-green-50 to-teal-50"),
-    img(P.EYE4,     "تطبيق سيروم محيط العين",          "cover",   "from-rose-50 to-pink-100"),
-    img(P.EYE5,     "نظرة أكثر انتعاشاً — نتيجة",     "cover",   "from-yellow-50 to-pink-50"),
-    img(P.EYE_SHOW, "عرض المنتج — بريميوم",            "cover",   "from-rose-50 to-pink-100"),
-    img(P.pEYE,     "عبوة سيروم محيط العين",           "contain", "from-green-50 to-emerald-50"),
-    img(P.pkEYE,    "عرض الطقس — سيروم العين",         "contain", "from-rose-50 to-pink-100"),
+    img(P.EYE1,      "سيروم محيط العين — واجهة أمامية",  "cover",   "from-rose-50 to-pink-100"),
+    img(P.EYE_MODEL, "ثقة وإشراقة — لايف ستايل",         "cover",   "from-rose-50 to-pink-100"),
+    img(P.EYE_CLIN,  "مثبت سريرياً — يقلل الهالات 65%", "cover",   "from-pink-50 to-rose-100"),
+    img(P.EYE_INGR,  "مكونات فعالة — كافيين وببتيدات",  "cover",   "from-amber-50 to-rose-50"),
+    img(P.EYE2,      "زاوية المنتج — تركيبة فاخرة",      "cover",   "from-amber-50 to-rose-50"),
+    img(P.EYE3,      "قوام ناعم — تطبيق حول العين",      "contain", "from-green-50 to-teal-50"),
+    img(P.EYE_NIGHT, "طقس العناية الليلية",               "cover",   "from-rose-50 to-pink-100"),
+    img(P.EYE_SHOW,  "عرض المنتج — بريميوم",              "cover",   "from-rose-50 to-pink-100"),
   ],
 
   "nura-night-renewal": [
