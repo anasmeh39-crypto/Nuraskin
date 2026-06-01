@@ -66,11 +66,17 @@ function OfferImage({
 }) {
   const src = getOfferImage(offer);
   return (
-    <div className={`relative w-full overflow-hidden ${featured ? "h-56 lg:h-full lg:min-h-[260px]" : "h-48"}`}>
+    <div
+      className={`relative w-full overflow-hidden bg-cover bg-center bg-no-repeat ${featured ? "h-56 lg:h-full lg:min-h-[260px]" : "h-48"}`}
+      style={{ backgroundImage: `url(${src})` }}
+    >
       <img
         src={src}
         alt={offer.label}
-        loading="lazy"
+        loading="eager"
+        decoding="async"
+        fetchPriority={featured ? "high" : "auto"}
+        draggable={false}
         className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]"
       />
       {/* Bottom fade into card content */}
