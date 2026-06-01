@@ -195,12 +195,8 @@ const BUNDLE_GALLERIES: Record<string, Record<string, GallerySlot[]>> = {
     // trio = eye serum + niacinamide + SPF (morning routine)
     trio: [
       img(P.pkEYE,      "سيروم محيط العين",                "contain", "from-green-50 to-emerald-50"),
-      img(P.pkNIA,      "سيروم النياسيناميد",              "contain", "from-rose-50 to-pink-100"),
-      img(P.pkSPF,      "واقي الشمس SPF50",                "contain", "from-amber-50 to-yellow-50"),
-      img(P.MORN_PROD,  "٣ منتجات الصباح معاً",           "cover",   "from-amber-50 to-orange-50"),
       img(P.MORN_HERO,  "روتين الإشراقة اليومية",         "cover",   "from-rose-50 to-pink-100"),
       img(P.MORN_LIFE,  "طقس الصباح — إشراقة وحماية",     "cover",   "from-amber-50 to-orange-50"),
-      img(P.EMO_DAY,    "ثقة وإشراقة طوال النهار",        "cover",   "from-amber-50 to-yellow-50"),
       todo(),
     ],
     complete: COMPLETE_SLOTS,
