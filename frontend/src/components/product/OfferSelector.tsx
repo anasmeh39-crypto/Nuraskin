@@ -65,46 +65,43 @@ function OfferImage({
   featured?: boolean;
 }) {
   const src = getOfferImage(offer);
-  const imageHeight = (index: number) => {
-    if (offer.products.length === 1) return featured ? "92%" : "88%";
-    if (offer.products.length === 2) return index === 0 ? "78%" : "88%";
-    if (offer.products.length === 3) return index === 1 ? "88%" : "78%";
-    return index === 2 ? "90%" : index === 1 ? "82%" : "76%";
-  };
 
   return (
     <div
-      className={`relative w-full overflow-hidden bg-[#F8ECE8] bg-cover bg-[center_42%] bg-no-repeat ${featured ? "h-56 lg:h-full lg:min-h-[260px]" : "h-52"}`}
-      style={{ backgroundImage: `url(${src})` }}
+      className={`relative w-full overflow-hidden bg-[#FDF6F0] ${
+        featured ? "h-56 lg:h-full lg:min-h-[260px]" : "h-48 sm:h-52"
+      }`}
     >
-      <div className="absolute inset-0 bg-white/72 backdrop-blur-[1px]" />
-      <div className="absolute inset-x-8 bottom-4 h-5 rounded-full bg-[#5C2D3E]/12 blur-xl" />
+      {/*
+        object-position: center 38%
+        The products in all bundle photos sit in the upper-centre of the frame;
+        the pale marble counter/surface is at the very bottom. Anchoring at 38%
+        ensures the products stay in the visible crop area on any screen size,
+        including narrow mobile Safari viewports.
+      */}
+      <img
+        src={src}
+        alt={offer.label}
+        loading="eager"
+        decoding="async"
+        draggable={false}
+        className="absolute inset-0 h-full w-full object-cover"
+        style={{ objectPosition: "center 38%" }}
+      />
 
-      <div className="relative z-10 flex h-full items-end justify-center px-5 pb-4 pt-5">
-        {offer.products.map((product, index) => (
-          <img
-            key={product.slug}
-            src={product.image}
-            alt={product.name_ar}
-            loading="eager"
-            decoding="async"
-            fetchPriority={featured || index === 0 ? "high" : "auto"}
-            draggable={false}
-            className="relative max-w-none object-contain drop-shadow-[0_18px_24px_rgba(92,45,62,0.24)] transition-transform duration-500 group-hover:-translate-y-1"
-            style={{
-              height: imageHeight(index),
-              zIndex: index + 1,
-              marginInlineStart: index === 0 ? 0 : offer.products.length >= 3 ? "-18px" : "-12px",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Bottom fade into card content */}
+      {/* Regular card: white fade at bottom so content below reads cleanly */}
       {!featured && (
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent" style={{ top: "55%" }} />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0"
+          style={{
+            height: "48%",
+            background:
+              "linear-gradient(to top, #ffffff 25%, rgba(255,255,255,0.55) 55%, transparent)",
+          }}
+        />
       )}
-      {/* Featured: gradient toward content side */}
+
+      {/* Featured card: directional fade toward the content panel */}
       {featured && (
         <>
           <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-l from-[#1E0F14]/80 via-[#1E0F14]/20 to-transparent lg:block" />
