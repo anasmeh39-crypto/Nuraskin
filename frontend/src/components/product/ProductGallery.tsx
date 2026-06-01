@@ -99,9 +99,7 @@ const SINGLE_GALLERIES: Record<string, GallerySlot[]> = {
     img(P.BAL3,     "مكونات النياسيناميد النقية",    "contain", "from-green-50 to-emerald-50"),
     img(P.BAL4,     "طريقة الاستخدام اليومية",       "contain", "from-rose-50 to-pink-100"),
     img(P.BAL5,     "إشراقة البشرة — نتيجة حقيقية", "cover",   "from-yellow-50 to-pink-50"),
-    img(P.pNIA,     "عبوة النياسيناميد",             "contain", "from-rose-50 to-pink-100"),
     img(P.MORN_PROD,"منتجات الصباح معاً",           "cover",   "from-amber-50 to-orange-50"),
-    img(P.pkNIA,    "عرض الطقس — سيروم النياسيناميد","contain", "from-rose-50 to-pink-100"),
   ],
 
   "nura-eye-revive": [
