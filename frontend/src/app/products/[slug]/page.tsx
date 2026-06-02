@@ -135,7 +135,7 @@ export default async function ProductPage({ params }: Props) {
       <ProductHeroElite product={product} />
 
       {/* 2. Problem hook */}
-      <ProblemSection product={product} />
+      {product.slug !== "nura-spf-50" && <ProblemSection product={product} />}
 
       {/* 3. Before / After perception slider — only for products that have before/after photos */}
       {(product.slug === "nura-balance" || product.slug === "nura-eye-revive") && (

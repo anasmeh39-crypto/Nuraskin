@@ -276,7 +276,10 @@ function ingredientImage(nameEn: string): string | null {
 // Used when no per-ingredient macro is defined.
 
 const PRODUCT_SHOWCASE: Record<string, string> = {
-  "nura-eye-revive": "/images/nura-eye-revive-showcase.png",
+  "nura-eye-revive":    "/images/nura-eye-revive-showcase.png",
+  "nura-spf-50":        "/images/products/sunscreen-spf50-pack.png",
+  "nura-balance":       "/images/products/serum-niacinamide-pack.png",
+  "nura-night-renewal": "/images/products/retinol-cream-pack.png",
 };
 
 // ─── Stagger animation variants ───────────────────────────────────────────────
@@ -667,33 +670,49 @@ export function IngredientAuthority({ product }: Props) {
                             </div>
                           </div>
 
-                          {/* Macro ingredient image — crossfades with AnimatePresence above */}
+                          {/* Macro / showcase image */}
                           <motion.div
                             whileHover={{ scale: 1.015 }}
                             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] as const }}
                             className="relative overflow-hidden"
                             style={{
                               borderRadius: "1.15rem",
-                              boxShadow: `0 16px 48px rgba(139,74,90,0.16), 0 4px 12px rgba(44,24,16,0.08), inset 0 1px 0 rgba(255,255,255,0.6)`,
+                              boxShadow: `0 20px 56px rgba(139,74,90,0.18), 0 4px 12px rgba(44,24,16,0.08), inset 0 1px 0 rgba(255,255,255,0.6)`,
                               border: "1px solid rgba(255,255,255,0.55)",
                             }}
                           >
+                            {/* Top shimmer */}
                             <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent" />
-                            <img
-                              src={imageSrc}
-                              alt={ing.name_ar}
-                              className="block h-44 w-full object-cover"
-                              draggable={false}
-                            />
+
+                            {/* Image — macro ingredients fill, pack shots use contain on a tinted bg */}
                             <div
-                              className="pointer-events-none absolute inset-x-0 bottom-0 h-20"
-                              style={{ background: `linear-gradient(to top, ${detail.bgEnd}DD, transparent)` }}
+                              className="relative flex items-center justify-center"
+                              style={{
+                                height: macroSrc ? "11rem" : "13rem",
+                                background: macroSrc
+                                  ? undefined
+                                  : `radial-gradient(circle at 50% 35%, white 0%, ${detail.bgStart} 55%, ${detail.bgEnd} 100%)`,
+                              }}
+                            >
+                              <img
+                                src={imageSrc}
+                                alt={ing.name_ar}
+                                className={`block w-full ${macroSrc ? "h-full object-cover" : "h-full object-contain p-4"}`}
+                                draggable={false}
+                              />
+                            </div>
+
+                            {/* Bottom gradient fade */}
+                            <div
+                              className="pointer-events-none absolute inset-x-0 bottom-0 h-24 z-10"
+                              style={{ background: `linear-gradient(to top, ${detail.bgEnd}EE 0%, ${detail.bgEnd}88 50%, transparent 100%)` }}
                             />
-                            {/* Ingredient name label over image */}
-                            <div className="absolute bottom-3 right-3 z-10">
+
+                            {/* Ingredient name pill */}
+                            <div className="absolute bottom-3 right-3 z-20">
                               <span
-                                className="rounded-full px-2.5 py-1 font-sans text-[10px] font-bold text-white backdrop-blur-md"
-                                style={{ background: `${detail.accentHex}CC` }}
+                                className="rounded-full px-3 py-1 font-sans text-[11px] font-bold text-white backdrop-blur-md shadow-sm"
+                                style={{ background: `${detail.accentHex}DD` }}
                               >
                                 {ing.name_ar}
                               </span>
