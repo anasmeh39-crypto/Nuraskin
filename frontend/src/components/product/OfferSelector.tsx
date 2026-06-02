@@ -104,8 +104,8 @@ function RoutineCard({
           : "border border-[#EBE0E4] shadow-[0_4px_16px_rgba(61,44,50,0.08)] hover:shadow-[0_10px_32px_rgba(61,44,50,0.12)]"
       }`}
     >
-      {/* ── Image — taller, name + timing overlaid ── */}
-      <div className="relative w-full overflow-hidden rounded-t-[1.5rem] h-52 sm:h-44">
+      {/* ── Image — clean photo, only tag badges ── */}
+      <div className="relative h-44 sm:h-40 w-full shrink-0 overflow-hidden rounded-t-[1.5rem]">
         <Image
           src={getOfferImage(offer)}
           alt={offer.label}
@@ -116,19 +116,16 @@ function RoutineCard({
           loading="eager"
         />
 
-        {/* Gradient for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+        {/* Soft vignette at bottom for tag legibility */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent" />
 
-        {/* Top badges */}
+        {/* Top: savings + selected */}
         <div className="absolute inset-x-3 top-3 flex items-center justify-between">
           {isSelected ? (
             <span className="inline-flex items-center gap-1 rounded-full bg-[#3D2C32] px-3 py-1.5 text-[11px] font-black text-white shadow">
-              <Check className="h-3 w-3" strokeWidth={3} />
-              محدد
+              <Check className="h-3 w-3" strokeWidth={3} /> محدد
             </span>
-          ) : (
-            <span />
-          )}
+          ) : <span />}
           {savings > 0 && (
             <span className="rounded-full bg-emerald-500 px-3 py-1.5 text-xs font-black text-white shadow">
               وفري {savings}%
@@ -136,37 +133,34 @@ function RoutineCard({
           )}
         </div>
 
-        {/* Bundle name + timing on image */}
-        <div className="absolute inset-x-0 bottom-0 p-4">
-          <div className="flex items-end justify-between gap-2">
-            <div>
-              <h3 className="text-[18px] font-black leading-tight text-white drop-shadow-md">{offer.label}</h3>
-              <p className="mt-0.5 text-[12px] text-white/75">{benefit}</p>
-            </div>
-            <div className="flex shrink-0 items-center gap-1">
-              {tags.map(t => (
-                <span key={t.label} className="flex items-center gap-1 rounded-full border border-white/25 bg-white/20 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm">
-                  {t.icon === "sun"
-                    ? <Sun  className="h-3 w-3 text-amber-300" strokeWidth={1.6} />
-                    : <Moon className="h-3 w-3 text-purple-200" strokeWidth={1.6} />
-                  }
-                  {t.label}
-                </span>
-              ))}
-            </div>
-          </div>
+        {/* Bottom-start: timing tags only */}
+        <div className="absolute bottom-3 start-3 flex items-center gap-1">
+          {tags.map(t => (
+            <span key={t.label} className="flex items-center gap-1 rounded-full border border-white/30 bg-white/22 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm">
+              {t.icon === "sun"
+                ? <Sun  className="h-3 w-3 text-amber-300" strokeWidth={1.6} />
+                : <Moon className="h-3 w-3 text-purple-200" strokeWidth={1.6} />}
+              {t.label}
+            </span>
+          ))}
         </div>
       </div>
 
-      {/* ── Content ── */}
+      {/* ── Content — all text here ── */}
       <div className="flex flex-1 flex-col gap-3 p-4">
+
+        {/* Bundle name + benefit */}
+        <div>
+          <h3 className="text-[16px] font-black leading-tight text-[#3D2C32]">{offer.label}</h3>
+          <p className="mt-1 text-[11px] leading-snug text-[#9B8585]">{benefit}</p>
+        </div>
 
         {/* Product chips */}
         <div className="flex flex-wrap gap-1.5">
           {offer.products.map(p => (
             <span
               key={p.slug}
-              className="flex items-center gap-1 rounded-full border border-[#DDD0D5] bg-[#FBF7F8] px-3 py-1 text-[11px] font-semibold text-[#5C3A47]"
+              className="flex items-center gap-1 rounded-full border border-[#DDD0D5] bg-[#FBF7F8] px-2.5 py-1 text-[11px] font-semibold text-[#5C3A47]"
             >
               <Check className="h-3 w-3 text-[#8E5A68]" strokeWidth={2.5} />
               {SHORT[p.slug] ?? p.name_ar}
@@ -175,7 +169,7 @@ function RoutineCard({
         </div>
 
         {/* Price */}
-        <div className="border-t border-[#F0E8E8] pt-3">
+        <div className="mt-auto border-t border-[#F0E8E8] pt-3">
           <div className="flex items-end justify-between gap-2">
             <div className="min-w-0">
               {offer.originalPrice && (
@@ -196,7 +190,7 @@ function RoutineCard({
         </div>
 
         {/* CTA */}
-        <div className={`w-full rounded-full py-3 text-center text-[13px] font-black transition-colors duration-200 ${
+        <div className={`rounded-full py-3 text-center text-[13px] font-black transition-colors duration-200 ${
           isSelected
             ? "bg-[#8E5A68] text-white"
             : "border border-[#8E5A68]/35 bg-[#8E5A68]/10 text-[#8E5A68] group-hover:bg-[#8E5A68]/18"
