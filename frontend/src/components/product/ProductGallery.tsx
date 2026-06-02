@@ -225,9 +225,12 @@ function buildGallery(slug: string, tier: string): GallerySlot[] {
   while (bundle.length < 4) bundle = [...bundle, todo()];
   bundle = bundle.slice(0, 4);
 
-  return isSingle
-    ? [...config.heroImages, ...bundle]        // [product ×4, context ×4]
-    : [...bundle, ...config.heroImages];       // [offer hero first, product ×4 after]
+  const slots = isSingle
+    ? [...config.heroImages, ...bundle]
+    : [...bundle, ...config.heroImages];
+
+  // Never show placeholder "يجب إضافة صورة هنا" slots on the live store
+  return slots.filter(s => !s.missing);
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
