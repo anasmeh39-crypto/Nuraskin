@@ -98,12 +98,11 @@ const P = {
 // ─── SINGLE-PRODUCT GALLERIES  (slots 1-4 = product hero, 5-8 = routine/pack)
 const SINGLE_GALLERIES: Record<string, GallerySlot[]> = {
   "nura-balance": [
-    img(P.BAL1,     "واجهة السيروم — عرض أمامي",    "cover",   "from-rose-50 to-pink-100"),
-    img(P.BAL2,     "زاوية المنتج — قوام خفيف",      "contain", "from-amber-50 to-rose-50"),
-    img(P.BAL3,     "مكونات النياسيناميد النقية",    "contain", "from-green-50 to-emerald-50"),
-    img(P.BAL4,     "طريقة الاستخدام اليومية",       "contain", "from-rose-50 to-pink-100"),
-    img(P.BAL5,     "إشراقة البشرة — نتيجة حقيقية", "cover",   "from-yellow-50 to-pink-50"),
-    img(P.MORN_PROD,"منتجات الصباح معاً",           "cover",   "from-amber-50 to-orange-50"),
+    img(P.BAL1, "واجهة السيروم — عرض أمامي",    "cover",   "from-rose-50 to-pink-100"),
+    img(P.BAL2, "زاوية المنتج — قوام خفيف",      "contain", "from-amber-50 to-rose-50"),
+    img(P.BAL3, "مكونات النياسيناميد النقية",    "contain", "from-green-50 to-emerald-50"),
+    img(P.BAL4, "طريقة الاستخدام اليومية",       "contain", "from-rose-50 to-pink-100"),
+    img(P.BAL5, "إشراقة البشرة — نتيجة حقيقية", "cover",   "from-yellow-50 to-pink-50"),
   ],
 
   "nura-eye-revive": [
@@ -113,7 +112,7 @@ const SINGLE_GALLERIES: Record<string, GallerySlot[]> = {
     img(P.EYE_INGR,  "مكونات فعالة — كافيين وببتيدات",  "cover",   "from-amber-50 to-rose-50"),
     img(P.EYE2,      "زاوية المنتج — تركيبة فاخرة",      "cover",   "from-amber-50 to-rose-50"),
     img(P.EYE3,      "قوام ناعم — تطبيق حول العين",      "contain", "from-green-50 to-teal-50"),
-    img(P.EYE_NIGHT, "طقس العناية الليلية",               "cover",   "from-rose-50 to-pink-100"),
+    img(P.EYE4,      "تطبيق السيروم — حول العين",          "cover",   "from-rose-50 to-pink-100"),
     img(P.EYE_SHOW,  "عرض المنتج — بريميوم",              "cover",   "from-rose-50 to-pink-100"),
   ],
 
