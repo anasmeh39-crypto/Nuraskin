@@ -7,8 +7,9 @@ import { Product } from "@/types";
 
 // Real editorial/concern photos — shown instead of pack shots
 const PROBLEM_IMAGES: Record<string, string> = {
-  "nura-balance":    "/images/problem-niacinamide-skin.png",
-  "nura-eye-revive": "/images/eye-concern-visual.png",
+  "nura-balance":       "/images/problem-niacinamide-skin.png",
+  "nura-night-renewal": "/images/products/retinol-problem-morning-tired.png",
+  "nura-eye-revive":    "/images/eye-concern-visual.png",
 };
 
 // Fallback pack shots for products without an editorial image
@@ -129,6 +130,14 @@ export function ProblemSection({ product }: Props) {
   const copy = PROBLEM_COPY[product.slug] ?? PROBLEM_COPY["nura-balance"];
   const editorialImage = PROBLEM_IMAGES[product.slug];
   const packImage = PRODUCT_PACK_IMAGES[product.slug] ?? product.image;
+  const reviewCopy =
+    product.slug === "nura-balance"
+      ? "بشرتي ولات رطبة وموحدة — خفيف وكيشربو دغيا"
+      : product.slug === "nura-night-renewal"
+        ? "منتج لطيف يناسب روتيني اليومي"
+        : "خفت الهالات بشكل ملحوظ وبدت نظرتي أكثر حيوية";
+  const reviewName =
+    product.slug === "nura-eye-revive" ? "أسماء، الرباط" : "مريم، الدار البيضاء";
 
   return (
     <section className="py-12 sm:py-20 bg-white overflow-hidden" dir="rtl">
@@ -174,12 +183,10 @@ export function ProblemSection({ product }: Props) {
                     ))}
                   </div>
                   <p className="text-[11px] text-[#6B5555] leading-snug">
-                    &ldquo;{product.slug === "nura-balance"
-                      ? "بشرتي ولات رطبة وموحدة — خفيف وكيشربو دغيا"
-                      : "خفت الهالات بشكل ملحوظ وبدت نظرتي أكثر حيوية"}&rdquo;
+                    &ldquo;{reviewCopy}&rdquo;
                   </p>
                   <p className="text-[10px] text-[#9B8A8A] mt-1.5 font-bold">
-                    {product.slug === "nura-balance" ? "مريم، الدار البيضاء" : "أسماء، الرباط"}
+                    {reviewName}
                   </p>
                 </motion.div>
               </div>
