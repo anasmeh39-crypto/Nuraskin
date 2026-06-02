@@ -75,7 +75,7 @@ export function ScienceSection({ product }: Props) {
           className="text-center mb-14"
         >
           <p className="text-xs text-rose-soft font-semibold tracking-wider uppercase mb-3">فلسفة التركيبة</p>
-          <h2 className="section-heading text-white">تركيبة صُممت للروتين — مو للاستخدام المنفرد</h2>
+          <h2 className="section-heading text-white">كل منتج عندو دوره، والنتيجة كاتبان ملي كيخدمو كاملين مع بعضياتهم</h2>
           <p className="text-white/60 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
             {isSpf
               ? "حماية يومية واضحة، مرطبات مريحة، ولمسة خفيفة تناسب الالتزام الصباحي."
