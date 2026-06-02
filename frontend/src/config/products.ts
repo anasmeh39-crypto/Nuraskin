@@ -93,25 +93,21 @@ export const PRODUCTS: Product[] = [
       {
         name_ar: "باكوتشيول",
         name_en: "Bakuchiol",
-        percent: "{{PERCENT_BAKUCHIOL}}",
         description_ar: "مكوّن نباتي لطيف كيعاون يدعم مظهر التجدد والنعومة فالروتين الليلي.",
       },
       {
         name_ar: "ببتيدات",
         name_en: "Peptides",
-        percent: "{{PERCENT_PEPTIDES}}",
         description_ar: "كيعاونوا على تماسك البشرة باش تظهر أكثر راحة وحيوية.",
       },
       {
         name_ar: "زبدة الشيا",
         name_en: "Shea Butter",
-        percent: "{{PERCENT_SHEA}}",
         description_ar: "كترطب البشرة من العمق وكتعطيها ترطيب غني طول الليل.",
       },
       {
         name_ar: "سكوالان",
         name_en: "Squalane",
-        percent: "{{PERCENT_SQUALANE}}",
         description_ar: "زيت نباتي خفيف كيحافظ على رطوبة البشرة باش تبقى نضارة.",
       },
     ],
