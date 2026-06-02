@@ -9,7 +9,6 @@ import { IngredientAuthority } from "@/components/product/IngredientAuthority";
 import { EmotionalTransformationSection } from "@/components/product/EmotionalTransformationSection";
 import { ScienceSection } from "@/components/product/ScienceSection";
 import { UsageAndTimeline } from "@/components/product/UsageAndTimeline";
-import { RoutineSection } from "@/components/product/RoutineSection";
 import { RoutineReviewsSection } from "@/components/product/RoutineReviewsSection";
 import { RitualSelectorSection } from "@/components/product/RitualSelectorSection";
 import { TrustAuthoritySection } from "@/components/product/TrustAuthoritySection";
@@ -153,9 +152,6 @@ export default async function ProductPage({ params }: Props) {
 
       {/* 7. Science & philosophy */}
       <ScienceSection product={product} />
-
-      {/* 8. Routine visualizer — hidden on eye-revive (duplicated by RoutineEducationSection) */}
-      {product.slug !== "nura-eye-revive" && <RoutineSection currentSlug={product.slug} />}
 
       {/* 9. How to use + realistic timeline */}
       <UsageAndTimeline product={product} />
