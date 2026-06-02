@@ -201,7 +201,12 @@ function RoutineCard({
             ? "bg-[#8E5A68] text-white"
             : "border border-[#8E5A68]/35 bg-[#8E5A68]/10 text-[#8E5A68] group-hover:bg-[#8E5A68]/18"
         }`}>
-          {isSelected ? "✓ تم الاختيار" : "اختاري هذا الروتين ←"}
+          {isSelected
+            ? "✓ تم الاختيار"
+            : offer.tier === "single"
+              ? `أريد ${SHORT[offer.products[0]?.slug] ?? offer.products[0]?.name_ar} فقط ←`
+              : "اختاري هذا الروتين ←"
+          }
         </div>
       </div>
     </motion.button>
