@@ -242,149 +242,172 @@ function FeaturedCard({
     >
       <div className="bg-[#1A0C12]">
 
-        {/* ── Image — taller on mobile, name overlaid ── */}
-        <div className="relative w-full overflow-hidden rounded-t-[1.5rem] h-60 lg:hidden">
-          <Image
-            src={getOfferImage(offer)}
-            alt={offer.label}
-            fill
-            quality={85}
-            sizes="100vw"
-            className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
-            loading="eager"
-          />
-          {/* Gradient for text overlay */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#1A0C12] to-transparent" />
-
-          {/* Top badges */}
-          <div className="absolute inset-x-4 top-4 flex items-start justify-between">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#BF953F,#FCF6BA,#B38728)] px-3.5 py-2 text-[11px] font-black text-[#3D2A00] shadow-lg">
-              <Crown className="h-3.5 w-3.5" />
-              الأكثر اختياراً
-            </span>
-            {savings > 0 && (
-              <span className="rounded-full border border-[#86EFAC]/40 bg-[#14532D]/80 px-3 py-1.5 text-[11px] font-black text-[#86EFAC] backdrop-blur-sm">
-                وفري {savings}%
-              </span>
-            )}
-          </div>
-
-          {/* Name + timing on image — mobile */}
-          <div className="absolute inset-x-0 bottom-0 p-5">
-            <div className="mb-2 flex items-center gap-1.5">
-              <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
-                <Sun className="h-3 w-3 text-amber-300" strokeWidth={1.5} /> صباح
-              </span>
-              <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
-                <Moon className="h-3 w-3 text-purple-300" strokeWidth={1.5} /> ليل
-              </span>
-            </div>
-            <h3 className="text-[22px] font-black leading-tight text-white drop-shadow-md">{offer.label}</h3>
-            <p className="mt-0.5 text-[12px] text-white/65">{benefit}</p>
-          </div>
-        </div>
-
-        {/* ── Desktop: image left, content right ── */}
-        <div className="hidden lg:flex">
-          <div className="relative w-[42%] min-h-[260px] overflow-hidden rounded-r-none rounded-l-[1.5rem]">
+        {/* ══ MOBILE: image top + content below ══ */}
+        <div className="lg:hidden">
+          <div className="relative w-full overflow-hidden rounded-t-[1.5rem] h-60">
             <Image
               src={getOfferImage(offer)}
               alt={offer.label}
               fill
-              quality={80}
-              sizes="42vw"
-              className="object-cover object-center"
+              quality={85}
+              sizes="100vw"
+              className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
               loading="eager"
             />
-            {/* Badge on desktop image */}
-            <div className="absolute left-4 top-4">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#BF953F,#FCF6BA,#B38728)] px-3 py-1.5 text-[10px] font-black text-[#3D2A00] shadow-lg">
-                <Crown className="h-3 w-3" />
-                الأكثر اختياراً
-              </span>
-            </div>
-          </div>
-          <div className="flex-1 p-6" />
-        </div>
-
-        {/* ── Content panel ── */}
-        <div className="p-5 pt-4">
-
-          {/* Desktop badge + timing + name — hidden on mobile (shown on image instead) */}
-          <div className="hidden lg:block">
-            <div className="flex items-center justify-between mb-4">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#BF953F,#FCF6BA,#B38728)] px-3.5 py-1.5 text-[11px] font-black text-[#3D2A00] shadow-lg">
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#1A0C12] to-transparent" />
+            <div className="absolute inset-x-4 top-4 flex items-start justify-between">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#BF953F,#FCF6BA,#B38728)] px-3.5 py-2 text-[11px] font-black text-[#3D2A00] shadow-lg">
                 <Crown className="h-3.5 w-3.5" />
                 الأكثر اختياراً
               </span>
               {savings > 0 && (
-                <span className="rounded-full border border-[#86EFAC]/30 bg-[#86EFAC]/10 px-3 py-1.5 text-[11px] font-bold text-[#86EFAC]">
+                <span className="rounded-full border border-[#86EFAC]/40 bg-[#14532D]/80 px-3 py-1.5 text-[11px] font-black text-[#86EFAC] backdrop-blur-sm">
                   وفري {savings}%
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/70">
-                <Sun className="h-3 w-3 text-amber-300" strokeWidth={1.5} /> صباح
-              </span>
-              <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/70">
-                <Moon className="h-3 w-3 text-purple-300" strokeWidth={1.5} /> ليل
-              </span>
+            <div className="absolute inset-x-0 bottom-0 p-5">
+              <div className="mb-2 flex items-center gap-1.5">
+                <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
+                  <Sun className="h-3 w-3 text-amber-300" strokeWidth={1.5} /> صباح
+                </span>
+                <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
+                  <Moon className="h-3 w-3 text-purple-300" strokeWidth={1.5} /> ليل
+                </span>
+              </div>
+              <h3 className="text-[22px] font-black leading-tight text-white drop-shadow-md">{offer.label}</h3>
+              <p className="mt-0.5 text-[12px] text-white/65">{benefit}</p>
             </div>
-            <h3 className="text-[22px] font-black leading-tight text-white">{offer.label}</h3>
-            <p className="mt-1 text-[12px] text-white/45">{benefit}</p>
           </div>
 
-          {/* Products */}
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {offer.products.map(p => (
-              <span
-                key={p.slug}
-                className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-semibold text-white/85"
-              >
-                <Check className="h-3 w-3 text-[#F2B8C6]" strokeWidth={2.5} />
-                {SHORT[p.slug] ?? p.name_ar}
-              </span>
-            ))}
-          </div>
-
-          {/* Price */}
-          <div className="mt-4 flex items-end justify-between border-t border-white/8 pt-4">
-            <div>
-              {offer.originalPrice && (
-                <p className="text-[12px] text-white/30 line-through">{offer.originalPrice} درهم</p>
+          <div className="p-5">
+            <div className="flex flex-wrap gap-1.5 mb-4">
+              {offer.products.map(p => (
+                <span key={p.slug} className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-semibold text-white/85">
+                  <Check className="h-3 w-3 text-[#F2B8C6]" strokeWidth={2.5} />
+                  {SHORT[p.slug] ?? p.name_ar}
+                </span>
+              ))}
+            </div>
+            <div className="flex items-end justify-between border-t border-white/8 pt-4">
+              <div>
+                {offer.originalPrice && (
+                  <p className="text-[12px] text-white/30 line-through">{offer.originalPrice} درهم</p>
+                )}
+                <p className="text-[2.2rem] font-black leading-none text-white">
+                  {offer.price}<span className="mr-1 text-[12px] font-semibold text-white/45">درهم</span>
+                </p>
+                <p className="mt-1 text-[11px] text-white/35">≈ {offer.perUnit} درهم / منتج</p>
+              </div>
+              {offer.saving && offer.saving > 0 && (
+                <div className="rounded-xl border border-[#86EFAC]/25 bg-[#86EFAC]/10 px-4 py-3 text-center">
+                  <p className="text-[24px] font-black leading-none text-[#86EFAC]">{offer.saving}</p>
+                  <p className="mt-0.5 text-[10px] text-[#86EFAC]/60">درهم وفّرتِ</p>
+                </div>
               )}
-              <p className="text-[2.2rem] font-black leading-none text-white">
-                {offer.price}
-                <span className="mr-1 text-[12px] font-semibold text-white/45">درهم</span>
-              </p>
-              <p className="mt-1 text-[11px] text-white/35">≈ {offer.perUnit} درهم / منتج</p>
             </div>
-            {offer.saving && offer.saving > 0 && (
-              <div className="rounded-xl border border-[#86EFAC]/25 bg-[#86EFAC]/10 px-4 py-3 text-center">
-                <p className="text-[24px] font-black leading-none text-[#86EFAC]">{offer.saving}</p>
-                <p className="mt-0.5 text-[10px] text-[#86EFAC]/60">درهم وفّرتِ</p>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={isSelected ? "selected" : "idle"}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+                className={`mt-4 flex items-center justify-center gap-2 rounded-full py-4 text-[14px] font-black transition-colors duration-200 ${
+                  isSelected ? "bg-white text-[#3D2C32]" : "border border-white/20 bg-white/12 text-white hover:bg-white/20"
+                }`}
+              >
+                <Sparkles className="h-4 w-4" strokeWidth={1.5} />
+                {isSelected ? "✓ تم الاختيار — روتين نورا الكامل" : "اختاري روتين نورا الكامل"}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* ══ DESKTOP: true side-by-side — image right, content left (RTL) ══ */}
+        <div className="hidden lg:flex min-h-[320px]">
+
+          {/* Image — right side (first child in RTL flex) */}
+          <div className="relative w-[45%] shrink-0 overflow-hidden rounded-l-[1.5rem]">
+            <Image
+              src={getOfferImage(offer)}
+              alt={offer.label}
+              fill
+              quality={85}
+              sizes="45vw"
+              className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+              loading="eager"
+            />
+            {savings > 0 && (
+              <div className="absolute right-4 top-4">
+                <span className="rounded-full border border-[#86EFAC]/40 bg-[#14532D]/80 px-3 py-1.5 text-[11px] font-black text-[#86EFAC] backdrop-blur-sm">
+                  وفري {savings}%
+                </span>
               </div>
             )}
           </div>
 
-          {/* CTA */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={isSelected ? "selected" : "idle"}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2 }}
-              className={`mt-4 flex items-center justify-center gap-2 rounded-full py-4 text-[14px] font-black transition-colors duration-200 ${
-                isSelected
-                  ? "bg-white text-[#3D2C32]"
-                  : "border border-white/20 bg-white/12 text-white hover:bg-white/20"
-              }`}
-            >
-              <Sparkles className="h-4 w-4" strokeWidth={1.5} />
-              {isSelected ? "✓ تم الاختيار — روتين نورا الكامل" : "اختاري روتين نورا الكامل"}
-            </motion.div>
-          </AnimatePresence>
+          {/* Content — left side (second child in RTL flex) */}
+          <div className="flex flex-1 flex-col justify-between p-7">
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#BF953F,#FCF6BA,#B38728)] px-3.5 py-2 text-[11px] font-black text-[#3D2A00] shadow-lg">
+                <Crown className="h-3.5 w-3.5" />
+                الأكثر اختياراً
+              </span>
+              <div className="mt-4 flex items-center gap-2">
+                <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/70">
+                  <Sun className="h-3 w-3 text-amber-300" strokeWidth={1.5} /> صباح
+                </span>
+                <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/70">
+                  <Moon className="h-3 w-3 text-purple-300" strokeWidth={1.5} /> ليل
+                </span>
+              </div>
+              <h3 className="mt-3 text-[26px] font-black leading-tight text-white">{offer.label}</h3>
+              <p className="mt-1 text-[13px] text-white/50">{benefit}</p>
+              <div className="mt-4 flex flex-wrap gap-1.5">
+                {offer.products.map(p => (
+                  <span key={p.slug} className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-semibold text-white/85">
+                    <Check className="h-3 w-3 text-[#F2B8C6]" strokeWidth={2.5} />
+                    {SHORT[p.slug] ?? p.name_ar}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-end justify-between border-t border-white/8 pt-4">
+                <div>
+                  {offer.originalPrice && (
+                    <p className="text-[12px] text-white/30 line-through">{offer.originalPrice} درهم</p>
+                  )}
+                  <p className="text-[2.4rem] font-black leading-none text-white">
+                    {offer.price}<span className="mr-1 text-[13px] font-semibold text-white/45">درهم</span>
+                  </p>
+                  <p className="mt-1 text-[11px] text-white/35">≈ {offer.perUnit} درهم / منتج</p>
+                </div>
+                {offer.saving && offer.saving > 0 && (
+                  <div className="rounded-xl border border-[#86EFAC]/25 bg-[#86EFAC]/10 px-5 py-3 text-center">
+                    <p className="text-[28px] font-black leading-none text-[#86EFAC]">{offer.saving}</p>
+                    <p className="mt-0.5 text-[10px] text-[#86EFAC]/60">درهم وفّرتِ</p>
+                  </div>
+                )}
+              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={isSelected ? "selected" : "idle"}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className={`mt-4 flex items-center justify-center gap-2 rounded-full py-4 text-[15px] font-black transition-colors duration-200 ${
+                    isSelected ? "bg-white text-[#3D2C32]" : "border border-white/20 bg-white/12 text-white hover:bg-white/20"
+                  }`}
+                >
+                  <Sparkles className="h-4 w-4" strokeWidth={1.5} />
+                  {isSelected ? "✓ تم الاختيار — روتين نورا الكامل" : "اختاري روتين نورا الكامل"}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+
         </div>
       </div>
     </motion.button>
