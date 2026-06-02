@@ -8,6 +8,7 @@ import { RoutineEducationSection } from "@/components/product/RoutineEducationSe
 import { IngredientAuthority } from "@/components/product/IngredientAuthority";
 import { EmotionalTransformationSection } from "@/components/product/EmotionalTransformationSection";
 import { ScienceSection } from "@/components/product/ScienceSection";
+import { WhyNuraSkinSection } from "@/components/product/WhyNuraSkinSection";
 import { UsageAndTimeline } from "@/components/product/UsageAndTimeline";
 import { RoutineReviewsSection } from "@/components/product/RoutineReviewsSection";
 import { RitualSelectorSection } from "@/components/product/RitualSelectorSection";
@@ -150,8 +151,12 @@ export default async function ProductPage({ params }: Props) {
       {/* 6. Emotional transformation */}
       <EmotionalTransformationSection />
 
-      {/* 7. Science & philosophy */}
-      <ScienceSection product={product} />
+      {/* 7. Science & philosophy / Why Nura */}
+      {product.slug === "nura-night-renewal" ? (
+        <WhyNuraSkinSection product={product} />
+      ) : (
+        <ScienceSection product={product} />
+      )}
 
       {/* 9. How to use + realistic timeline */}
       <UsageAndTimeline product={product} />

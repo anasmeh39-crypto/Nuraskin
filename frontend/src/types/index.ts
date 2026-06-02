@@ -18,12 +18,19 @@ export interface Product {
   volume: string;
   reviews: Review[];
   metaDescription: string;
+  keyResults?: KeyResult[];
 }
 
 export interface Ingredient {
   name_ar: string;
   name_en: string;
   description_ar: string;
+  percent?: string;
+}
+
+export interface KeyResult {
+  icon: "smooth" | "glow" | "firm" | "hydrate" | "calm" | "tone";
+  text: string;
 }
 
 export interface Review {
