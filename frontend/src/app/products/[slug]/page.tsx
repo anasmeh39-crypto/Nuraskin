@@ -137,8 +137,10 @@ export default async function ProductPage({ params }: Props) {
       {/* 2. Problem hook */}
       <ProblemSection product={product} />
 
-      {/* 3. Before / After perception slider */}
-      <BeforeAfterSlider productSlug={product.slug} />
+      {/* 3. Before / After perception slider — only for products that have before/after photos */}
+      {(product.slug === "nura-balance" || product.slug === "nura-eye-revive") && (
+        <BeforeAfterSlider productSlug={product.slug} />
+      )}
 
       {/* 4. Why routine beats one product */}
       <RoutineEducationSection />
