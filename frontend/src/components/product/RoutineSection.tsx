@@ -16,15 +16,15 @@ const THUMBNAILS: Record<string, string> = {
 };
 
 const SHORT_NAME: Record<string, string> = {
-  "nura-balance":      "النياسيناميد",
-  "nura-eye-revive":  "سيروم العين",
+  "nura-balance":       "النياسيناميد",
+  "nura-eye-revive":   "سيروم العين",
   "nura-night-renewal": "كريم الريتينول",
-  "nura-spf-50":       "واقي الشمس",
+  "nura-spf-50":        "واقي الشمس",
 };
 
 const MORNING = [
-  { slug: "nura-balance",       step: "01", desc: "قطرتان على وجهك بعد التنظيف — توازن وإشراقة" },
-  { slug: "nura-spf-50",        step: "02", desc: "آخر خطوة قبل الخروج أو المكياج — حماية يومية" },
+  { slug: "nura-balance", step: "01", desc: "قطرتان على وجهك بعد التنظيف — توازن وإشراقة" },
+  { slug: "nura-spf-50",  step: "02", desc: "آخر خطوة قبل الخروج — حماية يومية كاملة" },
 ] as const;
 
 const NIGHT = [
@@ -32,34 +32,23 @@ const NIGHT = [
   { slug: "nura-night-renewal", step: "02", desc: "طبقة خفيفة على الوجه والرقبة — تجديد ليلي" },
 ] as const;
 
-function DownArrow({ light = false }: { light?: boolean }) {
-  return (
-    <div className="flex flex-col items-center py-1.5">
-      <div className={`h-4 w-px ${light ? "bg-white/20" : "bg-amber-200/80"}`} />
-      <svg width="12" height="8" viewBox="0 0 14 9" fill="none" className={light ? "text-white/25" : "text-amber-400"}>
-        <path d="M7 9L0.0717969 0H13.9282L7 9Z" fill="currentColor" />
-      </svg>
-    </div>
-  );
-}
-
 export function RoutineSection({ currentSlug }: Props) {
   const scrollToRituals = () => {
     document.getElementById("ritual-selector")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#FDFAF6] py-12 md:py-16" dir="rtl">
+    <section className="relative overflow-hidden bg-[#FDFAF6] py-14 md:py-20" dir="rtl">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-rose-soft/35 to-transparent" />
 
       <div className="container-wide relative">
 
-        {/* ── SECTION HEADER ── */}
+        {/* ── Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-8 text-center"
+          className="mb-10 text-center"
         >
           <p className="luxury-kicker mx-auto mb-3 w-fit">روتين متكامل</p>
           <h2 className="section-heading text-[#2C1810]">4 منتجات — نظام عناية واحد</h2>
@@ -68,15 +57,15 @@ export function RoutineSection({ currentSlug }: Props) {
           </p>
         </motion.div>
 
-        {/* ── COMPLETE ROUTINE PHOTO ── */}
+        {/* ── Complete routine hero photo ── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.05 }}
-          className="mb-8"
+          className="mb-10"
         >
-          <div className="relative w-full overflow-hidden rounded-3xl shadow-[0_20px_60px_rgba(92,45,62,0.14)]">
+          <div className="relative w-full overflow-hidden rounded-3xl shadow-[0_24px_64px_rgba(92,45,62,0.16)]">
             <div className="relative aspect-[16/7] hidden sm:block">
               <Image
                 src="/images/routine-complete-family.png"
@@ -84,13 +73,12 @@ export function RoutineSection({ currentSlug }: Props) {
                 fill
                 sizes="(min-width: 1024px) 80vw, 100vw"
                 className="object-cover object-center"
-                quality={80}
+                quality={85}
               />
-              <div className="absolute inset-0 bg-gradient-to-l from-[#1A0810]/55 via-transparent to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#1A0810]/20 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-6 text-right">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">روتين نورا الكامل</p>
-                <p className="mt-1 text-base font-black text-white">4 منتجات متكاملة — صباحاً ومساءً</p>
+              <div className="absolute inset-0 bg-gradient-to-l from-[#1A0810]/45 via-transparent to-transparent" />
+              <div className="absolute bottom-5 left-7 text-right">
+                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/50">NURA SKIN</p>
+                <p className="mt-1 text-lg font-black text-white">4 منتجات متكاملة — صباحاً ومساءً</p>
               </div>
             </div>
             <div className="relative h-56 sm:hidden">
@@ -100,197 +88,230 @@ export function RoutineSection({ currentSlug }: Props) {
                 fill
                 sizes="100vw"
                 className="object-cover object-center"
-                quality={80}
+                quality={85}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1A0810]/65 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1A0810]/55 via-transparent to-transparent" />
               <div className="absolute bottom-4 inset-x-4 text-right">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">روتين نورا الكامل</p>
                 <p className="mt-1 text-sm font-black text-white">4 منتجات متكاملة — صباحاً ومساءً</p>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* ── TWO ROUTINE CARDS ── */}
+        {/* ── Two routine cards ── */}
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
 
           {/* ☀️ MORNING */}
           <motion.article
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="overflow-hidden rounded-[1.75rem] border border-amber-100 bg-gradient-to-br from-[#FFFCF4] via-[#FFF8EC] to-[#FFF0D6] shadow-[0_16px_48px_rgba(200,140,60,0.10)]"
+            className="overflow-hidden rounded-[2rem] bg-white shadow-[0_8px_40px_rgba(200,140,60,0.10)] ring-1 ring-amber-100/80"
           >
-            {/* Hero lifestyle image */}
-            <div className="relative h-48 sm:h-52 overflow-hidden">
+            {/* Hero image — reduced gradient */}
+            <div className="relative h-52 overflow-hidden rounded-t-[2rem]">
               <Image
                 src="/images/bundles/morning-routine-hero.jpg"
-                alt="روتين الصباح — نياسيناميد وواقي الشمس"
+                alt="روتين الصباح"
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover object-center transition-transform duration-700 hover:scale-[1.03]"
                 quality={85}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#3D2000]/80 via-[#3D2000]/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <div className="flex items-end justify-between">
-                  <div>
-                    <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.22em] text-amber-300">
-                      ☀️ صباحاً
-                    </span>
-                    <h3 className="text-xl font-black leading-tight text-white">روتين الصباح</h3>
-                    <p className="mt-0.5 text-[11px] text-amber-200/70">حماية، إشراقة، استعداد للنهار</p>
-                  </div>
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20 backdrop-blur-md">
-                    <Sun className="h-5 w-5 text-amber-300" strokeWidth={1.4} />
-                  </div>
+              {/* Subtle gradient — only bottom 35% */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-[#3D2000]/70 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5">
+                <div>
+                  <span className="mb-1 block text-[10px] font-bold uppercase tracking-[0.25em] text-amber-300">
+                    ☀️ صباحاً
+                  </span>
+                  <h3 className="text-[22px] font-black leading-tight text-white">روتين الصباح</h3>
+                  <p className="mt-0.5 text-[11px] text-amber-200/65">حماية، إشراقة، استعداد للنهار</p>
+                </div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/20 backdrop-blur-md">
+                  <Sun className="h-5 w-5 text-amber-300" strokeWidth={1.4} />
                 </div>
               </div>
             </div>
 
-            {/* Steps */}
-            <div className="p-5">
-              <div className="space-y-0">
-                {MORNING.map((step, i) => {
-                  const isHere = step.slug === currentSlug;
-                  return (
-                    <div key={step.slug}>
-                      <div className={`flex items-center gap-3 rounded-2xl border px-4 py-3.5 transition-all ${
-                        isHere
-                          ? "border-amber-300 bg-white shadow-[0_6px_20px_rgba(200,140,60,0.14)]"
-                          : "border-amber-100/80 bg-white/80"
-                      }`}>
-                        <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-xs font-black ${
-                          isHere ? "bg-amber-500 text-white" : "bg-amber-500/15 text-amber-700"
-                        }`}>
-                          {step.step}
-                        </span>
-                        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-amber-100/50 bg-white/60">
-                          <img
-                            src={THUMBNAILS[step.slug]}
-                            alt={SHORT_NAME[step.slug]}
-                            className="h-full w-full object-contain"
-                          />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="text-[13px] font-bold leading-tight text-[#3A2000]">
-                            {SHORT_NAME[step.slug]}
-                          </p>
-                          <p className="mt-1 text-[11px] leading-[1.55] text-[#9B7060]">{step.desc}</p>
-                        </div>
-                        {isHere && (
-                          <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-[9px] font-bold text-amber-700">
-                            أنتِ هنا
-                          </span>
-                        )}
-                      </div>
-                      {i < MORNING.length - 1 && <DownArrow />}
+            {/* Product tiles — 2 columns */}
+            <div className="grid grid-cols-2 gap-3 p-5">
+              {MORNING.map((step) => {
+                const isHere = step.slug === currentSlug;
+                return (
+                  <div
+                    key={step.slug}
+                    className={`relative flex flex-col items-center rounded-[1.4rem] px-3 py-4 text-center transition-all ${
+                      isHere
+                        ? "bg-amber-50 ring-2 ring-amber-300/70 shadow-[0_4px_24px_rgba(245,158,11,0.14)]"
+                        : "bg-[#FAF8F5]"
+                    }`}
+                  >
+                    {/* Step number */}
+                    <span className={`mb-2.5 text-[10px] font-black tracking-[0.25em] ${
+                      isHere ? "text-amber-500" : "text-[#C8B89A]"
+                    }`}>
+                      {step.step}
+                    </span>
+
+                    {/* Product image */}
+                    <div className={`relative mb-3 h-[88px] w-[88px] overflow-hidden rounded-2xl ${
+                      isHere
+                        ? "shadow-[0_6px_24px_rgba(245,158,11,0.20)]"
+                        : "shadow-[0_4px_16px_rgba(0,0,0,0.06)]"
+                    }`}>
+                      <img
+                        src={THUMBNAILS[step.slug]}
+                        alt={SHORT_NAME[step.slug]}
+                        className="h-full w-full object-contain"
+                      />
                     </div>
-                  );
-                })}
-              </div>
-              <p className="mt-4 text-center text-[10px] font-semibold text-amber-700/55">
-                الاتساق الصباحي = نتائج حقيقية مع الوقت
-              </p>
+
+                    {/* Name */}
+                    <p className={`text-[13px] font-black leading-tight ${
+                      isHere ? "text-[#3A2000]" : "text-[#5A3A00]/80"
+                    }`}>
+                      {SHORT_NAME[step.slug]}
+                    </p>
+
+                    {/* Description */}
+                    <p className="mt-1.5 text-[10px] leading-[1.6] text-[#9B7060]">
+                      {step.desc}
+                    </p>
+
+                    {/* "أنتِ هنا" badge */}
+                    {isHere && (
+                      <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-amber-500 px-3 py-1 text-[9px] font-black text-white shadow-[0_2px_8px_rgba(245,158,11,0.35)]">
+                        ✦ أنتِ هنا
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
             </div>
+
+            {/* Caption */}
+            <p className="pb-5 text-center text-[10px] font-semibold text-amber-600/50">
+              الاتساق الصباحي = نتائج حقيقية مع الوقت
+            </p>
           </motion.article>
 
           {/* 🌙 NIGHT */}
           <motion.article
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.08 }}
-            className="overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#160A10] via-[#1E0D18] to-[#2D1525] shadow-[0_24px_65px_rgba(16,6,14,0.35)]"
+            className="overflow-hidden rounded-[2rem] bg-[#120A10] shadow-[0_24px_72px_rgba(16,6,14,0.40)] ring-1 ring-white/5"
           >
-            {/* Hero lifestyle image */}
-            <div className="relative h-48 sm:h-52 overflow-hidden">
+            {/* Hero image — reduced gradient */}
+            <div className="relative h-52 overflow-hidden rounded-t-[2rem]">
               <Image
                 src="/images/bundles/night-renewal-hero.jpg"
-                alt="روتين الليل — سيروم العين وكريم الريتينول"
+                alt="روتين الليل"
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover object-center transition-transform duration-700 hover:scale-[1.03]"
                 quality={85}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#160A10]/90 via-[#160A10]/30 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <div className="flex items-end justify-between">
-                  <div>
-                    <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.22em] text-[#E8B4C0]/80">
-                      🌙 مساءً
-                    </span>
-                    <h3 className="text-xl font-black leading-tight text-white">روتين الليل</h3>
-                    <p className="mt-0.5 text-[11px] text-white/40">تجديد، راحة، إصلاح أثناء النوم</p>
-                  </div>
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15 backdrop-blur-md">
-                    <Moon className="h-5 w-5 text-[#F2D8E0]" strokeWidth={1.4} />
-                  </div>
+              {/* Subtle gradient — only bottom 35% */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-[#120A10]/80 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5">
+                <div>
+                  <span className="mb-1 block text-[10px] font-bold uppercase tracking-[0.25em] text-[#E8B4C0]/75">
+                    🌙 مساءً
+                  </span>
+                  <h3 className="text-[22px] font-black leading-tight text-white">روتين الليل</h3>
+                  <p className="mt-0.5 text-[11px] text-white/38">تجديد، راحة، إصلاح أثناء النوم</p>
+                </div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/8 ring-1 ring-white/12 backdrop-blur-md">
+                  <Moon className="h-5 w-5 text-[#F2D8E0]" strokeWidth={1.4} />
                 </div>
               </div>
             </div>
 
-            {/* Steps */}
-            <div className="p-5">
-              <div className="space-y-0">
-                {NIGHT.map((step, i) => {
-                  const isHere = step.slug === currentSlug;
-                  return (
-                    <div key={step.slug}>
-                      <div className={`flex items-center gap-3 rounded-2xl border px-4 py-3.5 transition-all ${
-                        isHere
-                          ? "border-[#C4788A]/45 bg-white/12 shadow-[0_6px_20px_rgba(196,120,138,0.18)]"
-                          : "border-white/10 bg-white/8"
-                      }`}>
-                        <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-xs font-black ${
-                          isHere ? "bg-[#C4788A] text-white" : "bg-white/15 text-white/80"
-                        }`}>
-                          {step.step}
-                        </span>
-                        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/30 bg-white/20">
-                          <img
-                            src={THUMBNAILS[step.slug]}
-                            alt={SHORT_NAME[step.slug]}
-                            className="h-full w-full object-contain"
-                          />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="text-[13px] font-bold leading-tight text-white">
-                            {SHORT_NAME[step.slug]}
-                          </p>
-                          <p className="mt-1 text-[11px] leading-[1.55] text-white/50">{step.desc}</p>
-                        </div>
-                        {isHere && (
-                          <span className="shrink-0 rounded-full bg-[#C4788A]/20 px-2 py-0.5 text-[9px] font-bold text-[#F2B8C6]">
-                            أنتِ هنا
-                          </span>
-                        )}
-                      </div>
-                      {i < NIGHT.length - 1 && <DownArrow light />}
+            {/* Product tiles — 2 columns */}
+            <div className="grid grid-cols-2 gap-3 p-5">
+              {NIGHT.map((step) => {
+                const isHere = step.slug === currentSlug;
+                return (
+                  <div
+                    key={step.slug}
+                    className={`relative flex flex-col items-center rounded-[1.4rem] px-3 py-4 text-center transition-all ${
+                      isHere
+                        ? "bg-white/10 ring-2 ring-[#C4788A]/50 shadow-[0_4px_24px_rgba(196,120,138,0.18)]"
+                        : "bg-white/5"
+                    }`}
+                  >
+                    {/* Step number */}
+                    <span className={`mb-2.5 text-[10px] font-black tracking-[0.25em] ${
+                      isHere ? "text-[#F2B8C6]" : "text-white/25"
+                    }`}>
+                      {step.step}
+                    </span>
+
+                    {/* Product image */}
+                    <div className={`relative mb-3 h-[88px] w-[88px] overflow-hidden rounded-2xl bg-white/12 ${
+                      isHere
+                        ? "shadow-[0_6px_24px_rgba(196,120,138,0.28)]"
+                        : "shadow-[0_4px_16px_rgba(0,0,0,0.20)]"
+                    }`}>
+                      <img
+                        src={THUMBNAILS[step.slug]}
+                        alt={SHORT_NAME[step.slug]}
+                        className="h-full w-full object-contain"
+                      />
                     </div>
-                  );
-                })}
-              </div>
-              <p className="mt-4 text-center text-[10px] font-semibold text-white/28">
-                الليل هو وقت الإصلاح الحقيقي — لا تتخطّيه
-              </p>
+
+                    {/* Name */}
+                    <p className={`text-[13px] font-black leading-tight ${
+                      isHere ? "text-white" : "text-white/65"
+                    }`}>
+                      {SHORT_NAME[step.slug]}
+                    </p>
+
+                    {/* Description */}
+                    <p className="mt-1.5 text-[10px] leading-[1.6] text-white/38">
+                      {step.desc}
+                    </p>
+
+                    {/* "أنتِ هنا" badge */}
+                    {isHere && (
+                      <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-[#C4788A] px-3 py-1 text-[9px] font-black text-white shadow-[0_2px_8px_rgba(196,120,138,0.40)]">
+                        ✦ أنتِ هنا
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
             </div>
+
+            {/* Caption */}
+            <p className="pb-5 text-center text-[10px] font-semibold text-white/22">
+              الليل هو وقت الإصلاح الحقيقي — لا تتخطّيه
+            </p>
           </motion.article>
         </div>
 
-        {/* ── BOTTOM CTA ── */}
-        <div className="mt-8 text-center">
-          <p className="mx-auto max-w-md text-[13px] leading-7 text-[#8C6E73]">
+        {/* ── Bottom CTA ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-10 text-center"
+        >
+          <p className="mx-auto max-w-sm text-[13px] leading-7 text-[#8C6E73]">
             المنتجات اللي ما عندكيش فالروتين ديالك؟ شوفيهم فالروتين الكامل وفري بزاف.
           </p>
           <button
             type="button"
             onClick={scrollToRituals}
-            className="mt-4 inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-rose-soft/45 bg-white px-7 text-sm font-bold text-rose-deep transition hover:bg-rose-blush active:scale-[0.98]"
+            className="mt-4 inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-rose-soft/45 bg-white px-7 text-sm font-bold text-rose-deep shadow-sm transition hover:bg-rose-blush active:scale-[0.98]"
           >
             شوفي الروتين الكامل ←
           </button>
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );
