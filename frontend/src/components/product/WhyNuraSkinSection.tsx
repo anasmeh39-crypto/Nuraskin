@@ -1,55 +1,86 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Product, KeyResult } from "@/types";
 
-// ── Icons ─────────────────────────────────────────────────────────────────────
+// ── Premium ingredient icons ───────────────────────────────────────────────────
 
-const ResultIcon = ({ type }: { type: KeyResult["icon"] }) => {
-  const icons: Record<KeyResult["icon"], React.ReactNode> = {
-    smooth: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+const IngredientIcon = ({ slug }: { slug: string }) => {
+  const icons: Record<string, React.ReactNode> = {
+    Bakuchiol: (
+      // Leaf / botanical
+      <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7">
+        <path d="M16 28C16 28 6 22 6 13C6 8 10.5 4 16 4C21.5 4 26 8 26 13C26 22 16 28 16 28Z" stroke="#DEBEC6" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M16 28V14" stroke="#DEBEC6" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M16 18C16 18 11 15 10 10" stroke="#DEBEC6" strokeWidth="1.2" strokeLinecap="round"/>
+        <path d="M16 14C16 14 20 12 22 8" stroke="#DEBEC6" strokeWidth="1.2" strokeLinecap="round"/>
       </svg>
     ),
-    glow: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+    Peptides: (
+      // Chain / molecule links
+      <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7">
+        <circle cx="8" cy="16" r="3.5" stroke="#DEBEC6" strokeWidth="1.5"/>
+        <circle cx="16" cy="10" r="3.5" stroke="#DEBEC6" strokeWidth="1.5"/>
+        <circle cx="24" cy="16" r="3.5" stroke="#DEBEC6" strokeWidth="1.5"/>
+        <circle cx="16" cy="22" r="3.5" stroke="#DEBEC6" strokeWidth="1.5"/>
+        <line x1="11" y1="14.5" x2="13" y2="12" stroke="#DEBEC6" strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="19" y1="12" x2="21" y2="14.5" stroke="#DEBEC6" strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="21" y1="18" x2="19" y2="20" stroke="#DEBEC6" strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="13" y1="20" x2="11" y2="17.5" stroke="#DEBEC6" strokeWidth="1.2" strokeLinecap="round"/>
       </svg>
     ),
-    firm: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+    "Shea Butter": (
+      // Cream drop / butter
+      <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7">
+        <path d="M16 5L22 14C24.5 17.5 24 22 20.5 24.5C17 27 12 26 10 22.5C8 19 9.5 14.5 12 12L16 5Z" stroke="#DEBEC6" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M12 20C12 20 14 22 18 21" stroke="#DEBEC6" strokeWidth="1.2" strokeLinecap="round"/>
       </svg>
     ),
-    hydrate: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918" />
-      </svg>
-    ),
-    calm: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-      </svg>
-    ),
-    tone: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+    Squalane: (
+      // Oil droplet with ripple
+      <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7">
+        <path d="M16 6L21 14.5C22.8 17.5 22 21.5 19 23.5C16 25.5 12 24.5 10.5 21.5C9 18.5 10.2 14.5 13 12.5L16 6Z" stroke="#DEBEC6" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M10 27C10 27 13 28.5 16 27.5" stroke="#DEBEC6" strokeWidth="1.2" strokeLinecap="round"/>
+        <path d="M8 29C8 29 12 31 16 29.5" stroke="#DEBEC6" strokeWidth="1" strokeLinecap="round" opacity="0.5"/>
       </svg>
     ),
   };
-  return <>{icons[type]}</>;
+
+  return (
+    <>{icons[slug] ?? (
+      <svg viewBox="0 0 32 32" fill="none" className="w-7 h-7">
+        <circle cx="16" cy="16" r="10" stroke="#DEBEC6" strokeWidth="1.5"/>
+        <path d="M16 11V17M16 20V21" stroke="#DEBEC6" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    )}</>
+  );
 };
 
+// ── Result icon (small, used as accent) ───────────────────────────────────────
+
+const ResultAccentIcon = ({ type }: { type: KeyResult["icon"] }) => {
+  const paths: Record<KeyResult["icon"], React.ReactNode> = {
+    smooth: <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />,
+    glow: <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />,
+    firm: <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />,
+    hydrate: <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0-13v4m0 4h.01" />,
+    calm: <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />,
+    tone: <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />,
+  };
+
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-4 h-4">
+      {paths[type]}
+    </svg>
+  );
+};
+
+// ── Star ──────────────────────────────────────────────────────────────────────
+
 const StarIcon = ({ filled }: { filled: boolean }) => (
-  <svg
-    viewBox="0 0 20 20"
-    fill={filled ? "currentColor" : "none"}
-    stroke="currentColor"
-    strokeWidth={1}
-    className="w-4 h-4"
-  >
+  <svg viewBox="0 0 20 20" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth={0.8} className="w-4 h-4 text-yellow-400">
     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
   </svg>
 );
@@ -66,7 +97,7 @@ function scrollToOffer() {
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-// ── Main section ──────────────────────────────────────────────────────────────
+// ── Component ─────────────────────────────────────────────────────────────────
 
 interface Props {
   product: Product;
@@ -125,16 +156,24 @@ export function WhyNuraSkinSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="flex items-start gap-4 bg-white/5 border border-white/10 rounded-2xl p-5"
+                className="flex items-start gap-4 bg-white/5 border border-white/10 rounded-2xl p-5 hover:border-rose-deep/40 transition-colors"
               >
-                <div className="shrink-0 w-12 h-12 rounded-xl bg-rose-deep/20 flex flex-col items-center justify-center text-center">
-                  <span className="text-rose-soft font-bold text-xs leading-tight">
-                    {ing.percent ?? "—"}
-                  </span>
+                {/* Premium icon badge */}
+                <div className="shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-rose-deep/30 to-rose-deep/10 border border-rose-deep/20 flex flex-col items-center justify-center gap-0.5">
+                  <IngredientIcon slug={ing.name_en} />
+                  {ing.percent && (
+                    <span className="text-rose-soft/70 font-mono text-[9px] leading-none">
+                      {ing.percent}
+                    </span>
+                  )}
                 </div>
-                <div className="min-w-0">
-                  <p className="text-white font-semibold text-sm">{ing.name_ar}</p>
-                  <p className="text-white/35 text-[10px] mb-1">{ing.name_en}</p>
+
+                {/* Text */}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start justify-between gap-2 mb-0.5">
+                    <p className="text-white font-semibold text-sm">{ing.name_ar}</p>
+                  </div>
+                  <p className="text-white/30 text-[10px] mb-2 font-mono tracking-wide">{ing.name_en}</p>
                   <p className="text-white/55 text-xs leading-relaxed">{ing.description_ar}</p>
                 </div>
               </motion.div>
@@ -145,7 +184,7 @@ export function WhyNuraSkinSection({
           </p>
         </div>
 
-        {/* ── 3. Results row ────────────────────────────────────────────── */}
+        {/* ── 3. Results — image-led cards ──────────────────────────────── */}
         {product.keyResults && product.keyResults.length > 0 && (
           <div>
             <motion.h3
@@ -160,16 +199,35 @@ export function WhyNuraSkinSection({
               {product.keyResults.map((result, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="flex flex-col items-center text-center gap-3 bg-white/5 border border-white/10 rounded-2xl p-6"
+                  className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-rose-deep/25 text-rose-soft flex items-center justify-center">
-                    <ResultIcon type={result.icon} />
+                  {/* Image */}
+                  {result.image && (
+                    <div className="relative w-full h-52 sm:h-44 overflow-hidden">
+                      <Image
+                        src={result.image}
+                        alt={result.text}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                        className="object-cover object-top"
+                        loading="lazy"
+                      />
+                      {/* Gradient overlay so text reads well */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#1E0F14]/80 via-transparent to-transparent" />
+                    </div>
+                  )}
+
+                  {/* Text */}
+                  <div className="flex items-start gap-3 p-5">
+                    <div className="shrink-0 w-8 h-8 rounded-xl bg-rose-deep/25 text-rose-soft flex items-center justify-center mt-0.5">
+                      <ResultAccentIcon type={result.icon} />
+                    </div>
+                    <p className="text-white/85 text-sm leading-relaxed">{result.text}</p>
                   </div>
-                  <p className="text-white/80 text-sm leading-relaxed">{result.text}</p>
                 </motion.div>
               ))}
             </div>
@@ -193,7 +251,7 @@ export function WhyNuraSkinSection({
                   آراء الزبائن
                 </h3>
                 <div className="flex items-center gap-2">
-                  <div className="flex text-rose-soft">
+                  <div className="flex">
                     {[1, 2, 3, 4, 5].map((s) => (
                       <StarIcon key={s} filled={s <= Math.round(rating)} />
                     ))}
@@ -215,7 +273,7 @@ export function WhyNuraSkinSection({
                   transition={{ delay: i * 0.1 }}
                   className="flex flex-col gap-3 bg-white/5 border border-white/10 rounded-2xl p-5"
                 >
-                  <div className="flex text-rose-soft">
+                  <div className="flex">
                     {[1, 2, 3, 4, 5].map((s) => (
                       <StarIcon key={s} filled={s <= review.rating} />
                     ))}

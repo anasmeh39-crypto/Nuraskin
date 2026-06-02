@@ -31,6 +31,7 @@ export interface Ingredient {
 export interface KeyResult {
   icon: "smooth" | "glow" | "firm" | "hydrate" | "calm" | "tone";
   text: string;
+  image?: string;
 }
 
 export interface Review {
