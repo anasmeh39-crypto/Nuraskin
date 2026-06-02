@@ -279,10 +279,10 @@ export function RoutineEducationSection() {
           className="mt-6 rounded-2xl border border-[#E8D6CC] bg-white px-6 py-5 text-center shadow-[0_10px_32px_rgba(92,45,62,0.05)]"
         >
           <p className="text-[15px] font-bold text-[#3A222C]">
-            الاتساق هو السر — مو المنتج الواحد
+            الاستمرارية هي السر، ماشي منتج واحد بوحدو
           </p>
           <p className="mx-auto mt-1.5 max-w-md text-xs leading-6 text-[#8C6E73]">
-            بشرة متوازنة ومشرقة مو نتيجة يوم واحد — هي نتيجة روتين صباحي وليلي منتظم.
+            بشرة متوازنة ومشرقة ما كتجيش فنهار واحد، كتتبنى مع روتين صباحي ومسائي منتظم
           </p>
         </motion.div>
       </div>
