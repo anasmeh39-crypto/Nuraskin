@@ -36,12 +36,11 @@ function getOfferImage(offer: Offer): string {
     return SINGLE_HERO[slug] ?? "/images/nura-balance-gallery-1.png";
   }
 
-  // Duo / Trio: night routine when retinol is present without SPF or niacinamide
+  // Duo / Trio: night routine when retinol is present without SPF
   const slugs = offer.products.map(p => p.slug);
   const isNightBundle =
     slugs.includes("nura-night-renewal") &&
-    !slugs.includes("nura-spf-50") &&
-    !slugs.includes("nura-balance");
+    !slugs.includes("nura-spf-50");
 
   return isNightBundle
     ? "/images/bundles/night-renewal-hero.jpg"
