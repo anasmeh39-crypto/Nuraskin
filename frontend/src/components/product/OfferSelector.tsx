@@ -98,103 +98,110 @@ function RoutineCard({
       onClick={onSelect}
       whileTap={{ scale: 0.98 }}
       aria-pressed={isSelected}
-      className={`group relative flex w-full flex-col overflow-hidden rounded-[1.25rem] bg-white text-right transition-all duration-250 ${
+      className={`group relative flex w-full flex-col overflow-hidden rounded-[1.5rem] bg-white text-right transition-all duration-250 ${
         isSelected
-          ? "ring-2 ring-[#8E5A68] shadow-[0_8px_32px_rgba(142,90,104,0.18)]"
-          : "border border-[#EBE0E4] shadow-[0_2px_12px_rgba(61,44,50,0.06)] hover:border-[#D4BC9B]/60 hover:shadow-[0_8px_28px_rgba(61,44,50,0.10)]"
+          ? "ring-2 ring-[#8E5A68] shadow-[0_12px_40px_rgba(142,90,104,0.22)]"
+          : "border border-[#EBE0E4] shadow-[0_4px_16px_rgba(61,44,50,0.08)] hover:shadow-[0_10px_32px_rgba(61,44,50,0.12)]"
       }`}
     >
-      {/* ── Image — full bleed, NO gradient ── */}
-      <div className="relative w-full overflow-hidden rounded-t-[1.25rem] h-44 sm:h-36">
+      {/* ── Image — taller, name + timing overlaid ── */}
+      <div className="relative w-full overflow-hidden rounded-t-[1.5rem] h-52 sm:h-44">
         <Image
           src={getOfferImage(offer)}
           alt={offer.label}
           fill
-          quality={80}
+          quality={85}
           sizes="(min-width: 640px) 33vw, 100vw"
           className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.025]"
           loading="eager"
         />
 
-        {/* Floating badges — on top of clean image */}
+        {/* Gradient for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+
+        {/* Top badges */}
         <div className="absolute inset-x-3 top-3 flex items-center justify-between">
           {isSelected ? (
-            <span className="inline-flex items-center gap-1 rounded-full bg-[#3D2C32] px-2.5 py-1 text-[10px] font-black text-white shadow-sm">
-              <Check className="h-2.5 w-2.5" strokeWidth={3} />
+            <span className="inline-flex items-center gap-1 rounded-full bg-[#3D2C32] px-3 py-1.5 text-[11px] font-black text-white shadow">
+              <Check className="h-3 w-3" strokeWidth={3} />
               محدد
             </span>
           ) : (
-            <span /> /* spacer */
+            <span />
           )}
           {savings > 0 && (
-            <span className="rounded-full bg-emerald-500 px-2.5 py-1 text-[10px] font-black text-white shadow-sm">
+            <span className="rounded-full bg-emerald-500 px-3 py-1.5 text-xs font-black text-white shadow">
               وفري {savings}%
             </span>
           )}
         </div>
+
+        {/* Bundle name + timing on image */}
+        <div className="absolute inset-x-0 bottom-0 p-4">
+          <div className="flex items-end justify-between gap-2">
+            <div>
+              <h3 className="text-[18px] font-black leading-tight text-white drop-shadow-md">{offer.label}</h3>
+              <p className="mt-0.5 text-[12px] text-white/75">{benefit}</p>
+            </div>
+            <div className="flex shrink-0 items-center gap-1">
+              {tags.map(t => (
+                <span key={t.label} className="flex items-center gap-1 rounded-full border border-white/25 bg-white/20 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm">
+                  {t.icon === "sun"
+                    ? <Sun  className="h-3 w-3 text-amber-300" strokeWidth={1.6} />
+                    : <Moon className="h-3 w-3 text-purple-200" strokeWidth={1.6} />
+                  }
+                  {t.label}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* ── Content ── */}
-      <div className="flex flex-1 flex-col gap-0 p-3.5">
-
-        {/* Timing */}
-        <div className="flex items-center gap-1 mb-2">
-          {tags.map(t => (
-            <span key={t.label} className="flex items-center gap-0.5 rounded-full bg-[#F5F0EB] px-2 py-0.5 text-[10px] font-semibold text-[#8D7D82]">
-              {t.icon === "sun"
-                ? <Sun  className="h-2.5 w-2.5 text-amber-500" strokeWidth={1.6} />
-                : <Moon className="h-2.5 w-2.5 text-purple-400" strokeWidth={1.6} />
-              }
-              {t.label}
-            </span>
-          ))}
-        </div>
-
-        {/* Name + benefit */}
-        <h3 className="text-[13px] font-black leading-snug text-[#3D2C32]">{offer.label}</h3>
-        <p className="mt-0.5 text-[10px] leading-snug text-[#9B8585]">{benefit}</p>
+      <div className="flex flex-1 flex-col gap-3 p-4">
 
         {/* Product chips */}
-        <div className="mt-2 flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-1.5">
           {offer.products.map(p => (
             <span
               key={p.slug}
-              className="flex items-center gap-0.5 rounded-full border border-[#EBE0E4] bg-[#FFF9F6] px-2 py-0.5 text-[9px] font-semibold text-[#7B5565]"
+              className="flex items-center gap-1 rounded-full border border-[#DDD0D5] bg-[#FBF7F8] px-3 py-1 text-[11px] font-semibold text-[#5C3A47]"
             >
-              <Check className="h-2 w-2 text-[#C4A882]" strokeWidth={2.5} />
+              <Check className="h-3 w-3 text-[#8E5A68]" strokeWidth={2.5} />
               {SHORT[p.slug] ?? p.name_ar}
             </span>
           ))}
         </div>
 
         {/* Price */}
-        <div className="mt-auto pt-3 mt-3 border-t border-[#F0E8E8]">
+        <div className="border-t border-[#F0E8E8] pt-3">
           <div className="flex items-end justify-between gap-2">
             <div className="min-w-0">
               {offer.originalPrice && (
-                <p className="text-[9px] text-[#B0A0A0] line-through">{offer.originalPrice} درهم</p>
+                <p className="text-[11px] text-[#B0A0A0] line-through">{offer.originalPrice} درهم</p>
               )}
-              <p className="text-[18px] font-black leading-none text-[#3D2C32]">
+              <p className="text-[22px] font-black leading-none text-[#3D2C32]">
                 {offer.price}
-                <span className="mr-0.5 text-[10px] font-semibold text-[#9B8585]"> درهم</span>
+                <span className="mr-1 text-[11px] font-semibold text-[#9B8585]"> درهم</span>
               </p>
             </div>
             {offer.saving && offer.saving > 0 && (
-              <span className="shrink-0 rounded-lg bg-emerald-50 px-2 py-1 text-center">
-                <p className="text-[12px] font-black leading-none text-emerald-700">-{offer.saving}</p>
-                <p className="text-[8px] text-emerald-600/70 mt-0.5">درهم</p>
+              <span className="shrink-0 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-center">
+                <p className="text-[15px] font-black leading-none text-emerald-700">-{offer.saving}</p>
+                <p className="mt-0.5 text-[9px] text-emerald-600/70">درهم</p>
               </span>
             )}
           </div>
         </div>
 
         {/* CTA */}
-        <div className={`mt-3 rounded-full py-2 text-center text-[11px] font-black transition-colors duration-200 ${
+        <div className={`rounded-full py-3 text-center text-[13px] font-black transition-colors duration-200 ${
           isSelected
             ? "bg-[#8E5A68] text-white"
-            : "bg-[#F5ECF0] text-[#8E5A68] group-hover:bg-[#EDE4D7]"
+            : "border border-[#8E5A68]/35 bg-[#8E5A68]/10 text-[#8E5A68] group-hover:bg-[#8E5A68]/18"
         }`}>
-          {isSelected ? "✓ تم الاختيار" : "اختاري"}
+          {isSelected ? "✓ تم الاختيار" : "اختاري هذا الروتين ←"}
         </div>
       </div>
     </motion.button>
@@ -230,31 +237,45 @@ function FeaturedCard({
     >
       <div className="bg-[#1A0C12]">
 
-        {/* ── Image — full bleed, NO gradient overlay ── */}
-        <div className="relative w-full overflow-hidden rounded-t-[1.5rem] h-52 lg:hidden">
+        {/* ── Image — taller on mobile, name overlaid ── */}
+        <div className="relative w-full overflow-hidden rounded-t-[1.5rem] h-60 lg:hidden">
           <Image
             src={getOfferImage(offer)}
             alt={offer.label}
             fill
-            quality={80}
+            quality={85}
             sizes="100vw"
             className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
             loading="eager"
           />
-          {/* Minimal bottom fade — only 20% height, very subtle */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-[#1A0C12] to-transparent" />
+          {/* Gradient for text overlay */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#1A0C12] to-transparent" />
 
-          {/* Badges on image */}
+          {/* Top badges */}
           <div className="absolute inset-x-4 top-4 flex items-start justify-between">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#BF953F,#FCF6BA,#B38728)] px-3 py-1.5 text-[10px] font-black text-[#3D2A00] shadow-lg">
-              <Crown className="h-3 w-3" />
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#BF953F,#FCF6BA,#B38728)] px-3.5 py-2 text-[11px] font-black text-[#3D2A00] shadow-lg">
+              <Crown className="h-3.5 w-3.5" />
               الأكثر اختياراً
             </span>
             {savings > 0 && (
-              <span className="rounded-full border border-[#86EFAC]/40 bg-[#14532D]/70 px-2.5 py-1 text-[10px] font-bold text-[#86EFAC] backdrop-blur-sm">
+              <span className="rounded-full border border-[#86EFAC]/40 bg-[#14532D]/80 px-3 py-1.5 text-[11px] font-black text-[#86EFAC] backdrop-blur-sm">
                 وفري {savings}%
               </span>
             )}
+          </div>
+
+          {/* Name + timing on image — mobile */}
+          <div className="absolute inset-x-0 bottom-0 p-5">
+            <div className="mb-2 flex items-center gap-1.5">
+              <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
+                <Sun className="h-3 w-3 text-amber-300" strokeWidth={1.5} /> صباح
+              </span>
+              <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
+                <Moon className="h-3 w-3 text-purple-300" strokeWidth={1.5} /> ليل
+              </span>
+            </div>
+            <h3 className="text-[22px] font-black leading-tight text-white drop-shadow-md">{offer.label}</h3>
+            <p className="mt-0.5 text-[12px] text-white/65">{benefit}</p>
           </div>
         </div>
 
@@ -284,42 +305,39 @@ function FeaturedCard({
         {/* ── Content panel ── */}
         <div className="p-5 pt-4">
 
-          {/* Mobile top row already has badges on image */}
-          {/* Desktop badge row */}
-          <div className="hidden lg:flex items-center justify-between mb-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#BF953F,#FCF6BA,#B38728)] px-3.5 py-1.5 text-[11px] font-black text-[#3D2A00] shadow-lg">
-              <Crown className="h-3.5 w-3.5" />
-              الأكثر اختياراً
-            </span>
-            {savings > 0 && (
-              <span className="rounded-full border border-[#86EFAC]/30 bg-[#86EFAC]/10 px-3 py-1.5 text-[11px] font-bold text-[#86EFAC]">
-                وفري {savings}%
+          {/* Desktop badge + timing + name — hidden on mobile (shown on image instead) */}
+          <div className="hidden lg:block">
+            <div className="flex items-center justify-between mb-4">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#BF953F,#FCF6BA,#B38728)] px-3.5 py-1.5 text-[11px] font-black text-[#3D2A00] shadow-lg">
+                <Crown className="h-3.5 w-3.5" />
+                الأكثر اختياراً
               </span>
-            )}
+              {savings > 0 && (
+                <span className="rounded-full border border-[#86EFAC]/30 bg-[#86EFAC]/10 px-3 py-1.5 text-[11px] font-bold text-[#86EFAC]">
+                  وفري {savings}%
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-2 mb-3">
+              <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/70">
+                <Sun className="h-3 w-3 text-amber-300" strokeWidth={1.5} /> صباح
+              </span>
+              <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/70">
+                <Moon className="h-3 w-3 text-purple-300" strokeWidth={1.5} /> ليل
+              </span>
+            </div>
+            <h3 className="text-[22px] font-black leading-tight text-white">{offer.label}</h3>
+            <p className="mt-1 text-[12px] text-white/45">{benefit}</p>
           </div>
-
-          {/* Timing */}
-          <div className="flex items-center gap-2 mb-3">
-            <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold text-white/70">
-              <Sun className="h-3 w-3 text-amber-300" strokeWidth={1.5} /> صباح
-            </span>
-            <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold text-white/70">
-              <Moon className="h-3 w-3 text-purple-300" strokeWidth={1.5} /> ليل
-            </span>
-          </div>
-
-          {/* Name */}
-          <h3 className="text-[22px] font-black leading-tight text-white">{offer.label}</h3>
-          <p className="mt-1 text-[11px] text-white/45">{benefit}</p>
 
           {/* Products */}
-          <div className="mt-3.5 flex flex-wrap gap-1.5">
+          <div className="mt-4 flex flex-wrap gap-1.5">
             {offer.products.map(p => (
               <span
                 key={p.slug}
-                className="flex items-center gap-1 rounded-full border border-white/10 bg-white/7 px-3 py-1 text-[10px] font-semibold text-white/65"
+                className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-semibold text-white/85"
               >
-                <Check className="h-2.5 w-2.5 text-[#F2B8C6]" strokeWidth={2.5} />
+                <Check className="h-3 w-3 text-[#F2B8C6]" strokeWidth={2.5} />
                 {SHORT[p.slug] ?? p.name_ar}
               </span>
             ))}
@@ -329,18 +347,18 @@ function FeaturedCard({
           <div className="mt-4 flex items-end justify-between border-t border-white/8 pt-4">
             <div>
               {offer.originalPrice && (
-                <p className="text-[11px] text-white/25 line-through">{offer.originalPrice} درهم</p>
+                <p className="text-[12px] text-white/30 line-through">{offer.originalPrice} درهم</p>
               )}
-              <p className="text-[2rem] font-black leading-none text-white">
+              <p className="text-[2.2rem] font-black leading-none text-white">
                 {offer.price}
-                <span className="mr-1 text-xs font-semibold text-white/45">درهم</span>
+                <span className="mr-1 text-[12px] font-semibold text-white/45">درهم</span>
               </p>
-              <p className="mt-1 text-[10px] text-white/30">≈ {offer.perUnit} درهم / منتج</p>
+              <p className="mt-1 text-[11px] text-white/35">≈ {offer.perUnit} درهم / منتج</p>
             </div>
             {offer.saving && offer.saving > 0 && (
-              <div className="rounded-xl border border-[#86EFAC]/20 bg-[#86EFAC]/8 px-4 py-2.5 text-center">
-                <p className="text-[22px] font-black leading-none text-[#86EFAC]">{offer.saving}</p>
-                <p className="mt-0.5 text-[9px] text-[#86EFAC]/55">درهم وفّرتِ</p>
+              <div className="rounded-xl border border-[#86EFAC]/25 bg-[#86EFAC]/10 px-4 py-3 text-center">
+                <p className="text-[24px] font-black leading-none text-[#86EFAC]">{offer.saving}</p>
+                <p className="mt-0.5 text-[10px] text-[#86EFAC]/60">درهم وفّرتِ</p>
               </div>
             )}
           </div>
@@ -352,10 +370,10 @@ function FeaturedCard({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.2 }}
-              className={`mt-4 flex items-center justify-center gap-2 rounded-full py-3.5 text-[13px] font-black transition-colors duration-200 ${
+              className={`mt-4 flex items-center justify-center gap-2 rounded-full py-4 text-[14px] font-black transition-colors duration-200 ${
                 isSelected
                   ? "bg-white text-[#3D2C32]"
-                  : "bg-white/10 text-white hover:bg-white/18"
+                  : "border border-white/20 bg-white/12 text-white hover:bg-white/20"
               }`}
             >
               <Sparkles className="h-4 w-4" strokeWidth={1.5} />
