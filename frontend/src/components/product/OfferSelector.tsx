@@ -196,7 +196,7 @@ function RoutineCard({
         </div>
 
         {/* CTA */}
-        <div className={`rounded-full py-3 text-center text-[13px] font-black transition-colors duration-200 ${
+        <div className={`w-full rounded-full py-3 text-center text-[13px] font-black transition-colors duration-200 ${
           isSelected
             ? "bg-[#8E5A68] text-white"
             : "border border-[#8E5A68]/35 bg-[#8E5A68]/10 text-[#8E5A68] group-hover:bg-[#8E5A68]/18"
