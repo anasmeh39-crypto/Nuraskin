@@ -113,7 +113,7 @@ export const PRODUCTS: Product[] = [
     ],
     keyResults: [
       { icon: "smooth", text: "بشرة أنعم ومرطبة — من الأسبوع الأول", image: "/images/nura-night-renewal-result-smooth.png" },
-      { icon: "glow", text: "إشراقة باينة مع الصباح في 2–3 أسابيع", image: "/images/nura-night-renewal-gallery-5.png" },
+      { icon: "glow", text: "إشراقة باينة مع الصباح في 2–3 أسابيع", image: "/images/nura-night-renewal-result-glow.png" },
       { icon: "firm", text: "مظهر أكثر تماسكاً وحيوية مع الاستخدام المنتظم", image: "/images/nura-night-renewal-ingredients.png" },
     ],
     crossSells: ["nura-spf-50", "nura-balance"],

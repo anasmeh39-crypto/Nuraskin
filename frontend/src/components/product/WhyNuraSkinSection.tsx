@@ -207,17 +207,15 @@ export function WhyNuraSkinSection({
                 >
                   {/* Image */}
                   {result.image && (
-                    <div className="relative w-full h-52 sm:h-44 overflow-hidden">
+                    <div className="relative w-full h-72 sm:h-64 overflow-hidden">
                       <Image
                         src={result.image}
                         alt={result.text}
                         fill
                         sizes="(max-width: 640px) 100vw, 33vw"
-                        className="object-cover object-top"
+                        className="object-cover object-center"
                         loading="lazy"
                       />
-                      {/* Gradient overlay so text reads well */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#1E0F14]/80 via-transparent to-transparent" />
                     </div>
                   )}
 
