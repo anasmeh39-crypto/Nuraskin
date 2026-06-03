@@ -58,27 +58,32 @@ export function HeroSection() {
             روتين عناية ناعم لبشرة أكثر توازنًا وإشراقًا
           </h1>
 
-          {/* Body paragraph — Arabic copy verbatim */}
+          {/* Body paragraph */}
           <p
             className="hero-body hero-animate hero-animate-sm"
             style={{ animationDelay: "350ms" }}
           >
-            أربع تركيبات أساسية مختارة بعناية لتدعم احتياجات البشرة اليومية،
-            من الإشراقة إلى الحماية الصباحية، دون تعقيد أو وعود مبالغ فيها.
+            أربع تركيبات مدروسة تدعم إشراقة البشرة، توازنها، تجديدها الليلي،
+            وحمايتها الصباحية — روتين واضح يعطي نتائج ملموسة.
           </p>
 
-          {/* CTA pair — primary pill + secondary text link */}
+          {/* CTA pair — primary pill + COD trust note */}
           <div
             className="hero-ctas hero-animate hero-animate-xs"
             style={{ animationDelay: "500ms" }}
           >
-            <Link href="/products" className="hero-cta-primary">
-              اكتشفي المجموعة
+            <Link href="/packs" className="hero-cta-primary">
+              اطلبي الآن
             </Link>
-            {/* Secondary: no button shell, text link only with RTL arrow */}
-            <Link href="/about" className="hero-cta-secondary">
-              لماذا نورا؟ ←
-            </Link>
+            <span className="hero-cod-note">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+                <rect x="1" y="4" width="14" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.25" />
+                <circle cx="8" cy="8.5" r="2" stroke="currentColor" strokeWidth="1.25" />
+                <line x1="3" y1="8.5" x2="4.5" y2="8.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+                <line x1="11.5" y1="8.5" x2="13" y2="8.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+              </svg>
+              الدفع عند الاستلام — ما تخلصي حتى توصلي
+            </span>
           </div>
 
         </div>

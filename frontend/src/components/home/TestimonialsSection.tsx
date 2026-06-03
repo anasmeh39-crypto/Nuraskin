@@ -220,10 +220,11 @@ export function TestimonialsSection() {
 
       <div className="nura-marquee-viewport" role="region" aria-label="آراء قصيرة من زبونات نوراسكين">
         <div className="nura-marquee-track nura-marquee-track--testimonials">
-          {[0, 1, 2].map((setIndex) => (
+          {/* Two identical sets — animation shifts by -50% for seamless infinite loop */}
+          {[0, 1].map((setIndex) => (
             <div
               key={setIndex}
-              className={`nura-marquee-set gap-5 px-2 md:gap-6 md:px-3 ${setIndex > 0 ? "nura-marquee-set--duplicate" : ""}`}
+              className={`nura-marquee-set gap-5 px-2 md:gap-6 md:px-3${setIndex === 1 ? " nura-marquee-set--duplicate" : ""}`}
               aria-hidden={setIndex > 0}
             >
               {SHORT_TESTIMONIALS.map((testimonial) => (

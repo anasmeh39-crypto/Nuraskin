@@ -37,6 +37,8 @@ const BUNDLE_DISPLAY = [
     timeLabel: "روتين صباحي · حماية ونضارة",
     cta: "أضيفي روتين الصباح للسلة",
     imageBadge: "اختيار الصباح الذكي",
+    heroImageSrc: "/images/bundles/morning-routine-hero.jpg",
+    heroImageAlt: "روتين الصباح من نورا سكين — إشراقة وتوازن وحماية يومية",
     reasons: [
       "حماية شمسية 50",
       "إشراقة وتوازن يومي",
@@ -53,6 +55,8 @@ const BUNDLE_DISPLAY = [
     timeLabel: "روتين ليلي · راحة وتجديد",
     cta: "أضيفي روتين الليل للسلة",
     imageBadge: "أنسب اختيار قبل النوم",
+    heroImageSrc: "/images/bundles/night-renewal-hero.jpg",
+    heroImageAlt: "روتين الليل من نورا سكين — تجديد وترطيب عميق أثناء النوم",
     reasons: [
       "تجديد ليلي فعّال",
       "ترطيب عميق للعينين",
@@ -171,8 +175,7 @@ function BundleCard({
       style={{ overflow: "visible" }}
       aria-label={bundle.name_ar}
     >
-      {/* "أفضل قيمة" badge — only on highlighted card */}
-      <div className="bundle-image-wrap">
+      <div className={`bundle-image-wrap${heroImageSrc ? " bundle-image-wrap--has-hero" : ""}`}>
         {heroImageSrc ? (
           <div className="bundle-complete-hero">
             <Image

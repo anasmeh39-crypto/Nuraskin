@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Droplets,
   Eye,
-  FlaskConical,
   Moon,
   ShieldCheck,
-  Sparkles,
   SunMedium,
 } from "lucide-react";
 import dynamic from "next/dynamic";
@@ -50,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "روتين متكامل لبشرة أكثر توازناً | Nura Skin",
+    title: "روتين متكامل لبشرة أكثر توازنًا | Nura Skin",
     description: "Formules de luxe. Livraison COD gratuite au Maroc.",
     images: ["/og-home.jpg"],
   },
@@ -62,87 +59,13 @@ export default function HomePage() {
 
   return (
     <>
+      {/* 1 ── Hero */}
       <HeroSection />
+
+      {/* 2 ── Trust strip: COD, free delivery, quality */}
       <HeroTrustStrip />
-      <CertificationsTrustStrip />
 
-      <section className="bg-white py-16 md:py-20">
-        <div className="container-wide grid gap-8 md:grid-cols-3">
-          {[
-            { icon: FlaskConical, title: "تركيبات مختارة بعناية", text: "مكونات مدروسة بعناية لتناسب احتياجات بشرتك اليومية." },
-            { icon: Sparkles, title: "روتين بسيط وفعّال", text: "عناية يومية واضحة تساعدك على الحفاظ على توازن البشرة وإشراقتها." },
-            { icon: Droplets, title: "عناية تناسب روتينك اليومي", text: "خطوات واضحة ومكونات معروفة لدعم توازن البشرة وإشراقتها." },
-          ].map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={item.title}
-                className="animate-premium-rise group relative min-h-[18.5rem] overflow-hidden rounded-[1.75rem] border border-rose-soft/20 bg-[linear-gradient(145deg,#FFFFFF,#FDF8F8)] p-8 shadow-[0_18px_52px_rgba(61,44,50,0.065)] transition-all duration-300 hover:-translate-y-1 hover:border-rose-soft/40 hover:shadow-[0_24px_68px_rgba(142,90,104,0.14)] md:min-h-[19rem] md:p-7"
-                style={{ animationDelay: `${idx * 100}ms` }}
-              >
-                {idx === 0 && (
-                  <>
-                    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-                      <Image
-                        src="/images/feature-ingredients-clean.png"
-                        alt=""
-                        fill
-                        sizes="(min-width: 768px) 32vw, 100vw"
-                        className="scale-[1.05] object-cover object-[58%_50%] opacity-100 saturate-[1.06] contrast-[1.06]"
-                      />
-                    </div>
-                    <div className="pointer-events-none absolute left-[3%] top-5 h-24 w-36 rounded-full bg-white/18 blur-2xl" aria-hidden />
-                    <div className="pointer-events-none absolute bottom-6 left-[16%] h-20 w-44 rounded-full bg-[#EFD8C9]/18 blur-2xl" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.06)_0%,rgba(255,252,249,0.10)_42%,rgba(255,252,249,0.34)_68%,rgba(253,248,248,0.68)_100%)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_84%_20%,rgba(248,224,226,0.12),transparent_34%)]" aria-hidden />
-                    <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/15 via-white/55 to-transparent" aria-hidden />
-                  </>
-                )}
-                {idx === 1 && (
-                  <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[68%] overflow-hidden md:w-[62%]" aria-hidden>
-                      <Image
-                        src="/images/moroccan-model-card-2.png"
-                        alt=""
-                        fill
-                        sizes="(min-width: 768px) 21vw, 68vw"
-                        className="scale-[1.03] object-cover object-[6%_62%] opacity-[0.92] saturate-[1.04] contrast-[1.03] md:object-[8%_62%]"
-                      />
-                    </div>
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,250,246,0.10)_34%,rgba(255,250,246,0.56)_66%,rgba(253,248,248,0.88)_100%)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_20%,rgba(248,224,226,0.22),transparent_38%)]" aria-hidden />
-                  </>
-                )}
-                {idx === 2 && (
-                  <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-[68%] overflow-hidden md:w-[62%]" aria-hidden>
-                      <Image
-                        src="/images/retinol-texture-card-3.jpeg"
-                        alt=""
-                        fill
-                        sizes="(min-width: 768px) 21vw, 68vw"
-                        className="scale-[1.03] object-cover object-[6%_51%] opacity-[0.94] saturate-[1.05] contrast-[1.04]"
-                      />
-                    </div>
-                    <div className="pointer-events-none absolute left-[32%] top-[22%] h-28 w-24 rounded-full bg-white/16 blur-xl" aria-hidden />
-                    <div className="pointer-events-none absolute left-[23%] bottom-[18%] h-16 w-32 rounded-full bg-[#F2DCCF]/20 blur-xl" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,250,246,0.12)_36%,rgba(255,250,246,0.58)_66%,rgba(253,248,248,0.88)_100%)]" aria-hidden />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_22%,rgba(248,224,226,0.22),transparent_38%)]" aria-hidden />
-                  </>
-                )}
-                <div className="relative z-10 mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-blush text-rose-deep transition-transform duration-300 group-hover:-translate-y-1">
-                  <Icon className="h-5 w-5" strokeWidth={1.25} />
-                </div>
-                <div className={`relative z-10 -m-3 ml-auto max-w-[76%] rounded-2xl p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.82),0_12px_34px_rgba(61,44,50,0.055)] backdrop-blur-[3px] sm:max-w-[72%] md:max-w-[62%] ${idx === 0 ? "border border-white/36 bg-white/76" : "border border-white/48 bg-white/78"}`}>
-                  <h2 className="text-[1.35rem] font-bold leading-snug text-[#3A222C]">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-[#5F4A51]">{item.text}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
+      {/* 3 ── Problem identification: connect to her skin concerns */}
       <section className="bg-ivory py-16 md:py-20">
         <div className="container-wide">
           <div className="mx-auto mb-12 max-w-2xl text-center">
@@ -209,6 +132,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 4 ── Product grid: the 4 individual products */}
       <section className="bg-white py-16 md:py-24">
         <div className="container-wide">
           <div className="mx-auto mb-12 max-w-2xl text-center">
@@ -225,65 +149,19 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 5 ── Bundle offers: the conversion section */}
       <HomePacksSection />
 
-      <section className="bg-rose-blush py-16 md:py-20">
-        <div className="container-wide grid items-center gap-8 md:grid-cols-[0.95fr_1.05fr]">
-          <div className="order-2 md:order-1">
-            <p className="luxury-kicker mb-3">روتين متكامل</p>
-            <h2 className="section-heading text-[#3A222C]">روتين متكامل لبشرة أكثر توازنًا وإشراقًا</h2>
-            <p className="mt-4 max-w-xl text-sm leading-7 text-[#6B5555]">
-              اجمعي سيروم التوازن، كريم الليل، سيروم محيط العين، وواقي الشمس في نظام واحد يدعم العناية الصباحية والليلية.
-            </p>
-            <div className="mt-7 space-y-3">
-              {["العناية الصباحية", "الحماية اليومية", "العناية الليلية", "عناية محيط العين"].map((step, idx) => (
-                <div key={step} className="flex items-center gap-3 rounded-2xl border border-white/70 bg-white/70 p-4 shadow-ivory-sm">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-rose-light text-xs font-bold text-rose-deep">0{idx + 1}</span>
-                  <span className="font-semibold text-[#3A222C]">{step}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 flex flex-col gap-4 border-t border-white/70 pt-5 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="text-sm text-[#9B8A8A]">{routineBundle.name_ar}</p>
-                <p className="text-sm text-[#9B8A8A]">
-                  القيمة الكاملة: <span className="line-through">{routineBundle.compareAtPrice} درهم</span>
-                </p>
-                <p className="text-2xl font-bold text-rose-deep">سعر الروتين: {routineBundle.price} درهم</p>
-                <p className="text-xs font-bold text-nura-plum">وفّري {routineBundle.saving} درهم</p>
-              </div>
-              <Link href="/products" className="rounded-full bg-rose-deep px-6 py-3 text-center text-sm font-bold text-white shadow-rose-md transition hover:bg-[#774956]">
-                اكتشفي الروتين الكامل
-              </Link>
-            </div>
-          </div>
-          <div className="order-1 md:order-2">
-            <div className="premium-float rounded-[2rem] border border-white/75 bg-[linear-gradient(145deg,#FFFDFC,#F7E8ED_54%,#F6F0E8)] p-2.5 shadow-rose-lg md:p-4">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.6rem] border border-white/80 bg-white/50 shadow-ivory-sm sm:aspect-[16/10] md:aspect-[4/3]">
-                <Image
-                  src="/images/nura-complete-routine-section.png"
-                  alt="روتين نورا سكين الكامل لبشرة أكثر توازنًا وإشراقًا"
-                  fill
-                  sizes="(min-width: 1024px) 48vw, (min-width: 768px) 52vw, 92vw"
-                  className="object-cover object-[50%_50%]"
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,250,247,0.02)_0%,rgba(255,250,247,0.04)_54%,rgba(255,250,247,0.24)_100%)]"
-                  aria-hidden
-                />
-                <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-white/85 bg-white/72 px-4 py-2 text-xs font-semibold text-rose-deep shadow-ivory-sm backdrop-blur-md">
-                  روتين نورا الكامل
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      {/* 6 ── Social proof: reviews & testimonials */}
       <TestimonialsSection />
 
+      {/* 7 ── Ingredient education: for skeptics still reading */}
       <HomeIngredientShowcase />
 
+      {/* 8 ── Certifications: legitimacy after desire is established */}
+      <CertificationsTrustStrip />
+
+      {/* 9 ── Final CTA: direct path to order */}
       <section className="px-4 py-16 md:py-16">
         <div className="container-wide relative min-h-[34rem] overflow-hidden rounded-[2rem] border border-[#E7D8CB] bg-[#F8EEE8] text-center shadow-[0_26px_74px_rgba(97,70,58,0.13)] md:min-h-[28rem]">
           <Image
@@ -295,14 +173,25 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,250,246,0.42)_0%,rgba(255,252,248,0.82)_32%,rgba(255,252,248,0.84)_68%,rgba(255,250,246,0.40)_100%)] md:bg-[linear-gradient(90deg,rgba(255,250,246,0.28)_0%,rgba(255,252,248,0.72)_34%,rgba(255,252,248,0.76)_64%,rgba(255,250,246,0.30)_100%)]" aria-hidden />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(255,255,255,0.62),rgba(255,252,248,0.28)_44%,transparent_74%)] md:bg-[radial-gradient(circle_at_50%_48%,rgba(255,255,255,0.48),rgba(255,252,248,0.18)_42%,transparent_72%)]" aria-hidden />
-          <div className="relative z-10 mx-auto flex min-h-[34rem] max-w-[19rem] flex-col items-center justify-center px-6 pb-16 pt-20 md:min-h-[28rem] md:max-w-xl md:px-8 md:py-14">
-            <h2 className="max-w-[16rem] text-[2rem] font-semibold leading-[1.25] text-[#6F5046] md:max-w-none md:text-4xl md:leading-tight">ابدئي روتين نورا سكين اليوم</h2>
-            <p className="mx-auto mt-6 max-w-[17.5rem] text-sm leading-8 text-[#81695F] md:mt-4 md:max-w-lg">
-              عناية ناعمة، تجربة موثوقة، الدفع عند الاستلام وتوصيل مجاني لجميع أنحاء المغرب.
+          <div className="relative z-10 mx-auto flex min-h-[34rem] max-w-[22rem] flex-col items-center justify-center px-6 pb-16 pt-20 md:min-h-[28rem] md:max-w-xl md:px-8 md:py-14">
+            <h2 className="max-w-[18rem] text-[2rem] font-semibold leading-[1.25] text-[#6F5046] md:max-w-none md:text-4xl md:leading-tight">
+              ابدئي روتين نورا سكين اليوم
+            </h2>
+            <p className="mx-auto mt-5 max-w-[18rem] text-sm leading-8 text-[#81695F] md:mt-4 md:max-w-lg">
+              عناية ناعمة، نتائج واضحة — توصيل مجاني لجميع أنحاء المغرب.
             </p>
-            <Link href="/products" className="mt-11 inline-flex w-full justify-center rounded-full border border-[#D9BFAE] bg-[linear-gradient(135deg,#8A655A,#B98D72)] px-9 py-4 font-bold text-white shadow-[0_18px_42px_rgba(137,94,78,0.24)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(137,94,78,0.26)] md:mt-8 md:w-auto md:px-8 md:shadow-[0_16px_38px_rgba(137,94,78,0.20)]">
-              تسوقي المنتجات
+            <Link
+              href="/packs"
+              className="mt-9 inline-flex w-full flex-col items-center justify-center rounded-full border border-[#D9BFAE] bg-[linear-gradient(135deg,#8A655A,#B98D72)] px-9 py-4 font-bold text-white shadow-[0_18px_42px_rgba(137,94,78,0.24)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(137,94,78,0.26)] md:mt-8 md:w-auto md:px-8 md:shadow-[0_16px_38px_rgba(137,94,78,0.20)]"
+            >
+              <span>اطلبي الروتين الكامل — {routineBundle.price} درهم</span>
+              <span className="mt-1 text-[11px] font-normal opacity-80">
+                الدفع عند الاستلام — ما تخلصي حتى توصلي
+              </span>
             </Link>
+            <p className="mt-4 text-xs text-[#9C836E]">
+              توفيري {routineBundle.saving} درهم مقارنة بالشراء المنفرد · إرجاع مجاني
+            </p>
           </div>
         </div>
       </section>
