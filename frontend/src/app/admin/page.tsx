@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -97,6 +98,18 @@ const S = {
     letterSpacing: "0.01em",
     margin: 0,
   } as React.CSSProperties,
+
+  navTab: (active: boolean): React.CSSProperties => ({
+    fontSize: "13px",
+    fontWeight: active ? 600 : 400,
+    color: active ? "#FFF9F6" : "rgba(255,249,246,0.55)",
+    background: active ? "rgba(255,255,255,0.14)" : "transparent",
+    border: "1px solid",
+    borderColor: active ? "rgba(255,255,255,0.22)" : "transparent",
+    borderRadius: "6px",
+    padding: "6px 14px",
+    cursor: "pointer",
+  }),
 
   headerRight: {
     display: "flex",
@@ -458,6 +471,7 @@ function ErrorSection({ message }: { message: string }) {
 // ─── Dashboard ────────────────────────────────────────────────────────────────
 
 function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void }) {
+  const router = useRouter();
   const [days, setDays] = useState(30);
   const [overview, setOverview] = useState<OverviewStats | null>(null);
   const [products, setProducts] = useState<ProductsStats | null>(null);
@@ -505,7 +519,13 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
     <div style={S.page}>
       {/* Header */}
       <div style={S.header}>
-        <h1 style={S.headerTitle}>Nura Skin — Admin</h1>
+        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          <h1 style={S.headerTitle}>Nura Skin — Admin</h1>
+          <button style={S.navTab(true)}>Dashboard</button>
+          <button style={S.navTab(false)} onClick={() => router.push("/admin/profit")}>
+            Profit Calculator
+          </button>
+        </div>
         <div style={S.headerRight}>
           <select
             value={days}
