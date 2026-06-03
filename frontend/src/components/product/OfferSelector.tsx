@@ -193,17 +193,24 @@ function RoutineCard({
         </div>
 
         {/* CTA */}
-        <div className={`rounded-full py-3 text-center text-[13px] font-black transition-colors duration-200 ${
+        <div className={`flex items-center justify-center gap-2 rounded-full py-3 text-[12px] font-medium tracking-wide transition-all duration-300 ${
           isSelected
-            ? "bg-[#8E5A68] text-white"
-            : "border border-[#8E5A68]/35 bg-[#8E5A68]/10 text-[#8E5A68] group-hover:bg-[#8E5A68]/18"
+            ? "bg-[#8E5A68] text-white shadow-[0_4px_16px_rgba(142,90,104,0.30)]"
+            : "border border-[#8E5A68]/30 text-[#8E5A68]/80 group-hover:border-[#8E5A68]/60 group-hover:text-[#8E5A68]"
         }`}>
-          {isSelected
-            ? "✓ تمت الإضافة للسلة"
-            : offer.tier === "single"
-              ? `أريد ${SHORT[offer.products[0]?.slug] ?? offer.products[0]?.name_ar} فقط ←`
-              : "اختاري هذا الروتين ←"
-          }
+          {isSelected ? (
+            <>
+              <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5 shrink-0"><path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              في السلة
+            </>
+          ) : (
+            <>
+              {offer.tier === "single"
+                ? `اختاري ${SHORT[offer.products[0]?.slug] ?? offer.products[0]?.name_ar}`
+                : "اختاري هذا الروتين"}
+              <svg viewBox="0 0 16 16" fill="none" className="w-3 h-3 shrink-0 opacity-60 rotate-180"><path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </>
+          )}
         </div>
       </div>
     </motion.button>
@@ -310,13 +317,24 @@ function FeaturedCard({
                 key={isSelected ? "selected" : "idle"}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
-                className={`mt-4 flex items-center justify-center gap-2 rounded-full py-4 text-[14px] font-black transition-colors duration-200 ${
-                  isSelected ? "bg-white text-[#3D2C32]" : "border border-white/20 bg-white/12 text-white hover:bg-white/20"
+                transition={{ duration: 0.25 }}
+                className={`mt-4 flex items-center justify-center gap-2.5 rounded-full py-3.5 text-[13px] font-medium tracking-wide transition-all duration-300 ${
+                  isSelected
+                    ? "bg-white text-[#3D2C32] shadow-[0_4px_20px_rgba(255,255,255,0.15)]"
+                    : "border border-white/20 text-white/75 hover:border-white/40 hover:text-white"
                 }`}
               >
-                <Sparkles className="h-4 w-4" strokeWidth={1.5} />
-                {isSelected ? "✓ تم الاختيار — روتين نورا الكامل" : "اختاري روتين نورا الكامل"}
+                {isSelected ? (
+                  <>
+                    <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5 shrink-0"><path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    في السلة
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={1.5} />
+                    اختاري الروتين الكامل
+                  </>
+                )}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -395,13 +413,24 @@ function FeaturedCard({
                   key={isSelected ? "selected" : "idle"}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                  className={`mt-4 flex items-center justify-center gap-2 rounded-full py-4 text-[15px] font-black transition-colors duration-200 ${
-                    isSelected ? "bg-white text-[#3D2C32]" : "border border-white/20 bg-white/12 text-white hover:bg-white/20"
+                  transition={{ duration: 0.25 }}
+                  className={`mt-4 flex items-center justify-center gap-2.5 rounded-full py-3.5 text-[13px] font-medium tracking-wide transition-all duration-300 ${
+                    isSelected
+                      ? "bg-white text-[#3D2C32] shadow-[0_4px_20px_rgba(255,255,255,0.15)]"
+                      : "border border-white/20 text-white/75 hover:border-white/40 hover:text-white"
                   }`}
                 >
-                  <Sparkles className="h-4 w-4" strokeWidth={1.5} />
-                  {isSelected ? "✓ تمت الإضافة للسلة — روتين نورا الكامل" : "اختاري روتين نورا الكامل"}
+                  {isSelected ? (
+                    <>
+                      <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5 shrink-0"><path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      في السلة
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={1.5} />
+                      اختاري الروتين الكامل
+                    </>
+                  )}
                 </motion.div>
               </AnimatePresence>
             </div>
