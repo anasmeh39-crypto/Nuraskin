@@ -8,167 +8,13 @@ import { useRouter } from "next/navigation";
 const PLATFORM_FEE = 65;
 
 const PRODUCTS = [
-  { key: "niacinamide", label: "Niacinamide", cost: 52 },
-  { key: "retinol",     label: "Retinol",     cost: 37 },
-  { key: "spf50",       label: "Crème Solaire SPF 50", cost: 66 },
-  { key: "serum",       label: "Sérum Anti-Cernes",    cost: 44 },
+  { key: "niacinamide", label: "Niacinamide",          cost: 52 },
+  { key: "retinol",     label: "Retinol",               cost: 37 },
+  { key: "spf50",       label: "Crème Solaire SPF 50",  cost: 66 },
+  { key: "serum",       label: "Sérum Anti-Cernes",     cost: 44 },
 ] as const;
 
 type ProductKey = (typeof PRODUCTS)[number]["key"];
-
-// ─── Styles (same tokens as main admin page) ──────────────────────────────────
-
-const S = {
-  page: { minHeight: "100vh", background: "#f8f9fa" } as React.CSSProperties,
-
-  header: {
-    background: "#3D2C32",
-    color: "#FFF9F6",
-    padding: "16px 28px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: "16px",
-  } as React.CSSProperties,
-
-  headerLeft: { display: "flex", alignItems: "center", gap: "20px" } as React.CSSProperties,
-
-  headerTitle: {
-    fontSize: "17px",
-    fontWeight: 600,
-    letterSpacing: "0.01em",
-    margin: 0,
-    cursor: "pointer",
-  } as React.CSSProperties,
-
-  navTab: (active: boolean): React.CSSProperties => ({
-    fontSize: "13px",
-    fontWeight: active ? 600 : 400,
-    color: active ? "#FFF9F6" : "rgba(255,249,246,0.55)",
-    background: active ? "rgba(255,255,255,0.14)" : "transparent",
-    border: "1px solid",
-    borderColor: active ? "rgba(255,255,255,0.22)" : "transparent",
-    borderRadius: "6px",
-    padding: "6px 14px",
-    cursor: "pointer",
-    transition: "all 0.15s",
-  }),
-
-  logoutBtn: {
-    background: "rgba(255,255,255,0.12)",
-    border: "1px solid rgba(255,255,255,0.2)",
-    color: "#FFF9F6",
-    borderRadius: "6px",
-    padding: "6px 14px",
-    fontSize: "13px",
-    cursor: "pointer",
-  } as React.CSSProperties,
-
-  body: {
-    padding: "28px 28px 64px",
-    maxWidth: "820px",
-    margin: "0 auto",
-  } as React.CSSProperties,
-
-  sectionTitle: {
-    fontSize: "13px",
-    fontWeight: 700,
-    letterSpacing: "0.08em",
-    textTransform: "uppercase" as const,
-    color: "#8E5A68",
-    marginBottom: "14px",
-    marginTop: "32px",
-  } as React.CSSProperties,
-
-  card: {
-    background: "#ffffff",
-    borderRadius: "10px",
-    padding: "22px 24px",
-    border: "1px solid #EBE0E4",
-    boxShadow: "0 1px 4px rgba(61,44,50,0.05)",
-  } as React.CSSProperties,
-
-  row: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: "16px",
-    padding: "10px 0",
-    borderBottom: "1px solid #f3ede8",
-  } as React.CSSProperties,
-
-  rowLast: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: "16px",
-    padding: "10px 0",
-  } as React.CSSProperties,
-
-  label: { fontSize: "13px", color: "#6B4E56", fontWeight: 500 } as React.CSSProperties,
-  subLabel: { fontSize: "12px", color: "#8D7D82" } as React.CSSProperties,
-
-  input: {
-    width: "130px",
-    padding: "7px 10px",
-    border: "1px solid #EBE0E4",
-    borderRadius: "7px",
-    fontSize: "14px",
-    textAlign: "right" as const,
-    color: "#3D2C32",
-    outline: "none",
-    fontVariantNumeric: "tabular-nums",
-    background: "#fff",
-  } as React.CSSProperties,
-
-  resultGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: "14px",
-  } as React.CSSProperties,
-
-  resultCard: (accent?: boolean): React.CSSProperties => ({
-    background: accent ? "#3D2C32" : "#ffffff",
-    borderRadius: "10px",
-    padding: "18px 20px",
-    border: `1px solid ${accent ? "#3D2C32" : "#EBE0E4"}`,
-    boxShadow: "0 1px 4px rgba(61,44,50,0.05)",
-  }),
-
-  resultLabel: (accent?: boolean): React.CSSProperties => ({
-    fontSize: "11px",
-    fontWeight: 700,
-    letterSpacing: "0.07em",
-    textTransform: "uppercase",
-    color: accent ? "rgba(255,249,246,0.55)" : "#8D7D82",
-    marginBottom: "6px",
-  }),
-
-  resultValue: (accent?: boolean, negative?: boolean): React.CSSProperties => ({
-    fontSize: "22px",
-    fontWeight: 700,
-    color: accent ? "#FFF9F6" : negative ? "#e74c3c" : "#3D2C32",
-    lineHeight: 1.15,
-    fontVariantNumeric: "tabular-nums",
-  }),
-
-  resultSub: (accent?: boolean): React.CSSProperties => ({
-    fontSize: "11px",
-    color: accent ? "rgba(255,249,246,0.45)" : "#8D7D82",
-    marginTop: "3px",
-  }),
-
-  resetBtn: {
-    background: "transparent",
-    border: "1px solid #EBE0E4",
-    color: "#8D7D82",
-    borderRadius: "6px",
-    padding: "7px 16px",
-    fontSize: "13px",
-    cursor: "pointer",
-    marginTop: "24px",
-  } as React.CSSProperties,
-};
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -179,8 +25,9 @@ function fmt(n: number, decimals = 0) {
   }).format(n);
 }
 
-function fmtMAD(n: number) {
-  return `${fmt(n)} DH`;
+function fmtMAD(n: number, showSign = false) {
+  const sign = showSign && n > 0 ? "+" : "";
+  return `${sign}${fmt(Math.abs(n))} DH`;
 }
 
 function numInput(val: string): number {
@@ -194,9 +41,8 @@ const STORAGE_KEY = "nura_admin_key";
 
 export default function ProfitPage() {
   const router = useRouter();
-
-  // auth check
   const [ready, setReady] = useState(false);
+
   useEffect(() => {
     if (!localStorage.getItem(STORAGE_KEY)) {
       router.replace("/admin");
@@ -205,15 +51,15 @@ export default function ProfitPage() {
     }
   }, [router]);
 
-  // inputs
+  // ── Inputs ────────────────────────────────────────────────────────────────
   const [deliveredRevenue, setDeliveredRevenue] = useState("");
-  const [adSpend, setAdSpend] = useState("");
-  const [deliveredOrders, setDeliveredOrders] = useState("");
+  const [adSpend, setAdSpend]                   = useState("");
+  const [deliveredOrders, setDeliveredOrders]   = useState("");
   const [qty, setQty] = useState<Record<ProductKey, string>>({
     niacinamide: "",
-    retinol: "",
-    spf50: "",
-    serum: "",
+    retinol:     "",
+    spf50:       "",
+    serum:       "",
   });
 
   function handleQty(key: ProductKey, val: string) {
@@ -232,223 +78,453 @@ export default function ProfitPage() {
     router.push("/admin");
   }
 
-  // ── Calculations ──────────────────────────────────────────────────────────
+  // ── Calculations (unchanged) ──────────────────────────────────────────────
+  const revenue     = numInput(deliveredRevenue);
+  const spend       = numInput(adSpend);
+  const orders      = numInput(deliveredOrders);
 
-  const revenue = numInput(deliveredRevenue);
-  const spend = numInput(adSpend);
-  const orders = numInput(deliveredOrders);
-
-  const productCost = PRODUCTS.reduce(
-    (sum, p) => sum + numInput(qty[p.key]) * p.cost,
-    0
-  );
-  const platformFees = orders * PLATFORM_FEE;
+  const productCost   = PRODUCTS.reduce((sum, p) => sum + numInput(qty[p.key]) * p.cost, 0);
+  const platformFees  = orders * PLATFORM_FEE;
   const totalExpenses = productCost + platformFees + spend;
-  const netProfit = revenue - totalExpenses;
-  const profitMargin = revenue > 0 ? (netProfit / revenue) * 100 : 0;
-  const roas = spend > 0 ? revenue / spend : 0;
+  const netProfit     = revenue - totalExpenses;
+  const profitMargin  = revenue > 0 ? (netProfit / revenue) * 100 : 0;
+  const roas          = spend > 0 ? revenue / spend : 0;
   const costPerDelivered = orders > 0 ? spend / orders : 0;
 
-  const hasData = revenue > 0 || spend > 0 || orders > 0;
+  const hasData      = revenue > 0 || spend > 0 || orders > 0;
+  const isPositive   = hasData && netProfit >= 0;
+  const isNegative   = hasData && netProfit < 0;
 
   if (!ready) return null;
 
+  // ── Profit hero colours ───────────────────────────────────────────────────
+  const heroBg     = isPositive ? "#f0fdf4" : isNegative ? "#fef2f2" : "#ffffff";
+  const heroBorder = isPositive ? "#bbf7d0" : isNegative ? "#fecaca" : "#EBE0E4";
+  const heroColor  = isPositive ? "#15803d" : isNegative ? "#dc2626" : "#C9A4AE";
+
   return (
-    <div style={S.page}>
-      {/* Header */}
-      <div style={S.header}>
-        <div style={S.headerLeft}>
-          <h1 style={S.headerTitle} onClick={() => router.push("/admin")}>
-            Nura Skin — Admin
-          </h1>
-          <button style={S.navTab(false)} onClick={() => router.push("/admin")}>
-            Dashboard
-          </button>
-          <button style={S.navTab(true)}>
-            Profit Calculator
-          </button>
-        </div>
-        <button onClick={handleLogout} style={S.logoutBtn}>
-          Sign out
-        </button>
-      </div>
+    <>
+      {/* Responsive helpers injected once */}
+      <style>{`
+        .profit-main-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+        }
+        .profit-summary-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 12px;
+        }
+        @media (max-width: 720px) {
+          .profit-main-grid   { grid-template-columns: 1fr; }
+          .profit-summary-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+        input:focus { border-color: #C9A4AE !important; box-shadow: 0 0 0 3px rgba(201,164,174,0.15); }
+      `}</style>
 
-      <div style={S.body}>
+      <div style={{ minHeight: "100vh", background: "#f8f9fa", fontFamily: "'Inter', system-ui, sans-serif" }}>
 
-        {/* ── Inputs ── */}
-        <div style={S.sectionTitle}>Inputs</div>
-        <div style={S.card}>
-          {/* Delivered revenue */}
-          <div style={S.row}>
-            <div>
-              <div style={S.label}>Delivered Revenue</div>
-              <div style={S.subLabel}>Cash actually collected — delivered orders only</div>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <input
-                type="number"
-                min="0"
-                placeholder="0"
-                value={deliveredRevenue}
-                onChange={(e) => setDeliveredRevenue(e.target.value)}
-                style={S.input}
-              />
-              <span style={{ fontSize: "12px", color: "#8D7D82" }}>DH</span>
-            </div>
+        {/* ── Header ── */}
+        <div style={{
+          background: "#3D2C32", color: "#FFF9F6",
+          padding: "16px 28px", display: "flex",
+          alignItems: "center", justifyContent: "space-between", gap: "16px",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            <h1
+              onClick={() => router.push("/admin")}
+              style={{ fontSize: "17px", fontWeight: 600, margin: 0, cursor: "pointer", letterSpacing: "0.01em" }}
+            >
+              Nura Skin — Admin
+            </h1>
+            <NavBtn active={false} onClick={() => router.push("/admin")}>Dashboard</NavBtn>
+            <NavBtn active>Profit Calculator</NavBtn>
           </div>
-
-          {/* Ad spend */}
-          <div style={S.row}>
-            <div>
-              <div style={S.label}>Ad Spend</div>
-              <div style={S.subLabel}>Total paid to ads (Meta, TikTok, etc.)</div>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <input
-                type="number"
-                min="0"
-                placeholder="0"
-                value={adSpend}
-                onChange={(e) => setAdSpend(e.target.value)}
-                style={S.input}
-              />
-              <span style={{ fontSize: "12px", color: "#8D7D82" }}>DH</span>
-            </div>
-          </div>
-
-          {/* Delivered orders */}
-          <div style={S.rowLast}>
-            <div>
-              <div style={S.label}>Delivered Orders</div>
-              <div style={S.subLabel}>Number of orders physically received by customers</div>
-            </div>
-            <input
-              type="number"
-              min="0"
-              placeholder="0"
-              value={deliveredOrders}
-              onChange={(e) => setDeliveredOrders(e.target.value)}
-              style={S.input}
-            />
-          </div>
+          <button onClick={handleLogout} style={btn.logout}>Sign out</button>
         </div>
 
-        {/* ── Product quantities ── */}
-        <div style={S.sectionTitle}>Product Quantities</div>
-        <div style={S.card}>
-          {PRODUCTS.map((p, i) => (
-            <div key={p.key} style={i < PRODUCTS.length - 1 ? S.row : S.rowLast}>
-              <div>
-                <div style={S.label}>{p.label}</div>
-                <div style={S.subLabel}>Cost: {p.cost} DH / unit</div>
+        <div style={{ padding: "28px 28px 64px", maxWidth: "1060px", margin: "0 auto" }}>
+
+          {/* ── Net Profit Hero ── */}
+          <div style={{
+            background: heroBg, border: `1.5px solid ${heroBorder}`,
+            borderRadius: "14px", padding: "28px 32px",
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            flexWrap: "wrap", gap: "16px",
+            boxShadow: "0 2px 8px rgba(61,44,50,0.06)",
+            marginBottom: "16px",
+          }}>
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.09em", textTransform: "uppercase", color: "#8D7D82", marginBottom: "8px" }}>
+                Net Profit
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <input
-                  type="number"
-                  min="0"
-                  placeholder="0"
-                  value={qty[p.key]}
-                  onChange={(e) => handleQty(p.key, e.target.value)}
-                  style={S.input}
+              <div style={{ fontSize: "44px", fontWeight: 800, color: heroColor, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>
+                {hasData ? `${netProfit >= 0 ? "+" : "−"}${fmt(Math.abs(netProfit))} DH` : "—"}
+              </div>
+              <div style={{ fontSize: "12px", color: "#8D7D82", marginTop: "8px" }}>
+                {hasData
+                  ? isPositive
+                    ? `Profit margin ${fmt(profitMargin, 1)}% · After ads, products & platform fees`
+                    : `Loss of ${fmt(Math.abs(netProfit))} DH — check your costs`
+                  : "Enter your numbers on the left to see results"}
+              </div>
+            </div>
+            {hasData && (
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                <PillStat label="Margin" value={`${fmt(profitMargin, 1)}%`} positive={isPositive} />
+                <PillStat label="ROAS"   value={spend > 0 ? `${fmt(roas, 2)}x` : "—"} />
+              </div>
+            )}
+          </div>
+
+          {/* ── Summary Row ── */}
+          <div className="profit-summary-grid" style={{ marginBottom: "28px" }}>
+            <SummaryCard label="Delivered Revenue" value={hasData ? fmtMAD(revenue) : "—"} sub="Cash collected" />
+            <SummaryCard label="Total Expenses"    value={hasData ? fmtMAD(totalExpenses) : "—"} sub="Ads + products + platform" />
+            <SummaryCard label="ROAS"              value={spend > 0 ? `${fmt(roas, 2)}x` : "—"} sub="Revenue / Ad spend" />
+            <SummaryCard label="Cost / Delivered"  value={orders > 0 && spend > 0 ? fmtMAD(costPerDelivered) : "—"} sub="Ad spend / orders" />
+          </div>
+
+          {/* ── Main two-column area ── */}
+          <div className="profit-main-grid">
+
+            {/* LEFT — Inputs */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+
+              {/* Manual inputs */}
+              <Section title="Manual Inputs">
+                <InputRow
+                  label="Delivered Revenue"
+                  hint="Use delivered revenue only — not total orders"
+                  value={deliveredRevenue}
+                  onChange={setDeliveredRevenue}
+                  unit="DH"
                 />
-                <span style={{ fontSize: "12px", color: "#8D7D82", width: "60px", textAlign: "right" }}>
-                  = {fmtMAD(numInput(qty[p.key]) * p.cost)}
-                </span>
-              </div>
+                <InputRow
+                  label="Ad Spend"
+                  hint="Total paid to Meta, TikTok, etc."
+                  value={adSpend}
+                  onChange={setAdSpend}
+                  unit="DH"
+                />
+                <InputRow
+                  label="Delivered Orders"
+                  hint={`Platform fee: ${PLATFORM_FEE} DH per delivered order`}
+                  value={deliveredOrders}
+                  onChange={setDeliveredOrders}
+                  last
+                />
+              </Section>
+
+              {/* Product quantities */}
+              <Section title="Product Quantities">
+                <div style={{ fontSize: "12px", color: "#8D7D82", marginBottom: "16px" }}>
+                  Enter units sold for each product to calculate product cost.
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                  {PRODUCTS.map((p) => (
+                    <ProductInput
+                      key={p.key}
+                      label={p.label}
+                      cost={p.cost}
+                      value={qty[p.key]}
+                      onChange={(v) => handleQty(p.key, v)}
+                      subtotal={numInput(qty[p.key]) * p.cost}
+                    />
+                  ))}
+                </div>
+              </Section>
+
             </div>
-          ))}
+
+            {/* RIGHT — P&L breakdown */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+
+              <Section title="P&L Breakdown">
+                <div style={{ fontSize: "12px", color: "#8D7D82", marginBottom: "16px" }}>
+                  Profit is calculated after ads, product cost, and platform fees.
+                </div>
+
+                {/* Revenue line */}
+                <PLLine label="Delivered Revenue" value={revenue} type="income" />
+
+                {/* Expense lines */}
+                <div style={{ margin: "4px 0", borderTop: "1px dashed #EBE0E4", paddingTop: "12px" }}>
+                  <div style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em", color: "#8D7D82", marginBottom: "10px" }}>
+                    Expenses
+                  </div>
+                  <PLLine label="Ad Spend"      value={spend}        type="expense" />
+                  <PLLine label="Product Cost"  value={productCost}  type="expense" />
+                  <PLLine
+                    label={`Platform Fees (${fmt(orders)} × ${PLATFORM_FEE} DH)`}
+                    value={platformFees}
+                    type="expense"
+                  />
+                </div>
+
+                {/* Total expenses */}
+                <div style={{ borderTop: "1.5px solid #EBE0E4", marginTop: "8px", paddingTop: "12px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: "13px", fontWeight: 600, color: "#6B4E56" }}>Total Expenses</span>
+                  <span style={{ fontSize: "15px", fontWeight: 700, color: "#3D2C32", fontVariantNumeric: "tabular-nums" }}>
+                    {fmtMAD(totalExpenses)}
+                  </span>
+                </div>
+
+                {/* Net profit result line */}
+                <div style={{
+                  marginTop: "12px", padding: "14px 16px",
+                  background: heroBg, border: `1px solid ${heroBorder}`,
+                  borderRadius: "9px",
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
+                }}>
+                  <span style={{ fontSize: "14px", fontWeight: 700, color: heroColor }}>Net Profit</span>
+                  <span style={{ fontSize: "20px", fontWeight: 800, color: heroColor, fontVariantNumeric: "tabular-nums" }}>
+                    {hasData ? `${netProfit >= 0 ? "+" : "−"}${fmt(Math.abs(netProfit))} DH` : "—"}
+                  </span>
+                </div>
+              </Section>
+
+              {/* Profit analysis */}
+              <Section title="Profit Analysis">
+                <AnalysisRow
+                  label="Profit Margin"
+                  value={hasData && revenue > 0 ? `${fmt(profitMargin, 1)}%` : "—"}
+                  sub="Net profit / Revenue"
+                  highlight={hasData && revenue > 0}
+                  good={profitMargin >= 0}
+                />
+                <AnalysisRow
+                  label="ROAS"
+                  value={spend > 0 ? `${fmt(roas, 2)}x` : "—"}
+                  sub="Revenue / Ad Spend"
+                />
+                <AnalysisRow
+                  label="Cost per Delivered Order"
+                  value={orders > 0 && spend > 0 ? fmtMAD(costPerDelivered) : "—"}
+                  sub="Ad Spend / Delivered Orders"
+                  last
+                />
+              </Section>
+
+              <button onClick={handleReset} style={btn.reset}>
+                Reset all
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
+    </>
+  );
+}
 
-        {/* ── Cost breakdown ── */}
-        <div style={S.sectionTitle}>Cost Breakdown</div>
-        <div style={S.card}>
-          <div style={S.row}>
-            <div style={S.label}>Product Cost</div>
-            <div style={{ fontSize: "14px", fontWeight: 600, color: "#3D2C32" }}>
-              {fmtMAD(productCost)}
-            </div>
-          </div>
-          <div style={S.row}>
-            <div>
-              <div style={S.label}>Platform Fees</div>
-              <div style={S.subLabel}>{fmt(orders)} orders × {PLATFORM_FEE} DH</div>
-            </div>
-            <div style={{ fontSize: "14px", fontWeight: 600, color: "#3D2C32" }}>
-              {fmtMAD(platformFees)}
-            </div>
-          </div>
-          <div style={S.row}>
-            <div style={S.label}>Ad Spend</div>
-            <div style={{ fontSize: "14px", fontWeight: 600, color: "#3D2C32" }}>
-              {fmtMAD(spend)}
-            </div>
-          </div>
-          <div style={{ ...S.rowLast, paddingTop: "14px" }}>
-            <div style={{ ...S.label, fontWeight: 700, color: "#3D2C32" }}>Total Expenses</div>
-            <div style={{ fontSize: "16px", fontWeight: 700, color: "#3D2C32" }}>
-              {fmtMAD(totalExpenses)}
-            </div>
-          </div>
-        </div>
+// ─── Small reusable pieces ────────────────────────────────────────────────────
 
-        {/* ── Results ── */}
-        <div style={S.sectionTitle}>Results</div>
-        <div style={S.resultGrid}>
-          {/* Net profit — accent */}
-          <div style={S.resultCard(true)}>
-            <div style={S.resultLabel(true)}>Net Profit</div>
-            <div style={{ ...S.resultValue(true, netProfit < 0 && hasData), color: hasData ? (netProfit >= 0 ? "#4ade80" : "#f87171") : "#FFF9F6" }}>
-              {hasData ? fmtMAD(netProfit) : "—"}
-            </div>
-            <div style={S.resultSub(true)}>Revenue − Expenses</div>
-          </div>
+function NavBtn({ active, onClick, children }: { active: boolean; onClick?: () => void; children: React.ReactNode }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        fontSize: "13px",
+        fontWeight: active ? 600 : 400,
+        color: active ? "#FFF9F6" : "rgba(255,249,246,0.55)",
+        background: active ? "rgba(255,255,255,0.14)" : "transparent",
+        border: `1px solid ${active ? "rgba(255,255,255,0.22)" : "transparent"}`,
+        borderRadius: "6px",
+        padding: "6px 14px",
+        cursor: active ? "default" : "pointer",
+      }}
+    >
+      {children}
+    </button>
+  );
+}
 
-          {/* Profit margin */}
-          <div style={S.resultCard()}>
-            <div style={S.resultLabel()}>Profit Margin</div>
-            <div style={{ ...S.resultValue(), color: hasData && revenue > 0 ? (profitMargin >= 0 ? "#3D2C32" : "#e74c3c") : "#3D2C32" }}>
-              {hasData && revenue > 0 ? `${fmt(profitMargin, 1)}%` : "—"}
-            </div>
-            <div style={S.resultSub()}>Net profit / Revenue</div>
-          </div>
+function SummaryCard({ label, value, sub }: { label: string; value: string; sub: string }) {
+  return (
+    <div style={{
+      background: "#fff", borderRadius: "10px", padding: "16px 18px",
+      border: "1px solid #EBE0E4", boxShadow: "0 1px 3px rgba(61,44,50,0.04)",
+    }}>
+      <div style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em", color: "#8D7D82", marginBottom: "6px" }}>
+        {label}
+      </div>
+      <div style={{ fontSize: "20px", fontWeight: 700, color: "#3D2C32", fontVariantNumeric: "tabular-nums", lineHeight: 1.2 }}>
+        {value}
+      </div>
+      <div style={{ fontSize: "11px", color: "#B88996", marginTop: "4px" }}>{sub}</div>
+    </div>
+  );
+}
 
-          {/* ROAS */}
-          <div style={S.resultCard()}>
-            <div style={S.resultLabel()}>ROAS</div>
-            <div style={S.resultValue()}>
-              {spend > 0 ? `${fmt(roas, 2)}x` : "—"}
-            </div>
-            <div style={S.resultSub()}>Revenue / Ad Spend</div>
-          </div>
-
-          {/* Total expenses */}
-          <div style={S.resultCard()}>
-            <div style={S.resultLabel()}>Total Expenses</div>
-            <div style={S.resultValue()}>{hasData ? fmtMAD(totalExpenses) : "—"}</div>
-            <div style={S.resultSub()}>Products + Platform + Ads</div>
-          </div>
-
-          {/* Cost per delivered order */}
-          <div style={S.resultCard()}>
-            <div style={S.resultLabel()}>Cost / Delivered Order</div>
-            <div style={S.resultValue()}>
-              {orders > 0 && spend > 0 ? fmtMAD(costPerDelivered) : "—"}
-            </div>
-            <div style={S.resultSub()}>Ad Spend / Delivered Orders</div>
-          </div>
-
-          {/* Platform fees */}
-          <div style={S.resultCard()}>
-            <div style={S.resultLabel()}>Platform Fees</div>
-            <div style={S.resultValue()}>{hasData ? fmtMAD(platformFees) : "—"}</div>
-            <div style={S.resultSub()}>{fmt(orders)} orders × {PLATFORM_FEE} DH</div>
-          </div>
-        </div>
-
-        <button onClick={handleReset} style={S.resetBtn}>
-          Reset
-        </button>
+function PillStat({ label, value, positive }: { label: string; value: string; positive?: boolean }) {
+  return (
+    <div style={{
+      background: "rgba(255,255,255,0.7)", border: "1px solid rgba(255,255,255,0.8)",
+      borderRadius: "8px", padding: "10px 16px", textAlign: "center" as const,
+      minWidth: "80px",
+    }}>
+      <div style={{ fontSize: "11px", color: "#8D7D82", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "3px" }}>
+        {label}
+      </div>
+      <div style={{ fontSize: "16px", fontWeight: 700, color: positive === false ? "#dc2626" : "#3D2C32" }}>
+        {value}
       </div>
     </div>
   );
 }
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div style={{
+      background: "#fff", borderRadius: "12px", border: "1px solid #EBE0E4",
+      boxShadow: "0 1px 4px rgba(61,44,50,0.05)", overflow: "hidden",
+    }}>
+      <div style={{
+        padding: "14px 20px", borderBottom: "1px solid #f3ede8",
+        fontSize: "11px", fontWeight: 700, textTransform: "uppercase",
+        letterSpacing: "0.08em", color: "#8E5A68",
+      }}>
+        {title}
+      </div>
+      <div style={{ padding: "18px 20px" }}>{children}</div>
+    </div>
+  );
+}
+
+function InputRow({
+  label, hint, value, onChange, unit, last,
+}: {
+  label: string; hint: string; value: string;
+  onChange: (v: string) => void; unit?: string; last?: boolean;
+}) {
+  return (
+    <div style={{
+      display: "flex", alignItems: "flex-start", justifyContent: "space-between",
+      gap: "12px", paddingBottom: last ? "0" : "14px",
+      borderBottom: last ? "none" : "1px solid #f3ede8", marginBottom: last ? "0" : "14px",
+    }}>
+      <div style={{ flex: 1 }}>
+        <div style={{ fontSize: "13px", fontWeight: 600, color: "#3D2C32", marginBottom: "3px" }}>{label}</div>
+        <div style={{ fontSize: "11px", color: "#B88996" }}>{hint}</div>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: "5px", flexShrink: 0 }}>
+        <input
+          type="number"
+          min="0"
+          placeholder="0"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          style={{
+            width: "110px", padding: "8px 10px",
+            border: "1px solid #EBE0E4", borderRadius: "7px",
+            fontSize: "14px", textAlign: "right" as const,
+            color: "#3D2C32", outline: "none",
+            fontVariantNumeric: "tabular-nums", background: "#FAFAFA",
+            transition: "border-color 0.15s, box-shadow 0.15s",
+          }}
+        />
+        {unit && <span style={{ fontSize: "12px", color: "#8D7D82", width: "20px" }}>{unit}</span>}
+      </div>
+    </div>
+  );
+}
+
+function ProductInput({
+  label, cost, value, onChange, subtotal,
+}: {
+  label: string; cost: number; value: string;
+  onChange: (v: string) => void; subtotal: number;
+}) {
+  const hasQty = numInput(value) > 0;
+  return (
+    <div style={{
+      border: "1px solid #EBE0E4", borderRadius: "9px", padding: "12px 14px",
+      background: hasQty ? "#FDFBF9" : "#FAFAFA",
+      transition: "background 0.15s",
+    }}>
+      <div style={{ fontSize: "12px", fontWeight: 600, color: "#6B4E56", marginBottom: "2px" }}>{label}</div>
+      <div style={{ fontSize: "11px", color: "#B88996", marginBottom: "10px" }}>{cost} DH / unit</div>
+      <input
+        type="number"
+        min="0"
+        placeholder="0"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        style={{
+          width: "100%", padding: "7px 10px",
+          border: "1px solid #EBE0E4", borderRadius: "6px",
+          fontSize: "14px", textAlign: "right" as const,
+          color: "#3D2C32", outline: "none",
+          fontVariantNumeric: "tabular-nums", background: "#fff",
+          boxSizing: "border-box" as const,
+          transition: "border-color 0.15s, box-shadow 0.15s",
+        }}
+      />
+      {hasQty && (
+        <div style={{ fontSize: "11px", color: "#8E5A68", fontWeight: 600, marginTop: "6px", textAlign: "right" as const }}>
+          = {fmt(subtotal)} DH
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PLLine({ label, value, type }: { label: string; value: number; type: "income" | "expense" }) {
+  const isIncome  = type === "income";
+  const color     = isIncome ? "#15803d" : value > 0 ? "#3D2C32" : "#8D7D82";
+  const prefix    = isIncome ? "+" : value > 0 ? "−" : "";
+  return (
+    <div style={{
+      display: "flex", justifyContent: "space-between", alignItems: "center",
+      padding: "6px 0", borderBottom: "1px solid #faf5f6",
+    }}>
+      <span style={{ fontSize: "13px", color: "#6B4E56" }}>{label}</span>
+      <span style={{ fontSize: "13px", fontWeight: 600, color, fontVariantNumeric: "tabular-nums" }}>
+        {prefix}{fmt(value)} DH
+      </span>
+    </div>
+  );
+}
+
+function AnalysisRow({
+  label, value, sub, highlight, good, last,
+}: {
+  label: string; value: string; sub: string;
+  highlight?: boolean; good?: boolean; last?: boolean;
+}) {
+  const valueColor = highlight ? (good ? "#15803d" : "#dc2626") : "#3D2C32";
+  return (
+    <div style={{
+      display: "flex", justifyContent: "space-between", alignItems: "flex-start",
+      padding: "11px 0", borderBottom: last ? "none" : "1px solid #f3ede8",
+    }}>
+      <div>
+        <div style={{ fontSize: "13px", fontWeight: 600, color: "#3D2C32" }}>{label}</div>
+        <div style={{ fontSize: "11px", color: "#B88996", marginTop: "2px" }}>{sub}</div>
+      </div>
+      <div style={{ fontSize: "18px", fontWeight: 700, color: valueColor, fontVariantNumeric: "tabular-nums" }}>
+        {value}
+      </div>
+    </div>
+  );
+}
+
+const btn = {
+  logout: {
+    background: "rgba(255,255,255,0.12)",
+    border: "1px solid rgba(255,255,255,0.2)",
+    color: "#FFF9F6", borderRadius: "6px",
+    padding: "6px 14px", fontSize: "13px", cursor: "pointer",
+  } as React.CSSProperties,
+
+  reset: {
+    background: "transparent", border: "1px solid #EBE0E4",
+    color: "#8D7D82", borderRadius: "7px",
+    padding: "9px 20px", fontSize: "13px", cursor: "pointer",
+    alignSelf: "flex-start",
+  } as React.CSSProperties,
+};
