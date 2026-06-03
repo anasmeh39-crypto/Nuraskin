@@ -6,8 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, Crown, Moon, Sparkles, Sun, Truck } from "lucide-react";
 import { getProductPageOffers, ProductPageOffer } from "@/config/products";
 import { Product } from "@/types";
-import { useCartStore } from "@/store/cart";
-import { generateEventId, trackAddToCart } from "@/lib/tracking";
 
 type Offer = ProductPageOffer;
 
@@ -81,12 +79,10 @@ function RoutineCard({
   offer,
   isSelected,
   onSelect,
-  onAdd,
 }: {
   offer: Offer;
   isSelected: boolean;
   onSelect: () => void;
-  onAdd: (offer: Offer) => void;
 }) {
   const slugs   = offer.products.map(p => p.slug);
   const tags    = getTimingTags(slugs);
@@ -98,7 +94,7 @@ function RoutineCard({
   return (
     <motion.button
       type="button"
-      onClick={() => { onSelect(); onAdd(offer); }}
+      onClick={onSelect}
       whileTap={{ scale: 0.98 }}
       aria-pressed={isSelected}
       className={`group relative flex w-full flex-col overflow-hidden rounded-[1.5rem] bg-white text-right transition-all duration-250 ${
@@ -201,7 +197,7 @@ function RoutineCard({
           {isSelected ? (
             <>
               <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5 shrink-0"><path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              في السلة
+              تم الاختيار
             </>
           ) : (
             <>
@@ -222,12 +218,10 @@ function FeaturedCard({
   offer,
   isSelected,
   onSelect,
-  onAdd,
 }: {
   offer: Offer;
   isSelected: boolean;
   onSelect: () => void;
-  onAdd: (offer: Offer) => void;
 }) {
   const benefit = getBenefit(offer);
   const savings = offer.saving && offer.originalPrice
@@ -237,7 +231,7 @@ function FeaturedCard({
   return (
     <motion.button
       type="button"
-      onClick={() => { onSelect(); onAdd(offer); }}
+      onClick={onSelect}
       whileTap={{ scale: 0.99 }}
       aria-pressed={isSelected}
       className={`group relative w-full overflow-hidden rounded-[1.5rem] text-right transition-all duration-300 ${
@@ -423,7 +417,7 @@ function FeaturedCard({
                   {isSelected ? (
                     <>
                       <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5 shrink-0"><path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      في السلة
+                      تم الاختيار
                     </>
                   ) : (
                     <>
@@ -452,13 +446,6 @@ export function OfferSelector({ product, onOfferChange }: Props) {
   const offers       = useMemo(() => getProductPageOffers(product.slug), [product.slug]);
   const defaultOffer = offers.find(o => o.recommended) ?? offers[offers.length - 1] ?? offers[0];
   const [selected, setSelected] = useState(defaultOffer?.id);
-  const { addItem, removeItem, openDrawer } = useCartStore();
-
-  // All slugs that can appear across any offer on this product page
-  const allPageSlugs = useMemo(
-    () => new Set(offers.flatMap(o => o.products.map(p => p.slug))),
-    [offers],
-  );
 
   const announceOffer = React.useCallback(
     (offer: Offer) => {
@@ -468,43 +455,6 @@ export function OfferSelector({ product, onOfferChange }: Props) {
     },
     [product.slug],
   );
-
-  const addOfferToCart = React.useCallback((offer: Offer) => {
-    // Replace — remove any cart items that belong to this product page's offer pool
-    const { items } = useCartStore.getState();
-    items
-      .filter(item => allPageSlugs.has(item.slug))
-      .forEach(item => removeItem(item.cartKey ?? item.slug));
-
-    // Add the newly selected offer
-    const unitPrice = Math.floor(offer.price / offer.products.length);
-    const remainder = offer.price - unitPrice * offer.products.length;
-    offer.products.forEach((p, idx) => {
-      const allocatedPrice = unitPrice + (idx === 0 ? remainder : 0);
-      const compareAtPrice = offer.products.length > 1 ? p.price : p.compareAtPrice;
-      addItem({
-        slug: p.slug,
-        name_ar: p.name_ar,
-        price: allocatedPrice,
-        image: p.image,
-        compareAtPrice,
-        bundleName: offer.bundleName,
-        discountAmount: Math.max(compareAtPrice - allocatedPrice, 0),
-      });
-    });
-    trackAddToCart(
-      offer.products.map((p, idx) => ({
-        slug: p.slug,
-        name_ar: p.name_ar,
-        price: unitPrice + (idx === 0 ? remainder : 0),
-        image: p.image,
-        quantity: 1,
-      })),
-      offer.price,
-      generateEventId(),
-    );
-    openDrawer();
-  }, [addItem, removeItem, openDrawer, allPageSlugs]);
 
   const select = (offer: Offer) => {
     setSelected(offer.id);
@@ -555,7 +505,6 @@ export function OfferSelector({ product, onOfferChange }: Props) {
             offer={offer}
             isSelected={selected === offer.id}
             onSelect={() => select(offer)}
-            onAdd={addOfferToCart}
           />
         ))}
       </div>
@@ -566,7 +515,6 @@ export function OfferSelector({ product, onOfferChange }: Props) {
           offer={completeOffer}
           isSelected={selected === completeOffer.id}
           onSelect={() => select(completeOffer)}
-          onAdd={addOfferToCart}
         />
       )}
     </div>
