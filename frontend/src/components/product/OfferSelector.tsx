@@ -423,7 +423,13 @@ export function OfferSelector({ product, onOfferChange }: Props) {
   const offers       = useMemo(() => getProductPageOffers(product.slug), [product.slug]);
   const defaultOffer = offers.find(o => o.recommended) ?? offers[offers.length - 1] ?? offers[0];
   const [selected, setSelected] = useState(defaultOffer?.id);
-  const { addItem, openDrawer } = useCartStore();
+  const { addItem, removeItem, openDrawer } = useCartStore();
+
+  // All slugs that can appear across any offer on this product page
+  const allPageSlugs = useMemo(
+    () => new Set(offers.flatMap(o => o.products.map(p => p.slug))),
+    [offers],
+  );
 
   const announceOffer = React.useCallback(
     (offer: Offer) => {
@@ -435,6 +441,13 @@ export function OfferSelector({ product, onOfferChange }: Props) {
   );
 
   const addOfferToCart = React.useCallback((offer: Offer) => {
+    // Replace — remove any cart items that belong to this product page's offer pool
+    const { items } = useCartStore.getState();
+    items
+      .filter(item => allPageSlugs.has(item.slug))
+      .forEach(item => removeItem(item.cartKey ?? item.slug));
+
+    // Add the newly selected offer
     const unitPrice = Math.floor(offer.price / offer.products.length);
     const remainder = offer.price - unitPrice * offer.products.length;
     offer.products.forEach((p, idx) => {
@@ -462,7 +475,7 @@ export function OfferSelector({ product, onOfferChange }: Props) {
       generateEventId(),
     );
     openDrawer();
-  }, [addItem, openDrawer]);
+  }, [addItem, removeItem, openDrawer, allPageSlugs]);
 
   const select = (offer: Offer) => {
     setSelected(offer.id);
