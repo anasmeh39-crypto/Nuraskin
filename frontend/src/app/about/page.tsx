@@ -9,37 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const storyImages = [
-    {
-      src: "/brand/about-team-main.jpeg",
-      alt: "فريق نورا سكين داخل المكتب",
-      label: "من داخل المكتب",
-      className: "md:col-span-6 md:row-span-2",
-      imageClass: "aspect-[4/5] md:aspect-[5/6] object-center",
-    },
-    {
-      src: "/brand/about-packaging-moment.jpeg",
-      alt: "تفاصيل تغليف طلبات نورا سكين",
-      label: "تحضير الطلبات",
-      className: "md:col-span-6",
-      imageClass: "aspect-[4/3] object-[70%_72%]",
-    },
-    {
-      src: "/brand/about-team-moment.jpeg",
-      alt: "لحظة دافئة من فريق نورا سكين",
-      label: "طاقة نسائية",
-      className: "md:col-span-3",
-      imageClass: "aspect-[3/4] object-[38%_35%]",
-    },
-    {
-      src: "/brand/about-brand-atmosphere.jpeg",
-      alt: "منتجات وعلب نورا سكين داخل مساحة العمل",
-      label: "تفاصيل العلامة",
-      className: "md:col-span-3",
-      imageClass: "aspect-[3/4] object-[68%_74%]",
-    },
-  ];
-
   return (
     <>
       <section className="bg-[linear-gradient(135deg,#3A222C,#8B4A5A)] py-16 text-center">
@@ -68,29 +37,47 @@ export default function AboutPage() {
       <section className="overflow-hidden bg-cream py-16 md:py-24">
         <div className="container-wide">
           <div className="mb-18 grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
+            {/* ── Two-image layout: team + fulfillment ─────────── */}
             <div className="relative order-2 lg:order-1">
-              <div className="absolute -left-10 top-12 h-52 w-52 rounded-full bg-rose-soft/20 blur-3xl" aria-hidden />
-              <div className="absolute -right-8 bottom-10 h-60 w-60 rounded-full bg-white/75 blur-3xl" aria-hidden />
-              <div className="relative grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-12 md:auto-rows-fr">
-                {storyImages.map((image, idx) => (
-                  <div
-                    key={image.src}
-                    className={`${image.className} group animate-premium-rise relative overflow-hidden rounded-[1.55rem] border border-white/75 bg-white p-2 shadow-[0_18px_55px_rgba(61,44,50,0.09)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(142,90,104,0.15)]`}
-                    style={{ animationDelay: `${idx * 110}ms` }}
-                  >
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      width={idx === 0 ? 980 : 720}
-                      height={idx === 0 ? 860 : 560}
-                      className={`${image.imageClass} h-full w-full rounded-[1.2rem] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]`}
-                    />
-                    <div className="pointer-events-none absolute inset-2 rounded-[1.2rem] ring-1 ring-white/55" />
-                    <div className="absolute bottom-5 right-5 rounded-full border border-white/75 bg-white/80 px-4 py-2 text-xs font-bold text-brand-deep shadow-ivory-sm backdrop-blur-md">
-                      {image.label}
-                    </div>
+              <div className="absolute -left-10 top-12 h-48 w-48 rounded-full bg-rose-soft/20 blur-3xl" aria-hidden />
+              <div className="absolute -right-8 bottom-10 h-52 w-52 rounded-full bg-white/75 blur-3xl" aria-hidden />
+              <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-[1.1fr_0.9fr] sm:gap-5">
+
+                {/* Image 1 — Team celebration */}
+                <div className="group animate-premium-rise relative overflow-hidden rounded-[1.75rem] border border-white/75 bg-white p-2 shadow-[0_20px_60px_rgba(61,44,50,0.11)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_72px_rgba(142,90,104,0.16)]">
+                  <img
+                    src="/brand/nura-team-about.jpeg"
+                    alt="فريق نورا سكين داخل المكتب"
+                    width={920}
+                    height={1150}
+                    className="h-full w-full rounded-[1.35rem] object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    style={{ aspectRatio: "4/5" }}
+                  />
+                  <div className="pointer-events-none absolute inset-2 rounded-[1.35rem] ring-1 ring-white/55" />
+                  <div className="absolute bottom-5 right-5 rounded-full border border-white/75 bg-white/85 px-4 py-2 text-xs font-bold text-brand-deep shadow-ivory-sm backdrop-blur-md">
+                    فريق نورا سكين
                   </div>
-                ))}
+                </div>
+
+                {/* Image 2 — Fulfillment / packaging */}
+                <div
+                  className="group animate-premium-rise relative overflow-hidden rounded-[1.75rem] border border-white/75 bg-white p-2 shadow-[0_20px_60px_rgba(61,44,50,0.11)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_72px_rgba(142,90,104,0.16)] sm:self-center"
+                  style={{ animationDelay: "110ms" }}
+                >
+                  <img
+                    src="/brand/about-fulfillment.png"
+                    alt="تحضير وتغليف طلبات نورا سكين"
+                    width={880}
+                    height={660}
+                    className="h-full w-full rounded-[1.35rem] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    style={{ aspectRatio: "4/3" }}
+                  />
+                  <div className="pointer-events-none absolute inset-2 rounded-[1.35rem] ring-1 ring-white/55" />
+                  <div className="absolute bottom-5 right-5 rounded-full border border-white/75 bg-white/85 px-4 py-2 text-xs font-bold text-brand-deep shadow-ivory-sm backdrop-blur-md">
+                    تحضير طلباتك
+                  </div>
+                </div>
+
               </div>
             </div>
 
