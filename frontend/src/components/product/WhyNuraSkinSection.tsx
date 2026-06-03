@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Product, KeyResult } from "@/types";
+import { getProductPageOffers } from "@/config/products";
+import { useCartStore } from "@/store/cart";
 
 // ── Premium ingredient icons ───────────────────────────────────────────────────
 
@@ -114,6 +116,28 @@ export function WhyNuraSkinSection({
 }: Props) {
   const rating = avgRating(product.reviews);
   const displayReviews = product.reviews.slice(0, 3);
+  const { addItem, openDrawer } = useCartStore();
+
+  const addCompleteBundle = useCallback(() => {
+    const offers = getProductPageOffers(product.slug);
+    const completeOffer = offers.find((o) => o.tier === "complete");
+    if (!completeOffer) { openDrawer(); return; }
+
+    const unitPrice = Math.floor(completeOffer.price / completeOffer.products.length);
+    const remainder = completeOffer.price - unitPrice * completeOffer.products.length;
+    completeOffer.products.forEach((p, idx) => {
+      addItem({
+        slug: p.slug,
+        name_ar: p.name_ar,
+        price: unitPrice + (idx === 0 ? remainder : 0),
+        image: p.image,
+        compareAtPrice: p.compareAtPrice,
+        bundleName: completeOffer.bundleName,
+        discountAmount: Math.max(p.compareAtPrice - (unitPrice + (idx === 0 ? remainder : 0)), 0),
+      });
+    });
+    openDrawer();
+  }, [product.slug, addItem, openDrawer]);
 
   return (
     <section className="bg-[#1E0F14] py-20 overflow-hidden" dir="rtl">
@@ -299,25 +323,36 @@ export function WhyNuraSkinSection({
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="rounded-3xl border border-rose-deep/40 bg-gradient-to-br from-rose-deep/20 to-white/5 p-7 sm:p-9 text-center"
+          className="rounded-3xl border border-rose-deep/40 overflow-hidden bg-gradient-to-br from-rose-deep/20 to-white/5"
         >
-          <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-rose-soft bg-rose-deep/30 rounded-full px-3 py-1 mb-4">
-            أكبر توفير
-          </span>
-          <h3 className="text-white text-xl font-bold mb-2">{bundleLabel}</h3>
-          <p className="text-white/50 text-sm mb-5">
-            روتين الصباح والليل مجموعين — سيروم، كريم ليلي، واقي شمس، وسيروم العين
-          </p>
-          <div className="flex items-baseline justify-center gap-3 mb-6">
-            <span className="text-4xl font-bold text-white">{bundlePrice} درهم</span>
-            <span className="text-white/35 text-lg line-through">{bundleOriginalPrice} درهم</span>
+          {/* Product lifestyle image — full width, taller on desktop */}
+          <div className="relative w-full h-64 sm:h-80">
+            <Image
+              src="/images/bundles/complete-routine.jpg"
+              alt="روتين نورا سكين الكامل — 4 منتجات"
+              fill
+              sizes="(max-width: 640px) 100vw, 900px"
+              className="object-cover object-center"
+              priority
+            />
+            {/* Subtle bottom fade into card content */}
+            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#2a1019]/80 to-transparent" />
+            <span className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-widest text-rose-soft bg-[#1E0F14]/70 backdrop-blur-sm rounded-full px-3 py-1">
+              أكبر توفير
+            </span>
           </div>
-          <button
-            onClick={scrollToOffer}
-            className="w-full sm:w-auto bg-rose-deep hover:opacity-90 active:scale-95 transition-all text-white font-bold text-base px-10 py-4 rounded-2xl shadow-rose-md"
-          >
-            اختاري الروتين ديالك
-          </button>
+
+          {/* Card content */}
+          <div className="p-7 sm:p-9 text-center">
+            <h3 className="text-white text-xl font-bold mb-2">{bundleLabel}</h3>
+            <p className="text-white/50 text-sm mb-5">
+              روتين الصباح والليل مجموعين — سيروم، كريم ليلي، واقي شمس، وسيروم العين
+            </p>
+            <div className="flex items-baseline justify-center gap-3">
+              <span className="text-4xl font-bold text-white">{bundlePrice} درهم</span>
+              <span className="text-white/35 text-lg line-through">{bundleOriginalPrice} درهم</span>
+            </div>
+          </div>
         </motion.div>
 
         {/* ── 6. CTA + trust badges ─────────────────────────────────────── */}
@@ -326,10 +361,10 @@ export function WhyNuraSkinSection({
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            onClick={scrollToOffer}
+            onClick={addCompleteBundle}
             className="w-full bg-rose-deep hover:opacity-90 active:scale-[0.98] transition-all text-white font-bold text-lg py-5 rounded-2xl shadow-rose-lg"
           >
-            اطلب دابا
+            أريد روتين نورا سكين كامل
           </motion.button>
 
           <motion.div
