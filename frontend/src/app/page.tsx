@@ -10,12 +10,25 @@ import {
   Sparkles,
   SunMedium,
 } from "lucide-react";
-import { CertificationsTrustStrip } from "@/components/home/CertificationsTrustStrip";
+import dynamic from "next/dynamic";
+
+// ── Above-fold — eager ────────────────────────────────────────────────────────
 import { HeroSection } from "@/components/home/HeroSection";
 import { HeroTrustStrip } from "@/components/home/HeroTrustStrip";
-import { HomeIngredientShowcase } from "@/components/home/HomeIngredientShowcase";
-import { HomePacksSection } from "@/components/home/HomePacksSection";
-import { TestimonialsSection } from "@/components/home/TestimonialsSection";
+
+// ── Below-fold — code-split ───────────────────────────────────────────────────
+const CertificationsTrustStrip = dynamic(() =>
+  import("@/components/home/CertificationsTrustStrip").then(m => m.CertificationsTrustStrip)
+);
+const HomeIngredientShowcase = dynamic(() =>
+  import("@/components/home/HomeIngredientShowcase").then(m => m.HomeIngredientShowcase)
+);
+const HomePacksSection = dynamic(() =>
+  import("@/components/home/HomePacksSection").then(m => m.HomePacksSection)
+);
+const TestimonialsSection = dynamic(() =>
+  import("@/components/home/TestimonialsSection").then(m => m.TestimonialsSection)
+);
 import { PRODUCTS, BUNDLES } from "@/config/products";
 import { ProductCard } from "@/components/ui/ProductCard";
 

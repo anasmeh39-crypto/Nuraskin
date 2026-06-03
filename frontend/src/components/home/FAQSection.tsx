@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
@@ -60,7 +60,7 @@ export function FAQSection() {
                 <span className="font-semibold text-brand-deep text-base">
                   {faq.q}
                 </span>
-                <ChevronDownIcon
+                <ChevronDown
                   className={`w-5 h-5 text-gray-400 shrink-0 transition-transform duration-200 ${
                     open === i ? "rotate-180" : ""
                   }`}

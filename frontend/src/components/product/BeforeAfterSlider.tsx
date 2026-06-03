@@ -104,6 +104,7 @@ export function BeforeAfterSlider({ productSlug }: Props) {
                     alt={`مظهر البشرة بعد استعمال ${productSlug} من نورا سكين`}
                     className="h-full w-full object-cover"
                     draggable={false}
+                    loading="lazy"
                   />
                 ) : (
                   <div className="text-center">
@@ -131,6 +132,7 @@ export function BeforeAfterSlider({ productSlug }: Props) {
                       alt={`مظهر البشرة قبل استعمال ${productSlug} من نورا سكين`}
                       className="h-full w-full object-cover"
                       draggable={false}
+                      loading="lazy"
                     />
                   ) : (
                     <div className="text-center">

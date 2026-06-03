@@ -703,6 +703,7 @@ export function IngredientAuthority({ product }: Props) {
                                 alt={ing.name_ar}
                                 className={`block w-full ${macroSrc ? "h-full object-cover" : "h-full object-contain p-4"}`}
                                 draggable={false}
+                                loading="lazy"
                               />
                             </div>
 
@@ -759,6 +760,7 @@ export function IngredientAuthority({ product }: Props) {
                               src={product.image}
                               alt={product.name_ar}
                               className="relative h-28 w-auto object-contain"
+                              loading="lazy"
                               style={{ filter: `drop-shadow(0 12px 28px rgba(139,74,90,0.20)) drop-shadow(0 4px 8px rgba(44,24,16,0.10))` }}
                               draggable={false}
                             />

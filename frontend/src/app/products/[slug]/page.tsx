@@ -1,19 +1,44 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
 import { PRODUCTS, getProductBySlug } from "@/config/products";
+
+// ── Above-fold / critical — eager loaded ──────────────────────────────────────
 import { ProductHeroElite } from "@/components/product/ProductHeroElite";
 import { ProblemSection } from "@/components/product/ProblemSection";
-import { BeforeAfterSlider } from "@/components/product/BeforeAfterSlider";
-import { RoutineEducationSection } from "@/components/product/RoutineEducationSection";
-import { IngredientAuthority } from "@/components/product/IngredientAuthority";
-import { EmotionalTransformationSection } from "@/components/product/EmotionalTransformationSection";
-import { ScienceSection } from "@/components/product/ScienceSection";
-import { WhyNuraSkinSection } from "@/components/product/WhyNuraSkinSection";
-import { UsageAndTimeline } from "@/components/product/UsageAndTimeline";
-import { RoutineReviewsSection } from "@/components/product/RoutineReviewsSection";
-import { RitualSelectorSection } from "@/components/product/RitualSelectorSection";
-import { TrustAuthoritySection } from "@/components/product/TrustAuthoritySection";
 import { StickyMobileCTAElite } from "@/components/product/StickyMobileCTAElite";
+
+// ── Below-fold — code-split, loaded after initial paint ───────────────────────
+const BeforeAfterSlider = dynamic(() =>
+  import("@/components/product/BeforeAfterSlider").then(m => m.BeforeAfterSlider)
+);
+const RoutineEducationSection = dynamic(() =>
+  import("@/components/product/RoutineEducationSection").then(m => m.RoutineEducationSection)
+);
+const IngredientAuthority = dynamic(() =>
+  import("@/components/product/IngredientAuthority").then(m => m.IngredientAuthority)
+);
+const EmotionalTransformationSection = dynamic(() =>
+  import("@/components/product/EmotionalTransformationSection").then(m => m.EmotionalTransformationSection)
+);
+const ScienceSection = dynamic(() =>
+  import("@/components/product/ScienceSection").then(m => m.ScienceSection)
+);
+const WhyNuraSkinSection = dynamic(() =>
+  import("@/components/product/WhyNuraSkinSection").then(m => m.WhyNuraSkinSection)
+);
+const UsageAndTimeline = dynamic(() =>
+  import("@/components/product/UsageAndTimeline").then(m => m.UsageAndTimeline)
+);
+const RoutineReviewsSection = dynamic(() =>
+  import("@/components/product/RoutineReviewsSection").then(m => m.RoutineReviewsSection)
+);
+const RitualSelectorSection = dynamic(() =>
+  import("@/components/product/RitualSelectorSection").then(m => m.RitualSelectorSection)
+);
+const TrustAuthoritySection = dynamic(() =>
+  import("@/components/product/TrustAuthoritySection").then(m => m.TrustAuthoritySection)
+);
 
 interface Props {
   params: Promise<{ slug: string }>;
