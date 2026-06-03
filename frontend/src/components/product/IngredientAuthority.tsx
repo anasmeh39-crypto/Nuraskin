@@ -266,6 +266,10 @@ const INGREDIENT_IMAGES: Array<{ match: string; src: string }> = [
   { match: "Caffeine",    src: "/images/ingredients/ingredient-caffeine.png"    },
   { match: "Niacinamide", src: "/images/ingredients/ingredient-niacinamide.png" },
   { match: "Hyaluronic",  src: "/images/ingredients/ingredient-hyaluronic.png"  },
+  { match: "Bakuchiol",   src: "/images/nura-night-renewal-ingredients.png"     },
+  { match: "Peptide",     src: "/images/nura-night-renewal-ingredients.png"     },
+  { match: "Shea",        src: "/images/nura-night-renewal-ingredients.png"     },
+  { match: "Squalane",    src: "/images/nura-night-renewal-ingredients.png"     },
 ];
 
 function ingredientImage(nameEn: string): string | null {
@@ -279,7 +283,7 @@ const PRODUCT_SHOWCASE: Record<string, string> = {
   "nura-eye-revive":    "/images/nura-eye-revive-showcase.png",
   "nura-spf-50":        "/images/products/sunscreen-spf50-pack.png",
   "nura-balance":       "/images/products/serum-niacinamide-pack.png",
-  "nura-night-renewal": "/images/products/retinol-cream-pack.png",
+  "nura-night-renewal": "/images/nura-night-renewal-ingredients.png",
 };
 
 // ─── Stagger animation variants ───────────────────────────────────────────────
