@@ -37,21 +37,43 @@ export default function AboutPage() {
       <section className="overflow-hidden bg-cream py-16 md:py-24">
         <div className="container-wide">
           <div className="mb-18 grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
-            {/* ── Two-image layout: team + fulfillment ─────────── */}
+            {/* ── Three-image editorial layout ─────────────────── */}
             <div className="relative order-2 lg:order-1">
               <div className="absolute -left-10 top-12 h-48 w-48 rounded-full bg-rose-soft/20 blur-3xl" aria-hidden />
               <div className="absolute -right-8 bottom-10 h-52 w-52 rounded-full bg-white/75 blur-3xl" aria-hidden />
-              <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-[1.1fr_0.9fr] sm:gap-5">
 
-                {/* Image 1 — Team celebration */}
-                <div className="group animate-premium-rise relative overflow-hidden rounded-[1.75rem] border border-white/75 bg-white p-2 shadow-[0_20px_60px_rgba(61,44,50,0.11)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_72px_rgba(142,90,104,0.16)]">
+              {/* Desktop: left portrait | right [top landscape + bottom landscape]
+                  Mobile: stacked full-width */}
+              <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-[1fr_1fr] sm:gap-5">
+
+                {/* Col 1 — Woman at desk (tall portrait, full height) */}
+                <div className="group animate-premium-rise relative overflow-hidden rounded-[1.75rem] border border-white/75 bg-white p-2 shadow-[0_20px_60px_rgba(61,44,50,0.11)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_72px_rgba(142,90,104,0.16)] sm:row-span-2">
+                  <img
+                    src="/brand/about-team-desk.png"
+                    alt="إحدى أعضاء فريق نورا سكين تتابع الطلبات"
+                    width={920}
+                    height={1230}
+                    className="h-full w-full rounded-[1.35rem] object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    style={{ aspectRatio: "3/4" }}
+                  />
+                  <div className="pointer-events-none absolute inset-2 rounded-[1.35rem] ring-1 ring-white/55" />
+                  <div className="absolute bottom-5 right-5 rounded-full border border-white/75 bg-white/85 px-4 py-2 text-xs font-bold text-brand-deep shadow-ivory-sm backdrop-blur-md">
+                    متابعة الطلبات
+                  </div>
+                </div>
+
+                {/* Col 2 top — Team celebration */}
+                <div
+                  className="group animate-premium-rise relative overflow-hidden rounded-[1.75rem] border border-white/75 bg-white p-2 shadow-[0_20px_60px_rgba(61,44,50,0.11)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_72px_rgba(142,90,104,0.16)]"
+                  style={{ animationDelay: "100ms" }}
+                >
                   <img
                     src="/brand/nura-team-about.jpeg"
                     alt="فريق نورا سكين داخل المكتب"
                     width={920}
-                    height={1150}
+                    height={690}
                     className="h-full w-full rounded-[1.35rem] object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                    style={{ aspectRatio: "4/5" }}
+                    style={{ aspectRatio: "4/3" }}
                   />
                   <div className="pointer-events-none absolute inset-2 rounded-[1.35rem] ring-1 ring-white/55" />
                   <div className="absolute bottom-5 right-5 rounded-full border border-white/75 bg-white/85 px-4 py-2 text-xs font-bold text-brand-deep shadow-ivory-sm backdrop-blur-md">
@@ -59,10 +81,10 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                {/* Image 2 — Fulfillment / packaging */}
+                {/* Col 2 bottom — Fulfillment boxes */}
                 <div
-                  className="group animate-premium-rise relative overflow-hidden rounded-[1.75rem] border border-white/75 bg-white p-2 shadow-[0_20px_60px_rgba(61,44,50,0.11)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_72px_rgba(142,90,104,0.16)] sm:self-center"
-                  style={{ animationDelay: "110ms" }}
+                  className="group animate-premium-rise relative overflow-hidden rounded-[1.75rem] border border-white/75 bg-white p-2 shadow-[0_20px_60px_rgba(61,44,50,0.11)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_72px_rgba(142,90,104,0.16)]"
+                  style={{ animationDelay: "200ms" }}
                 >
                   <img
                     src="/brand/about-fulfillment.png"
