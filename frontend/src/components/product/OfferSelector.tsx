@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, Crown, Moon, Sparkles, Sun, Truck } from "lucide-react";
 import { getProductPageOffers, ProductPageOffer } from "@/config/products";
 import { Product } from "@/types";
+import { useCartStore } from "@/store/cart";
+import { generateEventId, trackAddToCart } from "@/lib/tracking";
 
 type Offer = ProductPageOffer;
 
@@ -24,7 +26,7 @@ const SHORT: Record<string, string> = {
 const SINGLE_HERO: Record<string, string> = {
   "nura-balance":        "/images/nura-balance-gallery-1.png",
   "nura-eye-revive":    "/images/nura-eye-revive-lifestyle-model.png",
-  "nura-night-renewal":  "/images/nura-night-renewal-gallery-1.png",
+  "nura-night-renewal":  "/images/nura-night-renewal-ingredients.png",
   "nura-spf-50":         "/images/nura-spf-50-gallery-1.png",
 };
 
@@ -79,10 +81,12 @@ function RoutineCard({
   offer,
   isSelected,
   onSelect,
+  onAdd,
 }: {
   offer: Offer;
   isSelected: boolean;
   onSelect: () => void;
+  onAdd: (offer: Offer) => void;
 }) {
   const slugs   = offer.products.map(p => p.slug);
   const tags    = getTimingTags(slugs);
@@ -94,7 +98,7 @@ function RoutineCard({
   return (
     <motion.button
       type="button"
-      onClick={onSelect}
+      onClick={() => { onSelect(); onAdd(offer); }}
       whileTap={{ scale: 0.98 }}
       aria-pressed={isSelected}
       className={`group relative flex w-full flex-col overflow-hidden rounded-[1.5rem] bg-white text-right transition-all duration-250 ${
@@ -195,7 +199,7 @@ function RoutineCard({
             : "border border-[#8E5A68]/35 bg-[#8E5A68]/10 text-[#8E5A68] group-hover:bg-[#8E5A68]/18"
         }`}>
           {isSelected
-            ? "✓ تم الاختيار"
+            ? "✓ تمت الإضافة للسلة"
             : offer.tier === "single"
               ? `أريد ${SHORT[offer.products[0]?.slug] ?? offer.products[0]?.name_ar} فقط ←`
               : "اختاري هذا الروتين ←"
@@ -211,10 +215,12 @@ function FeaturedCard({
   offer,
   isSelected,
   onSelect,
+  onAdd,
 }: {
   offer: Offer;
   isSelected: boolean;
   onSelect: () => void;
+  onAdd: (offer: Offer) => void;
 }) {
   const benefit = getBenefit(offer);
   const savings = offer.saving && offer.originalPrice
@@ -224,7 +230,7 @@ function FeaturedCard({
   return (
     <motion.button
       type="button"
-      onClick={onSelect}
+      onClick={() => { onSelect(); onAdd(offer); }}
       whileTap={{ scale: 0.99 }}
       aria-pressed={isSelected}
       className={`group relative w-full overflow-hidden rounded-[1.5rem] text-right transition-all duration-300 ${
@@ -395,7 +401,7 @@ function FeaturedCard({
                   }`}
                 >
                   <Sparkles className="h-4 w-4" strokeWidth={1.5} />
-                  {isSelected ? "✓ تم الاختيار — روتين نورا الكامل" : "اختاري روتين نورا الكامل"}
+                  {isSelected ? "✓ تمت الإضافة للسلة — روتين نورا الكامل" : "اختاري روتين نورا الكامل"}
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -417,6 +423,7 @@ export function OfferSelector({ product, onOfferChange }: Props) {
   const offers       = useMemo(() => getProductPageOffers(product.slug), [product.slug]);
   const defaultOffer = offers.find(o => o.recommended) ?? offers[offers.length - 1] ?? offers[0];
   const [selected, setSelected] = useState(defaultOffer?.id);
+  const { addItem, openDrawer } = useCartStore();
 
   const announceOffer = React.useCallback(
     (offer: Offer) => {
@@ -426,6 +433,36 @@ export function OfferSelector({ product, onOfferChange }: Props) {
     },
     [product.slug],
   );
+
+  const addOfferToCart = React.useCallback((offer: Offer) => {
+    const unitPrice = Math.floor(offer.price / offer.products.length);
+    const remainder = offer.price - unitPrice * offer.products.length;
+    offer.products.forEach((p, idx) => {
+      const allocatedPrice = unitPrice + (idx === 0 ? remainder : 0);
+      const compareAtPrice = offer.products.length > 1 ? p.price : p.compareAtPrice;
+      addItem({
+        slug: p.slug,
+        name_ar: p.name_ar,
+        price: allocatedPrice,
+        image: p.image,
+        compareAtPrice,
+        bundleName: offer.bundleName,
+        discountAmount: Math.max(compareAtPrice - allocatedPrice, 0),
+      });
+    });
+    trackAddToCart(
+      offer.products.map((p, idx) => ({
+        slug: p.slug,
+        name_ar: p.name_ar,
+        price: unitPrice + (idx === 0 ? remainder : 0),
+        image: p.image,
+        quantity: 1,
+      })),
+      offer.price,
+      generateEventId(),
+    );
+    openDrawer();
+  }, [addItem, openDrawer]);
 
   const select = (offer: Offer) => {
     setSelected(offer.id);
@@ -476,6 +513,7 @@ export function OfferSelector({ product, onOfferChange }: Props) {
             offer={offer}
             isSelected={selected === offer.id}
             onSelect={() => select(offer)}
+            onAdd={addOfferToCart}
           />
         ))}
       </div>
@@ -486,6 +524,7 @@ export function OfferSelector({ product, onOfferChange }: Props) {
           offer={completeOffer}
           isSelected={selected === completeOffer.id}
           onSelect={() => select(completeOffer)}
+          onAdd={addOfferToCart}
         />
       )}
     </div>

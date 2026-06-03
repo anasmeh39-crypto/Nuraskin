@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function RitualSelectorSection({ product }: Props) {
-  const { addItem } = useCartStore();
+  const { addItem, openDrawer } = useCartStore();
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
   const [adding, setAdding] = useState(false);
   const [added, setAdded] = useState(false);
@@ -48,6 +48,7 @@ export function RitualSelectorSection({ product }: Props) {
     }));
     trackAddToCart(cartItems, selectedOffer.price, eventId);
 
+    openDrawer();
     setAdded(true);
     setTimeout(() => {
       setAdding(false);
