@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BadgeCheck, Droplets, Leaf, ShieldCheck, Sun } from "lucide-react";
+import { Leaf, RotateCcw, ShieldCheck, Truck } from "lucide-react";
 
 const TRUST_ITEMS = [
   {
@@ -13,28 +13,28 @@ const TRUST_ITEMS = [
     borderColor: "#BFD8B8",
   },
   {
-    Icon: Sun,
-    label: "حماية SPF 50",
-    sub: "UVA · UVB",
-    iconBg: "#FFF8E8",
-    iconColor: "#C49A30",
-    borderColor: "#F0D880",
+    Icon: ShieldCheck,
+    label: "الدفع عند الاستلام",
+    sub: "ما تخلصيش قبل ما تستلمي",
+    iconBg: "#FEF0F3",
+    iconColor: "#B8617A",
+    borderColor: "#F8D8DF",
   },
   {
-    Icon: Droplets,
-    label: "ترطيب عميق",
-    sub: "بدون ملمس دهني",
+    Icon: Truck,
+    label: "توصيل مجاني",
+    sub: "لجميع أنحاء المغرب",
     iconBg: "#EDF5FC",
     iconColor: "#4A90C4",
     borderColor: "#C8DFF0",
   },
   {
-    Icon: BadgeCheck,
-    label: "طبيعي 100%",
-    sub: "مكونات مختارة",
-    iconBg: "#FEF0F3",
-    iconColor: "#B8617A",
-    borderColor: "#F8D8DF",
+    Icon: RotateCcw,
+    label: "إرجاع مجاني 14 يوم",
+    sub: "بلا تعقيدات",
+    iconBg: "#FFF8E8",
+    iconColor: "#C49A30",
+    borderColor: "#F0D880",
   },
 ];
 

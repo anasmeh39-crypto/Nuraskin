@@ -12,14 +12,8 @@ import { StickyMobileCTAElite } from "@/components/product/StickyMobileCTAElite"
 const BeforeAfterSlider = dynamic(() =>
   import("@/components/product/BeforeAfterSlider").then(m => m.BeforeAfterSlider)
 );
-const RoutineEducationSection = dynamic(() =>
-  import("@/components/product/RoutineEducationSection").then(m => m.RoutineEducationSection)
-);
 const IngredientAuthority = dynamic(() =>
   import("@/components/product/IngredientAuthority").then(m => m.IngredientAuthority)
-);
-const EmotionalTransformationSection = dynamic(() =>
-  import("@/components/product/EmotionalTransformationSection").then(m => m.EmotionalTransformationSection)
 );
 const ScienceSection = dynamic(() =>
   import("@/components/product/ScienceSection").then(m => m.ScienceSection)
@@ -33,8 +27,14 @@ const UsageAndTimeline = dynamic(() =>
 const RoutineReviewsSection = dynamic(() =>
   import("@/components/product/RoutineReviewsSection").then(m => m.RoutineReviewsSection)
 );
+const RoutineEducationSection = dynamic(() =>
+  import("@/components/product/RoutineEducationSection").then(m => m.RoutineEducationSection)
+);
 const RitualSelectorSection = dynamic(() =>
   import("@/components/product/RitualSelectorSection").then(m => m.RitualSelectorSection)
+);
+const FAQElite = dynamic(() =>
+  import("@/components/product/FAQElite").then(m => m.FAQElite)
 );
 const TrustAuthoritySection = dynamic(() =>
   import("@/components/product/TrustAuthoritySection").then(m => m.TrustAuthoritySection)
@@ -156,43 +156,43 @@ export default async function ProductPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* 1. Hero — restored product gallery + product identity */}
+      {/* 1. Hero — product gallery + offer selector + CTA */}
       <ProductHeroElite product={product} />
 
-      {/* 2. Problem hook */}
+      {/* 2. Problem hook — agitate the specific skin concern */}
       {product.slug !== "nura-spf-50" && <ProblemSection product={product} />}
 
-      {/* 3. Before / After perception slider — only for products that have before/after photos */}
+      {/* 3. Before / After — visual proof for products that have photos */}
       {(product.slug === "nura-balance" || product.slug === "nura-eye-revive") && (
         <BeforeAfterSlider productSlug={product.slug} />
       )}
 
-      {/* 4. Why routine beats one product */}
-      <RoutineEducationSection />
-
-      {/* 5. Ingredient authority */}
+      {/* 4. Ingredient authority — build product credibility before the bundle pitch */}
       <IngredientAuthority product={product} />
 
-      {/* 6. Emotional transformation */}
-      <EmotionalTransformationSection />
-
-      {/* 7. Science & philosophy / Why Nura */}
+      {/* 5. Science stats & formulation philosophy */}
       {product.slug === "nura-night-renewal" ? (
         <WhyNuraSkinSection product={product} />
       ) : (
         <ScienceSection product={product} />
       )}
 
-      {/* 9. How to use + realistic timeline */}
+      {/* 6. How to use — remove "how do I use this" objection early */}
       <UsageAndTimeline product={product} />
 
-      {/* 10. Routine-focused social proof */}
+      {/* 7. Social proof — show reviews after product trust is built */}
       <RoutineReviewsSection />
 
-      {/* 11. Ritual selector */}
+      {/* 8. Why routine beats one product — bundle motivation comes after product trust */}
+      <RoutineEducationSection />
+
+      {/* 9. Second buy opportunity — offer selector + CTA repeat */}
       <RitualSelectorSection product={product} />
 
-      {/* 12. Trust bar */}
+      {/* 10. FAQ — handle objections before trust bar */}
+      <FAQElite product={product} />
+
+      {/* 11. Trust bar */}
       <TrustAuthoritySection />
 
       {/* Sticky mobile CTA */}
