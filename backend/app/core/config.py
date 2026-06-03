@@ -99,6 +99,7 @@ class Settings(BaseSettings):
 
     # Security
     SECRET_KEY: str = ""
+    ADMIN_API_KEY: str = ""
 
 
 _settings: Settings | None = None

@@ -9,7 +9,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 
 from app.core.config import get_settings
-from app.routers import orders, products, tracking
+from app.routers import admin, orders, products, tracking
 
 logging.basicConfig(
     level=logging.INFO,
@@ -67,6 +67,7 @@ app.add_middleware(
 app.include_router(orders.router)
 app.include_router(products.router)
 app.include_router(tracking.router)
+app.include_router(admin.router)
 
 
 @app.get("/health")
