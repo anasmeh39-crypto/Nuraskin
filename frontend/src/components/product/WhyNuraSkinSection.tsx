@@ -114,8 +114,6 @@ export function WhyNuraSkinSection({
   bundleOriginalPrice = 1046,
   bundleLabel = "الروتين الكامل — 4 منتجات",
 }: Props) {
-  const rating = avgRating(product.reviews);
-  const displayReviews = product.reviews.slice(0, 3);
   const { addItem, openDrawer } = useCartStore();
 
   const addCompleteBundle = useCallback(() => {
@@ -259,64 +257,6 @@ export function WhyNuraSkinSection({
           </div>
         )}
 
-        {/* ── 4. Reviews block ──────────────────────────────────────────── */}
-        {displayReviews.length > 0 && (
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6"
-            >
-              <div>
-                <h3 className="text-white font-semibold text-base mb-1">
-                  آراء الزبائن
-                </h3>
-                <div className="flex items-center gap-2">
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <StarIcon key={s} filled={s <= Math.round(rating)} />
-                    ))}
-                  </div>
-                  <span className="text-white/60 text-xs">
-                    {rating.toFixed(1)} / 5 — {product.reviews.length} تقييم
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {displayReviews.map((review, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex flex-col gap-3 bg-white/5 border border-white/10 rounded-2xl p-5"
-                >
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <StarIcon key={s} filled={s <= review.rating} />
-                    ))}
-                  </div>
-                  <p className="text-white/75 text-sm leading-relaxed flex-1">
-                    &quot;{review.text}&quot;
-                  </p>
-                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-white/10">
-                    <div>
-                      <p className="text-white text-xs font-semibold">{review.name}</p>
-                      <p className="text-white/40 text-[10px]">{review.city}</p>
-                    </div>
-                    <span className="text-[10px] text-rose-soft bg-rose-deep/20 rounded-full px-2 py-0.5">
-                      مشتري حقيقي ✓
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* ── 5. Bundle card ────────────────────────────────────────────── */}
         <motion.div
