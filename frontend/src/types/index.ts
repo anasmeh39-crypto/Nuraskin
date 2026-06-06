@@ -1,6 +1,7 @@
 export interface Product {
   slug: string;
   name_ar: string;
+  heroTitle_ar?: string;
   name_en?: string;
   tagline_ar: string;
   description_ar: string;
@@ -17,6 +18,7 @@ export interface Product {
   format: string;
   volume: string;
   reviews: Review[];
+  reviewCount?: number;
   metaDescription: string;
   keyResults?: KeyResult[];
 }

@@ -451,6 +451,9 @@ export function IngredientAuthority({ product }: Props) {
                         <span className="font-bold text-[#2C1810] transition-colors">
                           {ingredient.name_ar}
                         </span>
+                        <span className="font-sans text-[10px] text-[#B0A098] tracking-wide">
+                          {ingredient.name_en}
+                        </span>
                         {pct && (
                           <motion.span
                             className="rounded-full px-2 py-0.5 font-sans text-[10px] font-bold transition-all"

@@ -9,6 +9,7 @@ import { OfferSelector, Offer } from "./OfferSelector";
 import { StarRating } from "@/components/ui/StarRating";
 import { useCartStore } from "@/store/cart";
 import { generateEventId, trackAddToCart, trackViewContent } from "@/lib/tracking";
+import { getProductPageOffers } from "@/config/products";
 
 interface Props { product: Product }
 
@@ -21,11 +22,15 @@ const TRUST_ITEMS = [
 
 export function ProductHeroElite({ product }: Props) {
   const { addItem, openDrawer } = useCartStore();
-  const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
+  const [selectedOffer, setSelectedOffer] = useState<Offer | null>(() => {
+    const offers = getProductPageOffers(product.slug);
+    return offers.find(o => o.recommended) ?? offers[0] ?? null;
+  });
   const [adding, setAdding] = useState(false);
   const [added, setAdded] = useState(false);
 
   const avgRating = product.reviews.reduce((s, r) => s + r.rating, 0) / product.reviews.length;
+  const displayReviewCount = product.reviewCount ?? product.reviews.length;
 
   useEffect(() => {
     trackViewContent(product, generateEventId());
@@ -104,8 +109,11 @@ export function ProductHeroElite({ product }: Props) {
             {/* Product name */}
             <div>
               <h1 className="text-3xl md:text-4xl font-bold text-[#2C1810] leading-tight">
-                {product.name_ar}
+                {product.heroTitle_ar ?? product.name_ar}
               </h1>
+              {product.heroTitle_ar && (
+                <p className="text-xs text-[#9B8A8A] mt-0.5 font-medium">{product.name_ar}</p>
+              )}
               <p className="text-rose-mid font-medium text-lg mt-1">{product.tagline_ar}</p>
             </div>
 
@@ -121,7 +129,7 @@ export function ProductHeroElite({ product }: Props) {
             <div className="flex items-center gap-3">
               <StarRating rating={Math.round(avgRating)} size="md" />
               <span className="text-sm font-semibold text-[#2C1810]">{avgRating.toFixed(1)}</span>
-              <span className="text-sm text-[#9B8A8A]">({product.reviews.length} تقييم موثّق)</span>
+              <span className="text-sm text-[#9B8A8A]">(+{displayReviewCount.toLocaleString("ar-MA")} تقييم موثّق)</span>
             </div>
 
             {/* Key benefits strip */}
@@ -138,6 +146,14 @@ export function ProductHeroElite({ product }: Props) {
 
             {/* Offer selector */}
             <OfferSelector product={product} onOfferChange={setSelectedOffer} />
+
+            {/* Urgency signal */}
+            <div className="flex items-center gap-2 rounded-xl bg-amber-50 border border-amber-200/60 px-3.5 py-2.5">
+              <span className="text-base leading-none">🔥</span>
+              <p className="text-xs font-semibold text-amber-800">
+                +200 زبونة طلبوا هاد الأسبوع — توصيل مجاني لجميع المدن
+              </p>
+            </div>
 
             {/* Price display */}
             <div className="flex items-end gap-3">
