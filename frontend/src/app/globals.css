@@ -843,19 +843,28 @@
 }
 
 @media (max-width: 639px) {
+  /* 3-column grid: icon above, text below — fits all 3 items in one compact row */
   .hero-trust-strip {
-    flex-direction: column;
-    gap: 8px;
-    padding: 12px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    padding: 14px 12px;
+    flex-direction: unset;
   }
   .hero-trust-item {
-    display: flex;        /* block-level so it spans full width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    font-size: 11px;
+    line-height: 1.4;
     white-space: normal;
-    width: 100%;
-    justify-content: center;
     text-align: center;
     word-break: keep-all;
     overflow-wrap: break-word;
+    padding: 2px 4px;
+    direction: rtl;
   }
 }
 
@@ -1739,8 +1748,8 @@
 
   /* Featured card: drop aspect-ratio and match other cards' fixed height */
   .bundle-card-featured .bundle-image-wrap {
-    height: 220px;
-    aspect-ratio: unset;
+    height: 220px !important;
+    aspect-ratio: auto !important;
     width: calc(100% - 16px);
     margin: 8px 8px 0;
   }

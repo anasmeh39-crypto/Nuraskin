@@ -239,7 +239,7 @@ export function TestimonialsSection() {
         </div>
       </div>
 
-      <div className="container-wide mt-10 md:mt-12">
+      <div className="container-wide mt-5 md:mt-7">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {FEATURED_TESTIMONIALS.map((testimonial, index) => (
             <article
