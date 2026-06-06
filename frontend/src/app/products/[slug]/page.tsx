@@ -181,10 +181,10 @@ export default async function ProductPage({ params }: Props) {
       <UsageAndTimeline product={product} />
 
       {/* 7. Social proof — show reviews after product trust is built */}
-      <RoutineReviewsSection />
+      <RoutineReviewsSection productSlug={product.slug} />
 
       {/* 8. Why routine beats one product — bundle motivation comes after product trust */}
-      <RoutineEducationSection />
+      <RoutineEducationSection productSlug={product.slug} />
 
       {/* 9. Second buy opportunity — offer selector + CTA repeat */}
       <RitualSelectorSection product={product} />

@@ -12,7 +12,9 @@ const THUMBNAILS: Record<string, string> = {
   "nura-spf-50":        "/images/nura-spf-50-gallery-1.png",
 };
 
-const MORNING_STEPS = [
+type Step = { slug: string; label: string; desc: string };
+
+const MORNING_STEPS: Step[] = [
   {
     slug: "nura-balance",
     label: "النياسيناميد",
@@ -23,9 +25,29 @@ const MORNING_STEPS = [
     label: "واقي الشمس SPF 50",
     desc: "آخر خطوة قبل الخروج — يحمي هاد الإشراقة من الشمس طول النهار",
   },
-] as const;
+];
 
-const NIGHT_STEPS = [
+const MORNING_STEPS_BY_PRODUCT: Record<string, Step[]> = {
+  "nura-eye-revive": [
+    {
+      slug: "nura-eye-revive",
+      label: "سيروم محيط العين",
+      desc: "بعد التنظيف — قطرة صغيرة حول العين برفق، تضوي محيط العين وتخفف البوفينيس",
+    },
+    {
+      slug: "nura-balance",
+      label: "النياسيناميد",
+      desc: "وزعي قطرتين على الوجه — يكمّل الإشراقة ويوازن باقي البشرة",
+    },
+    {
+      slug: "nura-spf-50",
+      label: "واقي الشمس SPF 50",
+      desc: "آخر خطوة — يحمي كل شغل الروتين من الشمس طول النهار",
+    },
+  ],
+};
+
+const NIGHT_STEPS: Step[] = [
   {
     slug: "nura-eye-revive",
     label: "سيروم محيط العين",
@@ -36,7 +58,7 @@ const NIGHT_STEPS = [
     label: "كريم الريتينول",
     desc: "طبقة على الوجه والرقبة — يجدد البشرة وأنتِ نايمة",
   },
-] as const;
+];
 
 function DownArrow({ light = false }: { light?: boolean }) {
   return (
@@ -94,7 +116,8 @@ function RoutineStep({ slug, label, desc, stepNum, light }: StepProps) {
   );
 }
 
-export function RoutineEducationSection() {
+export function RoutineEducationSection({ productSlug }: { productSlug?: string }) {
+  const morningSteps: Step[] = (productSlug ? MORNING_STEPS_BY_PRODUCT[productSlug] : undefined) ?? MORNING_STEPS;
   return (
     <section className="bg-[#FDFAF6] py-12 md:py-16" dir="rtl">
       <div className="container-wide">
@@ -203,10 +226,10 @@ export function RoutineEducationSection() {
             {/* Steps */}
             <div className="p-5">
               <div className="space-y-0">
-                {MORNING_STEPS.map((step, i) => (
+                {morningSteps.map((step, i) => (
                   <div key={step.slug}>
                     <RoutineStep stepNum={`0${i + 1}`} {...step} />
-                    {i < MORNING_STEPS.length - 1 && <DownArrow />}
+                    {i < morningSteps.length - 1 && <DownArrow />}
                   </div>
                 ))}
               </div>

@@ -2,7 +2,16 @@
 
 import { motion } from "framer-motion";
 
-const REVIEWS = [
+type Review = {
+  rating: number;
+  name: string;
+  city: string;
+  badge: string;
+  badgeClass: string;
+  quote: string;
+};
+
+const DEFAULT_REVIEWS: Review[] = [
   {
     rating: 5,
     name: "سلمى",
@@ -10,7 +19,7 @@ const REVIEWS = [
     badge: "روتين الصباح الكامل",
     badgeClass: "bg-[#F2E0E5] text-[#5C2D3E]",
     quote:
-      "من بعد 3 أسابيع على روتين الصباح، وجهي ولا منور ومتوازن بزاف. الصراحة ماشي غير النياسيناميد بوحدو اللي زوين — الروتين كامل كيكمّل بعضياتو وكيعطي إشراقة باينة.",
+      "من بعد 3 أسابيع على روتين الصباح، وجهي ولا منور ومتوازن بزاف. الروتين كامل كيكمّل بعضياتو وكيعطي إشراقة باينة — مكنتش كنتوقع نتائج بهالسرعة.",
   },
   {
     rating: 5,
@@ -32,6 +41,40 @@ const REVIEWS = [
   },
 ];
 
+const EYE_REVIEWS: Review[] = [
+  {
+    rating: 5,
+    name: "نجوى",
+    city: "مراكش",
+    badge: "روتين الليل",
+    badgeClass: "bg-[#2D1525] text-white",
+    quote:
+      "سيروم محيط العين مع كريم الريتينول — أحسن كومبو جربت. بانت ليا النتيجة فـ 10 أيام الأولى! لابو ديالي ولات رطبة، والهالات بداو كيخفافو ومابقاش وجهي كايبان عيان.",
+  },
+  {
+    rating: 5,
+    name: "ليلى",
+    city: "طنجة",
+    badge: "سيروم العين",
+    badgeClass: "bg-[#F2E0E5] text-[#5C2D3E]",
+    quote:
+      "البوفينيس ديال الصباح نقص كثير، ومنطقة العين بانت أكثر إشراقاً. قطرة صغيرة كافية وكيشربها الجلد دغيا — ما كنتش كنصدق نتائج بهالسرعة.",
+  },
+  {
+    rating: 5,
+    name: "أسماء",
+    city: "الرباط",
+    badge: "روتين الصباح الكامل",
+    badgeClass: "bg-[#5C2D3E] text-white",
+    quote:
+      "الهالات نقصوا بشكل باين وبات وجهي أكثر حيوية. كنت نخبي عيناي تحت الكونسيلر دايما — دابا الكونسيلر كيبان طبيعي أكثر لأن محيط العين مرطب ومضوي.",
+  },
+];
+
+const REVIEWS_BY_PRODUCT: Record<string, Review[]> = {
+  "nura-eye-revive": EYE_REVIEWS,
+};
+
 function Stars({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-0.5" aria-label={`${rating} من 5 نجوم`}>
@@ -50,7 +93,9 @@ function Stars({ rating }: { rating: number }) {
   );
 }
 
-export function RoutineReviewsSection() {
+export function RoutineReviewsSection({ productSlug }: { productSlug?: string }) {
+  const reviews: Review[] = (productSlug ? REVIEWS_BY_PRODUCT[productSlug] : undefined) ?? DEFAULT_REVIEWS;
+
   return (
     <section className="bg-[#F5F0EA] py-12 sm:py-16" dir="rtl">
       <div className="container-wide">
@@ -71,7 +116,7 @@ export function RoutineReviewsSection() {
 
         {/* ── Cards — stacked on mobile, 3-col on desktop ── */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {REVIEWS.map((review, i) => (
+          {reviews.map((review, i) => (
             <motion.article
               key={review.name}
               initial={{ opacity: 0, y: 18 }}
