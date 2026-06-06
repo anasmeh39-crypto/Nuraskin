@@ -843,8 +843,20 @@
 }
 
 @media (max-width: 639px) {
-  .hero-trust-strip { flex-direction: column; gap: 12px; padding: 20px 16px; }
-  .hero-trust-item { white-space: normal; }
+  .hero-trust-strip {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 20px;
+  }
+  .hero-trust-item {
+    display: flex;        /* block-level so it spans full width */
+    white-space: normal;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
 }
 
 /* Reduced motion — freeze all hero animations */
@@ -1724,6 +1736,14 @@
   .bundles-eyebrow { font-size: 12px; }
   .bundles-heading { font-size: 1.8rem; }
   .bundles-header { margin-bottom: 20px; }
+
+  /* Featured card: drop aspect-ratio and match other cards' fixed height */
+  .bundle-card-featured .bundle-image-wrap {
+    height: 220px;
+    aspect-ratio: unset;
+    width: calc(100% - 16px);
+    margin: 8px 8px 0;
+  }
 
   .bundles-grid {
     display: flex !important;

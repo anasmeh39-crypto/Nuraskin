@@ -202,7 +202,7 @@ export function TestimonialsSection() {
           <p className="mt-4 text-base leading-8 text-brand-deep/65">{TESTIMONIAL_SUBHEADLINE}</p>
         </div>
 
-        <div className="relative mx-auto mb-9 max-w-6xl overflow-hidden rounded-[1.7rem] border border-white/70 bg-cream shadow-[0_22px_70px_rgba(61,44,50,0.09)] md:mb-12 md:rounded-[2rem]">
+        <div className="relative mx-auto mb-4 max-w-6xl overflow-hidden rounded-[1.7rem] border border-white/70 bg-cream shadow-[0_22px_70px_rgba(61,44,50,0.09)] md:mb-5 md:rounded-[2rem]">
           <Image
             src="/images/testimonials/social-proof-hero.png"
             alt="آراء زبونات نورا سكين مع منتجات العناية وتقييم 4.8 من 5"
