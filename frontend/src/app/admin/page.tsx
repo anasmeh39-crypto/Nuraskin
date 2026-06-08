@@ -468,10 +468,209 @@ function ErrorSection({ message }: { message: string }) {
   );
 }
 
+// ─── Settings Panel ───────────────────────────────────────────────────────────
+
+const SETTING_LABELS: Record<string, string> = {
+  ENABLE_CAPI: "Enable All CAPI",
+  ENABLE_META_CAPI: "Enable Meta CAPI",
+  META_PIXEL_ID: "Meta Pixel ID",
+  META_ACCESS_TOKEN: "Meta Access Token",
+  META_API_VERSION: "Meta API Version",
+  ENABLE_TIKTOK_CAPI: "Enable TikTok CAPI",
+  TIKTOK_PIXEL_CODE: "TikTok Pixel Code",
+  TIKTOK_ACCESS_TOKEN: "TikTok Access Token",
+  TIKTOK_API_VERSION: "TikTok API Version",
+};
+
+const BOOLEAN_KEYS = new Set(["ENABLE_CAPI", "ENABLE_META_CAPI", "ENABLE_TIKTOK_CAPI"]);
+const SECRET_KEYS = new Set(["META_ACCESS_TOKEN", "TIKTOK_ACCESS_TOKEN"]);
+
+function SettingsPanel({ apiKey }: { apiKey: string }) {
+  const [values, setValues] = useState<Record<string, string>>({});
+  const [drafts, setDrafts] = useState<Record<string, string>>({});
+  const [reveal, setReveal] = useState<Record<string, boolean>>({});
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [status, setStatus] = useState<"idle" | "saved" | "error">("idle");
+  const headers = { "x-admin-key": apiKey };
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("/api/admin/settings", { headers })
+      .then((r) => r.json())
+      .then((data) => {
+        setValues(data);
+        setDrafts(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  async function handleSave() {
+    setSaving(true);
+    setStatus("idle");
+    // Only send keys that changed
+    const changed: Record<string, string> = {};
+    for (const k of Object.keys(drafts)) {
+      if (drafts[k] !== values[k]) changed[k] = drafts[k];
+    }
+    try {
+      const res = await fetch("/api/admin/settings", {
+        method: "PATCH",
+        headers: { ...headers, "Content-Type": "application/json" },
+        body: JSON.stringify(changed),
+      });
+      if (res.ok) {
+        setValues({ ...values, ...changed });
+        setStatus("saved");
+        setTimeout(() => setStatus("idle"), 3000);
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  function toggle(key: string) {
+    const next = drafts[key] === "true" ? "false" : "true";
+    setDrafts((d) => ({ ...d, [key]: next }));
+  }
+
+  function field(key: string) {
+    const isSecret = SECRET_KEYS.has(key);
+    const isRevealed = reveal[key];
+    const isMasked = isSecret && drafts[key]?.includes("••");
+    return (
+      <div key={key} style={{ marginBottom: "18px" }}>
+        <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#6B4E56", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+          {SETTING_LABELS[key] || key}
+        </label>
+        <div style={{ position: "relative" }}>
+          <input
+            type={isSecret && !isRevealed ? "password" : "text"}
+            value={isMasked ? "" : drafts[key] || ""}
+            placeholder={isMasked ? "Leave blank to keep current token" : ""}
+            onChange={(e) => setDrafts((d) => ({ ...d, [key]: e.target.value }))}
+            style={{
+              width: "100%",
+              padding: isSecret ? "10px 44px 10px 12px" : "10px 12px",
+              border: "1px solid #EBE0E4",
+              borderRadius: "7px",
+              fontSize: "13px",
+              color: "#3D2C32",
+              boxSizing: "border-box",
+              background: "#fff",
+              outline: "none",
+              fontFamily: isSecret && !isRevealed ? "monospace" : "inherit",
+            }}
+          />
+          {isSecret && (
+            <button
+              type="button"
+              onClick={() => setReveal((r) => ({ ...r, [key]: !r[key] }))}
+              style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#8D7D82", fontSize: "12px" }}
+            >
+              {isRevealed ? "Hide" : "Show"}
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  function toggleSwitch(key: string) {
+    const on = drafts[key] === "true";
+    return (
+      <div key={key} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
+        <span style={{ fontSize: "13px", fontWeight: 500, color: "#3D2C32" }}>{SETTING_LABELS[key] || key}</span>
+        <button
+          type="button"
+          onClick={() => toggle(key)}
+          style={{
+            width: "44px", height: "24px",
+            background: on ? "#3D2C32" : "#d0c4c8",
+            borderRadius: "12px", border: "none", cursor: "pointer",
+            position: "relative", transition: "background 0.2s",
+          }}
+        >
+          <span style={{
+            position: "absolute", top: "3px",
+            left: on ? "23px" : "3px",
+            width: "18px", height: "18px",
+            background: "#fff", borderRadius: "50%",
+            transition: "left 0.2s",
+          }} />
+        </button>
+      </div>
+    );
+  }
+
+  if (loading) return <LoadingSection />;
+
+  return (
+    <div style={{ maxWidth: "640px" }}>
+      {/* Global */}
+      <div style={S.sectionTitle}>Global</div>
+      <div style={S.card}>
+        {toggleSwitch("ENABLE_CAPI")}
+      </div>
+
+      {/* Meta */}
+      <div style={S.sectionTitle}>Meta (Facebook) CAPI</div>
+      <div style={S.card}>
+        {toggleSwitch("ENABLE_META_CAPI")}
+        {field("META_PIXEL_ID")}
+        {field("META_ACCESS_TOKEN")}
+        {field("META_API_VERSION")}
+      </div>
+
+      {/* TikTok */}
+      <div style={S.sectionTitle}>TikTok Events API</div>
+      <div style={S.card}>
+        {toggleSwitch("ENABLE_TIKTOK_CAPI")}
+        {field("TIKTOK_PIXEL_CODE")}
+        {field("TIKTOK_ACCESS_TOKEN")}
+        {field("TIKTOK_API_VERSION")}
+      </div>
+
+      {/* Save */}
+      <div style={{ marginTop: "28px", display: "flex", alignItems: "center", gap: "14px" }}>
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          style={{
+            padding: "11px 28px",
+            background: "#3D2C32",
+            color: "#FFF9F6",
+            border: "none",
+            borderRadius: "7px",
+            fontSize: "14px",
+            fontWeight: 600,
+            cursor: saving ? "not-allowed" : "pointer",
+            opacity: saving ? 0.7 : 1,
+          }}
+        >
+          {saving ? "Saving…" : "Save"}
+        </button>
+        {status === "saved" && (
+          <span style={{ color: "#2ecc71", fontSize: "13px", fontWeight: 500 }}>Saved successfully</span>
+        )}
+        {status === "error" && (
+          <span style={{ color: "#c0392b", fontSize: "13px" }}>Save failed — check your admin key</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── Dashboard ────────────────────────────────────────────────────────────────
 
 function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void }) {
   const router = useRouter();
+  const [activeView, setActiveView] = useState<"dashboard" | "settings">("dashboard");
   const [days, setDays] = useState(30);
   const [overview, setOverview] = useState<OverviewStats | null>(null);
   const [products, setProducts] = useState<ProductsStats | null>(null);
@@ -521,22 +720,23 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
       <div style={S.header}>
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
           <h1 style={S.headerTitle}>Nura Skin — Admin</h1>
-          <button style={S.navTab(true)}>Dashboard</button>
-          <button style={S.navTab(false)} onClick={() => router.push("/admin/profit")}>
-            Profit Calculator
-          </button>
+          <button style={S.navTab(activeView === "dashboard")} onClick={() => setActiveView("dashboard")}>Dashboard</button>
+          <button style={S.navTab(false)} onClick={() => router.push("/admin/profit")}>Profit Calculator</button>
+          <button style={S.navTab(activeView === "settings")} onClick={() => setActiveView("settings")}>Settings</button>
         </div>
         <div style={S.headerRight}>
-          <select
-            value={days}
-            onChange={(e) => setDays(Number(e.target.value))}
-            style={S.periodSelect}
-          >
-            <option value={7}>Last 7 days</option>
-            <option value={30}>Last 30 days</option>
-            <option value={90}>Last 90 days</option>
-            <option value={365}>Last 365 days</option>
-          </select>
+          {activeView === "dashboard" && (
+            <select
+              value={days}
+              onChange={(e) => setDays(Number(e.target.value))}
+              style={S.periodSelect}
+            >
+              <option value={7}>Last 7 days</option>
+              <option value={30}>Last 30 days</option>
+              <option value={90}>Last 90 days</option>
+              <option value={365}>Last 365 days</option>
+            </select>
+          )}
           <button onClick={onLogout} style={S.logoutBtn}>
             Sign out
           </button>
@@ -544,6 +744,11 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
       </div>
 
       <div style={S.body}>
+        {/* ── Settings View ── */}
+        {activeView === "settings" && <SettingsPanel apiKey={apiKey} />}
+
+        {/* ── Stats Views ── */}
+        {activeView !== "settings" && <>
         {/* ── Overview ── */}
         <div style={S.sectionTitle}>Overview — {periodLabel}</div>
         {loading && !overview ? (
@@ -760,6 +965,7 @@ function Dashboard({ apiKey, onLogout }: { apiKey: string; onLogout: () => void 
             </div>
           </div>
         ) : null}
+        </>}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from typing import Optional
+from typing import Dict, Optional
 from urllib.parse import parse_qs, urlparse
 
 from fastapi import APIRouter, Depends, Header, HTTPException
@@ -8,6 +8,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import get_settings
 from app.db.session import get_db
+from app.services.settings_service import (
+    MASKED_KEYS,
+    get_all_settings,
+    mask_settings,
+    upsert_settings,
+)
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 
@@ -244,3 +250,30 @@ async def marketing_stats(
         "roas": None,
         "note": "Ad spend metrics require Ads API integration — not yet connected.",
     }
+
+
+@router.get("/settings")
+async def get_settings_endpoint(
+    db: AsyncSession = Depends(get_db),
+    _=Depends(verify_admin),
+):
+    """Return current CAPI settings (tokens masked)."""
+    settings = await get_all_settings(db)
+    return mask_settings(settings)
+
+
+@router.patch("/settings")
+async def update_settings_endpoint(
+    body: Dict[str, str],
+    db: AsyncSession = Depends(get_db),
+    _=Depends(verify_admin),
+):
+    """Update one or more CAPI settings. Send only the keys you want to change."""
+    # Never allow saving a masked placeholder back
+    filtered = {
+        k: v for k, v in body.items()
+        if not (k in MASKED_KEYS and "••" in v)
+    }
+    if filtered:
+        await upsert_settings(db, filtered)
+    return {"status": "saved"}

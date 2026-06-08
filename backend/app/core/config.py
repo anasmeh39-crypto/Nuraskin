@@ -80,14 +80,27 @@ class Settings(BaseSettings):
     def cors_origins_list(self) -> List[str]:
         return [origin.strip() for origin in self.CORS_ORIGINS.split(",")]
 
+    # CAPI global toggles
+    ENABLE_CAPI: bool = True
+    ENABLE_META_CAPI: bool = True
+    ENABLE_TIKTOK_CAPI: bool = True
+    ENABLE_SNAP_CAPI: bool = True
+
     # Meta CAPI
     META_PIXEL_ID: str = ""
     META_ACCESS_TOKEN: str = ""
+    META_API_VERSION: str = "v20.0"
     META_TEST_EVENT_CODE: str = ""
 
     # TikTok Events API
+    TIKTOK_PIXEL_CODE: str = ""
     TIKTOK_PIXEL_ID: str = ""
     TIKTOK_ACCESS_TOKEN: str = ""
+    TIKTOK_API_VERSION: str = "v1.3"
+
+    # Snapchat CAPI
+    SNAP_PIXEL_ID: str = ""
+    SNAP_ACCESS_TOKEN: str = ""
 
     # Google Sheets — Apps Script webhook (preferred) or legacy service account
     GOOGLE_SHEETS_WEBHOOK_URL: str = ""

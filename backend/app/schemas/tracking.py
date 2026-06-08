@@ -15,4 +15,4 @@ class TrackingEventRequest(BaseModel):
     user_data: UserDataIn
     custom_data: Dict[str, Any] = {}
     page_url: Optional[str] = None
-    channels: List[str] = ["meta"]  # "meta", "tiktok"
+    channels: List[str] = ["meta"]  # "meta", "tiktok", "snap"
