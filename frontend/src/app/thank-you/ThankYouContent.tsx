@@ -8,7 +8,7 @@ import { PRODUCTS } from "@/config/products";
 import { BRAND_ASSETS } from "@/config/brand";
 import { FlowProductImage } from "@/components/ui/FlowProductImage";
 import { getOrder } from "@/lib/api";
-import { trackThankYouViewed } from "@/lib/tracking";
+import { trackThankYouViewed, trackPurchase, generateEventId } from "@/lib/tracking";
 import type { OrderDetail } from "@/types";
 
 export function ThankYouContent() {
@@ -31,7 +31,17 @@ export function ThankYouContent() {
     setOrderError("");
     getOrder(orderNumber)
       .then((data) => {
-        if (alive) setOrder(data);
+        if (!alive) return;
+        setOrder(data);
+        // Fire Purchase CAPI event — most important event for ad optimization
+        const phone = sessionStorage.getItem("nura_order_phone") ?? "";
+        trackPurchase(
+          phone,
+          data.total,
+          generateEventId(),
+          data.items.map((i) => ({ slug: i.product_slug, quantity: i.quantity, price: i.unit_price }))
+        );
+        sessionStorage.removeItem("nura_order_phone");
       })
       .catch(() => {
         if (alive) setOrderError("لم نتمكن من تحميل تفاصيل الطلب الآن، لكن تم تسجيل طلبك بنجاح.");

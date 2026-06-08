@@ -117,6 +117,8 @@ export function CheckoutPopup() {
       });
       const orderedSlugs = Array.from(new Set(items.map((i) => i.slug)));
       trackLead(phone, eventId);
+      // Store phone so the thank-you page can include it in the Purchase CAPI event
+      sessionStorage.setItem("nura_order_phone", phone.replace(/[\s-]/g, ""));
       clearCart();
       closeCheckout();
       const params = new URLSearchParams({

@@ -14,11 +14,46 @@ export function generateEventId(): string {
   return crypto.randomUUID();
 }
 
+// ─── CAPI helper ──────────────────────────────────────────────────────────────
+// Sends the same event to your backend, which forwards it to Meta + TikTok.
+// Uses the same eventId as the browser pixel so platforms deduplicate correctly.
+
+interface CapiOptions {
+  eventName: string;
+  eventId: string;
+  phone?: string;
+  customData?: Record<string, unknown>;
+  channels?: string[];
+}
+
+function sendCapi(opts: CapiOptions): void {
+  const body = {
+    event_name: opts.eventName,
+    event_id: opts.eventId,
+    event_time: Math.floor(Date.now() / 1000),
+    user_data: {
+      phone: opts.phone ?? null,
+      client_user_agent: navigator.userAgent,
+    },
+    custom_data: opts.customData ?? {},
+    page_url: window.location.href,
+    channels: opts.channels ?? ["meta", "tiktok"],
+  };
+
+  // fire-and-forget — never block the UI
+  fetch("/api/tracking/event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  }).catch(() => {});
+}
+
+// ─── Events ───────────────────────────────────────────────────────────────────
+
 export function trackPageView() {
   try {
     window.fbq?.("track", "PageView");
     window.ttq?.page();
-    window.snaptr?.("track", "PAGE_VIEW");
   } catch {}
 }
 
@@ -38,12 +73,13 @@ export function trackViewContent(product: Product, eventId: string) {
       { content_id: product.slug, value: product.price, currency: "MAD" },
       { event_id: eventId }
     );
-    window.snaptr?.("track", "VIEW_CONTENT", {
-      item_ids: [product.slug],
-      price: product.price,
-      currency: "MAD",
-    });
   } catch {}
+
+  sendCapi({
+    eventName: "ViewContent",
+    eventId,
+    customData: { value: product.price, currency: "MAD", content_ids: [product.slug] },
+  });
 }
 
 export function trackAddToCart(items: CartItem[], total: number, eventId: string) {
@@ -60,12 +96,13 @@ export function trackAddToCart(items: CartItem[], total: number, eventId: string
       { content_id: ids[0], value: total, currency: "MAD" },
       { event_id: eventId }
     );
-    window.snaptr?.("track", "ADD_CART", {
-      item_ids: ids,
-      price: total,
-      currency: "MAD",
-    });
   } catch {}
+
+  sendCapi({
+    eventName: "AddToCart",
+    eventId,
+    customData: { value: total, currency: "MAD", content_ids: ids },
+  });
 }
 
 export function trackInitiateCheckout(total: number, eventId: string) {
@@ -81,19 +118,57 @@ export function trackInitiateCheckout(total: number, eventId: string) {
       { value: total, currency: "MAD" },
       { event_id: eventId }
     );
-    window.snaptr?.("track", "START_CHECKOUT", {
-      price: total,
-      currency: "MAD",
-    });
   } catch {}
+
+  sendCapi({
+    eventName: "InitiateCheckout",
+    eventId,
+    customData: { value: total, currency: "MAD" },
+  });
 }
 
+// Called when customer submits order — phone is available here, most valuable for CAPI
 export function trackLead(phone: string, eventId: string) {
   try {
     window.fbq?.("track", "Lead", {}, { eventID: eventId });
     window.ttq?.track("PlaceAnOrder", {}, { event_id: eventId });
-    window.snaptr?.("track", "PURCHASE", {});
   } catch {}
+
+  sendCapi({
+    eventName: "Lead",
+    eventId,
+    phone,
+  });
+}
+
+// Called on thank-you page — most important event for ad optimization
+export function trackPurchase(
+  phone: string,
+  total: number,
+  eventId: string,
+  items: { slug: string; quantity: number; price: number }[]
+) {
+  const ids = items.map((i) => i.slug);
+  try {
+    window.fbq?.(
+      "track",
+      "Purchase",
+      { value: total, currency: "MAD", content_ids: ids, content_type: "product" },
+      { eventID: eventId }
+    );
+    window.ttq?.track(
+      "PlaceAnOrder",
+      { value: total, currency: "MAD", content_id: ids[0] },
+      { event_id: eventId }
+    );
+  } catch {}
+
+  sendCapi({
+    eventName: "Purchase",
+    eventId,
+    phone,
+    customData: { value: total, currency: "MAD", content_ids: ids },
+  });
 }
 
 export function trackUpsellViewed(productSlug: string) {
