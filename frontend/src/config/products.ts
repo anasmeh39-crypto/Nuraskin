@@ -72,6 +72,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "nura-night-renewal",
     name_ar: "كريم التجديد الليلي للبشرة",
+    heroTitle_ar: "كريم الريتينول الليلي",
     name_en: "Night Renewal Face Cream",
     tagline_ar: "باش تفيقي الصباح ببشرة مرتاحة وفيها نضارة",
     description_ar:
@@ -81,9 +82,9 @@ export const PRODUCTS: Product[] = [
     compareAtPrice: 349,
     formattedCompareAtPrice: "349 درهم",
     image: "/images/nura-night-renewal-gallery-1.png",
-    heroIngredient: "باكوتشيول نباتي وببتيدات مركّزة",
+    heroIngredient: "باكوتشيول + ببتيدات",
     format: "كريم ليلي",
-    volume: "50ml",
+    volume: "50ml (2–3 أشهر)",
     benefits: [
       "كيعاون فالتجديد الطبيعي للبشرة بالليل",
       "كيخلي البشرة رطبة بحال الحرير",
@@ -478,14 +479,14 @@ const PRODUCT_PAGE_OFFER_RULES: Record<string, ProductPageOfferRule[]> = {
       bundleName: "روتين التجديد الليلي",
     },
     {
-      id: "nura-retinol-balance-spf-trio",
+      id: "nura-retinol-eye-balance-trio",
       tier: "trio",
-      label: "روتين التجديد والحماية",
-      sublabel: "تجديد ليلي + حماية نهارية كاملة",
-      products: ["nura-night-renewal", "nura-balance", "nura-spf-50"],
+      label: "روتين الليل الكامل",
+      sublabel: "تجديد ليلي + عناية عيون + إشراقة نهارية",
+      products: ["nura-night-renewal", "nura-eye-revive", "nura-balance"],
       price: 449,
       badge: "مطلوب بزاف",
-      bundleName: "روتين التجديد والحماية",
+      bundleName: "روتين الليل الكامل",
     },
     {
       id: "nura-complete-ritual",

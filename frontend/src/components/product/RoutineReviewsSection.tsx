@@ -71,8 +71,39 @@ const EYE_REVIEWS: Review[] = [
   },
 ];
 
+const NIGHT_REVIEWS: Review[] = [
+  {
+    rating: 5,
+    name: "خديجة",
+    city: "فاس",
+    badge: "روتين الليل",
+    badgeClass: "bg-[#2D1525] text-white",
+    quote:
+      "من الأسبوع الأول حسيت بالفرق — وجهي تفيق أنعم وفيه نضارة ما كانتش من قبل. كريم الليل ولا خطوة ثابتة في روتيني ومانقدرش نتخلى عليه.",
+  },
+  {
+    rating: 5,
+    name: "هدى",
+    city: "أكادير",
+    badge: "تجديد ليلي",
+    badgeClass: "bg-[#F2E0E5] text-[#5C2D3E]",
+    quote:
+      "ريحتو هادئة وكيشربو الجلد بلا ما يخلي إحساس ثقيل. بشرتي باناتلي أكثر نضارة الصباح — والهالات نقصوا كيما زدت كريم العين معه.",
+  },
+  {
+    rating: 5,
+    name: "نبيهة",
+    city: "الدار البيضاء",
+    badge: "روتين الليل الكامل",
+    badgeClass: "bg-[#5C2D3E] text-white",
+    quote:
+      "كنت كنحوس على كريم ليلي ما يسدش المسام — لقيتو. وجهي كيتفيق أكثر حيوية وفيه راحة باينة. ننصح بيه لكل واحدة بشرتها عيانة.",
+  },
+];
+
 const REVIEWS_BY_PRODUCT: Record<string, Review[]> = {
   "nura-eye-revive": EYE_REVIEWS,
+  "nura-night-renewal": NIGHT_REVIEWS,
 };
 
 function Stars({ rating }: { rating: number }) {
