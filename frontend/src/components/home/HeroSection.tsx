@@ -42,29 +42,29 @@ export function HeroSection() {
             grid-column: 1 → 40% column → visual RIGHT in RTL. */}
         <div className="hero-text-panel">
 
-          {/* Eyebrow — Playfair Display italic for editorial refinement */}
+          {/* Eyebrow — Arabic brand line */}
           <p
             className="hero-eyebrow hero-animate hero-animate-sm"
             style={{ animationDelay: "100ms" }}
           >
-            RITUEL DE SOIN QUOTIDIEN
+            روتين العناية اليومية — نورا سكين
           </p>
 
-          {/* Headline — Arabic copy verbatim, weight 400 for quiet luxury */}
+          {/* Headline — Moroccan Darija */}
           <h1
             className="hero-headline hero-animate"
             style={{ animationDelay: "200ms" }}
           >
-            روتين عناية ناعم لبشرة أكثر توازنًا وإشراقًا
+            بشرتك تستاهل روتين يخدم — مو بس كريم
           </h1>
 
-          {/* Body paragraph */}
+          {/* Body paragraph — Darija */}
           <p
             className="hero-body hero-animate hero-animate-sm"
             style={{ animationDelay: "350ms" }}
           >
-            أربع تركيبات مدروسة تدعم إشراقة البشرة، توازنها، تجديدها الليلي،
-            وحمايتها الصباحية — روتين واضح يعطي نتائج ملموسة.
+            4 منتجات مدروسين — إشراقة، توازن، تجديد ليلي، وحماية صباحية.
+            روتين واضح كتشوفي نتائجو مع الوقت.
           </p>
 
           {/* CTA pair — primary pill + COD trust note */}
@@ -84,6 +84,25 @@ export function HeroSection() {
               </svg>
               الدفع عند الاستلام — ما تخلصي حتى توصلي
             </span>
+          </div>
+
+          {/* Social proof + urgency */}
+          <div className="mt-5 space-y-2.5 hero-animate hero-animate-xs" style={{ animationDelay: "640ms" }} dir="rtl">
+            <div className="flex items-center justify-center gap-2 md:justify-start">
+              <div className="flex items-center gap-0.5">
+                {[1,2,3,4,5].map(s => (
+                  <svg key={s} className="h-4 w-4 text-[#E8A838]" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <span className="text-sm font-bold text-[#2C1810]">4.8</span>
+              <span className="text-sm text-[#9B8A8A]">· +5,000 تقييم موثّق</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 rounded-xl bg-amber-50 border border-amber-200/60 px-3.5 py-2 md:justify-start">
+              <span className="text-base leading-none">🔥</span>
+              <p className="text-xs font-semibold text-amber-800">+200 زبونة طلبوا هاد الأسبوع — توصيل مجاني لجميع المدن</p>
+            </div>
           </div>
 
         </div>

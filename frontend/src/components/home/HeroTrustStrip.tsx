@@ -36,19 +36,13 @@ function TruckIcon() {
   );
 }
 
-function FlaskIcon() {
+function UsersIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      {/* Flask body */}
-      <path
-        d="M5.5 2H10.5V7L13.5 13H2.5L5.5 7V2Z"
-        stroke="currentColor" strokeWidth="1.25"
-        strokeLinejoin="round"
-      />
-      {/* Flask neck top */}
-      <line x1="5" y1="2" x2="11" y2="2" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-      {/* Liquid fill hint */}
-      <path d="M4.5 11H11.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeOpacity="0.5" />
+      <circle cx="6" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.25" />
+      <path d="M1 13c0-2.761 2.239-5 5-5s5 2.239 5 5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+      <circle cx="12" cy="5.5" r="2" stroke="currentColor" strokeWidth="1.25" />
+      <path d="M14.5 13c0-1.5-.6-2.9-1.6-3.9" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
     </svg>
   );
 }
@@ -56,7 +50,7 @@ function FlaskIcon() {
 const TRUST_ITEMS = [
   { Icon: CodIcon,   text: "الدفع عند الاستلام" },
   { Icon: TruckIcon, text: "توصيل مجاني لجميع أنحاء المغرب" },
-  { Icon: FlaskIcon, text: "تركيبات مختارة بعناية" },
+  { Icon: UsersIcon, text: "+2,000 زبونة راضية" },
 ] as const;
 
 export function HeroTrustStrip() {

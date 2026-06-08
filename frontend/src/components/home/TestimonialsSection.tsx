@@ -4,7 +4,7 @@ import { Check } from "lucide-react";
 
 const TESTIMONIAL_EYEBROW = "آراء زبوناتنا";
 const TESTIMONIAL_HEADLINE = "بشرة متجددة، ثقة متزايدة";
-const TESTIMONIAL_SUBHEADLINE = "أكثر من 2,000 امرأة مغربية اختارت نوراسكين. هذه قصصهن.";
+const TESTIMONIAL_SUBHEADLINE = "أكثر من 5,000 تقييم موثّق — نساء مغربيات اخترن نورا سكين. هذه قصصهن.";
 
 /* Use real customer photos with explicit written consent.
    For stock placeholders, source diverse North African /
@@ -64,7 +64,7 @@ const SHORT_TESTIMONIALS = [
     city: "مكناس",
     quote: "الشرح واضح والمنتجات كتبان بريميوم بزاف، عطاوني ثقة فالطلب",
     product: "Nura Skin",
-    rating: 5,
+    rating: 4,
   },
   {
     photo: "/images/testimonials/rim.jpg",
@@ -72,7 +72,7 @@ const SHORT_TESTIMONIALS = [
     city: "وجدة",
     quote: "وصلني الطلب مرتب ومغلف مزيان، والإحساس على البشرة ناعم",
     product: "روتين النعومة",
-    rating: 5,
+    rating: 4,
   },
   {
     photo: "/images/testimonials/yasmine.jpg",

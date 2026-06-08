@@ -42,7 +42,7 @@ const BUNDLE_DISPLAY = [
     reasons: [
       "حماية شمسية 50",
       "إشراقة وتوازن يومي",
-      "وفّري 278 درهماً",
+      "وفّري 328 درهماً",
     ],
     featured: false,
     priority: false,

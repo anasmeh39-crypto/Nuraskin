@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  ArrowLeft,
   Eye,
   Moon,
   ShieldCheck,
@@ -80,6 +81,8 @@ export default function HomePage() {
                 text: "ملي كتفيقي وكتحسي بشرتك باهتة، مرهقة وما فيهاش داك الإشراق الطبيعي… كتحتاجي خطوة يومية لطيفة ترجع ليها التوازن والصفاء.",
                 image: "/images/problem-dullness-portrait.png",
                 imageClass: "scale-100 object-cover object-[46%_24%] opacity-[0.99] saturate-[1.04] contrast-[1.03]",
+                href: "/products/nura-balance",
+                cta: "سيروم النياسيناميد",
               },
               {
                 icon: Moon,
@@ -87,6 +90,8 @@ export default function HomePage() {
                 text: "بعد يوم طويل، البشرة كتكون محتاجة عناية هادئة تساعدها تبان أكثر نعومة وراحة مع روتين ليلي بسيط.",
                 image: "/images/problem-tired-skin-closeup.jpeg",
                 imageClass: "scale-100 object-cover object-[35%_50%] opacity-[0.99] saturate-[1.04] contrast-[1.04]",
+                href: "/products/nura-night-renewal",
+                cta: "كريم الريتينول الليلي",
               },
               {
                 icon: Eye,
@@ -94,6 +99,8 @@ export default function HomePage() {
                 text: "التعب، السهر، والخدمة كيبانو بسرعة حول العينين… وهاد المنطقة كتحتاج عناية خفيفة ومركزة باش تبان أكثر انتعاشاً.",
                 image: "/images/problem-eye-fatigue-closeup.png",
                 imageClass: "scale-100 object-cover object-[42%_48%] opacity-[0.99] saturate-[1.05] contrast-[1.05]",
+                href: "/products/nura-eye-revive",
+                cta: "سيروم محيط العين",
               },
               {
                 icon: ShieldCheck,
@@ -101,6 +108,8 @@ export default function HomePage() {
                 text: "كل صباح، البشرة كتحتاج طبقة حماية خفيفة تساعدها تحافظ على مظهر صحي ومشرق خلال اليوم.",
                 image: "/images/problem-morning-protection-portrait.png",
                 imageClass: "scale-100 object-cover object-[34%_50%] opacity-[0.99] saturate-[1.05] contrast-[1.03]",
+                href: "/products/nura-spf-50",
+                cta: "إيكران الشمس SPF 50",
               },
             ].map((card) => {
               const Icon = card.icon;
@@ -124,6 +133,13 @@ export default function HomePage() {
                     <Icon className="mb-4 h-6 w-6 text-rose-mid" strokeWidth={1.5} />
                     <h3 className="text-xl font-bold leading-snug text-[#3A222C]">{card.title}</h3>
                     <p className="mt-3 text-[13px] leading-7 text-[#5F4A51]">{card.text}</p>
+                    <Link
+                      href={card.href}
+                      className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-rose-mid hover:underline"
+                    >
+                      {card.cta}
+                      <ArrowLeft className="h-3 w-3" strokeWidth={2.5} />
+                    </Link>
                   </div>
                 </div>
               );
@@ -132,12 +148,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4 ── Product grid: the 4 individual products */}
+      {/* 4 ── Bundle offers: the conversion section — before solo products to anchor price high */}
+      <HomePacksSection />
+
+      {/* 5 ── Product grid: individual products for those who want to start with one */}
       <section className="bg-white py-16 md:py-24">
         <div className="container-wide">
           <div className="mx-auto mb-12 max-w-2xl text-center">
             <p className="luxury-kicker mb-3">مجموعة نورا سكين</p>
-            <h2 className="section-heading text-[#3A222C]">أربعة منتجات أساسية لروتين متكامل</h2>
+            <h2 className="section-heading text-[#3A222C]">أو ابدئي بمنتج واحد</h2>
           </div>
           <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
             {PRODUCTS.map((product, idx) => (
@@ -148,9 +167,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* 5 ── Bundle offers: the conversion section */}
-      <HomePacksSection />
 
       {/* 6 ── Social proof: reviews & testimonials */}
       <TestimonialsSection />
