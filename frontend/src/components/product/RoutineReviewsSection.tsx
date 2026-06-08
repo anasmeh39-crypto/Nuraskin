@@ -101,9 +101,40 @@ const NIGHT_REVIEWS: Review[] = [
   },
 ];
 
+const SPF_REVIEWS: Review[] = [
+  {
+    rating: 5,
+    name: "نادية",
+    city: "الدار البيضاء",
+    badge: "روتين الصباح",
+    badgeClass: "bg-[#FFF3CD] text-[#7A5C00]",
+    quote:
+      "أخيراً لقيت إيكران ما كيزيتش الوجه ولا كيخلي أثر أبيض. خفيف بزاف وكيشربو الجلد دغيا — ولا آخر خطوة ثابتة فروتين الصباح ديالي.",
+  },
+  {
+    rating: 5,
+    name: "كوثر",
+    city: "مراكش",
+    badge: "واقي الشمس",
+    badgeClass: "bg-[#F2E0E5] text-[#5C2D3E]",
+    quote:
+      "كنت كنخاف نستعمل إيكران من أثر البياض. هاد المنتج ما خلاش أي أثر وكمّل الروتين ديالي مزيان. تحت الكونسيلر والمكياج — ممتاز.",
+  },
+  {
+    rating: 5,
+    name: "سلمى",
+    city: "طنجة",
+    badge: "روتين الصباح الكامل",
+    badgeClass: "bg-[#5C2D3E] text-white",
+    quote:
+      "النياسيناميد مع الإيكران مع بعضياتهم — روتين الصباح ديالي اكتمل. البقع نقصوا مع الوقت وبشرتي محمية. هاد التوليفة منقدرش نتخلى عليها.",
+  },
+];
+
 const REVIEWS_BY_PRODUCT: Record<string, Review[]> = {
   "nura-eye-revive": EYE_REVIEWS,
   "nura-night-renewal": NIGHT_REVIEWS,
+  "nura-spf-50": SPF_REVIEWS,
 };
 
 function Stars({ rating }: { rating: number }) {

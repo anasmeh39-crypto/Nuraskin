@@ -160,7 +160,7 @@ export default async function ProductPage({ params }: Props) {
       <ProductHeroElite product={product} />
 
       {/* 2. Problem hook — agitate the specific skin concern */}
-      {product.slug !== "nura-spf-50" && <ProblemSection product={product} />}
+      <ProblemSection product={product} />
 
       {/* 3. Before / After — visual proof for products that have photos */}
       {(product.slug === "nura-balance" || product.slug === "nura-eye-revive") && (
