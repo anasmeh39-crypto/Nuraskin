@@ -91,7 +91,7 @@ export function RitualSelectorSection({ product }: Props) {
             onClick={handleAddToCart}
             className="flex min-h-[56px] w-full items-center justify-center rounded-full bg-[#5C2D3E] px-6 text-base font-bold text-white shadow-[0_14px_32px_rgba(92,45,62,0.22)] transition hover:bg-[#4A2230]"
           >
-            {added ? "✓ تمت الإضافة للسلة" : adding ? "جاري الإضافة..." : `احجزي طقسك الآن — ${price} درهم`}
+            {added ? "✓ تمت الإضافة للسلة" : adding ? "جاري الإضافة..." : `أحجزي روتينك الأن — ${price} درهم`}
           </motion.button>
           <p className="mt-3 text-xs font-medium text-[#8C6E73]">الدفع عند الاستلام · توصيل مجاني · تأكيد قبل الإرسال</p>
         </div>

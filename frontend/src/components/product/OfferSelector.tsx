@@ -24,7 +24,7 @@ const SHORT: Record<string, string> = {
 const SINGLE_HERO: Record<string, string> = {
   "nura-balance":        "/images/nura-balance-gallery-1.png",
   "nura-eye-revive":    "/images/nura-eye-revive-lifestyle-model.png",
-  "nura-night-renewal":  "/images/nura-night-renewal-ingredients.png",
+  "nura-night-renewal":  "/images/nura-night-renewal-gallery-1.png",
   "nura-spf-50":         "/images/nura-spf-50-gallery-1.png",
 };
 
