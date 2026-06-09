@@ -1,7 +1,0 @@
-<svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
-  <title id="title">Halal certification</title>
-  <circle cx="76" cy="40" r="25" fill="#F5E8EC"/>
-  <path d="M76 18a22 22 0 1022 22c-6 2-13 1-18-4-5-5-6-12-4-18z" fill="#8E5A68"/>
-  <text x="145" y="39" text-anchor="middle" fill="#3D2C32" font-family="Arial, sans-serif" font-size="23" font-weight="700">HALAL</text>
-  <text x="145" y="59" text-anchor="middle" fill="#6B4E56" font-family="Arial, sans-serif" font-size="11" font-weight="600">CERTIFIED</text>
-</svg>

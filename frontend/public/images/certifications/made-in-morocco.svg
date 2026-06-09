@@ -1,7 +1,0 @@
-<svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
-  <title id="title">Made in Morocco</title>
-  <circle cx="62" cy="40" r="25" fill="#F5E8EC"/>
-  <path d="M62 24l3.4 10.5h11l-8.9 6.5 3.4 10.5L62 45l-8.9 6.5 3.4-10.5-8.9-6.5h11L62 24z" fill="#8E5A68"/>
-  <text x="148" y="38" text-anchor="middle" fill="#3D2C32" font-family="Arial, sans-serif" font-size="18" font-weight="700">MADE IN</text>
-  <text x="148" y="58" text-anchor="middle" fill="#6B4E56" font-family="Arial, sans-serif" font-size="18" font-weight="700">MOROCCO</text>
-</svg>

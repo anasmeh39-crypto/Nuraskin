@@ -1,8 +1,0 @@
-<svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
-  <title id="title">Direction des Medicaments et de la Pharmacie</title>
-  <path d="M58 20c-10 6-17 16-17 28 0 7 5 12 13 12 8 0 13-5 13-13V25" stroke="#3D2C32" stroke-width="8" stroke-linecap="round"/>
-  <path d="M83 60V23l18 18 18-18v37" stroke="#3D2C32" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M139 60V22h25c12 0 20 7 20 18s-8 18-20 18h-25" stroke="#3D2C32" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M51 44h18M143 41h35" stroke="#8E5A68" stroke-width="5" stroke-linecap="round"/>
-  <text x="120" y="75" text-anchor="middle" fill="#6B4E56" font-family="Arial, sans-serif" font-size="10" font-weight="600">Direction des Medicaments et de la Pharmacie</text>
-</svg>
