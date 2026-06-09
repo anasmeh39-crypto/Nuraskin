@@ -73,7 +73,7 @@ export default function HomePage() {
       <HeroTrustStrip />
 
       {/* 3 ── Problem identification: connect to her skin concerns */}
-      <section className="bg-ivory py-16 md:py-20">
+      <section className="bg-ivory py-8 md:py-20">
         <div className="container-wide">
           <div className="mx-auto mb-12 max-w-2xl text-center">
             <p className="luxury-kicker mb-3">مشاكل يومية، حلول واضحة</p>
@@ -184,36 +184,73 @@ export default function HomePage() {
       <CertificationsTrustStrip />
 
       {/* 9 ── Final CTA: direct path to order */}
-      <section className="px-4 py-16 md:py-16">
-        <div className="container-wide relative min-h-[34rem] overflow-hidden rounded-[2rem] border border-[#E7D8CB] bg-[#F8EEE8] text-center shadow-[0_26px_74px_rgba(97,70,58,0.13)] md:min-h-[28rem]">
-          <Image
-            src="/images/cta-routine-atmosphere.png"
-            alt=""
-            fill
-            sizes="100vw"
-            className="scale-[1.02] object-cover object-[44%_50%] md:scale-100 md:object-center"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,250,246,0.42)_0%,rgba(255,252,248,0.82)_32%,rgba(255,252,248,0.84)_68%,rgba(255,250,246,0.40)_100%)] md:bg-[linear-gradient(90deg,rgba(255,250,246,0.28)_0%,rgba(255,252,248,0.72)_34%,rgba(255,252,248,0.76)_64%,rgba(255,250,246,0.30)_100%)]" aria-hidden />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(255,255,255,0.62),rgba(255,252,248,0.28)_44%,transparent_74%)] md:bg-[radial-gradient(circle_at_50%_48%,rgba(255,255,255,0.48),rgba(255,252,248,0.18)_42%,transparent_72%)]" aria-hidden />
-          <div className="relative z-10 mx-auto flex min-h-[34rem] max-w-[22rem] flex-col items-center justify-center px-6 pb-16 pt-20 md:min-h-[28rem] md:max-w-xl md:px-8 md:py-14">
-            <h2 className="max-w-[18rem] text-[2rem] font-semibold leading-[1.25] text-[#6F5046] md:max-w-none md:text-4xl md:leading-tight">
-              ابدئي روتين نورا سكين اليوم
-            </h2>
-            <p className="mx-auto mt-5 max-w-[18rem] text-sm leading-8 text-[#81695F] md:mt-4 md:max-w-lg">
-              عناية ناعمة، نتائج واضحة — توصيل مجاني لجميع أنحاء المغرب.
-            </p>
-            <Link
-              href="/packs"
-              className="mt-9 inline-flex w-full flex-col items-center justify-center rounded-full border border-[#D9BFAE] bg-[linear-gradient(135deg,#8A655A,#B98D72)] px-9 py-4 font-bold text-white shadow-[0_18px_42px_rgba(137,94,78,0.24)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(137,94,78,0.26)] md:mt-8 md:w-auto md:px-8 md:shadow-[0_16px_38px_rgba(137,94,78,0.20)]"
-            >
-              <span>اطلبي الروتين الكامل — {routineBundle.price} درهم</span>
-              <span className="mt-1 text-[11px] font-normal opacity-80">
-                الدفع عند الاستلام — ما تخلصي حتى توصلي
-              </span>
-            </Link>
-            <p className="mt-4 text-xs text-[#9C836E]">
-              توفيري {routineBundle.saving} درهم مقارنة بالشراء المنفرد · إرجاع مجاني
-            </p>
+      <section className="px-4 py-10 md:py-14">
+        <div className="container-wide overflow-hidden rounded-[2rem] border border-[#E7D8CB] bg-[#FAF3EE] shadow-[0_20px_60px_rgba(97,70,58,0.11)]">
+          {/* Split: image left (end in RTL) · text right (start in RTL) */}
+          <div className="grid md:grid-cols-[1fr_1fr]" dir="ltr">
+
+            {/* Image panel — physical left on desktop, top on mobile */}
+            <div className="relative min-h-[240px] overflow-hidden md:min-h-[420px]">
+              <Image
+                src="/images/routine-complete-family.png"
+                alt="روتين نورا سكين الكامل — 4 منتجات"
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover object-center"
+                priority={false}
+              />
+              {/* Fade edge toward text panel on desktop */}
+              <div
+                className="pointer-events-none absolute inset-0 hidden md:block"
+                style={{ background: "linear-gradient(to right, transparent 55%, #FAF3EE 100%)" }}
+                aria-hidden
+              />
+              {/* Fade edge on mobile (bottom) */}
+              <div
+                className="pointer-events-none absolute inset-0 md:hidden"
+                style={{ background: "linear-gradient(to bottom, transparent 60%, #FAF3EE 100%)" }}
+                aria-hidden
+              />
+            </div>
+
+            {/* Text panel — physical right on desktop, bottom on mobile */}
+            <div className="flex flex-col items-center justify-center px-7 pb-10 pt-6 text-center md:items-start md:px-12 md:py-14 md:text-start" dir="rtl">
+              <p className="luxury-kicker mb-3">روتين نورا سكين</p>
+              <h2 className="text-[1.75rem] font-semibold leading-snug text-[#3A222C] md:text-[2.25rem] md:leading-[1.2]">
+                ابدئي روتيني<br className="hidden md:block" /> نورا سكين اليوم
+              </h2>
+              <p className="mt-4 max-w-xs text-sm leading-7 text-[#6B5555] md:max-w-sm">
+                عناية ناعمة، نتائج واضحة — توصيل مجاني لجميع أنحاء المغرب.
+              </p>
+
+              {/* Trust bullets */}
+              <ul className="mt-5 space-y-2">
+                {[
+                  "الدفع عند الاستلام — ما تخلصي حتى توصلي",
+                  "توصيل مجاني لجميع المدن",
+                  "إرجاع مجاني خلال 30 يوم",
+                ].map((t) => (
+                  <li key={t} className="flex items-center justify-center gap-2.5 text-sm text-[#6B5555] md:justify-start">
+                    <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-rose-mid" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+
+              <Link
+                href="/packs"
+                className="mt-8 inline-flex w-full flex-col items-center justify-center rounded-full bg-[#6B2D3A] px-9 py-4 text-sm font-bold text-white shadow-[0_14px_36px_rgba(107,45,58,0.28)] transition hover:-translate-y-0.5 hover:brightness-110 md:w-auto md:items-start"
+              >
+                <span>اطلبي الروتين الكامل — {routineBundle.price} درهم</span>
+                <span className="mt-0.5 text-[11px] font-normal opacity-75">
+                  الدفع عند الاستلام · توصيل مجاني
+                </span>
+              </Link>
+              <p className="mt-3 text-xs text-[#9C836E]">
+                توفيري {routineBundle.saving} درهم مقارنة بالشراء المنفرد
+              </p>
+            </div>
+
           </div>
         </div>
       </section>

@@ -1,81 +1,63 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Droplets, MoonStar, ScanEye, ShieldCheck } from "lucide-react";
 
 const INGREDIENTS = [
   {
-    Icon: Droplets,
     titleEn: "Niacinamide",
     titleAr: "النياسيناميد",
+    productLabel: "سيروم التوازن النهاري",
     copy:
       "فيتامين B3 يُعرَف بتأثيره المُوازِن على مظهر البشرة؛ يساعد على دعم صفائها ومظهرها المتوازن مع الالتزام بالروتين.",
-    accent: "from-rose-100/90 to-[#fdeef2]",
-    ring: "ring-rose-200/60",
-    iconBg: "bg-[#FDF5F7] text-rose-deep",
+    image: "/images/products/product-niacinamide.png",
+    bgFrom: "#FDF3F6",
+    bgTo: "#FFF7F9",
+    accentColor: "#C07080",
     delay: 0,
   },
   {
-    Icon: MoonStar,
     titleEn: "Bakuchiol & Peptides",
     titleAr: "الباكوتشيول والببتيدات",
+    productLabel: "كريم الريتينول الليلي",
     copy:
-      "مزيج ليلي مركَّز يجمع بين الباكوتشيول النباتي اللطيف والببتيدات ليدعم مظهر النعومة ولُطفًا على البشرة دون إرهاق الصباح.",
-    accent: "from-[#f5eef2] to-ivory",
-    ring: "ring-purple-100/70",
-    iconBg: "bg-[#F3EDF8] text-[#6B4D7A]",
-    delay: 0.12,
+      "مزيج ليلي مركَّز يجمع بين الباكوتشيول النباتي اللطيف والببتيدات ليدعم مظهر النعومة دون إرهاق الصباح.",
+    image: "/images/products/product-retinol.png",
+    bgFrom: "#F4EEF9",
+    bgTo: "#FAF5FF",
+    accentColor: "#8A60A0",
+    delay: 0.1,
   },
   {
-    Icon: ScanEye,
     titleEn: "Caffeine & Vitamin K2",
     titleAr: "الكافيين وفيتامين K2",
+    productLabel: "سيروم محيط العين",
     copy:
-      "فِقرة عناية دقيقة بمحيط العين تجمع بين الكافيين وفيتامين K2 لدعم مظهر الإشراقة والراحة في منطقة تتطلّب لطافة فائقة.",
-    accent: "from-amber-50/90 to-rose-blush/80",
-    ring: "ring-amber-100/70",
-    iconBg: "bg-[#FFF8F0] text-[#8B6914]",
-    delay: 0.24,
+      "عناية دقيقة بمحيط العين تجمع بين الكافيين وفيتامين K2 لدعم مظهر الإشراقة والراحة في منطقة تتطلّب لطافة فائقة.",
+    image: "/images/products/product-anti-cernes.png",
+    bgFrom: "#FFF6E6",
+    bgTo: "#FFFBF2",
+    accentColor: "#9A7020",
+    delay: 0.2,
   },
   {
-    Icon: ShieldCheck,
     titleEn: "SPF 50",
     titleAr: "الحماية اليومية",
+    productLabel: "إيكران الشمس SPF 50",
     copy:
       "خطوة صباحية خفيفة تساعد على حماية البشرة من أشعة الشمس وتحافظ على إشراقة الروتين اليومي دون ثقل.",
-    accent: "from-[#fff7e6] to-[#fdf1f4]",
-    ring: "ring-gold/20",
-    iconBg: "bg-[#FFF8F0] text-[#9A7430]",
-    delay: 0.36,
+    image: "/images/products/product-sunscreen.png",
+    bgFrom: "#F0F8F0",
+    bgTo: "#F8FBF5",
+    accentColor: "#5A8A60",
+    delay: 0.3,
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.08 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: INGREDIENTS[i].delay,
-      duration: 0.55,
-      ease: [0.16, 1, 0.3, 1] as const,
-    },
-  }),
-};
-
 export function HomeIngredientShowcase() {
   return (
-    <section className="relative overflow-hidden bg-white py-16 md:py-24">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-rose-soft/40 to-transparent" />
-      <div className="pointer-events-none absolute -right-24 top-24 h-64 w-64 rounded-full bg-rose-blush/40 blur-3xl" />
-      <div className="pointer-events-none absolute -left-16 bottom-0 h-48 w-48 rounded-full bg-amber-100/25 blur-3xl" />
+    <section className="relative overflow-hidden bg-[#FDFAF8] py-14 md:py-20">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#E8D5DA]/60 to-transparent" />
 
       <div className="container-wide relative">
         <motion.div
@@ -83,7 +65,7 @@ export function HomeIngredientShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5 }}
-          className="mx-auto mb-12 max-w-2xl text-center"
+          className="mx-auto mb-10 max-w-2xl text-center"
         >
           <p className="luxury-kicker mb-3">لبّ التركيبة</p>
           <h2 className="section-heading text-[#3A222C]">مكونات بلغة واضحة… وهوية أنيقة</h2>
@@ -92,60 +74,67 @@ export function HomeIngredientShowcase() {
           </p>
         </motion.div>
 
-        <motion.div
-          className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-        >
-          {INGREDIENTS.map((item, index) => {
-            const Icon = item.Icon;
-            return (
-              <motion.article
-                key={item.titleEn}
-                variants={cardVariants}
-                custom={index}
-                whileHover={{
-                  y: -6,
-                  transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] as const },
-                }}
-                className="group relative"
+        <div className="mx-auto grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {INGREDIENTS.map((item, index) => (
+            <motion.article
+              key={item.titleEn}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: item.delay, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -5, transition: { duration: 0.22 } }}
+              className="group flex flex-col overflow-hidden rounded-[1.6rem] border border-[#EDE4E8]/70 bg-white shadow-[0_4px_20px_rgba(61,44,50,0.06)] transition-shadow duration-300 hover:shadow-[0_12px_36px_rgba(61,44,50,0.11)]"
+            >
+              {/* Product image area */}
+              <div
+                className="relative flex h-52 items-end justify-center overflow-hidden"
+                style={{ background: `linear-gradient(160deg, ${item.bgFrom} 0%, ${item.bgTo} 100%)` }}
               >
+                {/* Soft inner glow */}
                 <div
-                  className={`relative overflow-hidden rounded-[1.85rem] border border-white/80 bg-gradient-to-br ${item.accent} p-[1px] shadow-rose-sm ring-1 ${item.ring} transition-shadow duration-300 group-hover:shadow-rose-md`}
-                >
-                  <div className="relative rounded-[1.78rem] bg-white/80 p-7 backdrop-blur-sm md:p-8">
-                    <motion.div
-                      className={`mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl ${item.iconBg} shadow-inner`}
-                      initial={{ scale: 0.85, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        delay: item.delay + 0.15,
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 22,
-                      }}
-                    >
-                      <Icon className="h-7 w-7" strokeWidth={1.35} aria-hidden />
-                    </motion.div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-rose-mid">{item.titleEn}</p>
-                    <h3 className="mt-2 text-xl font-bold text-[#3A222C]">{item.titleAr}</h3>
-                    <motion.div
-                      className="mt-4 h-px w-12 rounded-full bg-gradient-to-l from-rose-deep/50 to-transparent"
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: item.delay + 0.35, duration: 0.45 }}
-                    />
-                    <p className="mt-4 text-sm leading-7 text-[#6B5555]">{item.copy}</p>
-                  </div>
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background: `radial-gradient(ellipse at 50% 30%, ${item.bgFrom}CC 0%, transparent 65%)`,
+                  }}
+                  aria-hidden
+                />
+                <div className="relative z-10 h-40 w-28 translate-y-3 transition-transform duration-500 group-hover:translate-y-0">
+                  <Image
+                    src={item.image}
+                    alt={item.productLabel}
+                    fill
+                    sizes="(min-width: 1024px) 140px, 160px"
+                    className="object-contain object-bottom drop-shadow-[0_8px_18px_rgba(0,0,0,0.10)]"
+                  />
                 </div>
-              </motion.article>
-            );
-          })}
-        </motion.div>
+              </div>
+
+              {/* Content */}
+              <div className="flex flex-1 flex-col p-5 pt-4">
+                <p
+                  className="text-[10px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: item.accentColor }}
+                >
+                  {item.titleEn}
+                </p>
+                <h3 className="mt-1 text-lg font-bold leading-snug text-[#3A222C]">
+                  {item.titleAr}
+                </h3>
+                <div
+                  className="mt-3 h-[1.5px] w-8 rounded-full"
+                  style={{ background: `linear-gradient(to left, transparent, ${item.accentColor}80)` }}
+                />
+                <p className="mt-3 text-[13px] leading-[1.8] text-[#6B5555]">{item.copy}</p>
+                <p
+                  className="mt-auto pt-4 text-[11px] font-semibold"
+                  style={{ color: item.accentColor }}
+                >
+                  {item.productLabel}
+                </p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
       </div>
     </section>
   );
