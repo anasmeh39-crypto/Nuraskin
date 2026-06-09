@@ -45,11 +45,13 @@ const nextConfig: NextConfig = {
       },
     ],
     formats: ["image/avif", "image/webp"],
-    // Serve fewer, well-chosen breakpoints — avoids generating unnecessary variants
-    deviceSizes: [640, 828, 1080, 1200, 1920],
-    imageSizes: [64, 128, 256, 384],
-    // Cache optimised images for 1 year
+    deviceSizes: [390, 640, 828, 1080, 1200],
+    imageSizes: [48, 96, 192, 256, 384],
     minimumCacheTTL: 31536000,
+    // Compress aggressively — quality 75 is visually identical for product photos
+    dangerouslyAllowSVG: false,
+    contentDispositionType: "inline",
+    qualities: [75],
   },
 
   experimental: {},

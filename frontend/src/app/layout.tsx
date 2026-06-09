@@ -11,9 +11,10 @@ import { BRAND_ASSETS } from "@/config/brand";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
-  weight: ["300", "400", "500", "600", "700", "900"],
+  weight: ["400", "600", "700"],
   variable: "--font-cairo",
   display: "swap",
+  preload: true,
 });
 
 const inter = Inter({
@@ -76,6 +77,10 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preconnect to pixel CDNs so they don't cold-start on first interaction */}
+        <link rel="preconnect" href="https://connect.facebook.net" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://analytics.tiktok.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://sc-static.net" />
       </head>
       <body className="bg-nura-bg font-arabic antialiased text-nura-plum">
         <ScrollToTop />
@@ -89,7 +94,7 @@ export default function RootLayout({
 
         {/* ── Meta Pixel ── */}
         {metaPixelId && (
-          <Script id="meta-pixel" strategy="afterInteractive">
+          <Script id="meta-pixel" strategy="lazyOnload">
             {`
               !function(f,b,e,v,n,t,s)
               {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -107,7 +112,7 @@ export default function RootLayout({
 
         {/* ── TikTok Pixel ── */}
         {tiktokPixelId && (
-          <Script id="tiktok-pixel" strategy="afterInteractive">
+          <Script id="tiktok-pixel" strategy="lazyOnload">
             {`
               !function (w, d, t) {
                 w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
@@ -125,7 +130,7 @@ export default function RootLayout({
 
         {/* ── Snapchat Pixel ── */}
         {snapPixelId && (
-          <Script id="snap-pixel" strategy="afterInteractive">
+          <Script id="snap-pixel" strategy="lazyOnload">
             {`
               (function(e,t,n){if(e.snaptr)return;var a=e.snaptr=function()
               {a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};

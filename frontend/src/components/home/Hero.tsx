@@ -1,8 +1,5 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowLeft, FlaskConical, PackageCheck, ShieldCheck, Sparkles, Truck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
@@ -14,12 +11,7 @@ export function Hero() {
       <div className="absolute bottom-10 right-0 h-64 w-64 rounded-full bg-[#fff1c9]/70 blur-3xl" />
       <div className="container-wide relative">
         <div className="grid grid-cols-1 items-center gap-10 py-12 md:grid-cols-2 md:gap-14 md:py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="order-2 text-center md:order-1 md:text-right"
-          >
+          <div className="order-2 text-center md:order-1 md:text-right animate-[heroFadeUp_0.7s_ease-out_both]">
             <div className="luxury-kicker mb-6">
               <FlaskConical className="h-4 w-4 text-gold" strokeWidth={1.5} />
               عناية علمية ناعمة لبشرة أكثر توازنًا
@@ -66,14 +58,9 @@ export function Hero() {
                 );
               })}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-            className="order-1 md:order-2"
-          >
+          <div className="order-1 md:order-2 animate-[heroFadeUp_0.8s_0.1s_ease-out_both]">
             <div className="relative max-w-md mx-auto">
               <div className="absolute -inset-5 rounded-[2.5rem] bg-white/40 blur-xl" />
               <div className="relative overflow-hidden rounded-[2.5rem] border border-white/70 bg-white/60 p-3 soft-shadow">
@@ -93,7 +80,7 @@ export function Hero() {
                 <PackageCheck className="h-6 w-6" strokeWidth={1.4} />
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
