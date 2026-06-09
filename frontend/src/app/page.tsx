@@ -41,18 +41,24 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "روتين متكامل لبشرة أكثر توازناً وإشراقاً | Nura Skin",
-    description: "Formules de luxe pour l'équilibre de votre peau. Livraison COD gratuite au Maroc.",
+    description: "Nura Skin — روتين عناية بشرة متكامل. سيروم نياسيناميد، كريم ليلي، سيروم محيط العين وواقي شمس SPF 50. توصيل مجاني والدفع عند الاستلام.",
     url: "https://nuraskin.cc",
     type: "website",
-    images: [{ url: "/og-home.jpg", width: 1200, height: 630, alt: "Nura Skin — Routine Complète" }],
+    images: [{ url: "/images/nura-hero-lifestyle.png", width: 1200, height: 630, alt: "Nura Skin — روتين عناية بشرة متكامل" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "روتين متكامل لبشرة أكثر توازنًا | Nura Skin",
-    description: "Formules de luxe. Livraison COD gratuite au Maroc.",
-    images: ["/og-home.jpg"],
+    description: "Nura Skin — روتين عناية بشرة. الدفع عند الاستلام في المغرب.",
+    images: ["/images/nura-hero-lifestyle.png"],
   },
-  alternates: { canonical: "https://nuraskin.cc" },
+  alternates: {
+    canonical: "https://nuraskin.cc",
+    languages: {
+      "ar-MA": "https://nuraskin.cc",
+      "fr-MA": "https://nuraskin.cc",
+    },
+  },
 };
 
 export default function HomePage() {

@@ -26,22 +26,24 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://nuraskin.cc"),
   title: {
-    default: "Nura Skin | Premium Skincare",
+    default: "Nura Skin | نورا سكين — عناية بشرة المغرب",
     template: "%s | Nura Skin",
   },
   description:
-    "Découvrez Nura Skin. Des formules haut de gamme et épurées pour une peau éclatante et parfaitement équilibrée. Profitez de la livraison à domicile avec paiement à la livraison (COD).",
+    "Nura Skin — روتين عناية بشرة متكامل بمكونات مختارة. سيروم نياسيناميد، كريم ليلي، سيروم محيط العين وواقي شمس SPF 50. توصيل مجاني والدفع عند الاستلام في جميع أنحاء المغرب.",
   keywords: [
-    "عناية بشرة المغرب", "نورا سكين", "نياسيناميد", "سيروم محيط العين",
-    "واقي شمس SPF50", "كريم ليلي", "Nura Skin", "skincare maroc",
-    "sérum niacinamide", "anti cernes", "crème de nuit", "ecran solaire maroc",
-    "paiement à la livraison", "COD maroc",
+    "Nura Skin", "nuraskin", "نورا سكين", "عناية بشرة المغرب",
+    "روتين عناية بشرة", "سيروم نياسيناميد", "كريم ليلي المغرب",
+    "واقي شمس SPF 50", "سيروم محيط العين",
+    "skincare maroc", "sérum visage maroc", "routine beauté maroc",
+    "paiement à la livraison", "COD maroc", "livraison gratuite maroc",
   ],
   openGraph: {
-    siteName: "NURA SKIN — نورا سكين",
+    siteName: "Nura Skin | نورا سكين",
     locale: "ar_MA",
     type: "website",
-    images: [{ url: "/og-home.jpg", width: 1200, height: 630, alt: "Nura Skin — Premium Skincare Morocco" }],
+    // og image uses an existing product hero — /og-home.jpg was missing
+    images: [{ url: "/images/nura-hero-lifestyle.png", width: 1200, height: 630, alt: "Nura Skin — روتين عناية بشرة متكامل" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -63,6 +65,46 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://nuraskin.cc/#organization",
+      name: "Nura Skin",
+      alternateName: "نورا سكين",
+      url: "https://nuraskin.cc",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://nuraskin.cc/brand/nura-logo.png",
+        width: 440,
+        height: 440,
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer service",
+        areaServed: "MA",
+        availableLanguage: ["Arabic", "French"],
+      },
+      areaServed: "MA",
+      sameAs: ["https://www.instagram.com/nuraskin.ma"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nuraskin.cc/#website",
+      url: "https://nuraskin.cc",
+      name: "Nura Skin | نورا سكين",
+      publisher: { "@id": "https://nuraskin.cc/#organization" },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: { "@type": "EntryPoint", urlTemplate: "https://nuraskin.cc/products?q={search_term_string}" },
+        "query-input": "required name=search_term_string",
+      },
+      inLanguage: ["ar-MA", "fr-MA"],
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -81,6 +123,15 @@ export default function RootLayout({
         <link rel="preconnect" href="https://connect.facebook.net" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://analytics.tiktok.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://sc-static.net" />
+        {/* hreflang — tells Google this site serves ar-MA and fr-MA */}
+        <link rel="alternate" hrefLang="ar-MA" href="https://nuraskin.cc" />
+        <link rel="alternate" hrefLang="fr-MA" href="https://nuraskin.cc" />
+        <link rel="alternate" hrefLang="x-default" href="https://nuraskin.cc" />
+        {/* Organization + WebSite structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
       </head>
       <body className="bg-nura-bg font-arabic antialiased text-nura-plum">
         <ScrollToTop />
